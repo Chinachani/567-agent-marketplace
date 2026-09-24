@@ -1,6 +1,6 @@
 ---
 name: ontoly-software-graph
-description: 利用Ontoly的确定性软件图谱和MCP功能进行架构审查、请求追踪、依赖分析、配置查找和影响分析，然后再退回到源文件搜索。
+description: Use Ontoly's deterministic Software Graph and MCP capabilities for architecture review, request tracing, dependency analysis, configuration lookup, and impact analysis before falling back to source-file search.
 version: 1.0.0
 ---
 # Ontoly Software Graph
