@@ -2,8 +2,8 @@ name: Sync & Update 567 Agent Marketplace
 
 on:
   schedule:
-    # Run every Sunday at midnight UTC
-    - cron: '0 0 * * 0'
+    # Run every day at midnight UTC (08:00 AM Beijing Time)
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 permissions:
