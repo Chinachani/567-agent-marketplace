@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "slug": "brave-search",
+  "version": "1.0.0",
+  "server": {
+    "type": "stdio",
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-brave-search"
+    ]
+  },
+  "parameters": []
+}

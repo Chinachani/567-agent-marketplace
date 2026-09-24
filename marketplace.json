@@ -1,0 +1,2790 @@
+{
+  "schemaVersion": 3,
+  "name": "567-official",
+  "displayName": "567 Agent 官方能力市场",
+  "marketplaceVersion": "2026.09.24.1",
+  "repository": "https://github.com/Chinachani/567-agent-marketplace",
+  "minAppVersion": "1.0.0",
+  "abilities": [
+    {
+      "type": "mcp",
+      "slug": "filesystem",
+      "name": "本地受控文件系统",
+      "description": "让 Agent 安全读写指定本地工作目录中的文件与代码资源。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "System",
+      "categoryI18n": {
+        "zh": "系统工具",
+        "en": "System"
+      },
+      "tags": [
+        "文件",
+        "本地",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "本地受控文件系统",
+            "description": "让 Agent 安全读写指定本地工作目录中的文件与代码资源。",
+            "tags": [
+              "文件",
+              "本地",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/filesystem"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "fetch",
+      "name": "网页数据抓取 (Fetch)",
+      "description": "让 Agent 抓取并解析外部网页、文章或 API 返回的数据。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "Web",
+      "categoryI18n": {
+        "zh": "网络浏览",
+        "en": "Web"
+      },
+      "tags": [
+        "网页",
+        "爬取",
+        "数据",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "网页数据抓取 (Fetch)",
+            "description": "让 Agent 抓取并解析外部网页、文章或 API 返回的数据。",
+            "tags": [
+              "网页",
+              "爬取",
+              "数据",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/fetch"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "brave-search",
+      "name": "Brave 实时网络搜索",
+      "description": "让 Agent 具备实时联网搜索最新科技、新闻与知识的能力。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "Web",
+      "categoryI18n": {
+        "zh": "网络浏览",
+        "en": "Web"
+      },
+      "tags": [
+        "搜索",
+        "联网",
+        "Brave",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Brave 实时网络搜索",
+            "description": "让 Agent 具备实时联网搜索最新科技、新闻与知识的能力。",
+            "tags": [
+              "搜索",
+              "联网",
+              "Brave",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/brave-search"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "github",
+      "name": "GitHub 协同工具",
+      "description": "让 Agent 查看仓库文件、搜索代码、审查 PR 与追踪 Issues。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "Development",
+      "categoryI18n": {
+        "zh": "编程研发",
+        "en": "Development"
+      },
+      "tags": [
+        "GitHub",
+        "Git",
+        "开源",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "GitHub 协同工具",
+            "description": "让 Agent 查看仓库文件、搜索代码、审查 PR 与追踪 Issues。",
+            "tags": [
+              "GitHub",
+              "Git",
+              "开源",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/github"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "postgres",
+      "name": "PostgreSQL 数据库",
+      "description": "让 Agent 只读或受控查询 PostgreSQL 数据库架构与表数据。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "Database",
+      "categoryI18n": {
+        "zh": "数据分析",
+        "en": "Database"
+      },
+      "tags": [
+        "Postgres",
+        "SQL",
+        "数据库",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "PostgreSQL 数据库",
+            "description": "让 Agent 只读或受控查询 PostgreSQL 数据库架构与表数据。",
+            "tags": [
+              "Postgres",
+              "SQL",
+              "数据库",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/postgres"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "sqlite",
+      "name": "SQLite 数据库助手",
+      "description": "让 Agent 直接连接并查询本地 SQLite 数据库文件。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "Database",
+      "categoryI18n": {
+        "zh": "数据分析",
+        "en": "Database"
+      },
+      "tags": [
+        "SQLite",
+        "数据库",
+        "本地",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "SQLite 数据库助手",
+            "description": "让 Agent 直接连接并查询本地 SQLite 数据库文件。",
+            "tags": [
+              "SQLite",
+              "数据库",
+              "本地",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/sqlite"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "memory",
+      "name": "知识图谱长期记忆",
+      "description": "让 Agent 跨会话建立并沉淀用户的偏好、事实与知识图谱实体。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "System",
+      "categoryI18n": {
+        "zh": "系统工具",
+        "en": "System"
+      },
+      "tags": [
+        "记忆",
+        "知识图谱",
+        "长期上下文",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "知识图谱长期记忆",
+            "description": "让 Agent 跨会话建立并沉淀用户的偏好、事实与知识图谱实体。",
+            "tags": [
+              "记忆",
+              "知识图谱",
+              "长期上下文",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/memory"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "tts-voice-synthesis",
+      "name": "Tts Voice Synthesis",
+      "description": "影片与视频编辑、内容创作者在制作视频配音或有声书时，当需要克隆音色、生成情感化配音或流式实时语音合成请用此技能。支持1.7B高质量与0.6B快速双模型，一键实现多语言方言配音，让语音创作更高效更自然。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "tts-voice-synthesis",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Tts Voice Synthesis",
+            "description": "影片与视频编辑、内容创作者在制作视频配音或有声书时，当需要克隆音色、生成情感化配音或流式实时语音合成请用此技能。支持1.7B高质量与0.6B快速双模型，一键实现多语言方言配音，让语音创作更高效更自然。",
+            "tags": [
+              "tts-voice-synthesis",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/tts-voice-synthesis"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "x-article-publisher",
+      "name": "X Article Publisher",
+      "description": "自媒体创作者与内容创作者在需要将 Markdown 长文发布到 X (Twitter) Articles 编辑器时使用。技能自动将 Markdown 转换为富文本并完美保留排版，支持持久化免密登录与封面上传，一键完成发布，大幅提升长文分发效率。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "x-article-publisher",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "X Article Publisher",
+            "description": "自媒体创作者与内容创作者在需要将 Markdown 长文发布到 X (Twitter) Articles 编辑器时使用。技能自动将 Markdown 转换为富文本并完美保留排版，支持持久化免密登录与封面上传，一键完成发布，大幅提升长文分发效率。",
+            "tags": [
+              "x-article-publisher",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/x-article-publisher"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "ontoly-software-graph",
+      "name": "Ontoly Software Graph",
+      "description": "利用Ontoly的确定性软件图谱和MCP功能进行架构审查、请求追踪、依赖分析、配置查找和影响分析，然后再退回到源文件搜索。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "ontoly-software-graph",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Ontoly Software Graph",
+            "description": "利用Ontoly的确定性软件图谱和MCP功能进行架构审查、请求追踪、依赖分析、配置查找和影响分析，然后再退回到源文件搜索。",
+            "tags": [
+              "ontoly-software-graph",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/ontoly-software-graph"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "obsidian-skills-integrated",
+      "name": "Obsidian Skills Integrated",
+      "description": "内容创作者与技术写作员在让AI撰写Obsidian笔记时，使用此官方技能可精准处理双链、Callout及Bases数据库语法，一键生成格式零破坏的Canvas画布与专业笔记，彻底解决AI破坏专属格式的痛点。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "obsidian-skills-integrated",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Obsidian Skills Integrated",
+            "description": "内容创作者与技术写作员在让AI撰写Obsidian笔记时，使用此官方技能可精准处理双链、Callout及Bases数据库语法，一键生成格式零破坏的Canvas画布与专业笔记，彻底解决AI破坏专属格式的痛点。",
+            "tags": [
+              "obsidian-skills-integrated",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/obsidian-skills-integrated"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "moltbook",
+      "name": "Moltbook",
+      "description": "内容创作者与运营专员让 AI Agent 建立专属社交人设时，当用户明确要求 Agent 进行社交互动或社区运营时使用。一键完成注册、发帖、评论、点赞及创建社区，轻松打造 AI 专属社交圈。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "moltbook",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Moltbook",
+            "description": "内容创作者与运营专员让 AI Agent 建立专属社交人设时，当用户明确要求 Agent 进行社交互动或社区运营时使用。一键完成注册、发帖、评论、点赞及创建社区，轻松打造 AI 专属社交圈。",
+            "tags": [
+              "moltbook",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/moltbook"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "intelligent-content-system",
+      "name": "Intelligent Content System",
+      "description": "内容创作者与运营专员在需要采集网页、追踪热点或进行多平台分发时，使用此技能可一键完成从内容获取、智能配图、小红书图文生成到微信、小红书、X、B站等多平台自动发布的全流程，轻松实现内容产出与分发效率翻倍。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "intelligent-content-system",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Intelligent Content System",
+            "description": "内容创作者与运营专员在需要采集网页、追踪热点或进行多平台分发时，使用此技能可一键完成从内容获取、智能配图、小红书图文生成到微信、小红书、X、B站等多平台自动发布的全流程，轻松实现内容产出与分发效率翻倍。",
+            "tags": [
+              "intelligent-content-system",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/intelligent-content-system"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "infinitetalk",
+      "name": "Infinitetalk",
+      "description": "自媒体创作者与内容创作者在制作数字人播报或视频配音时，只需输入单张人像与音频，即可自动生成唇形、表情、动作完美同步的无限时长说话视频。一键打造高质量虚拟主播内容，告别繁琐拍摄，让音视频创作更高效！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "infinitetalk",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Infinitetalk",
+            "description": "自媒体创作者与内容创作者在制作数字人播报或视频配音时，只需输入单张人像与音频，即可自动生成唇形、表情、动作完美同步的无限时长说话视频。一键打造高质量虚拟主播内容，告别繁琐拍摄，让音视频创作更高效！",
+            "tags": [
+              "infinitetalk",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/infinitetalk"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "icon-generator",
+      "name": "Icon Generator",
+      "description": "网页与数字界面设计师和平面设计师在开发App、网页或设计UI界面时，当需要快速产出高质量Icon，使用此技能即可一键生成多尺寸、风格统一的标准图标，彻底解决图标设计耗时痛点，大幅提升视觉交付效率！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "icon-generator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Icon Generator",
+            "description": "网页与数字界面设计师和平面设计师在开发App、网页或设计UI界面时，当需要快速产出高质量Icon，使用此技能即可一键生成多尺寸、风格统一的标准图标，彻底解决图标设计耗时痛点，大幅提升视觉交付效率！",
+            "tags": [
+              "icon-generator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/icon-generator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "gpt-image-2-prompt-engine",
+      "name": "Gpt Image 2 Prompt Engine",
+      "description": "面向电商设计师、海报美工、品牌视觉、UI设计师、信息图编辑、商业摄影师、内容创作者等需要高质量可控出图的角色，在需要用 GPT-Image-2 生成电商主图、电影海报、信息图、品牌视觉、UI截图、古籍国风、角色IP等场景时，通过「Prompt as Code」原子化Schema+20+工业JSON模板+四步工作流，产出结构化、可复用、可批量的生图提示词，再调用 image_generation 出图。不适用于随意生图或简单风景照。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "gpt-image-2-prompt-engine",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Gpt Image 2 Prompt Engine",
+            "description": "面向电商设计师、海报美工、品牌视觉、UI设计师、信息图编辑、商业摄影师、内容创作者等需要高质量可控出图的角色，在需要用 GPT-Image-2 生成电商主图、电影海报、信息图、品牌视觉、UI截图、古籍国风、角色IP等场景时，通过「Prompt as Code」原子化Schema+20+工业JSON模板+四步工作流，产出结构化、可复用、可批量的生图提示词，再调用 image_generation 出图。不适用于随意生图或简单风景照。",
+            "tags": [
+              "gpt-image-2-prompt-engine",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/gpt-image-2-prompt-engine"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "content-research-writer",
+      "name": "Content Research Writer",
+      "description": "内容创作者、技术写作员在撰写博客、深度文章或技术文档时，使用此技能可开启全流程写作协作。它能帮你研究资料、构建大纲、逐段打磨并自动添加引用，快速优化Hook，让你高效产出高质量内容，告别孤军奋战！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "content-research-writer",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Content Research Writer",
+            "description": "内容创作者、技术写作员在撰写博客、深度文章或技术文档时，使用此技能可开启全流程写作协作。它能帮你研究资料、构建大纲、逐段打磨并自动添加引用，快速优化Hook，让你高效产出高质量内容，告别孤军奋战！",
+            "tags": [
+              "content-research-writer",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/content-research-writer"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "content-creation-publisher",
+      "name": "Content Creation Publisher",
+      "description": "内容创作者与自媒体创作者在需要将网页素材转化为多平台图文时，使用本技能可自动完成网页提取、Markdown排版美化、智能配图，并一键发布至微信公众号与X/Twitter，轻松实现从采集到发布的一站式自动化工作流。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "content-creation-publisher",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Content Creation Publisher",
+            "description": "内容创作者与自媒体创作者在需要将网页素材转化为多平台图文时，使用本技能可自动完成网页提取、Markdown排版美化、智能配图，并一键发布至微信公众号与X/Twitter，轻松实现从采集到发布的一站式自动化工作流。",
+            "tags": [
+              "content-creation-publisher",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/content-creation-publisher"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "archify",
+      "name": "Archify",
+      "description": "创建精美且经过验证的架构图、工作流图、时序图、数据流图以及生命周期/状态图，生成支持交互探索的独立 HTML 文件，内嵌 SVG，提供深色/浅色主题、可选的轨迹动画以及 PNG/JPEG/WebP/SVG/WebM 导出功能。支持接收自然语言需求或输入的 Mermaid 流程图、时序图和状态图源码；在需要根据真实代码生成图表时，检查代码库证据。适用于用户要求可视化系统架构、基础设施、云/安全/网络拓扑、技术工作流、API 调用序列、请求生命周期、数据管道、ETL/ELT、数据血缘、状态机，或转换/美化 Mermaid 图表的场景。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "archify",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Archify",
+            "description": "创建精美且经过验证的架构图、工作流图、时序图、数据流图以及生命周期/状态图，生成支持交互探索的独立 HTML 文件，内嵌 SVG，提供深色/浅色主题、可选的轨迹动画以及 PNG/JPEG/WebP/SVG/WebM 导出功能。支持接收自然语言需求或输入的 Mermaid 流程图、时序图和状态图源码；在需要根据真实代码生成图表时，检查代码库证据。适用于用户要求可视化系统架构、基础设施、云/安全/网络拓扑、技术工作流、API 调用序列、请求生命周期、数据管道、ETL/ELT、数据血缘、状态机，或转换/美化 Mermaid 图表的场景。",
+            "tags": [
+              "archify",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/archify"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "antinet-security-scan",
+      "name": "Antinet Security Scan",
+      "description": "信息安全分析师与软件开发工程师在搭建文档处理流水线时，当需要拦截违规文件或外部URL，请挂载此技能作为强制前置安检，自动输出 pass/reject 判定与详细合规扫描报告，一键守住零信任安全底线。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "antinet-security-scan",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Antinet Security Scan",
+            "description": "信息安全分析师与软件开发工程师在搭建文档处理流水线时，当需要拦截违规文件或外部URL，请挂载此技能作为强制前置安检，自动输出 pass/reject 判定与详细合规扫描报告，一键守住零信任安全底线。",
+            "tags": [
+              "antinet-security-scan",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/antinet-security-scan"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "antinet-provenance",
+      "name": "Antinet Provenance",
+      "description": "软件开发工程师与信息安全分析师在构建多智能体系统时，当需全链路可观测与安全审计，请用此技能。它自动收集操作日志，生成可追溯证据链与向量索引，开箱即用实现系统审计与精准回放，让Agent运行安全透明。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "antinet-provenance",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Antinet Provenance",
+            "description": "软件开发工程师与信息安全分析师在构建多智能体系统时，当需全链路可观测与安全审计，请用此技能。它自动收集操作日志，生成可追溯证据链与向量索引，开箱即用实现系统审计与精准回放，让Agent运行安全透明。",
+            "tags": [
+              "antinet-provenance",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/antinet-provenance"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "antinet-four-color-cards",
+      "name": "Antinet Four Color Cards",
+      "description": "财务和投资分析师、律师助理与法律助手在撰写金融研报或分析法律文档时，必用此技能！基于解析文档一键生成事实蓝卡、解释绿卡、风险黄卡与行动红卡。自动完成深度剖析与风险排查，产出100%可溯源的结构化四色报告，让复杂分析高效且严谨。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "antinet-four-color-cards",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Antinet Four Color Cards",
+            "description": "财务和投资分析师、律师助理与法律助手在撰写金融研报或分析法律文档时，必用此技能！基于解析文档一键生成事实蓝卡、解释绿卡、风险黄卡与行动红卡。自动完成深度剖析与风险排查，产出100%可溯源的结构化四色报告，让复杂分析高效且严谨。",
+            "tags": [
+              "antinet-four-color-cards",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/antinet-four-color-cards"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "antinet-doc-parse",
+      "name": "Antinet Doc Parse",
+      "description": "软件开发工程师与数据科学家在构建RAG系统时，当需处理PDF/Word/Excel等多格式复杂文档，用此技能可自动触发三级解析降级，一键输出高置信度结构化Markdown与元数据，免去繁琐清洗，直接夯实企业知识库数据底座！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "antinet-doc-parse",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Antinet Doc Parse",
+            "description": "软件开发工程师与数据科学家在构建RAG系统时，当需处理PDF/Word/Excel等多格式复杂文档，用此技能可自动触发三级解析降级，一键输出高置信度结构化Markdown与元数据，免去繁琐清洗，直接夯实企业知识库数据底座！",
+            "tags": [
+              "antinet-doc-parse",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/antinet-doc-parse"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "skill-template",
+      "name": "Skill Template",
+      "description": "技能创建模板。复制此目录并修改 SKILL.md 即可创建新技能。请将所有 <占位符> 替换为实际内容。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "skill-template",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Skill Template",
+            "description": "技能创建模板。复制此目录并修改 SKILL.md 即可创建新技能。请将所有 <占位符> 替换为实际内容。",
+            "tags": [
+              "skill-template",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/skill-template"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "agent-team",
+      "name": "Agent Team",
+      "description": "产品经理与项目管理专家在应对复杂项目时，使用此技能可动态组建包含“执行、指挥、评审”的专属AI团队。实时查看多智能体辩论与决策全过程，共享统一上下文记忆，一键完成从会议决策到系统构建的全流程高效协同！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "agent-team",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Agent Team",
+            "description": "产品经理与项目管理专家在应对复杂项目时，使用此技能可动态组建包含“执行、指挥、评审”的专属AI团队。实时查看多智能体辩论与决策全过程，共享统一上下文记忆，一键完成从会议决策到系统构建的全流程高效协同！",
+            "tags": [
+              "agent-team",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/agent-team"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "agentkit-multimedia-shopping",
+      "name": "Agentkit Multimedia Shopping",
+      "description": "电商运营与内容创作者在需要制作带货短视频时，用此技能一键生成9:16竖屏数字人成片。自动编排AI绘画、语音合成与视频生成，快速产出“小省导购员”专属形象与专业配音，让多模态视频制作省时省力。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "agentkit-multimedia-shopping",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Agentkit Multimedia Shopping",
+            "description": "电商运营与内容创作者在需要制作带货短视频时，用此技能一键生成9:16竖屏数字人成片。自动编排AI绘画、语音合成与视频生成，快速产出“小省导购员”专属形象与专业配音，让多模态视频制作省时省力。",
+            "tags": [
+              "agentkit-multimedia-shopping",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/agentkit-multimedia-shopping"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "article-illustrator",
+      "name": "Article Illustrator",
+      "description": "内容创作者与自媒体创作者在撰写长文缺乏视觉辅助时，当需要给文章配图或生成插图请使用。自动分析文章结构，精准识别位置并生成插画插入段落，将抽象概念具象化。一键完成智能图文排版，省去手动找图时间，大幅提升阅读体验！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "article-illustrator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Article Illustrator",
+            "description": "内容创作者与自媒体创作者在撰写长文缺乏视觉辅助时，当需要给文章配图或生成插图请使用。自动分析文章结构，精准识别位置并生成插画插入段落，将抽象概念具象化。一键完成智能图文排版，省去手动找图时间，大幅提升阅读体验！",
+            "tags": [
+              "article-illustrator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/article-illustrator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "atutun-xhs-cover",
+      "name": "Atutun Xhs Cover",
+      "description": "阿囤囤风格小红书封面提示词生成。用于AI工具、效率方法、产品测评、教程部署、个人经验、播客推荐、职场认知类内容的爆款竖版封面设计。特点是真人出镜、超大柔和浅黄（#FDFFA7）/白色中文标题、粗黑描边、人物抠图描边、绿色勾选清单、emoji贴纸、箭头标注、高对比高密度构图。关键词：小红书封面、爆款封面、阿囤囤风格、AI教程封面、产品测评封面、封面提示词。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "atutun-xhs-cover",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Atutun Xhs Cover",
+            "description": "阿囤囤风格小红书封面提示词生成。用于AI工具、效率方法、产品测评、教程部署、个人经验、播客推荐、职场认知类内容的爆款竖版封面设计。特点是真人出镜、超大柔和浅黄（#FDFFA7）/白色中文标题、粗黑描边、人物抠图描边、绿色勾选清单、emoji贴纸、箭头标注、高对比高密度构图。关键词：小红书封面、爆款封面、阿囤囤风格、AI教程封面、产品测评封面、封面提示词。",
+            "tags": [
+              "atutun-xhs-cover",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/atutun-xhs-cover"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "bedtime-story",
+      "name": "Bedtime Story",
+      "description": "内容创作者在需要哄睡3-12岁儿童或制作睡前音频内容时，可一键生成20个精选故事列表，或直接讲解指定寓言与成语。以0.6倍舒缓语速和亲切语气自动营造温馨哄睡氛围，轻松搞定高质量睡前陪伴。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "bedtime-story",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Bedtime Story",
+            "description": "内容创作者在需要哄睡3-12岁儿童或制作睡前音频内容时，可一键生成20个精选故事列表，或直接讲解指定寓言与成语。以0.6倍舒缓语速和亲切语气自动营造温馨哄睡氛围，轻松搞定高质量睡前陪伴。",
+            "tags": [
+              "bedtime-story",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/bedtime-story"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "chrome-automation",
+      "name": "Chrome Automation",
+      "description": "网页开发工程师与运营专员在需要自动化现有 Chrome 浏览器时必用！通过 CDP 协议无缝接管当前浏览器，自动配置环境并实时可视化执行任务。完美保留登录状态，一键完成复杂网页自动化流程，让繁琐操作自动化。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "chrome-automation",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Chrome Automation",
+            "description": "网页开发工程师与运营专员在需要自动化现有 Chrome 浏览器时必用！通过 CDP 协议无缝接管当前浏览器，自动配置环境并实时可视化执行任务。完美保留登录状态，一键完成复杂网页自动化流程，让繁琐操作自动化。",
+            "tags": [
+              "chrome-automation",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/chrome-automation"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "baoyu-url-to-markdown",
+      "name": "Baoyu Url To Markdown",
+      "description": "技术写作员与内容创作者在沉淀网页资料时，当需要抓取包含JS动态渲染或需登录的复杂页面，使用此技能一键将其转换为干净的Markdown格式，自动提取正文与元数据，轻松构建本地知识库，让网页内容归档效率翻倍！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "baoyu-url-to-markdown",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Baoyu Url To Markdown",
+            "description": "技术写作员与内容创作者在沉淀网页资料时，当需要抓取包含JS动态渲染或需登录的复杂页面，使用此技能一键将其转换为干净的Markdown格式，自动提取正文与元数据，轻松构建本地知识库，让网页内容归档效率翻倍！",
+            "tags": [
+              "baoyu-url-to-markdown",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/baoyu-url-to-markdown"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "baoyu-post-to-x",
+      "name": "Baoyu Post To X",
+      "description": "自媒体创作者需要在X(Twitter)发布内容时，支持图文、视频、引用推文及Markdown长文发布，通过真实Chrome浏览器绕过反自动化检测，一键完成多格式内容分发，有效规避封号风险。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "baoyu-post-to-x",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Baoyu Post To X",
+            "description": "自媒体创作者需要在X(Twitter)发布内容时，支持图文、视频、引用推文及Markdown长文发布，通过真实Chrome浏览器绕过反自动化检测，一键完成多格式内容分发，有效规避封号风险。",
+            "tags": [
+              "baoyu-post-to-x",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/baoyu-post-to-x"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "baoyu-post-to-wechat",
+      "name": "Baoyu Post To Wechat",
+      "description": "自媒体创作者与运营专员在需要将 Markdown 或 HTML 内容发布至微信公众号时，一键通过 API 或浏览器自动化完成文章与图文的排版及发布，彻底告别繁琐的手动排版与多步上传操作，大幅提升公众号日常发文与运营效率。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "baoyu-post-to-wechat",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Baoyu Post To Wechat",
+            "description": "自媒体创作者与运营专员在需要将 Markdown 或 HTML 内容发布至微信公众号时，一键通过 API 或浏览器自动化完成文章与图文的排版及发布，彻底告别繁琐的手动排版与多步上传操作，大幅提升公众号日常发文与运营效率。",
+            "tags": [
+              "baoyu-post-to-wechat",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/baoyu-post-to-wechat"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "baoyu-format-markdown",
+      "name": "Baoyu Format Markdown",
+      "description": "技术写作员与内容创作者在处理纯文本或 Markdown 稿件时，若需优化文章结构、添加 frontmatter 或自动修正中英文排版间距，使用此技能可一键生成专业美观的 {filename}-formatted.md 文件，让文档排版更完美。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "baoyu-format-markdown",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Baoyu Format Markdown",
+            "description": "技术写作员与内容创作者在处理纯文本或 Markdown 稿件时，若需优化文章结构、添加 frontmatter 或自动修正中英文排版间距，使用此技能可一键生成专业美观的 {filename}-formatted.md 文件，让文档排版更完美。",
+            "tags": [
+              "baoyu-format-markdown",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/baoyu-format-markdown"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "data-storytelling",
+      "name": "Data Storytelling",
+      "description": "数据科学家与产品经理在向高管汇报或制作投资者演示时，当面临数据枯燥难懂的痛点，使用此技能可套用“Setup-Conflict-Resolution”叙事框架，自动生成结合可视化与业务上下文的洞察报告，让非技术受众秒懂结论并驱动决策。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "data-storytelling",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Data Storytelling",
+            "description": "数据科学家与产品经理在向高管汇报或制作投资者演示时，当面临数据枯燥难懂的痛点，使用此技能可套用“Setup-Conflict-Resolution”叙事框架，自动生成结合可视化与业务上下文的洞察报告，让非技术受众秒懂结论并驱动决策。",
+            "tags": [
+              "data-storytelling",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/data-storytelling"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "digital-avatar-shopping-video",
+      "name": "Digital Avatar Shopping Video",
+      "description": "电商运营与自媒体创作者在需要制作商品推荐或促销带货短视频时，使用此技能可一键生成“小省导购员”数字人口播视频。系统自动协同五大智能体完成脚本、画面与音画合成，产出适配抖音、快手等平台的成品，高效搞定带货视频制作。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "digital-avatar-shopping-video",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Digital Avatar Shopping Video",
+            "description": "电商运营与自媒体创作者在需要制作商品推荐或促销带货短视频时，使用此技能可一键生成“小省导购员”数字人口播视频。系统自动协同五大智能体完成脚本、画面与音画合成，产出适配抖音、快手等平台的成品，高效搞定带货视频制作。",
+            "tags": [
+              "digital-avatar-shopping-video",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/digital-avatar-shopping-video"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "dream-video-prompt-generator",
+      "name": "Dream Video Prompt Generator",
+      "description": "电商运营与内容创作者在制作数字人带货短视频时，用本技能一键生成即梦视频中英文提示词。依托四大智能体协同与专属公式，确保人物与情绪高度一致，完美适配5s带货场景，高效产出高质量分镜脚本，让视频制作事半功倍！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "dream-video-prompt-generator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Dream Video Prompt Generator",
+            "description": "电商运营与内容创作者在制作数字人带货短视频时，用本技能一键生成即梦视频中英文提示词。依托四大智能体协同与专属公式，确保人物与情绪高度一致，完美适配5s带货场景，高效产出高质量分镜脚本，让视频制作事半功倍！",
+            "tags": [
+              "dream-video-prompt-generator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/dream-video-prompt-generator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "ecommerce-copywriter",
+      "name": "Ecommerce Copywriter",
+      "description": "电商运营与内容创作者在需要为多品类商品创作或优化营销图片文案时使用。自动提炼核心卖点，生成带emoji的吸睛标题与直击痛点的场景化正文，一键产出高转化率电商文案，省时省力大幅提升商品点击与购买转化！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "ecommerce-copywriter",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Ecommerce Copywriter",
+            "description": "电商运营与内容创作者在需要为多品类商品创作或优化营销图片文案时使用。自动提炼核心卖点，生成带emoji的吸睛标题与直击痛点的场景化正文，一键产出高转化率电商文案，省时省力大幅提升商品点击与购买转化！",
+            "tags": [
+              "ecommerce-copywriter",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/ecommerce-copywriter"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "ecommerce-full-pipeline",
+      "name": "Ecommerce Full Pipeline",
+      "description": "电商运营在开展跨境电商或闲鱼捡漏业务时，若需解决选品难、上架繁琐等痛点，必用此技能！一键打通“爆品挖掘→1688采集→多平台上架→推广文案→短视频生成”全自动流水线，轻松实现端到端自动化，让开店运营效率翻倍。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "ecommerce-full-pipeline",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Ecommerce Full Pipeline",
+            "description": "电商运营在开展跨境电商或闲鱼捡漏业务时，若需解决选品难、上架繁琐等痛点，必用此技能！一键打通“爆品挖掘→1688采集→多平台上架→推广文案→短视频生成”全自动流水线，轻松实现端到端自动化，让开店运营效率翻倍。",
+            "tags": [
+              "ecommerce-full-pipeline",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/ecommerce-full-pipeline"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "ecommerce-video-marketing",
+      "name": "Ecommerce Video Marketing",
+      "description": "电商运营与内容创作者必备！当您需要为多品类商品策划抖音、小红书等平台的带货视频时，一键生成包含痛点切入、产品展示与专业镜头设计的6阶段高质量视频脚本，轻松打造高转化营销内容，大幅提升品牌销量。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "ecommerce-video-marketing",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Ecommerce Video Marketing",
+            "description": "电商运营与内容创作者必备！当您需要为多品类商品策划抖音、小红书等平台的带货视频时，一键生成包含痛点切入、产品展示与专业镜头设计的6阶段高质量视频脚本，轻松打造高转化营销内容，大幅提升品牌销量。",
+            "tags": [
+              "ecommerce-video-marketing",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/ecommerce-video-marketing"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "frontend-design",
+      "name": "Frontend Design",
+      "description": "网页与数字界面设计师在构建Web页面或应用组件时，若受够了千篇一律的AI味设计，请用此技能。一键生成极具视觉冲击力、排版独特、动效惊艳的生产级前端代码，告别平庸，打造令人难忘的高品质数字界面。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "frontend-design",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Frontend Design",
+            "description": "网页与数字界面设计师在构建Web页面或应用组件时，若受够了千篇一律的AI味设计，请用此技能。一键生成极具视觉冲击力、排版独特、动效惊艳的生产级前端代码，告别平庸，打造令人难忘的高品质数字界面。",
+            "tags": [
+              "frontend-design",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/frontend-design"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "historical-interview-scripts",
+      "name": "Historical Interview Scripts",
+      "description": "自媒体创作者在策划历史名人访谈短视频时，当需要融合古今反差与网络热梗打造爆款，使用本技能可自动生成包含吸睛标题、主持人串词与爆笑问答的完整结构化脚本，轻松产出高传播力的趣味短视频文案。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "historical-interview-scripts",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Historical Interview Scripts",
+            "description": "自媒体创作者在策划历史名人访谈短视频时，当需要融合古今反差与网络热梗打造爆款，使用本技能可自动生成包含吸睛标题、主持人串词与爆笑问答的完整结构化脚本，轻松产出高传播力的趣味短视频文案。",
+            "tags": [
+              "historical-interview-scripts",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/historical-interview-scripts"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "historical-science-video-prod",
+      "name": "Historical Science Video Prod",
+      "description": "自媒体创作者与内容创作者在制作历史科学类3分钟科普短视频时，使用此技能可一键生成包含口播文案、分镜脚本、Veo2提示词及人物规范的全流程素材包，完美适配即梦平台，让视频创作更高效。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "historical-science-video-prod",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Historical Science Video Prod",
+            "description": "自媒体创作者与内容创作者在制作历史科学类3分钟科普短视频时，使用此技能可一键生成包含口播文案、分镜脚本、Veo2提示词及人物规范的全流程素材包，完美适配即梦平台，让视频创作更高效。",
+            "tags": [
+              "historical-science-video-prod",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/historical-science-video-prod"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "infinitetalk-shopping-avatar",
+      "name": "Infinitetalk Shopping Avatar",
+      "description": "电商运营与内容创作者在制作数字人带货视频时，使用本技能可自动生成适配InfiniteTalk的五幕分镜结构化提示词，精准管控角色一致性与音画同步，一键产出高质量9:16竖屏带货视频，让数字人带货更高效！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "infinitetalk-shopping-avatar",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Infinitetalk Shopping Avatar",
+            "description": "电商运营与内容创作者在制作数字人带货视频时，使用本技能可自动生成适配InfiniteTalk的五幕分镜结构化提示词，精准管控角色一致性与音画同步，一键产出高质量9:16竖屏带货视频，让数字人带货更高效！",
+            "tags": [
+              "infinitetalk-shopping-avatar",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/infinitetalk-shopping-avatar"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "law-to-markdown",
+      "name": "Law To Markdown",
+      "description": "律师助理与法律助手在处理繁杂法条时，当需要将 PDF/Word/TXT 格式的法律规范文件转为结构化 Markdown 时适用。自动完成 OCR 解析、法律层级识别与三阶段保真校验，一键生成排版完美的法条 Markdown 文档及审核报告，让法律文本数字化工作事半功倍。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "law-to-markdown",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Law To Markdown",
+            "description": "律师助理与法律助手在处理繁杂法条时，当需要将 PDF/Word/TXT 格式的法律规范文件转为结构化 Markdown 时适用。自动完成 OCR 解析、法律层级识别与三阶段保真校验，一键生成排版完美的法条 Markdown 文档及审核报告，让法律文本数字化工作事半功倍。",
+            "tags": [
+              "law-to-markdown",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/law-to-markdown"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "contract-review",
+      "name": "Contract Review",
+      "description": "律师助理与法律助手、项目管理专家在审核合同、排查条款风险时必备。自动执行基础、商业、法律三层审查，仅添加批注不改原文，一键生成带批注合同、审查摘要、综合意见及业务流程图，让合同风控与业务梳理更高效专业。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "contract-review",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Contract Review",
+            "description": "律师助理与法律助手、项目管理专家在审核合同、排查条款风险时必备。自动执行基础、商业、法律三层审查，仅添加批注不改原文，一键生成带批注合同、审查摘要、综合意见及业务流程图，让合同风控与业务梳理更高效专业。",
+            "tags": [
+              "contract-review",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/contract-review"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "media-processor",
+      "name": "Media Processor",
+      "description": "影片与视频编辑及自媒体创作者在处理多媒体素材时，当需批量转换音视频或图像格式、调整分辨率及压缩文件时必用。一键调用底层工具自动完成转换与压缩，高效输出符合预期的媒体文件，大幅节省手动处理时间。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "media-processor",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Media Processor",
+            "description": "影片与视频编辑及自媒体创作者在处理多媒体素材时，当需批量转换音视频或图像格式、调整分辨率及压缩文件时必用。一键调用底层工具自动完成转换与压缩，高效输出符合预期的媒体文件，大幅节省手动处理时间。",
+            "tags": [
+              "media-processor",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/media-processor"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "multi-agent-meeting",
+      "name": "Multi Agent Meeting",
+      "description": "项目管理专家与产品经理在做项目决策、技术评审或商业策略制定时，当需要多视角碰撞以打破思维局限，请用此技能模拟多智能体真实会议辩论，一键生成包含决策结论、核心论据与风险提示的完整会议记录，让复杂决策高效落地！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "multi-agent-meeting",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Multi Agent Meeting",
+            "description": "项目管理专家与产品经理在做项目决策、技术评审或商业策略制定时，当需要多视角碰撞以打破思维局限，请用此技能模拟多智能体真实会议辩论，一键生成包含决策结论、核心论据与风险提示的完整会议记录，让复杂决策高效落地！",
+            "tags": [
+              "multi-agent-meeting",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/multi-agent-meeting"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "nanobanana-ppt-visualizer",
+      "name": "Nanobanana Ppt Visualizer",
+      "description": "平面设计师与内容创作者在制作演示文稿时，当需要将内容大纲转化为高颜值视觉大片，使用此技能可一键生成风格化配图、交互式网页播放器及演示视频，轻松实现从内容规划到视觉呈现的完整闭环，大幅提升汇报演示质感！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "nanobanana-ppt-visualizer",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Nanobanana Ppt Visualizer",
+            "description": "平面设计师与内容创作者在制作演示文稿时，当需要将内容大纲转化为高颜值视觉大片，使用此技能可一键生成风格化配图、交互式网页播放器及演示视频，轻松实现从内容规划到视觉呈现的完整闭环，大幅提升汇报演示质感！",
+            "tags": [
+              "nanobanana-ppt-visualizer",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/nanobanana-ppt-visualizer"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "obsidian-markdown",
+      "name": "Obsidian Markdown",
+      "description": "技术写作员与内容创作者在构建Obsidian知识库时，当需要编写带双向链接、Callout或Frontmatter的复杂笔记，使用此技能可精准生成标准Markdown文档，完美支持wikilinks与嵌入，大幅提升知识管理与排版效率！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "obsidian-markdown",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Obsidian Markdown",
+            "description": "技术写作员与内容创作者在构建Obsidian知识库时，当需要编写带双向链接、Callout或Frontmatter的复杂笔记，使用此技能可精准生成标准Markdown文档，完美支持wikilinks与嵌入，大幅提升知识管理与排版效率！",
+            "tags": [
+              "obsidian-markdown",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/obsidian-markdown"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "obsidian-bases",
+      "name": "Obsidian Bases",
+      "description": "内容创作者与技术写作员在管理海量笔记时，当需要构建 Obsidian 数据库视图、配置过滤器或编写 YAML 公式，使用此技能可自动生成标准 .base 文件，轻松实现笔记的表格/卡片多维展示与数据汇总，让知识库管理效率翻倍。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "obsidian-bases",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Obsidian Bases",
+            "description": "内容创作者与技术写作员在管理海量笔记时，当需要构建 Obsidian 数据库视图、配置过滤器或编写 YAML 公式，使用此技能可自动生成标准 .base 文件，轻松实现笔记的表格/卡片多维展示与数据汇总，让知识库管理效率翻倍。",
+            "tags": [
+              "obsidian-bases",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/obsidian-bases"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "json-canvas",
+      "name": "Json Canvas",
+      "description": "产品经理与内容创作者在构建Obsidian知识库或梳理复杂逻辑时，当需要创建思维导图、流程图等可视化画布，使用此技能可自动生成标准.canvas文件，精准配置节点、连线与层级，一键生成完美排版，彻底告别手写JSON的繁琐与报错。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "json-canvas",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Json Canvas",
+            "description": "产品经理与内容创作者在构建Obsidian知识库或梳理复杂逻辑时，当需要创建思维导图、流程图等可视化画布，使用此技能可自动生成标准.canvas文件，精准配置节点、连线与层级，一键生成完美排版，彻底告别手写JSON的繁琐与报错。",
+            "tags": [
+              "json-canvas",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/json-canvas"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "paper-analysis-assistant",
+      "name": "Paper Analysis Assistant",
+      "description": "其他高等院校教师与数据科学家在追踪前沿学术时，当需要深度解析arXiv论文，用此技能可一键下载PDF并自动生成词频分析、双人播客、交互式网页、PPT演示与总结图，将数小时的文献阅读转化为多媒体内容，效率提升十倍！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "paper-analysis-assistant",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Paper Analysis Assistant",
+            "description": "其他高等院校教师与数据科学家在追踪前沿学术时，当需要深度解析arXiv论文，用此技能可一键下载PDF并自动生成词频分析、双人播客、交互式网页、PPT演示与总结图，将数小时的文献阅读转化为多媒体内容，效率提升十倍！",
+            "tags": [
+              "paper-analysis-assistant",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/paper-analysis-assistant"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "pdf-processing-pro",
+      "name": "PDF Processing Pro",
+      "description": "综合办公文员与软件开发工程师当需要批量处理PDF表单、提取表格或进行OCR识别时，使用内置脚本一键完成自动化提取与数据校验，彻底告别繁琐的手动录入，让复杂文档工作流高效、稳健落地。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "pdf-processing-pro",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "PDF Processing Pro",
+            "description": "综合办公文员与软件开发工程师当需要批量处理PDF表单、提取表格或进行OCR识别时，使用内置脚本一键完成自动化提取与数据校验，彻底告别繁琐的手动录入，让复杂文档工作流高效、稳健落地。",
+            "tags": [
+              "pdf-processing-pro",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/pdf-processing-pro"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "pet-commerce-creator",
+      "name": "Pet Commerce Creator",
+      "description": "自媒体创作者与电商运营在需要批量制作萌宠带货短视频时，使用此技能可自动完成爆款解析、多智能体协同创作脚本分镜，并调用API一键合成15-30秒9:16竖屏成品视频，全流程自动化助力高效涨粉与商品转化。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "pet-commerce-creator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Pet Commerce Creator",
+            "description": "自媒体创作者与电商运营在需要批量制作萌宠带货短视频时，使用此技能可自动完成爆款解析、多智能体协同创作脚本分镜，并调用API一键合成15-30秒9:16竖屏成品视频，全流程自动化助力高效涨粉与商品转化。",
+            "tags": [
+              "pet-commerce-creator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/pet-commerce-creator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "poetry-music-visual",
+      "name": "Poetry Music Visual",
+      "description": "内容创作者与影片与视频编辑在制作古诗词MV或文化可视化内容时，使用本技能深度解析诗词意境，一键生成AI绘画配图场景描述与Suno专属纯音乐配乐蓝图，轻松完成视听双重艺术转化，让古典诗词焕发新生。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "poetry-music-visual",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Poetry Music Visual",
+            "description": "内容创作者与影片与视频编辑在制作古诗词MV或文化可视化内容时，使用本技能深度解析诗词意境，一键生成AI绘画配图场景描述与Suno专属纯音乐配乐蓝图，轻松完成视听双重艺术转化，让古典诗词焕发新生。",
+            "tags": [
+              "poetry-music-visual",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/poetry-music-visual"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "pop-up-book-illustration",
+      "name": "Pop Up Book Illustration",
+      "description": "平面设计师与内容创作者在制作科技、教育或品牌视觉物料时，一键生成融合纸质手工质感与数字科技光效的3D弹出书风格插画。自动构建多层立体层次与明亮温暖色调，让创意跃然纸上，轻松产出极具视觉冲击力的专业级插画。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "pop-up-book-illustration",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Pop Up Book Illustration",
+            "description": "平面设计师与内容创作者在制作科技、教育或品牌视觉物料时，一键生成融合纸质手工质感与数字科技光效的3D弹出书风格插画。自动构建多层立体层次与明亮温暖色调，让创意跃然纸上，轻松产出极具视觉冲击力的专业级插画。",
+            "tags": [
+              "pop-up-book-illustration",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/pop-up-book-illustration"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "ppt-generator",
+      "name": "Ppt Generator",
+      "description": "产品经理、运营专员及综合办公文员在准备商业演示、学术汇报或培训课件时，通过七角色协作工作流，自动分析主题、推荐模板、填充内容并智能配图，一键输出高质量 PPTX 文件，将数小时的排版制作缩短至几分钟！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "ppt-generator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Ppt Generator",
+            "description": "产品经理、运营专员及综合办公文员在准备商业演示、学术汇报或培训课件时，通过七角色协作工作流，自动分析主题、推荐模板、填充内容并智能配图，一键输出高质量 PPTX 文件，将数小时的排版制作缩短至几分钟！",
+            "tags": [
+              "ppt-generator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/ppt-generator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "ppt-roadshow-generator",
+      "name": "Ppt Roadshow Generator",
+      "description": "产品经理与内容创作者在筹备产品发布或公司路演视频时，使用此技能可从文档解析到视频合成全链路自动化，一键生成15-100页带智能配音、精准字幕和转场动画的完整路演视频，将数天的制作周期缩短至几分钟。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "ppt-roadshow-generator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Ppt Roadshow Generator",
+            "description": "产品经理与内容创作者在筹备产品发布或公司路演视频时，使用此技能可从文档解析到视频合成全链路自动化，一键生成15-100页带智能配音、精准字幕和转场动画的完整路演视频，将数天的制作周期缩短至几分钟。",
+            "tags": [
+              "ppt-roadshow-generator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/ppt-roadshow-generator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "pptx-generator",
+      "name": "Pptx Generator",
+      "description": "产品经理与运营专员在准备汇报展示时，将 JSON 数据一键转换为标准 .pptx 文件。自动应用多种布局、图表与表格样式，快速生成专业 PPT，彻底告别繁琐手工排版，让内容产出与展示更高效！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "pptx-generator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Pptx Generator",
+            "description": "产品经理与运营专员在准备汇报展示时，将 JSON 数据一键转换为标准 .pptx 文件。自动应用多种布局、图表与表格样式，快速生成专业 PPT，彻底告别繁琐手工排版，让内容产出与展示更高效！",
+            "tags": [
+              "pptx-generator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/pptx-generator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "product-manager-toolkit",
+      "name": "Product Manager Toolkit",
+      "description": "产品经理必备利器！当面临海量需求排期、用户调研分析和PRD撰写等场景时，使用此工具可一键计算RICE得分、自动提炼访谈洞察并快速生成标准PRD文档，大幅提升需求决策与产品交付效率，让规划更科学。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "product-manager-toolkit",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Product Manager Toolkit",
+            "description": "产品经理必备利器！当面临海量需求排期、用户调研分析和PRD撰写等场景时，使用此工具可一键计算RICE得分、自动提炼访谈洞察并快速生成标准PRD文档，大幅提升需求决策与产品交付效率，让规划更科学。",
+            "tags": [
+              "product-manager-toolkit",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/product-manager-toolkit"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "product-marketing-copywriter",
+      "name": "Product Marketing Copywriter",
+      "description": "当市场调研分析师与营销专员、内容创作者需要推广产品时，使用本技能可精准分析受众痛点与产品卖点，一键生成高转化标题与正文，快速产出激发购买欲的优质营销文案，大幅提升销售转化率。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "product-marketing-copywriter",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Product Marketing Copywriter",
+            "description": "当市场调研分析师与营销专员、内容创作者需要推广产品时，使用本技能可精准分析受众痛点与产品卖点，一键生成高转化标题与正文，快速产出激发购买欲的优质营销文案，大幅提升销售转化率。",
+            "tags": [
+              "product-marketing-copywriter",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/product-marketing-copywriter"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "product-video-creator",
+      "name": "Product Video Creator",
+      "description": "电商运营与内容创作者在制作商品宣传、带货及社媒营销视频时，使用此多智能体协同流水线，一键自动完成卖点文案、故事分镜、场景图片、音效字幕到MP4视频合成的全流程，高效产出专业级营销视频，大幅节省制作成本与时间。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "product-video-creator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Product Video Creator",
+            "description": "电商运营与内容创作者在制作商品宣传、带货及社媒营销视频时，使用此多智能体协同流水线，一键自动完成卖点文案、故事分镜、场景图片、音效字幕到MP4视频合成的全流程，高效产出专业级营销视频，大幅节省制作成本与时间。",
+            "tags": [
+              "product-video-creator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/product-video-creator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "qwen3-asr-assistant",
+      "name": "Qwen3 Asr Assistant",
+      "description": "综合办公文员与内容创作者在需要整理会议纪要或创作社媒文案时，使用本技能将录音一键转写并智能改写为邮件、笔记或社媒文案，支持多段录音无缝拼接，秒出高质量结构化文本，让语音记录与内容产出效率翻倍！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "qwen3-asr-assistant",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Qwen3 Asr Assistant",
+            "description": "综合办公文员与内容创作者在需要整理会议纪要或创作社媒文案时，使用本技能将录音一键转写并智能改写为邮件、笔记或社媒文案，支持多段录音无缝拼接，秒出高质量结构化文本，让语音记录与内容产出效率翻倍！",
+            "tags": [
+              "qwen3-asr-assistant",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/qwen3-asr-assistant"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "qwen3-tts-local",
+      "name": "Qwen3 Tts Local",
+      "description": "内容创作者与影片与视频编辑在制作视频配音、有声书或无网环境朗读时，请用此技能一键生成多语言、多音色的本地高质量音频。基于Edge-TTS引擎，零配置完全离线，高效产出专业级语音，彻底告别网络限制。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "qwen3-tts-local",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Qwen3 Tts Local",
+            "description": "内容创作者与影片与视频编辑在制作视频配音、有声书或无网环境朗读时，请用此技能一键生成多语言、多音色的本地高质量音频。基于Edge-TTS引擎，零配置完全离线，高效产出专业级语音，彻底告别网络限制。",
+            "tags": [
+              "qwen3-tts-local",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/qwen3-tts-local"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "remotion-video-enhancer",
+      "name": "Remotion Video Enhancer",
+      "description": "影片与视频编辑及自媒体创作者在制作PPT或视频需要提升视觉表现力时，使用此技能可一键生成Remotion风格的高级转场与Framer Motion交互动画，自动规划动画序列，让内容呈现专业级动态效果。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "remotion-video-enhancer",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Remotion Video Enhancer",
+            "description": "影片与视频编辑及自媒体创作者在制作PPT或视频需要提升视觉表现力时，使用此技能可一键生成Remotion风格的高级转场与Framer Motion交互动画，自动规划动画序列，让内容呈现专业级动态效果。",
+            "tags": [
+              "remotion-video-enhancer",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/remotion-video-enhancer"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "stock-analysis",
+      "name": "Stock Analysis",
+      "description": "财务和投资分析师在进行个股研究时，当需要深度研判买卖点与趋势，使用本技能可实时获取行情，计算MACD/RSI等技术指标，精准识别缺口与支撑压力位，智能预测未来3天走势并输出专业操作建议，大幅提升投研决策效率。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "stock-analysis",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Stock Analysis",
+            "description": "财务和投资分析师在进行个股研究时，当需要深度研判买卖点与趋势，使用本技能可实时获取行情，计算MACD/RSI等技术指标，精准识别缺口与支撑压力位，智能预测未来3天走势并输出专业操作建议，大幅提升投研决策效率。",
+            "tags": [
+              "stock-analysis",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/stock-analysis"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "tailored-resume-generator",
+      "name": "Tailored Resume Generator",
+      "description": "软件开发工程师、产品经理等求职者，在针对特定职位描述投递或跨行转岗时，可一键深度分析岗位需求，自动提取ATS关键词并重组个人经验，快速生成高命中率的定制简历，大幅提升面试邀约率。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "tailored-resume-generator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Tailored Resume Generator",
+            "description": "软件开发工程师、产品经理等求职者，在针对特定职位描述投递或跨行转岗时，可一键深度分析岗位需求，自动提取ATS关键词并重组个人经验，快速生成高命中率的定制简历，大幅提升面试邀约率。",
+            "tags": [
+              "tailored-resume-generator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/tailored-resume-generator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "three-body-video-creator",
+      "name": "Three Body Video Creator",
+      "description": "影片与视频编辑和内容创作者必备！当需要制作《三体》主题视频时，自动化完成选题策划、视觉设计、音频生成到成片合成，多智能体协作流程，3小时搞定72小时工作量。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "three-body-video-creator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Three Body Video Creator",
+            "description": "影片与视频编辑和内容创作者必备！当需要制作《三体》主题视频时，自动化完成选题策划、视觉设计、音频生成到成片合成，多智能体协作流程，3小时搞定72小时工作量。",
+            "tags": [
+              "three-body-video-creator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/three-body-video-creator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "video-creation-collaborator",
+      "name": "Video Creation Collaborator",
+      "description": "内容创作者与自媒体创作者在制作短视频时，若遇生图畸形、合成瑕疵或协同混乱，当需规范化多智能体流程时必用此技能。一键调度11个AI智能体，自动完成文案、分镜、音视频到视频合成的5阶段闭环，前置质检拦截瑕疵，高效产出统一可控的高质量短视频。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "video-creation-collaborator",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Video Creation Collaborator",
+            "description": "内容创作者与自媒体创作者在制作短视频时，若遇生图畸形、合成瑕疵或协同混乱，当需规范化多智能体流程时必用此技能。一键调度11个AI智能体，自动完成文案、分镜、音视频到视频合成的5阶段闭环，前置质检拦截瑕疵，高效产出统一可控的高质量短视频。",
+            "tags": [
+              "video-creation-collaborator",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/video-creation-collaborator"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "video-creation-pro",
+      "name": "Video Creation Pro",
+      "description": "电商运营与自媒体创作者在为美妆、家居、智能硬件等商品制作短视频时，请使用此技能。10大AI智能体协同，从卖点提炼、分镜生图到音效字幕，一键调用COZE API自动合成高质量商品视频，彻底告别本地代码依赖，轻松实现从创作、质检到数据迭代的全流程闭环。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "video-creation-pro",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Video Creation Pro",
+            "description": "电商运营与自媒体创作者在为美妆、家居、智能硬件等商品制作短视频时，请使用此技能。10大AI智能体协同，从卖点提炼、分镜生图到音效字幕，一键调用COZE API自动合成高质量商品视频，彻底告别本地代码依赖，轻松实现从创作、质检到数据迭代的全流程闭环。",
+            "tags": [
+              "video-creation-pro",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/video-creation-pro"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "video-creation-suite",
+      "name": "Video Creation Suite",
+      "description": "自媒体创作者与影片与视频编辑当需要从零原创、二次创作或深度分析视频时，请使用此套件。通过11个智能体协同，一键生成配音、音效与BGM并合成高质量视频，或自动抽帧提取分镜提示词，全流程大幅提升视频产出效率。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "video-creation-suite",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Video Creation Suite",
+            "description": "自媒体创作者与影片与视频编辑当需要从零原创、二次创作或深度分析视频时，请使用此套件。通过11个智能体协同，一键生成配音、音效与BGM并合成高质量视频，或自动抽帧提取分镜提示词，全流程大幅提升视频产出效率。",
+            "tags": [
+              "video-creation-suite",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/video-creation-suite"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "video-frame-extractor",
+      "name": "Video Frame Extractor",
+      "description": "影片与视频编辑、自媒体创作者在需要拆解优秀视频、提取分镜参考或反推提示词时，使用本技能可自动抽取视频关键帧，调用视觉大模型批量分析画面，一键生成结构化描述与创作提示词，轻松搞定视频内容提取与场景分析。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "video-frame-extractor",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Video Frame Extractor",
+            "description": "影片与视频编辑、自媒体创作者在需要拆解优秀视频、提取分镜参考或反推提示词时，使用本技能可自动抽取视频关键帧，调用视觉大模型批量分析画面，一键生成结构化描述与创作提示词，轻松搞定视频内容提取与场景分析。",
+            "tags": [
+              "video-frame-extractor",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/video-frame-extractor"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "video-recreation",
+      "name": "Video Recreation",
+      "description": "自媒体创作者与影片与视频编辑在需要视频二创或反推参考视频时，一键完成从AI视觉分析、图文音素材生成到最终合成的全流程，自动产出包含配音与字幕的高质量二创视频，让创作效率翻倍！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "video-recreation",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Video Recreation",
+            "description": "自媒体创作者与影片与视频编辑在需要视频二创或反推参考视频时，一键完成从AI视觉分析、图文音素材生成到最终合成的全流程，自动产出包含配音与字幕的高质量二创视频，让创作效率翻倍！",
+            "tags": [
+              "video-recreation",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/video-recreation"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "video-transcript-downloader",
+      "name": "Video Transcript Downloader",
+      "description": "内容创作者与自媒体创作者在需要下载视频、提取视频网站字幕时，当需要获取纯文本稿或本地媒体文件请一键调用。自动清洗时间轴与杂音标记，一键下载音视频并生成干净的段落式字幕，大幅提升二创与内容处理效率。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "video-transcript-downloader",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Video Transcript Downloader",
+            "description": "内容创作者与自媒体创作者在需要下载视频、提取视频网站字幕时，当需要获取纯文本稿或本地媒体文件请一键调用。自动清洗时间轴与杂音标记，一键下载音视频并生成干净的段落式字幕，大幅提升二创与内容处理效率。",
+            "tags": [
+              "video-transcript-downloader",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/video-transcript-downloader"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "viral-video-copywriting",
+      "name": "Viral Video Copywriting",
+      "description": "自媒体创作者与运营专员在缺乏爆款方法论、需拆解对标视频时使用。当需要创作短视频文案时，自动提取抖音视频信息并深度拆解开头钩子等爆款因素，一键生成符合爆款规律的原创文案，助你轻松打造高赞爆款内容。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "viral-video-copywriting",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Viral Video Copywriting",
+            "description": "自媒体创作者与运营专员在缺乏爆款方法论、需拆解对标视频时使用。当需要创作短视频文案时，自动提取抖音视频信息并深度拆解开头钩子等爆款因素，一键生成符合爆款规律的原创文案，助你轻松打造高赞爆款内容。",
+            "tags": [
+              "viral-video-copywriting",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/viral-video-copywriting"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "web-design-analyzer",
+      "name": "Web Design Analyzer",
+      "description": "网页与数字界面设计师和网页开发工程师在需要逆向分析网页截图时，使用本技能一键提取配色、排版及组件特征，自动生成结构化 Design System 数据与 AI Coding Prompt，让设计还原与前端开发更高效。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "web-design-analyzer",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Web Design Analyzer",
+            "description": "网页与数字界面设计师和网页开发工程师在需要逆向分析网页截图时，使用本技能一键提取配色、排版及组件特征，自动生成结构化 Design System 数据与 AI Coding Prompt，让设计还原与前端开发更高效。",
+            "tags": [
+              "web-design-analyzer",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/web-design-analyzer"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "web-to-app",
+      "name": "Web To App",
+      "description": "网页开发工程师当需要将任意网页URL封装为独立桌面客户端时，使用此技能可一键生成体积仅约5MB的跨平台（Win/Mac/Linux）原生应用安装包。支持自定义图标与高级配置，助你快速交付轻量级桌面端产品。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "web-to-app",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Web To App",
+            "description": "网页开发工程师当需要将任意网页URL封装为独立桌面客户端时，使用此技能可一键生成体积仅约5MB的跨平台（Win/Mac/Linux）原生应用安装包。支持自定义图标与高级配置，助你快速交付轻量级桌面端产品。",
+            "tags": [
+              "web-to-app",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/web-to-app"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "wechat-hotspot-publisher",
+      "name": "Wechat Hotspot Publisher",
+      "description": "自媒体创作者和运营专员在需要全网追热点分发时，使用此技能可自动采集热点并10分制筛选优质选题，AI一键生成适配公众号、小红书、B站的爆款图文与HTML排版，直接发布至各平台草稿箱，轻松完成多平台高质量内容分发。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "wechat-hotspot-publisher",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Wechat Hotspot Publisher",
+            "description": "自媒体创作者和运营专员在需要全网追热点分发时，使用此技能可自动采集热点并10分制筛选优质选题，AI一键生成适配公众号、小红书、B站的爆款图文与HTML排版，直接发布至各平台草稿箱，轻松完成多平台高质量内容分发。",
+            "tags": [
+              "wechat-hotspot-publisher",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/wechat-hotspot-publisher"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "wechatsync-publisher",
+      "name": "Wechatsync Publisher",
+      "description": "自媒体创作者在进行全网内容分发时，使用此技能可智能筛选优质选题、AI生成多版本文章，并一键自动适配格式发布至微信公众号、知乎、掘金等6大平台，轻松实现从创作到推送的全流程自动化，大幅提升多平台运营效率！",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "wechatsync-publisher",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Wechatsync Publisher",
+            "description": "自媒体创作者在进行全网内容分发时，使用此技能可智能筛选优质选题、AI生成多版本文章，并一键自动适配格式发布至微信公众号、知乎、掘金等6大平台，轻松实现从创作到推送的全流程自动化，大幅提升多平台运营效率！",
+            "tags": [
+              "wechatsync-publisher",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/wechatsync-publisher"
+      }
+    },
+    {
+      "type": "skill",
+      "slug": "xiaohongshu-makeup",
+      "name": "Xiaohongshu Makeup",
+      "description": "自媒体创作者与电商运营在推广美妆护肤产品时，当需要创作或优化小红书笔记、生成AI配图提示词时，使用此技能可一键生成高转化爆款笔记、吸睛标题与精准标签，自动产出专业文生图提示词，轻松打造小红书爆款内容。",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "anbeime / 567 Agent",
+      "category": "Skills",
+      "categoryI18n": {
+        "zh": "实用技能",
+        "en": "Skills"
+      },
+      "tags": [
+        "xiaohongshu-makeup",
+        "Skill"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Xiaohongshu Makeup",
+            "description": "自媒体创作者与电商运营在推广美妆护肤产品时，当需要创作或优化小红书笔记、生成AI配图提示词时，使用此技能可一键生成高转化爆款笔记、吸睛标题与精准标签，自动产出专业文生图提示词，轻松打造小红书爆款内容。",
+            "tags": [
+              "xiaohongshu-makeup",
+              "实用技能"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "skills/xiaohongshu-makeup"
+      }
+    }
+  ]
+}

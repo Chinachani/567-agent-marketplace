@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "slug": "github",
+  "version": "1.0.0",
+  "server": {
+    "type": "stdio",
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-github"
+    ]
+  },
+  "parameters": []
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "slug": "postgres",
+  "version": "1.0.0",
+  "server": {
+    "type": "stdio",
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-postgres",
+      "postgresql://localhost/mydb"
+    ]
+  },
+  "parameters": []
+}

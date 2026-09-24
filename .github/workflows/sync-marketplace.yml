@@ -1,0 +1,40 @@
+name: Sync & Update 567 Agent Marketplace
+
+on:
+  schedule:
+    # Run every Sunday at midnight UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-marketplace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run sync and generate catalog
+        env:
+          API_567_KEY: ${{ secrets.API_567_KEY }}
+        run: |
+          python3 sync_marketplace.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add marketplace.json .567agent/ .vetta/ skills/ mcps/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(marketplace): 定时同步最新技能与 MCP 清单 [skip ci]"
+            git push origin main
+          fi
