@@ -10,7 +10,7 @@ from pathlib import Path
 API_KEY = os.environ.get("API_567_KEY", "")
 RAW_BASE_URL = os.environ.get("API_567_BASE_URL", "https://api.567.wiki/v1").rstrip("/")
 COMPLETIONS_URL = f"{RAW_BASE_URL}/chat/completions" if not RAW_BASE_URL.endswith("/chat/completions") else RAW_BASE_URL
-MODEL = os.environ.get("API_567_MODEL", "gemini-3.5-flash-lite")
+MODEL = os.environ.get("API_567_MODEL", "gemini-3.8-flash-high")
 
 REPO_ROOT = Path(__file__).resolve().parent
 SKILLS_SRC_DIR = Path("/tmp/anbeime-skill/skills")
