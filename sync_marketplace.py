@@ -8,8 +8,9 @@ import urllib.error
 from pathlib import Path
 
 API_KEY = os.environ.get("API_567_KEY", "")
-BASE_URL = "https://api.567.wiki/v1/chat/completions"
-MODEL = "gemini-3.5-flash-lite"
+RAW_BASE_URL = os.environ.get("API_567_BASE_URL", "https://api.567.wiki/v1").rstrip("/")
+COMPLETIONS_URL = f"{RAW_BASE_URL}/chat/completions" if not RAW_BASE_URL.endswith("/chat/completions") else RAW_BASE_URL
+MODEL = os.environ.get("API_567_MODEL", "gemini-3.5-flash-lite")
 
 REPO_ROOT = Path(__file__).resolve().parent
 SKILLS_SRC_DIR = Path("/tmp/anbeime-skill/skills")
@@ -37,7 +38,7 @@ def translate_to_chinese(text: str) -> str:
         "max_tokens": 150
     }
     req = urllib.request.Request(
-        BASE_URL,
+        COMPLETIONS_URL,
         headers={
             "Authorization": f"Bearer {API_KEY}",
             "Content-Type": "application/json"

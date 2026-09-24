@@ -24,6 +24,8 @@ jobs:
       - name: Run sync and generate catalog
         env:
           API_567_KEY: ${{ secrets.API_567_KEY }}
+          API_567_BASE_URL: ${{ secrets.API_567_BASE_URL }}
+          API_567_MODEL: ${{ secrets.API_567_MODEL }}
         run: |
           python3 sync_marketplace.py
 
