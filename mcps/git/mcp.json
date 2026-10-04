@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "slug": "fetch",
-  "version": "0.6.3",
+  "slug": "git",
+  "version": "0.6.2",
   "server": {
     "type": "stdio",
     "command": "uvx",
     "args": [
-      "mcp-server-fetch==0.6.3"
+      "mcp-server-git==0.6.2"
     ]
   },
   "parameters": []

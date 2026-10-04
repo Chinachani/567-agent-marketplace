@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "slug": "memory",
-  "version": "0.6.3",
+  "slug": "sequential-thinking",
+  "version": "0.6.2",
   "server": {
     "type": "stdio",
     "command": "npx",
     "args": [
       "-y",
-      "@modelcontextprotocol/server-memory@0.6.3"
+      "@modelcontextprotocol/server-sequential-thinking@0.6.2"
     ]
   },
   "parameters": []

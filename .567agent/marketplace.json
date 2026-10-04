@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "name": "567-official",
   "displayName": "567 Agent 官方能力市场",
-  "marketplaceVersion": "2026.10.04.3",
+  "marketplaceVersion": "2026.10.04.4",
   "repository": "https://github.com/Chinachani/567-agent-marketplace",
   "minAppVersion": "1.0.0",
   "abilities": [
@@ -10,9 +10,9 @@
       "type": "mcp",
       "slug": "filesystem",
       "name": "本地受控文件系统",
-      "description": "让 Agent 安全读写指定本地工作目录中的文件与代码资源。",
-      "version": "1.0.0",
-      "configVersion": 2,
+      "description": "访问与管理本地文件系统的 MCP 服务",
+      "version": "0.6.3",
+      "configVersion": 3,
       "license": "MIT",
       "author": "Model Context Protocol",
       "category": "System",
@@ -29,7 +29,16 @@
         "i18n": {
           "zh": {
             "name": "本地受控文件系统",
-            "description": "让 Agent 安全读写指定本地工作目录中的文件与代码资源。",
+            "description": "访问与管理本地文件系统的 MCP 服务",
+            "tags": [
+              "文件",
+              "本地",
+              "MCP"
+            ]
+          },
+          "en": {
+            "name": "本地受控文件系统",
+            "description": "MCP server for filesystem access",
             "tags": [
               "文件",
               "本地",
@@ -40,16 +49,18 @@
       },
       "source": {
         "path": "mcps/filesystem",
-        "contentSha256": "5c0b0cdfe327c9741a659489d58881beaf253e1f626608e1bdad17b5e241cc60"
+        "contentSha256": "27943ae3ff9b75919aa063d371e1b1cdddfc88ec993102044f44b5e4a7e6dcfd",
+        "repository": "modelcontextprotocol/servers",
+        "upstreamPath": "src/filesystem"
       }
     },
     {
       "type": "mcp",
       "slug": "fetch",
       "name": "网页数据抓取 (Fetch)",
-      "description": "让 Agent 抓取并解析外部网页、文章或 API 返回的数据。",
-      "version": "1.0.0",
-      "configVersion": 2,
+      "description": "Model Context Protocol 服务端，提供网页内容抓取与转换工具，供大语言模型高效调用。",
+      "version": "0.6.3",
+      "configVersion": 3,
       "license": "MIT",
       "author": "Model Context Protocol",
       "category": "Web",
@@ -67,7 +78,17 @@
         "i18n": {
           "zh": {
             "name": "网页数据抓取 (Fetch)",
-            "description": "让 Agent 抓取并解析外部网页、文章或 API 返回的数据。",
+            "description": "Model Context Protocol 服务端，提供网页内容抓取与转换工具，供大语言模型高效调用。",
+            "tags": [
+              "网页",
+              "爬取",
+              "数据",
+              "MCP"
+            ]
+          },
+          "en": {
+            "name": "网页数据抓取 (Fetch)",
+            "description": "A Model Context Protocol server providing tools to fetch and convert web content for usage by LLMs",
             "tags": [
               "网页",
               "爬取",
@@ -79,7 +100,204 @@
       },
       "source": {
         "path": "mcps/fetch",
-        "contentSha256": "d89576a190c341175b7f37c3ace4d3461e810e76838bf679da384bd0a28ef4e1"
+        "contentSha256": "fa261a706def9b256fef4f26ab48a97953b782f9c84da008c89b3568efa50436",
+        "repository": "modelcontextprotocol/servers",
+        "upstreamPath": "src/fetch"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "memory",
+      "name": "知识图谱长期记忆",
+      "description": "基于知识图谱为 Claude 赋予持久记忆能力的 MCP 服务器",
+      "version": "0.6.3",
+      "configVersion": 3,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "System",
+      "categoryI18n": {
+        "zh": "系统工具",
+        "en": "System"
+      },
+      "tags": [
+        "记忆",
+        "知识图谱",
+        "长期上下文",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "知识图谱长期记忆",
+            "description": "基于知识图谱为 Claude 赋予持久记忆能力的 MCP 服务器",
+            "tags": [
+              "记忆",
+              "知识图谱",
+              "长期上下文",
+              "MCP"
+            ]
+          },
+          "en": {
+            "name": "知识图谱长期记忆",
+            "description": "MCP server for enabling memory for Claude through a knowledge graph",
+            "tags": [
+              "记忆",
+              "知识图谱",
+              "长期上下文",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/memory",
+        "contentSha256": "bb9cd279f343584340d8e13ec216a0a080b9865d632c6995c48bf50225b7a2ac",
+        "repository": "modelcontextprotocol/servers",
+        "upstreamPath": "src/memory"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "git",
+      "name": "Git 仓库工具",
+      "description": "提供 Model Context Protocol 服务端工具，支持通过大模型以编程方式读取、搜索和操作 Git 仓库",
+      "version": "0.6.2",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "Development",
+      "categoryI18n": {
+        "zh": "编程研发",
+        "en": "Development"
+      },
+      "tags": [
+        "Git",
+        "代码仓库",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Git 仓库工具",
+            "description": "提供 Model Context Protocol 服务端工具，支持通过大模型以编程方式读取、搜索和操作 Git 仓库",
+            "tags": [
+              "Git",
+              "代码仓库",
+              "MCP"
+            ]
+          },
+          "en": {
+            "name": "Git 仓库工具",
+            "description": "A Model Context Protocol server providing tools to read, search, and manipulate Git repositories programmatically via LLMs",
+            "tags": [
+              "Git",
+              "代码仓库",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/git",
+        "contentSha256": "859137b8529b7b9d981f685e4b6f10a5b2436c30f15b40ce9d3b326f63bd26b4",
+        "repository": "modelcontextprotocol/servers",
+        "upstreamPath": "src/git"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "sequential-thinking",
+      "name": "顺序思考",
+      "description": "用于逐步推理与解决复杂问题的 MCP 服务",
+      "version": "0.6.2",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "Development",
+      "categoryI18n": {
+        "zh": "编程研发",
+        "en": "Development"
+      },
+      "tags": [
+        "推理",
+        "规划",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "顺序思考",
+            "description": "用于逐步推理与解决复杂问题的 MCP 服务",
+            "tags": [
+              "推理",
+              "规划",
+              "MCP"
+            ]
+          },
+          "en": {
+            "name": "顺序思考",
+            "description": "MCP server for sequential thinking and problem solving",
+            "tags": [
+              "推理",
+              "规划",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/sequential-thinking",
+        "contentSha256": "a63d335db7719b1932ee3e0a4609f3f382769f0694c1dbf87c7a93bf051edbc0",
+        "repository": "modelcontextprotocol/servers",
+        "upstreamPath": "src/sequentialthinking"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "time",
+      "name": "时间与时区",
+      "description": "为大语言模型提供时间查询与时区转换工具的 Model Context Protocol 服务",
+      "version": "0.6.2",
+      "configVersion": 1,
+      "license": "MIT",
+      "author": "Model Context Protocol",
+      "category": "System",
+      "categoryI18n": {
+        "zh": "系统工具",
+        "en": "System"
+      },
+      "tags": [
+        "时间",
+        "时区",
+        "MCP"
+      ],
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "时间与时区",
+            "description": "为大语言模型提供时间查询与时区转换工具的 Model Context Protocol 服务",
+            "tags": [
+              "时间",
+              "时区",
+              "MCP"
+            ]
+          },
+          "en": {
+            "name": "时间与时区",
+            "description": "A Model Context Protocol server providing tools for time queries and timezone conversions for LLMs",
+            "tags": [
+              "时间",
+              "时区",
+              "MCP"
+            ]
+          }
+        }
+      },
+      "source": {
+        "path": "mcps/time",
+        "contentSha256": "01ff16009faffbb97843153ac56e38a501fe45be63abc988a0859f15add3c9e7",
+        "repository": "modelcontextprotocol/servers",
+        "upstreamPath": "src/time"
       }
     },
     {
@@ -171,7 +389,7 @@
       "author": "Model Context Protocol",
       "category": "Database",
       "categoryI18n": {
-        "zh": "数据分析",
+        "zh": "数据与数据库",
         "en": "Database"
       },
       "tags": [
@@ -210,7 +428,7 @@
       "author": "Model Context Protocol",
       "category": "Database",
       "categoryI18n": {
-        "zh": "数据分析",
+        "zh": "数据与数据库",
         "en": "Database"
       },
       "tags": [
@@ -236,45 +454,6 @@
       "source": {
         "path": "mcps/sqlite",
         "contentSha256": "d6e11eac26ca2b4c2c2efdc3c88cc905eb5f19d3dd61e7e6833cc8c2192cb3b0"
-      }
-    },
-    {
-      "type": "mcp",
-      "slug": "memory",
-      "name": "知识图谱长期记忆",
-      "description": "让 Agent 跨会话建立并沉淀用户的偏好、事实与知识图谱实体。",
-      "version": "1.0.0",
-      "configVersion": 2,
-      "license": "MIT",
-      "author": "Model Context Protocol",
-      "category": "System",
-      "categoryI18n": {
-        "zh": "系统工具",
-        "en": "System"
-      },
-      "tags": [
-        "记忆",
-        "知识图谱",
-        "长期上下文",
-        "MCP"
-      ],
-      "detail": {
-        "i18n": {
-          "zh": {
-            "name": "知识图谱长期记忆",
-            "description": "让 Agent 跨会话建立并沉淀用户的偏好、事实与知识图谱实体。",
-            "tags": [
-              "记忆",
-              "知识图谱",
-              "长期上下文",
-              "MCP"
-            ]
-          }
-        }
-      },
-      "source": {
-        "path": "mcps/memory",
-        "contentSha256": "c1878e8c36266fc6b45d0b2ca36ce392827e84ba735929bebd6b690b4f7fec3d"
       }
     },
     {
