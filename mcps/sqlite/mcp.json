@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "server": {
     "type": "stdio",
-    "command": "npx",
+    "command": "uvx",
     "args": [
-      "-y",
-      "@modelcontextprotocol/server-sqlite",
+      "mcp-server-sqlite",
+      "--db-path",
       "./data.db"
     ]
   },
