@@ -1,0 +1,102 @@
+{
+  "filesystem": {
+    "category": "system-tools",
+    "tags": ["filesystem"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["filesystem-read", "filesystem-write"],
+    "authentication": "none",
+    "publisherType": "project-official",
+    "installable": true
+  },
+  "fetch": {
+    "category": "web-search",
+    "tags": ["browser"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["network"],
+    "authentication": "none",
+    "publisherType": "project-official",
+    "installable": true
+  },
+  "brave-search": {
+    "category": "web-search",
+    "tags": ["search"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["network", "external-service"],
+    "authentication": "api-key",
+    "publisherType": "community",
+    "installable": true
+  },
+  "github": {
+    "category": "developer-tools",
+    "tags": ["git", "issue-tracking"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["network", "external-service"],
+    "authentication": "credentials",
+    "publisherType": "project-official",
+    "installable": true
+  },
+  "postgres": {
+    "category": "data-databases",
+    "tags": ["database"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["database-read", "network"],
+    "authentication": "credentials",
+    "publisherType": "community",
+    "installable": true
+  },
+  "sqlite": {
+    "category": "data-databases",
+    "tags": ["database", "filesystem"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["database-read", "filesystem-read"],
+    "authentication": "none",
+    "publisherType": "community",
+    "installable": true
+  },
+  "memory": {
+    "category": "knowledge-memory",
+    "tags": ["memory"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["filesystem-read", "filesystem-write"],
+    "authentication": "none",
+    "publisherType": "project-official",
+    "installable": true
+  },
+  "git": {
+    "category": "developer-tools",
+    "tags": ["git"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["filesystem-read", "filesystem-write"],
+    "authentication": "none",
+    "publisherType": "community",
+    "installable": true
+  },
+  "sequential-thinking": {
+    "category": "ai-agents",
+    "tags": ["ai"],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["unknown"],
+    "authentication": "none",
+    "publisherType": "project-official",
+    "installable": true
+  },
+  "time": {
+    "category": "system-tools",
+    "tags": [],
+    "runtimeMode": "stdio",
+    "platforms": ["any"],
+    "permissionScopes": ["unknown"],
+    "authentication": "none",
+    "publisherType": "project-official",
+    "installable": true
+  }
+}

@@ -452,6 +452,94 @@ class MarketplaceSyncTests(unittest.TestCase):
             self.assertEqual(second["version"], "0.6.3")
             self.assertEqual(second["source"]["repository"], "modelcontextprotocol/servers")
 
+    def test_unreviewed_mcp_keeps_uncategorized_metadata_and_is_not_installable(self):
+        with tempfile.TemporaryDirectory() as temp:
+            destination = Path(temp) / "mcps"
+            candidate = {
+                "identity": "github:example/blender-mcp",
+                "name_en": "Blender MCP",
+                "description_en": "Control Blender models with an MCP server",
+                "version": "1.0.0",
+                "repository": "https://github.com/example/blender-mcp",
+                "sources": ["TensorBlock", "punkpeye"],
+                "runtimeMode": "stdio",
+                "authentication": "unknown",
+                "registryName": "io.github.example/blender-mcp",
+            }
+            with patch.object(sync_marketplace, "MCPS_DEST_DIR", destination):
+                record = sync_marketplace.write_mcp_record({
+                    "slug": "blender-mcp",
+                    "name": "Blender MCP",
+                    "description": candidate["description_en"],
+                    "discovery": candidate,
+                }, {}, {})
+            self.assertEqual(record["type"], "mcp")
+            self.assertEqual(record["category"], "uncategorized")
+            self.assertEqual(record["tags"], [])
+            self.assertEqual(record["mcpMetadata"], {
+                "runtimeMode": "stdio", "platforms": ["unknown"],
+                "permissionScopes": ["unknown"], "authentication": "unknown",
+                "publisherType": "unknown", "installable": False,
+            })
+            self.assertEqual(record["source"]["path"], "mcps/discovery")
+            self.assertFalse(destination.exists())
+            self.assertEqual(
+                sync_marketplace.suggest_mcp_classification("Blender MCP", candidate["description_en"])["category"],
+                "cad-3d",
+            )
+
+    def test_mcp_discovery_merges_sources_without_collapsing_distinct_servers_in_one_repo(self):
+        registry = {
+            "servers": [
+                {"server": {"name": "io.github.foo/demo-mcp", "title": "Demo MCP", "description": "Demo", "version": "1.0.0", "repository": {"url": "https://github.com/foo/demo-mcp"}}, "_meta": {"io.modelcontextprotocol.registry/official": {"status": "active"}}},
+                {"server": {"name": "io.github.foo/demo-mcp/extra", "title": "Extra MCP", "description": "Extra", "version": "1.0.0", "repository": {"url": "https://github.com/foo/demo-mcp"}}, "_meta": {"io.modelcontextprotocol.registry/official": {"status": "active"}}},
+            ],
+            "metadata": {},
+        }
+        hq = [{"name": "Demo MCP", "url": "https://github.com/foo/demo-mcp", "description": "Demo from HQ"}]
+        tensor = [{"name": "Demo MCP", "description": "Demo from TensorBlock", "links": {"repo": "https://github.com/foo/demo-mcp"}}]
+        with patch.object(sync_marketplace, "fetch_json", side_effect=[registry, hq, tensor]), patch.object(
+            sync_marketplace, "fetch_text", return_value="- [Demo MCP](https://github.com/foo/demo-mcp) - Punkpeye entry"
+        ):
+            candidates = sync_marketplace.collect_mcp_candidates()
+        demo = next(item for item in candidates if item["name_en"] == "Demo MCP")
+        self.assertEqual(set(demo["sources"]), {"official-mcp-registry", "mcpHQ", "TensorBlock", "punkpeye"})
+        self.assertEqual(len(candidates), 2)
+
+    def test_registry_sync_uses_updated_since_watermark_after_bootstrap(self):
+        response = {"servers": [], "metadata": {}}
+        previous = {"mcp-one": {"type": "mcp", "source": {"registryUpdatedAt": "2026-10-01T12:00:00Z"}}}
+        with patch.object(sync_marketplace, "fetch_json", return_value=response) as fetch:
+            self.assertEqual(sync_marketplace.registry_servers(previous), [])
+        requested_url = fetch.call_args.args[0]
+        self.assertIn("version=latest", requested_url)
+        self.assertIn("updated_since=2026-10-01T11%3A55%3A00.000Z", requested_url)
+
+    def test_discovery_links_require_https_without_embedded_credentials(self):
+        self.assertEqual(sync_marketplace.safe_https_url("https://github.com/example/server"), "https://github.com/example/server")
+        self.assertEqual(sync_marketplace.safe_https_url("http://example.com/server"), "")
+        self.assertEqual(sync_marketplace.safe_https_url("https://user:token@example.com/server"), "")
+
+    def test_registry_deleted_entry_is_removed_unless_another_feed_still_lists_it(self):
+        previous = {
+            "demo-mcp": {
+                "type": "mcp", "slug": "demo-mcp", "name": "Demo MCP", "description": "Demo",
+                "version": "1.0.0", "license": "", "author": "",
+                "mcpMetadata": {"runtimeMode": "stdio", "authentication": "unknown"},
+                "detail": {"i18n": {"en": {"name": "Demo MCP", "description": "Demo"}}},
+                "source": {"registryName": "io.github.example/demo-mcp", "registryUpdatedAt": "2026-10-01T12:00:00Z"},
+            },
+        }
+        deleted = {
+            "servers": [{"server": {"name": "io.github.example/demo-mcp", "title": "Demo MCP", "version": "1.0.0"},
+                         "_meta": {"io.modelcontextprotocol.registry/official": {"status": "deleted", "updatedAt": "2026-10-03T12:00:00Z"}}}],
+            "metadata": {},
+        }
+        with patch.object(sync_marketplace, "fetch_json", side_effect=[deleted, [], []]), patch.object(
+            sync_marketplace, "fetch_text", return_value=""
+        ):
+            self.assertEqual(sync_marketplace.collect_mcp_candidates(previous), [])
+
 
 if __name__ == "__main__":
     unittest.main()

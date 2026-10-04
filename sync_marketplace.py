@@ -3,18 +3,26 @@ import os
 import json
 import copy
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timedelta, timezone
 import re
 import shutil
 import subprocess
 import tempfile
 import tomllib
 import urllib.request
+import urllib.error
+import urllib.parse
+import hashlib
+import time
 from pathlib import Path
 
 from marketplace_sync import (
     CATEGORIES,
     MCP_UPSTREAM,
     MCP_UPSTREAM_SERVERS,
+    MCP_MAIN_CATEGORIES,
+    MCP_FUNCTION_TAGS,
+    MCP_COLLECTION_SOURCES,
     SKILL_SOURCES,
     classify_skill,
     copy_skill_resources,
@@ -36,10 +44,15 @@ try:
     TRANSLATION_WORKERS = min(16, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "6"))))
 except ValueError:
     TRANSLATION_WORKERS = 6
+try:
+    MAX_TRANSLATIONS_PER_SYNC = min(5000, max(1, int(os.environ.get("API_567_MAX_TRANSLATIONS_PER_SYNC", "1000"))))
+except ValueError:
+    MAX_TRANSLATIONS_PER_SYNC = 1000
 
 REPO_ROOT = Path(__file__).resolve().parent
 SKILLS_DEST_DIR = REPO_ROOT / "skills"
 MCPS_DEST_DIR = REPO_ROOT / "mcps"
+MCP_CLASSIFICATION_SUGGESTIONS = []
 
 def has_chinese(text: str) -> bool:
     return any('\u4e00' <= char <= '\u9fff' for char in text)
@@ -200,6 +213,287 @@ def load_mcp_upstream(temp_root: Path) -> dict[str, dict]:
     }
 
 
+def fetch_json(url: str):
+    request = urllib.request.Request(url, headers={"User-Agent": "567-agent-marketplace-sync/1.0"})
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(request, timeout=90) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as error:
+            if isinstance(error, urllib.error.HTTPError) and error.code not in {408, 425, 429, 500, 502, 503, 504}:
+                raise
+            if attempt == 4:
+                raise
+            wait = min(30, 2 ** attempt)
+            print(f"Transient upstream error; retrying in {wait}s: {error}", flush=True)
+            time.sleep(wait)
+
+
+def fetch_text(url: str) -> str:
+    request = urllib.request.Request(url, headers={"User-Agent": "567-agent-marketplace-sync/1.0"})
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(request, timeout=90) as response:
+                return response.read().decode("utf-8", errors="replace")
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as error:
+            if isinstance(error, urllib.error.HTTPError) and error.code not in {408, 425, 429, 500, 502, 503, 504}:
+                raise
+            if attempt == 4:
+                raise
+            wait = min(30, 2 ** attempt)
+            print(f"Transient upstream error; retrying in {wait}s: {error}", flush=True)
+            time.sleep(wait)
+
+
+def registry_servers(previous_abilities: dict[str, dict]) -> list[dict]:
+    """Bootstrap the full Registry once, then fetch only records updated since its watermark."""
+    updated_values = [
+        item.get("source", {}).get("registryUpdatedAt")
+        for item in previous_abilities.values()
+        if item.get("type") == "mcp" and item.get("source", {}).get("registryUpdatedAt")
+    ]
+    latest_updated = max(updated_values, default="")
+    params = {"limit": "100", "version": "latest"}
+    if latest_updated:
+        try:
+            watermark = datetime.fromisoformat(latest_updated.replace("Z", "+00:00")) - timedelta(minutes=5)
+            params["updated_since"] = watermark.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+            print(f"Fetching MCP Registry updates since {params['updated_since']}", flush=True)
+        except ValueError:
+            print("Invalid MCP Registry watermark; falling back to a full sync", flush=True)
+    else:
+        print("Bootstrapping full latest-version MCP Registry catalog", flush=True)
+    url = MCP_COLLECTION_SOURCES["registry"] + "?" + urllib.parse.urlencode(params)
+    records = {}
+    seen_cursors = set()
+    page_number = 0
+    while url:
+        payload = fetch_json(url)
+        page_number += 1
+        for item in payload.get("servers", []):
+            server = item.get("server", {})
+            meta = item.get("_meta", {}).get("io.modelcontextprotocol.registry/official", {})
+            name = server.get("name")
+            if not name:
+                continue
+            records[name] = {**server, "_registryMeta": meta}
+        if page_number % 25 == 0:
+            print(f"Registry pages: {page_number} ({len(records)} distinct names)", flush=True)
+        cursor = payload.get("metadata", {}).get("nextCursor")
+        if not cursor:
+            break
+        if cursor in seen_cursors:
+            raise ValueError("MCP Registry pagination cursor repeated")
+        seen_cursors.add(cursor)
+        url = MCP_COLLECTION_SOURCES["registry"] + "?limit=100&version=latest&cursor=" + urllib.parse.quote(cursor, safe="")
+    return list(records.values())
+
+
+def github_repository(url: str) -> str:
+    match = re.search(r"github\.com/([^/]+/[^/#?]+)", url or "", re.I)
+    if not match:
+        return ""
+    return match.group(1).removesuffix(".git").lower()
+
+
+def safe_https_url(value: str) -> str:
+    if not isinstance(value, str):
+        return ""
+    parsed = urllib.parse.urlsplit(value.strip())
+    if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+        return ""
+    return value.strip()
+
+
+def infer_runtime(record: dict) -> str:
+    for remote in record.get("remotes", []):
+        kind = remote.get("type", "")
+        if kind in {"streamable-http", "sse"}:
+            return kind
+    packages = record.get("packages", [])
+    if packages:
+        return "stdio"
+    transport = record.get("transport", [])
+    if "streamable-http" in transport:
+        return "streamable-http"
+    if "sse" in transport:
+        return "sse"
+    if "stdio" in transport:
+        return "stdio"
+    return "unknown"
+
+
+def collect_mcp_candidates(previous_abilities: dict[str, dict] | None = None) -> list[dict]:
+    """Merge four discovery feeds by upstream GitHub repo or stable Registry name."""
+    merged = {}
+    previous_abilities = previous_abilities or {}
+
+    # Rehydrate unchanged Registry entries from the previous manifest; the Registry
+    # delta below replaces changed records and drops deleted records.
+    deleted_registry_names = set()
+
+    def add(key: str, name: str, description: str, url: str, source: str, raw: dict, version="1.0.0"):
+        name = str(name or "").strip()
+        if not name:
+            return
+        repository_identity = github_repository(url)
+        alias_identity = f"{repository_identity}::{slugify(name).lower()}" if repository_identity else ""
+        if key.startswith("registry:"):
+            canonical = key.lower()
+        else:
+            canonical = alias_identity or key.lower()
+            registry_match = next(
+                (identity for identity, candidate in merged.items() if candidate.get("aliasIdentity") == alias_identity and alias_identity),
+                None,
+            )
+            if registry_match:
+                canonical = registry_match
+        entry = merged.setdefault(canonical, {
+            "identity": canonical,
+            "aliasIdentity": alias_identity,
+            "name_en": name,
+            "description_en": str(description or "").strip(),
+            "version": str(version or "1.0.0"),
+            "repository": url or "",
+            "sources": [],
+            "runtimeMode": "unknown",
+            "authentication": "unknown",
+            "license": "",
+            "author": "",
+            "registryName": key.removeprefix("registry:") if key.startswith("registry:") else "",
+            "registryUpdatedAt": "",
+            "registryStatus": "unknown",
+        })
+        if source not in entry["sources"]:
+            entry["sources"].append(source)
+        if source == "official-mcp-registry":
+            entry["name_en"] = name
+            if description:
+                entry["description_en"] = str(description).strip()
+        elif not entry["description_en"] and description:
+            entry["description_en"] = str(description).strip()
+        if url and (not entry["repository"] or github_repository(url)):
+            entry["repository"] = url
+        if alias_identity and (source == "official-mcp-registry" or not entry.get("aliasIdentity")):
+            entry["aliasIdentity"] = alias_identity
+        inferred_runtime = infer_runtime(raw)
+        entry["runtimeMode"] = inferred_runtime if inferred_runtime != "unknown" else entry["runtimeMode"]
+        auth = raw.get("auth", {})
+        if isinstance(auth, dict) and auth.get("type") in {"none", "api-key", "oauth", "credentials"}:
+            entry["authentication"] = auth["type"]
+        entry["license"] = entry["license"] or str(raw.get("license") or "")
+        entry["author"] = entry["author"] or str(raw.get("provider") or raw.get("publisher") or "")
+        if raw.get("version") and (source == "official-mcp-registry" or not entry["version"]):
+            entry["version"] = str(raw["version"])
+        if source == "official-mcp-registry":
+            entry["registry"] = {
+                key: raw[key]
+                for key in ("websiteUrl", "documentationUrl", "remotes", "packages")
+                if raw.get(key)
+            }
+        elif raw.get("server"):
+            entry["registry"] = raw["server"]
+        meta = raw.get("_registryMeta", {})
+        if meta.get("updatedAt"):
+            entry["registryUpdatedAt"] = max(entry["registryUpdatedAt"], meta["updatedAt"])
+        if meta.get("status"):
+            entry["registryStatus"] = meta["status"]
+
+    for previous in previous_abilities.values():
+        source = previous.get("source", {})
+        registry_name = source.get("registryName")
+        if previous.get("type") != "mcp" or not registry_name:
+            continue
+        english = previous.get("detail", {}).get("i18n", {}).get("en", {})
+        add(
+            "registry:" + registry_name,
+            english.get("name") or previous.get("name", registry_name),
+            english.get("description") or previous.get("description", ""),
+            source.get("repository", ""),
+            "official-mcp-registry",
+            {
+                "transport": [previous.get("mcpMetadata", {}).get("runtimeMode", "unknown")],
+                "_registryMeta": {"status": source.get("registryStatus", "unknown")},
+            },
+            previous.get("version", "1.0.0"),
+        )
+        identity = next((candidate for candidate in merged.values() if candidate.get("registryName") == registry_name), None)
+        if identity:
+            identity["registryName"] = registry_name
+            identity["registryUpdatedAt"] = source.get("registryUpdatedAt", "")
+            identity["license"] = previous.get("license", "")
+            identity["author"] = previous.get("author", "")
+            identity["authentication"] = previous.get("mcpMetadata", {}).get("authentication", "unknown")
+
+    registry_records = registry_servers(previous_abilities)
+    for server in registry_records:
+        server_name = server.get("name", "")
+        registry_meta = server.get("_registryMeta", {})
+        if registry_meta.get("status") == "deleted":
+            deleted_registry_names.add(server_name)
+            continue
+        repository = server.get("repository", {})
+        source_url = repository.get("url", "") if isinstance(repository, dict) else ""
+        add("registry:" + server_name, server.get("title") or server_name, server.get("description", ""), source_url, "official-mcp-registry", {**server, "_registryMeta": registry_meta}, server.get("version"))
+
+    if deleted_registry_names:
+        for identity in list(merged):
+            candidate = merged[identity]
+            if candidate.get("registryName") not in deleted_registry_names:
+                continue
+            candidate["sources"] = [source for source in candidate["sources"] if source != "official-mcp-registry"]
+            candidate["registryName"] = ""
+            if not candidate["sources"]:
+                del merged[identity]
+
+    print("Fetching mcpHQ and TensorBlock indexes…")
+    for row in fetch_json(MCP_COLLECTION_SOURCES["mcphq"]):
+        add("mcphq:" + row.get("name", ""), row.get("name"), row.get("description"), row.get("url", ""), "mcpHQ", row)
+    for row in fetch_json(MCP_COLLECTION_SOURCES["tensorblock"]):
+        links = row.get("links", {})
+        url = links.get("repo") or links.get("primary") or links.get("homepage") or ""
+        add("tensorblock:" + row.get("id", row.get("name", "")), row.get("name"), row.get("description"), url, "TensorBlock", row)
+
+    print("Fetching punkpeye directory…")
+    readme = fetch_text(MCP_COLLECTION_SOURCES["punkpeye"])
+    for line in readme.splitlines():
+        if not re.match(r"\s*[-*+]\s+", line):
+            continue
+        urls = re.findall(r"https?://github\.com/[^\s)\]>]+", line)
+        if not urls:
+            continue
+        name_match = re.match(r"\s*[-*+]\s+\[([^]]+)\]", line)
+        name = name_match.group(1) if name_match else github_repository(urls[0]).split("/")[-1]
+        description = re.sub(r"\[[^]]+\]\([^)]*\)", "", line).lstrip("-*+ ").strip()
+        add("punkpeye:" + github_repository(urls[0]), name, description, urls[0], "punkpeye", {})
+
+    return sorted(merged.values(), key=lambda item: item["identity"])
+
+
+def suggest_mcp_classification(name: str, description: str) -> dict:
+    """Suggest a controlled category and at most three controlled tags; never publish it directly."""
+    text = (name + " " + description).lower()
+    rules = (
+        ("cad-3d", ("cad", "blender", "freecad", "solidworks", "3d", "mesh", "modeling"), ("cad", "3d-modeling")),
+        ("data-databases", ("database", "postgres", "mysql", "sqlite", "sql", "warehouse"), ("database", "data-analysis")),
+        ("developer-tools", ("github", "gitlab", "git", "code", "repository", "issue", "pull request"), ("developer-tools", "git", "issue-tracking")),
+        ("web-search", ("search", "browser", "web", "fetch", "crawl", "internet"), ("search", "browser")),
+        ("knowledge-memory", ("memory", "knowledge", "notion", "wiki", "document"), ("memory", "documents")),
+        ("communication", ("slack", "discord", "email", "telegram", "teams", "messaging"), ("communication", "email")),
+        ("creative-media", ("image", "video", "audio", "music", "design", "media"), ("image-generation", "video-generation")),
+        ("automation", ("automation", "workflow", "orchestration"), ("automation",)),
+        ("ai-agents", ("llm", "model", "agent", "prompt", "inference"), ("ai",)),
+    )
+    for category, keywords, tags in rules:
+        if any(word in text for word in keywords):
+            tags = list(tags)
+            for app_tag in ("blender", "freecad", "solidworks"):
+                if app_tag in text:
+                    tags.append(app_tag)
+            return {"category": category, "tags": [tag for tag in dict.fromkeys(tags) if tag in MCP_FUNCTION_TAGS][:3]}
+    return {"category": "uncategorized", "tags": []}
+
+
 def translate_mcp_descriptions(servers: dict[str, dict], previous_abilities: dict[str, dict]) -> dict[str, str]:
     """Translate changed upstream MCP descriptions, reusing exact-match successes."""
     if not API_KEY:
@@ -220,9 +514,13 @@ def translate_mcp_descriptions(servers: dict[str, dict], previous_abilities: dic
         else:
             pending.append((slug, source_text))
     if pending:
-        print(f"Translating {len(pending)} MCP descriptions with {TRANSLATION_WORKERS} workers")
+        current_batch = pending[:MAX_TRANSLATIONS_PER_SYNC]
+        print(
+            f"Translating {len(current_batch)} of {len(pending)} new MCP descriptions with {TRANSLATION_WORKERS} workers",
+            flush=True,
+        )
         with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="mcp-translation") as executor:
-            for (slug, _), translated in zip(pending, executor.map(translate_to_chinese, (text for _, text in pending))):
+            for (slug, _), translated in zip(current_batch, executor.map(translate_to_chinese, (text for _, text in current_batch))):
                 translations[slug] = translated
     return translations
 
@@ -230,38 +528,118 @@ def translate_mcp_descriptions(servers: dict[str, dict], previous_abilities: dic
 def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_descriptions: dict[str, str]) -> dict:
     slug = mcp["slug"]
     upstream = mcp.get("upstream")
+    discovery = mcp.get("discovery")
     previous = previous_abilities.get(slug, {})
     description = translated_descriptions.get(
         slug,
-        upstream["description_en"] if upstream else mcp["description"],
+        (upstream or discovery or {}).get("description_en") or mcp["description"],
     )
     version = upstream["package_version"] if upstream else mcp.get("version", "1.0.0")
-    mcp_dir = MCPS_DEST_DIR / slug
-    if mcp_dir.is_symlink() or (mcp_dir / "mcp.json").is_symlink():
-        raise ValueError(f"Refusing to write through local symlink: {mcp_dir}")
-    mcp_dir.mkdir(parents=True, exist_ok=True)
-    mcp_json_path = mcp_dir / "mcp.json"
-    mcp_json_path.write_text(json.dumps({
-        "schemaVersion": 1,
-        "slug": slug,
-        "version": version,
-        "server": upstream["server"] if upstream else mcp["server"],
-        "parameters": [],
-    }, indent=2, ensure_ascii=False), encoding="utf-8")
-
-    digest = package_digest(mcp_dir)
+    reviewed = json.loads((REPO_ROOT / "mcp-curation.json").read_text(encoding="utf-8"))
+    metadata = reviewed.get(slug)
+    installable = metadata is not None and bool(metadata.get("installable"))
+    if discovery:
+        installable = False
+        version = discovery.get("version", version)
+    if installable:
+        mcp_dir = MCPS_DEST_DIR / slug
+        if mcp_dir.is_symlink() or (mcp_dir / "mcp.json").is_symlink():
+            raise ValueError(f"Refusing to write through local symlink: {mcp_dir}")
+        mcp_dir.mkdir(parents=True, exist_ok=True)
+        (mcp_dir / "mcp.json").write_text(json.dumps({
+            "schemaVersion": 1,
+            "slug": slug,
+            "version": version,
+            "server": upstream["server"] if upstream else mcp["server"],
+            "parameters": [],
+        }, indent=2, ensure_ascii=False), encoding="utf-8")
+        digest = package_digest(mcp_dir)
+        source_path = f"mcps/{slug}"
+    else:
+        digest = hashlib.sha256(json.dumps(discovery, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+        source_path = "mcps/discovery"
     config_version = previous.get("configVersion", 1)
     if previous and previous.get("source", {}).get("contentSha256") != digest:
         config_version += 1
-    localized = CATEGORIES[mcp["category"]]
-    details = {
-        "zh": {"name": mcp["name"], "description": description, "tags": mcp["tags"]},
+    category = metadata.get("category", "uncategorized") if metadata else "uncategorized"
+    if category not in MCP_MAIN_CATEGORIES:
+        raise ValueError(f"Uncontrolled MCP category for {slug}: {category}")
+    tags = metadata.get("tags", []) if metadata else []
+    if len(tags) > 3 or any(tag not in MCP_FUNCTION_TAGS for tag in tags):
+        raise ValueError(f"Invalid MCP feature tags for {slug}: {tags}")
+    metadata = metadata or {}
+    mcp_metadata = {
+        "runtimeMode": metadata.get("runtimeMode", discovery.get("runtimeMode", "unknown") if discovery else "unknown"),
+        "platforms": metadata.get("platforms", ["unknown"]),
+        "permissionScopes": metadata.get("permissionScopes", ["unknown"]),
+        "authentication": metadata.get("authentication", discovery.get("authentication", "unknown") if discovery else "unknown"),
+        "publisherType": metadata.get("publisherType", "unknown"),
+        "installable": installable,
     }
-    if upstream:
-        details["en"] = {"name": mcp["name"], "description": upstream["description_en"], "tags": mcp["tags"]}
-    source = {"path": f"mcps/{slug}", "contentSha256": digest}
+    category_labels = {
+        "ai-agents": "AI 与 Agent", "automation": "自动化", "cad-3d": "CAD 与 3D",
+        "communication": "沟通协作", "creative-media": "创意与媒体", "data-databases": "数据与数据库",
+        "developer-tools": "开发工具", "knowledge-memory": "知识与记忆", "productivity": "效率工具",
+        "system-tools": "系统工具", "web-search": "网页与搜索", "uncategorized": "未分类",
+    }
+    category_labels_en = {
+        "ai-agents": "AI and agents", "automation": "Automation", "cad-3d": "CAD and 3D",
+        "communication": "Communication", "creative-media": "Creative and media", "data-databases": "Data and databases",
+        "developer-tools": "Developer tools", "knowledge-memory": "Knowledge and memory", "productivity": "Productivity",
+        "system-tools": "System tools", "web-search": "Web and search", "uncategorized": "Uncategorized",
+    }
+    localized = category_labels[category]
+    details = {
+        "zh": {"name": mcp["name"], "description": description, "tags": tags},
+    }
+    if upstream or discovery:
+        details["en"] = {"name": discovery["name_en"] if discovery else mcp["name"], "description": (upstream or discovery)["description_en"], "tags": tags}
+    source = {"path": source_path, "contentSha256": digest}
     if upstream:
         source.update({"repository": MCP_UPSTREAM["repository"], "upstreamPath": upstream["path"]})
+    if discovery:
+        source.update({"repository": safe_https_url(discovery.get("repository", "")), "upstreamSources": discovery.get("sources", []), "registryName": discovery.get("registryName", "")})
+        source["catalogIdentity"] = discovery.get("identity", "")
+        source["catalogAliasIdentity"] = discovery.get("aliasIdentity", "")
+        if discovery.get("registryUpdatedAt"):
+            source["registryUpdatedAt"] = discovery["registryUpdatedAt"]
+        if discovery.get("registryStatus") and discovery["registryStatus"] != "unknown":
+            source["registryStatus"] = discovery["registryStatus"]
+    links = []
+    repository_url = safe_https_url(discovery.get("repository", "")) if discovery else ""
+    if repository_url:
+        links.append({"key": "repository", "value": repository_url})
+    if discovery and discovery.get("registryName"):
+        links.append({"label": "MCP Registry", "value": "https://registry.modelcontextprotocol.io/v0.1/servers/" + urllib.parse.quote(discovery["registryName"], safe="") + "/versions/latest"})
+    if discovery:
+        registry = discovery.get("registry", {})
+        if isinstance(registry, dict):
+            docs_url = registry.get("websiteUrl") or registry.get("documentationUrl")
+            safe_docs_url = safe_https_url(docs_url)
+            if safe_docs_url:
+                links.append({"key": "docs", "value": safe_docs_url})
+            for remote in registry.get("remotes", []):
+                endpoint = safe_https_url(remote.get("url", ""))
+                if endpoint:
+                    links.append({"label": f"MCP endpoint ({remote.get('type', 'remote')})", "value": endpoint})
+            for package in registry.get("packages", []):
+                identifier = package.get("identifier", "")
+                package_type = package.get("registryType", "")
+                if package_type == "npm" and identifier:
+                    package_url = "https://www.npmjs.com/package/" + urllib.parse.quote(identifier, safe="@")
+                elif package_type == "pypi" and identifier:
+                    package_url = "https://pypi.org/project/" + urllib.parse.quote(identifier, safe="")
+                else:
+                    package_url = identifier if isinstance(identifier, str) and identifier.startswith("https://") else ""
+                if package_url:
+                    links.append({"label": f"{package_type or 'MCP'} package", "value": package_url})
+    if discovery and not discovery.get("registry"):
+        preserved_meta = previous.get("detail", {}).get("meta", [])
+        known_links = {(item.get("label"), item.get("key"), item.get("value")) for item in links}
+        links.extend(
+            item for item in preserved_meta
+            if (item.get("label"), item.get("key"), item.get("value")) not in known_links
+        )
     return {
         "type": "mcp",
         "slug": slug,
@@ -269,12 +647,13 @@ def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_
         "description": description,
         "version": version,
         "configVersion": config_version,
-        "license": "MIT",
-        "author": "Model Context Protocol",
-        "category": mcp["category"],
-        "categoryI18n": {"zh": localized, "en": mcp["category"]},
-        "tags": mcp["tags"],
-        "detail": {"i18n": details},
+        "license": mcp.get("license", "MIT" if upstream else ""),
+        "author": mcp.get("author", "Model Context Protocol" if upstream else ""),
+        "category": category,
+        "categoryI18n": {"zh": localized, "en": category_labels_en[category]},
+        "tags": tags,
+        "mcpMetadata": mcp_metadata,
+        "detail": {"i18n": details, "meta": links},
         "source": source,
     }
 
@@ -562,6 +941,7 @@ CURATED_MCPS = [
 ]
 
 def generate_catalog(previous_manifest: dict, temp_root: Path) -> dict:
+    global MCP_CLASSIFICATION_SUGGESTIONS
     abilities = []
     previous_abilities = {
         ability.get("slug"): ability
@@ -585,6 +965,79 @@ def generate_catalog(previous_manifest: dict, temp_root: Path) -> dict:
         record = write_mcp_record(mcp, previous_abilities, translated_mcp_descriptions)
         abilities.append(record)
         print(f"Processed MCP: {record['slug']} ({record['version']})")
+
+    print("\n=== Discovering community and Registry MCP candidates ===")
+    candidates = collect_mcp_candidates(previous_abilities)
+    curated_slugs = set(curated_by_slug)
+    used_slugs = {item.get("slug", "") for item in abilities} | set(previous_abilities)
+    previous_candidate_slugs = {
+        identity: slug
+        for slug, item in previous_abilities.items()
+        if item.get("type") == "mcp"
+        for identity in (item.get("source", {}).get("catalogIdentity"), item.get("source", {}).get("catalogAliasIdentity"))
+        if identity
+    }
+    discovery_by_slug = {}
+    for candidate in candidates:
+        base = slugify(candidate["name_en"]) or slugify(candidate["identity"].split("/")[-1]) or "mcp"
+        if base in curated_slugs:
+            continue
+        previous_slug = previous_candidate_slugs.get(candidate["identity"]) or previous_candidate_slugs.get(candidate.get("aliasIdentity", ""))
+        if previous_slug:
+            used_slugs.discard(previous_slug)
+            slug = previous_slug
+        else:
+            slug = base if base not in used_slugs else f"{base[:52].rstrip('-')}-{hashlib.sha1(candidate['identity'].encode()).hexdigest()[:10]}"
+            slug = slug[:64].rstrip("-")
+            if slug in used_slugs:
+                slug = unique_slug(base[:50].rstrip("-"), candidate["identity"], used_slugs)
+        used_slugs.add(slug)
+        discovery = {
+            **candidate,
+            "slug": slug,
+            "description_en": candidate["description_en"] or f"MCP server listed by {', '.join(candidate['sources'])}.",
+        }
+        discovery_by_slug[slug] = discovery
+    print(f"Merged discovery feeds into {len(discovery_by_slug)} candidate MCP entries")
+    translated_discoveries = translate_mcp_descriptions(discovery_by_slug, previous_abilities)
+    for slug, discovery in discovery_by_slug.items():
+        record = write_mcp_record({
+            "slug": slug,
+            "name": discovery["name_en"],
+            "description": discovery["description_en"],
+            "license": discovery.get("license", ""),
+            "author": discovery.get("author", ""),
+            "discovery": discovery,
+        }, previous_abilities, translated_discoveries)
+        abilities.append(record)
+
+    suggestions = []
+    curated_metadata = json.loads((REPO_ROOT / "mcp-curation.json").read_text(encoding="utf-8"))
+    for item in abilities:
+        classification = curated_metadata.get(item.get("slug", ""), {})
+        category_confirmed = classification.get("category") in MCP_MAIN_CATEGORIES
+        tags_confirmed = "tags" in classification
+        if item.get("type") != "mcp" or (category_confirmed and tags_confirmed):
+            continue
+        source = item.get("source", {})
+        english = item.get("detail", {}).get("i18n", {}).get("en", {})
+        proposed = suggest_mcp_classification(english.get("name", item.get("name", "")), english.get("description", item.get("description", "")))
+        if not category_confirmed and not tags_confirmed and proposed["category"] == "uncategorized" and not proposed["tags"]:
+            continue
+        suggestions.append({
+            "slug": item["slug"],
+            "identity": source.get("registryName") or source.get("repository") or item["slug"],
+            "name": item.get("name", ""),
+            "sources": source.get("upstreamSources", []),
+            "currentCategory": item.get("category", "uncategorized"),
+            "currentTags": item.get("tags", []),
+            "suggestedCategory": proposed["category"] if not category_confirmed else None,
+            "suggestedTags": proposed["tags"] if not tags_confirmed else None,
+            "categoryRequiresMaintainerApproval": not category_confirmed,
+            "tagsRequireMaintainerApproval": not tags_confirmed,
+        })
+    MCP_CLASSIFICATION_SUGGESTIONS = suggestions
+    print(f"Wrote {len(suggestions)} classification suggestions for maintainer review")
 
     # 2. Collect portable skills from curated, license-declared upstreams.
     print("\n=== Processing Skills from curated upstream repositories ===")
@@ -685,6 +1138,12 @@ def main():
                 staged = temp_root / f"manifest-{index}.json"
                 staged.write_text(serialized, encoding="utf-8")
                 replacements.append((staged, REPO_ROOT / relative_path))
+            suggestion_file = temp_root / "mcp-classification-suggestions.json"
+            suggestion_file.write_text(
+                json.dumps({"items": MCP_CLASSIFICATION_SUGGESTIONS}, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            replacements.append((suggestion_file, REPO_ROOT / ".567agent" / "mcp-classification-suggestions.json"))
             publish_staged_paths(replacements, temp_root / "backups")
         finally:
             SKILLS_DEST_DIR, MCPS_DEST_DIR = skills_destination, mcps_destination
