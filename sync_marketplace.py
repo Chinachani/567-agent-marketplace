@@ -46,7 +46,7 @@ RAW_BASE_URL = (os.environ.get("API_567_BASE_URL") or "https://api.567.wiki/v1")
 COMPLETIONS_URL = f"{RAW_BASE_URL}/chat/completions" if not RAW_BASE_URL.endswith("/chat/completions") else RAW_BASE_URL
 MODEL = os.environ.get("API_567_MODEL") or "gemini-3.8-flash-high"
 try:
-    TRANSLATION_WORKERS = min(16, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "6"))))
+    TRANSLATION_WORKERS = min(64, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "6"))))
 except ValueError:
     TRANSLATION_WORKERS = 6
 try:
