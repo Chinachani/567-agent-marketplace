@@ -1,6 +1,6 @@
 ---
 name: "qdrant-deployment-options"
-description: "Guides Qdrant deployment selection. Use when someone asks 'how to deploy Qdrant', 'Docker vs Cloud', 'local mode', 'embedded Qdrant', 'Qdrant EDGE', 'which deployment option', 'self-hosted vs cloud', or 'need lowest latency deployment'. Also use when choosing between deployment types for a new project."
+description: "指导 Qdrant 部署方案选型。适用于咨询“如何部署 Qdrant”、“Docker 还是云端”、“本地模式”、“嵌入式 Qdrant”、“Qdrant EDGE”、“自托管对比云服务”或追求最低延迟部署等场景；亦可用于新项目技术选型时权衡与决定部署架构。"
 version: "1.0.0"
 license: "MIT"
 ---

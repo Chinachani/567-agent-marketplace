@@ -1,6 +1,6 @@
 ---
 name: "web-design-reviewer"
-description: "This skill enables visual inspection of websites running locally or remotely to identify and fix design issues. Triggers on requests like \"review website design\", \"check the UI\", \"fix the layout\", \"find design problems\". Detects issues with responsive design, accessibility, visual consistency, and layout breakage, then performs fixes at the source code level."
+description: "审查本地或远程运行的网站视觉效果，精准定位并修复设计缺陷。支持响应“审查网站设计”、“检查UI”、“修复布局”、“排查设计问题”等指令。可全面检测响应式适配、无障碍访问、视觉一致性及布局错乱等问题，并直接在源代码层面进行修复。"
 version: "1.0.0"
 license: "MIT"
 ---

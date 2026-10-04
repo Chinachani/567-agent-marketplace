@@ -1,6 +1,6 @@
 ---
 name: "gtm-ai-gtm"
-description: "Go-to-market strategy for AI products. Use when positioning AI products, handling \"who is responsible when it breaks\" objections, pricing variable-cost AI, choosing between copilot/agent/teammate framing, or selling autonomous tools into enterprises."
+description: "AI产品商业化上市（GTM）策略。适用于规划AI产品定位、化解“出故障谁担责”的销售异议、制定浮动成本定价模型、权衡Copilot/Agent/数字员工等定位框架，以及向企业客户推广自主型AI工具。"
 version: "1.0.0"
 license: "MIT"
 metadata:

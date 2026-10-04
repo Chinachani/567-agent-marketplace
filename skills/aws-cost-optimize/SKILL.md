@@ -1,6 +1,6 @@
 ---
 name: "aws-cost-optimize"
-description: "Analyze AWS resources used in the app (IaC files and/or resources in a target account/region) and optimize costs - creating GitHub issues for identified optimizations."
+description: "分析应用所使用的 AWS 资源（包括 IaC 文件及目标账号/区域中的资源）并优化成本，针对发现的优化项自动创建 GitHub Issue。"
 version: "1.0.0"
 license: "MIT"
 ---

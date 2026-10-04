@@ -1,6 +1,6 @@
 ---
 name: "gitmoji"
-description: "Generates commit messages following the gitmoji convention (https://gitmoji.dev) — picks the right emoji for the intent of the change and writes a well-formed message. Use when asked to \"write a gitmoji commit\", \"add an emoji to my commit message\", \"which gitmoji should I use\", \"gitmoji this change\", or when a project uses gitmoji-style commit messages. Works from a git diff, staged changes, or a plain description of the change. Generates the message only — does not run git commands."
+description: "遵循 Gitmoji 规范（https://gitmoji.dev）生成提交信息：根据代码变更意图匹配精准的 emoji，并撰写格式规范的 commit message。适用于要求“编写 gitmoji 提交”、“给提交信息加个 emoji”、“该用哪个 gitmoji”、“按 gitmoji 规范提交变更”，或项目本身采用 Gitmoji 规范的场景。支持基于 git diff、暂存区变更或纯文本变更说明进行生成。仅生成提交文本，不执行任何 git 命令。"
 version: "1.0.0"
 license: "MIT"
 ---

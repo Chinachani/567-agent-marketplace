@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-agents-persistent-java"
-description: "Azure AI Agents Persistent SDK for Java. Low-level SDK for creating and managing AI agents with threads, messages, runs, and tools. Triggers: \"PersistentAgentsClient\", \"persistent agents java\", \"agent threads java\", \"agent runs java\", \"streaming agents java\"."
+description: "适用于 Java 的 Azure AI Agents 持久化 SDK。提供底层接口，用于构建和管理包含会话线程、消息、运行控制及工具调用的 AI 智能体。触发词：\"PersistentAgentsClient\"、\"persistent agents java\"、\"agent threads java\"、\"agent runs java\"、\"streaming agents java\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

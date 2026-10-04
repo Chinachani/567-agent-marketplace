@@ -1,6 +1,6 @@
 ---
 name: "pester-should-migration"
-description: "Experimental (preview) Pester skill for migrating classic Should -Be (v5) assertion syntax to the new Should-* (v6) assertions (note the hyphen, no space), e.g. `Should -Be` -> `Should-Be`, `Should -Not -Be` -> `Should-NotBe`. Tracks Pester 6, which is still a release candidate, so this guidance may change; verified against Pester 6.0.0-rc2. Use when converting Pester v5 assertions to Pester v6 Should-* operators, modernizing a Pester test suite, or when a user asks to migrate, convert, or rewrite `Should -...` calls in .Tests.ps1 / PowerShell files."
+description: "实验性（预览版）Pester 迁移技能。用于将经典 v5 的 `Should -Be` 断言语法升级为 v6 全新的连字符语法 `Should-*`（注意包含连字符且无空格，如 `Should -Be` 转换为 `Should-Be`、`Should -Not -Be` 转换为 `Should-NotBe`）。紧跟候选发布阶段的 Pester 6 规范（已基于 Pester 6.0.0-rc2 验证，后续可能随版本调整）。适用于将 Pester 断言从 v5 升级至 v6、现代化改造测试套件，或在 `.Tests.ps1` 及 PowerShell 脚本中批量转换与重写旧版 `Should -...` 调用。"
 version: "1.0.0"
 license: "MIT"
 argument-hint: "File, folder, or test suite to migrate"

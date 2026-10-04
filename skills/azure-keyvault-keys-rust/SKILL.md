@@ -1,6 +1,6 @@
 ---
 name: "azure-keyvault-keys-rust"
-description: "Azure Key Vault Keys library for Rust. Create, manage, and use cryptographic keys including RSA, EC, and HSM-protected keys. Triggers: \"keyvault keys rust\", \"KeyClient rust\", \"create key rust\", \"encrypt rust\", \"wrap key rust\", \"sign rust\"."
+description: "面向 Rust 的 Azure Key Vault Keys 客户端库。用于创建、管理和使用各类加密密钥（包括 RSA、EC 及 HSM 保护密钥），支持加密、密钥包装和数字签名等操作。触发词：\"keyvault keys rust\"、\"KeyClient rust\"、\"create key rust\"、\"encrypt rust\"、\"wrap key rust\"、\"sign rust\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

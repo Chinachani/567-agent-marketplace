@@ -1,6 +1,6 @@
 ---
 name: "airunway-aks-setup"
-description: "Set up AI Runway on AKS — from bare cluster to running model. Covers cluster verification, controller install, GPU assessment, provider setup, and first deployment. WHEN: \"setup AI Runway\", \"onboard AKS cluster\", \"install AI Runway\", \"airunway setup\", \"deploy model to AKS\", \"GPU inference on AKS\", \"KAITO setup on AKS\", \"run LLM on AKS\", \"vLLM on AKS\", \"set up model serving on AKS\", \"AI Runway controller\"."
+description: "在 AKS 上配置 AI Runway，实现从空白集群到模型运行的全流程搭建。涵盖集群验证、控制器安装、GPU 评估、提供商配置及首次部署。适用场景：\"setup AI Runway\", \"onboard AKS cluster\", \"install AI Runway\", \"airunway setup\", \"deploy model to AKS\", \"GPU inference on AKS\", \"KAITO setup on AKS\", \"run LLM on AKS\", \"vLLM on AKS\", \"set up model serving on AKS\", \"AI Runway controller\"。"
 version: "1.1.1"
 license: "MIT"
 metadata:

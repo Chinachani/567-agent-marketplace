@@ -1,6 +1,6 @@
 ---
 name: "github-actions-hardening"
-description: "Security hardening reviewer for GitHub Actions workflow files (.github/workflows/*.yml). Reasons about the Actions threat model that pattern matchers and general code linters miss — untrusted-input script injection, privileged triggers running fork code, mutable action references, and over-scoped tokens. Use this skill when asked to review, audit, harden, or secure a GitHub Actions workflow, when writing a new workflow, or for any request like \"is this workflow safe?\", \"review my CI for security issues\", \"why is pull_request_target dangerous here?\", \"pin my actions\", or \"lock down GITHUB_TOKEN permissions\". Covers script injection via ${{ }} interpolation, pull_request_target / workflow_run privilege escalation, SHA-pinning of third-party actions, least-privilege permissions, GITHUB_ENV/GITHUB_OUTPUT injection, secret exposure, OIDC over long-lived credentials, and self-hosted runner exposure on public repositories."
+description: "专用于 GitHub Actions 工作流（.github/workflows/*.yml）的安全审查与加固。能够深入识别常规代码检查工具与模式匹配所遗漏的威胁模型，防范不可信输入引发的脚本注入、特权触发器执行 Fork 恶意代码、非固定 Action 引用以及 Token 权限过大等风险。\n\n适用于审查、审计、加固现有 CI/CD 工作流或编写安全的新工作流，可精准响应“此工作流是否安全？”、“排查 CI 安全漏洞”、“为什么 pull_request_target 存在风险？”、“锁定 Action 的 SHA 版本”或“收紧 GITHUB_TOKEN 权限”等需求。\n\n核心覆盖范围包括：${{ }} 表达式脚本注入、pull_request_target / workflow_run 提权隐患、第三方 Action 的 SHA 哈希锁定、最小权限原则配置、GITHUB_ENV / GITHUB_OUTPUT 注入、敏感凭据泄露防护、优先采用 OIDC 替代长期凭据，以及公开仓库自托管 Runner 的安全暴露风险防范。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "desk-open"
-description: "Create and open a new desk in the workshop. Sets up the folder structure, initial journal, and desk identity so the next session that sits down finds the trail."
+description: "在工作区创建并打开新工作台。初始化目录结构、起始日志与工作台标识，让后续会话接手时有迹可循。"
 version: "1.0.0"
 license: "MIT"
 ---

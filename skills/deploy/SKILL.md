@@ -1,6 +1,6 @@
 ---
 name: "deploy"
-description: "Deploy — IaC Execution & Health Verification"
+description: "部署：执行 IaC 与健康验证"
 version: "1.0.0"
 license: "MIT"
 ---

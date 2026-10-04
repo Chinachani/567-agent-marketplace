@@ -1,6 +1,6 @@
 ---
 name: "onboard-context-matic"
-description: "Interactive onboarding tour for the context-matic MCP server. Walks the user through what the server does, shows all available APIs, lets them pick one to explore, explains it in their project language, demonstrates model_search and endpoint_search live, and ends with a menu of things the user can ask the agent to do. USE FOR: first-time setup; \"what can this MCP do?\"; \"show me the available APIs\"; \"onboard me\"; \"how do I use the context-matic server\"; \"give me a tour\". DO NOT USE FOR: actually integrating an API end-to-end (use integrate-context-matic instead)."
+description: "提供 context-matic MCP 服务器的交互式入门引导。带你快速了解服务器功能、浏览全部可用 API，支持挑选接口以项目语言深入解读，实时演示 model_search 和 endpoint_search，并提供后续操作选项菜单。适用于：初次配置、询问“这个 MCP 能做什么？”、“显示可用 API”、“带我上手”或“介绍一下”。不适用于：端到端 API 完整集成（请改用 integrate-context-matic）。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "azure-deployment-preflight"
-description: "Performs comprehensive preflight validation of Bicep deployments to Azure, including template syntax validation, what-if analysis, and permission checks. Use this skill before any deployment to Azure to preview changes, identify potential issues, and ensure the deployment will succeed. Activate when users mention deploying to Azure, validating Bicep files, checking deployment permissions, previewing infrastructure changes, running what-if, or preparing for azd provision."
+description: "在向 Azure 部署 Bicep 前执行全面预检，涵盖模板语法验证、What-If 差异分析与权限检查。适用于在部署前预览资源变更、排查潜在隐患并确保上线成功。当用户提及部署至 Azure、验证 Bicep 文件、检查部署权限、预览基础设施变更、执行 what-if 分析或准备 azd provision 时调用此技能。"
 version: "1.0.0"
 license: "MIT"
 ---

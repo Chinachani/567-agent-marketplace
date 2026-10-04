@@ -1,6 +1,6 @@
 ---
 name: "copilot-sdk-github"
-description: "Build agentic applications with GitHub Copilot SDK. Use when embedding AI agents in apps, creating custom tools, implementing streaming responses, managing sessions, connecting to MCP servers, or creating custom agents. Triggers on Copilot SDK, GitHub SDK, agentic app, embed Copilot, programmable agent, MCP server, custom agent."
+description: "使用 GitHub Copilot SDK 构建智能体应用。适用于在应用中集成 AI Agent、创建自定义工具、实现流式响应、管理会话、连接 MCP 服务器或打造专属智能体。触发词包括 Copilot SDK、GitHub SDK、agentic app、embed Copilot、programmable agent、MCP server、custom agent。"
 version: "1.0.0"
 license: "MIT"
 ---

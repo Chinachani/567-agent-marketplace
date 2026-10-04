@@ -1,6 +1,6 @@
 ---
 name: "power-bi-dax-optimization"
-description: "Comprehensive Power BI DAX formula optimization prompt for improving performance, readability, and maintainability of DAX calculations."
+description: "全面优化 Power BI DAX 公式，显著提升计算性能、代码可读性与可维护性。"
 version: "1.0.0"
 license: "MIT"
 ---

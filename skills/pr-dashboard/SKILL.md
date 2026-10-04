@@ -1,6 +1,6 @@
 ---
 name: "pr-dashboard"
-description: "Open a GitHub PR dashboard in the browser. Use when the user asks to see their pull requests, open the PR dashboard, show PRs for a date range, or check PR status. Trigger phrases include \"show my PRs\", \"open PR dashboard\", \"pull request dashboard\"."
+description: "在浏览器中打开 GitHub PR 仪表盘。当用户请求查看个人拉取请求、打开 PR 仪表盘、按日期范围筛选 PR 或检查 PR 状态时使用。触发词包括“查看我的 PR”、“打开 PR 仪表盘”、“拉取请求仪表盘”等。"
 version: "1.0.0"
 license: "MIT"
 ---

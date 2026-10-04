@@ -1,6 +1,6 @@
 ---
 name: "create-github-issues-feature-from-implementation-plan"
-description: "Create GitHub Issues from implementation plan phases using feature_request.yml or chore_request.yml templates."
+description: "基于实施计划各阶段，使用 feature_request.yml 或 chore_request.yml 模板创建 GitHub Issue。"
 version: "1.0.0"
 license: "MIT"
 ---

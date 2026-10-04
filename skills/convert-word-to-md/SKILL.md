@@ -1,6 +1,6 @@
 ---
 name: "convert-word-to-md"
-description: "Converts Word (.docx) documents into Markdown so their contents can be accurately analyzed, summarized, searched, or extracted from. Use this skill whenever the user shares, references, or asks about a .docx file — even if they don't say \"convert\" or \"markdown\" explicitly. This includes requests to \"read\", \"summarize\", \"review\", \"extract data from\", \"compare\", or \"analyze\" a Word document, resume, report, contract, or proposal. Always run the bundled conversion script to produce Markdown first; do not attempt to parse .docx content directly or write ad-hoc conversion code. Also use this skill for batch requests involving a whole folder of Word documents. IMPORTANT: When the user references a folder or set of documents containing multiple file types (.pdf, .docx, .xlsx), invoke ALL three sibling skills — convert-pdf-to-md, convert-word-to-md, and convert-excel-to-md — so no file type is silently skipped."
+description: "将 Word (.docx) 文档转换为 Markdown 格式，以便精准执行内容分析、总结、检索及数据提取。只要用户提供、引用或针对 .docx 文件提出需求（如“阅读”、“总结”、“审查”、“提取数据”、“比对”或“分析”简历、报告、合同、方案等），即使未明确说明“转换”或“Markdown”，均须调用本技能。切勿直接解析 .docx 或临时编写转换代码，务必优先运行内置脚本生成 Markdown。同时支持整个文件夹的批量转换。重要规则：当处理包含多种格式（.pdf、.docx、.xlsx）的文件夹或文档集合时，必须协同调用三个配套技能（convert-pdf-to-md、convert-word-to-md 与 convert-excel-to-md），确保不遗漏任何文件类型。"
 version: "1.0.0"
 license: "MIT"
 ---

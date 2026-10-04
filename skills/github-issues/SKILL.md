@@ -1,6 +1,6 @@
 ---
 name: "github-issues"
-description: "Create, update, and manage GitHub issues using MCP tools. Use this skill when users want to create bug reports, feature requests, or task issues, update existing issues, add labels/assignees/milestones, manage repository labels, set issue fields (dates, priority, custom fields), set issue types, manage issue workflows, link issues, add dependencies, or track blocked-by/blocking relationships. Triggers on requests like \"create an issue\", \"file a bug\", \"request a feature\", \"update issue X\", \"set the priority\", \"set the start date\", \"create a label\", \"rename a label\", \"list repo labels\", \"link issues\", \"add dependency\", \"blocked by\", \"blocking\", or any GitHub issue management task."
+description: "通过 MCP 工具创建、更新和管理 GitHub Issue。适用于新建 Bug 报告、功能需求或任务 Issue，更新现有 Issue，配置标签/负责人/里程碑，管理仓库标签，设置 Issue 字段（日期、优先级、自定义字段）与类型，管理工作流，关联 Issue，添加依赖项，以及跟踪阻塞与被阻塞关系。当用户发出“创建 issue”、“提交 bug”、“提需求”、“更新 issue X”、“设置优先级”、“设置开始日期”、“创建标签”、“重命名标签”、“查看仓库标签”、“关联 issue”、“添加依赖”、“被……阻塞”、“阻塞……”等指令，或执行任何 GitHub Issue 管理操作时触发。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "azure-reliability"
-description: "Assess and improve the reliability posture of PaaS Applications (Azure Functions and Azure App Service). Scans deployed resources for zone redundancy, ZRS storage, health probes, and multi-region failover. Presents a feature-pivoted checklist, then drives staged remediation (CLI or IaC patches) end-to-end with user confirmation. WHEN: \"assess reliability\", \"check reliability\", \"zone redundant\", \"multi-region failover\", \"high availability\", \"disaster recovery\", \"single points of failure\", \"reliability posture\", \"resiliency\"."
+description: "评估并优化 PaaS 应用（Azure Functions 和 Azure App Service）的可靠性态势。深度扫描已部署资源的可用区冗余、ZRS 存储、健康探测及多区域故障转移配置；生成专项检查清单，并在用户确认后，通过 CLI 或 IaC 补丁端到端推进分阶段修复。适用场景：“评估可靠性”、“检查可靠性”、“可用区冗余”、“多区域故障转移”、“高可用”、“灾难恢复”、“单点故障”、“可靠性态势”、“系统弹性”。"
 version: "1.1.2"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "dataverse-python-production-code"
-description: "Generate production-ready Python code using Dataverse SDK with error handling, optimization, and best practices"
+description: "基于 Dataverse SDK 构建生产级 Python 代码，集成完善的异常处理与性能优化，严格遵循最佳实践"
 version: "1.0.0"
 license: "MIT"
 ---

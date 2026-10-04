@@ -1,6 +1,6 @@
 ---
 name: "drawio"
-description: "Generate draw.io diagrams as .drawio files and export to PNG/SVG/PDF with embedded XML"
+description: "生成 draw.io 图表文件（.drawio），并导出为内嵌 XML 的 PNG、SVG 或 PDF 格式"
 version: "1.0.0"
 license: "MIT"
 ---

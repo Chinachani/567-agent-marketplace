@@ -1,6 +1,6 @@
 ---
 name: "from-the-other-side-wiggins"
-description: "Narrative and synthesis profile for Wiggins: framing, explanation, and audience-aware communication patterns for Ember sessions."
+description: "提炼 Wiggins 的叙事与综合能力：在 Ember 会议中精准构建框架、清晰阐释内容，并践行契合受众的高效沟通范式。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "brag-sheet"
-description: "Turn vague \"what did I do?\" into evidence-backed impact statements for performance reviews, self-reviews, promotion packets, and weekly updates. Uniquely mines Copilot CLI session logs to reconstruct forgotten work, plus git commits and GitHub PRs. Enforces a 3-part impact contract (action → result → evidence). Works standalone with zero dependencies. Trigger for: \"brag\", \"log work\", \"what did I do\", \"backfill my work history\", \"performance review\", \"self-review\", \"self assessment\", \"write impact statement\", \"review prep\", \"promo packet\", \"promotion case\", \"weekly update\", \"status report\", \"accomplishments\", \"what did I ship\", \"I forgot to log my work\", \"summarize my work\", \"track my wins\", \"what should I highlight\", \"end of half\", \"career growth\", \"work journal\", or any request to document, summarize, or organize work accomplishments."
+description: "将模糊的工作碎片转化为有据可查的高影响力陈述，全面赋能绩效评估、自评复盘、晋升答辩及工作周报。深度挖掘 Copilot CLI 会话日志、Git 提交记录与 GitHub PR，精准重构成被遗忘的工作细节；严格执行“行动 → 结果 → 证据”三要素成果模型，零依赖独立运行。适用于快速生成工作总结、绩效自评、晋升材料、撰写周报，或任何需要梳理、沉淀与量化工作产出的场景。"
 version: "1.1"
 license: "MIT"
 compatibility: 'Cross-platform (Windows, macOS, Linux). Works with any GitHub Copilot CLI session. Optional: git, gh CLI.'

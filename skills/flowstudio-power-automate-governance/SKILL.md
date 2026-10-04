@@ -1,6 +1,6 @@
 ---
 name: "flowstudio-power-automate-governance"
-description: "Govern Power Automate flows and Power Apps at scale using the FlowStudio MCP cached store. Classify flows by business impact, detect orphaned resources, audit connector usage, enforce compliance standards, manage notification rules, and compute governance scores — all without Dataverse or the CoE Starter Kit. Load this skill when asked to: tag or classify flows, set business impact, assign ownership, detect orphans, audit connectors, check compliance, compute archive scores, manage notification rules, run a governance review, generate a compliance report, offboard a maker, or any task that involves writing governance metadata to flows. Requires a FlowStudio for Teams or MCP Pro+ subscription — see https://mcp.flowstudio.app"
+description: "基于 FlowStudio MCP 缓存存储，规模化治理与管控 Power Automate 流及 Power Apps。完全无需依赖 Dataverse 或 CoE Starter Kit，即可根据业务影响对流进行分类、识别孤立资源、审计连接器使用、执行合规标准、管理通知规则并计算治理评分。\n\n当需要执行以下任务时调用此技能：标记或分类流、设定业务影响级别、分配所有权、排查孤立/无主资源、审计连接器、检查合规状态、计算归档评分、管理通知规则、执行治理审查、生成合规报告、办理开发者离职资源交接，或任何向流中写入治理元数据的相关操作。\n\n需具备 FlowStudio for Teams 或 MCP Pro+ 订阅——详见 https://mcp.flowstudio.app"
 version: "1.0.0"
 license: "MIT"
 ---

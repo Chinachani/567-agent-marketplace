@@ -1,6 +1,6 @@
 ---
 name: "security-and-hardening"
-description: "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved."
+description: "全面加固代码以防范安全漏洞。适用于审查输入处理漏洞，处理用户输入、身份认证、数据存储或外部集成，以及依据 OWASP Top 10 评估登录流程安全性。在开发接收不可信数据、管理用户会话或对接第三方服务的功能时使用；在排查依赖项已知漏洞、评估包管理器安全报告或审查新依赖的供应链风险时使用；在处理个人敏感数据或应对 GDPR、CCPA 等隐私合规要求时使用。"
 version: "1.0.0"
 license: "MIT"
 ---

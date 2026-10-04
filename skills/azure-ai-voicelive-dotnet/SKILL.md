@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-voicelive-dotnet"
-description: "Azure AI Voice Live SDK for .NET. Build real-time voice AI applications with bidirectional WebSocket communication. Use for voice assistants, conversational AI, real-time speech-to-speech, and voice-enabled chatbots. Triggers: \"voice live\", \"real-time voice\", \"VoiceLiveClient\", \"VoiceLiveSession\", \"voice assistant .NET\", \"bidirectional audio\", \"speech-to-speech\"."
+description: "面向 .NET 的 Azure AI Voice Live SDK。通过双向 WebSocket 通信构建实时语音 AI 应用，适用于开发语音助手、对话式 AI、实时端到端语音对话及语音聊天机器人。触发词：\"voice live\"、\"real-time voice\"、\"VoiceLiveClient\"、\"VoiceLiveSession\"、\"voice assistant .NET\"、\"bidirectional audio\"、\"speech-to-speech\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

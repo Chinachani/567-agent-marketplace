@@ -1,6 +1,6 @@
 ---
 name: "napkin"
-description: "Visual whiteboard collaboration for Copilot CLI. Creates an interactive whiteboard that opens in your browser — draw, sketch, add sticky notes, then share everything back with Copilot. Copilot sees your drawings and text, and responds with analysis, suggestions, and ideas."
+description: "为 Copilot CLI 打造的可视化白板协作工具。在浏览器中即时生成交互式白板——随心绘图、勾勒草图、添加便签，并将所有内容同步回传给 Copilot。Copilot 能直观识别你的图文内容，实时提供深入分析、优化建议与创意灵感。"
 version: "1.0.0"
 license: "MIT"
 ---

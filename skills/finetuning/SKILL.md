@@ -1,6 +1,6 @@
 ---
 name: "finetuning"
-description: "Fine-tune models on Microsoft Foundry using SFT (supervised), DPO (preference), or RFT (reinforcement with graders). Covers dataset preparation, training job submission, deployment, and evaluation. USE FOR: fine-tune, SFT, DPO, RFT, training data, grader, distillation, fine-tuned model, training job, large file upload, calibrate grader, deploy fine-tuned model, evaluate fine-tuned model. DO NOT USE FOR: general model deployment without fine-tuning (use deploy-model), agent creation (use agents), prompt optimization without training (use prompt-optimizer)."
+description: "在 Microsoft Foundry 上通过 SFT（监督微调）、DPO（偏好学习）或 RFT（基于评分器的强化学习）对模型进行微调。涵盖数据集准备、训练任务提交、部署及评估全流程。\n\n适用场景：模型微调、SFT、DPO、RFT、准备训练数据、评分器、模型蒸馏、微调模型、训练任务、大文件上传、校准评分器、部署微调模型、评估微调模型。\n不适用场景：无需微调的常规模型部署（请使用 deploy-model）、创建智能体（请使用 agents）、无需训练的提示词优化（请使用 prompt-optimizer）。"
 version: "0.0.0-placeholder"
 license: "MIT"
 metadata:

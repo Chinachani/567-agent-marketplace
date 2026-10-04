@@ -1,6 +1,6 @@
 ---
 name: "qdrant-model-migration"
-description: "Guides embedding model migration in Qdrant without downtime. Use when someone asks 'how to switch embedding models', 'how to migrate vectors', 'how to update to a new model', 'zero-downtime model change', 'how to re-embed my data', or 'can I use two models at once'. Also use when upgrading model dimensions, switching providers, or A/B testing models."
+description: "指导在 Qdrant 中实现嵌入模型的零停机迁移。适用于咨询“如何切换嵌入模型”、“如何迁移向量”、“如何更新至新模型”、“零停机模型更换”、“如何重新向量化数据”或“能否同时使用两种模型”等场景；亦适用于升级模型维度、更换模型服务商或开展模型 A/B 测试。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "qdrant-memory-usage-optimization"
-description: "Diagnoses and reduces Qdrant memory usage. Use when someone reports 'memory too high', 'RAM keeps growing', 'node crashed', 'out of memory', 'memory leak', or asks 'why is memory usage so high?', 'how to reduce RAM?'. Also use when memory doesn't match calculations, quantization didn't help, or nodes crash during recovery."
+description: "诊断并优化 Qdrant 内存占用。适用于排查“内存过高”、“内存持续上涨”、“节点崩溃”、“OOM/内存溢出”、“内存泄漏”，或解答“为什么内存占用这么高？”、“如何降低内存？”等疑问。在实际内存与预估不符、开启量化未见改善或节点在恢复过程中崩溃等场景下同样适用。"
 version: "1.0.0"
 license: "MIT"
 ---

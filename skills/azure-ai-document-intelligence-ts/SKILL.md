@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-document-intelligence-ts"
-description: "Extract text, tables, and structured data from documents using Azure Document Intelligence (@azure-rest/ai-document-intelligence). Use when processing invoices, receipts, IDs, forms, or building custom document models."
+description: "基于 Azure Document Intelligence (@azure-rest/ai-document-intelligence) 从文档中提取文本、表格与结构化数据。适用于处理发票、收据、证件、表单或构建自定义文档分析模型的场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

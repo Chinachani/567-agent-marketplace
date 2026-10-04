@@ -1,6 +1,6 @@
 ---
 name: "ui-screenshots"
-description: "Capture screenshots of web apps during development using Playwright and PIL. Supports full-page captures, interactive states, and an iterate-on-crop workflow that avoids slow re-screenshots."
+description: "使用 Playwright 和 PIL 截取开发过程中的 Web 应用屏幕。支持整页捕获、交互状态记录，并通过基于裁剪的迭代工作流避免耗时的重复截图。"
 version: "1.0.0"
 license: "MIT"
 ---

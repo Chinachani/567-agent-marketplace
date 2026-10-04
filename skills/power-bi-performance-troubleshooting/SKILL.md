@@ -1,6 +1,6 @@
 ---
 name: "power-bi-performance-troubleshooting"
-description: "Systematic Power BI performance troubleshooting prompt for identifying, diagnosing, and resolving performance issues in Power BI models, reports, and queries."
+description: "系统化排查与优化Power BI性能，精准识别、深度诊断并解决模型、报表及查询中的性能瓶颈。"
 version: "1.0.0"
 license: "MIT"
 ---

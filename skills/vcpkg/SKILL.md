@@ -1,6 +1,6 @@
 ---
 name: "vcpkg"
-description: "Guide for setting up vcpkg in C++ projects, managing dependency versions, and cross-compiling. Covers manifest initialization, CMake and Visual Studio integration, classic-to-manifest migration, version pinning, baselines, overrides, triplets, and cross-compilation. Use when a user is working with vcpkg project setup, installation, version management, or cross-platform builds. For specialized tasks, additional references cover custom registries and overlay ports (references/registries.md), CI/CD and binary caching (references/ci.md), and troubleshooting and dependency lifecycle (references/troubleshooting.md)."
+description: "指导在 C++ 项目中配置 vcpkg、管理依赖版本及执行交叉编译。涵盖清单（manifest）初始化、CMake 与 Visual Studio 集成、经典模式向清单模式迁移、版本锁定、基线（baselines）、版本覆盖（overrides）、三元组（triplets）配置等核心功能。适用于项目初始化、依赖安装、版本控制或跨平台构建等场景。专项进阶任务可参考自定义注册表与覆盖端口（references/registries.md）、CI/CD 与二进制缓存（references/ci.md），以及故障排查与依赖生命周期管理（references/troubleshooting.md）。"
 version: "1.0.0"
 license: "MIT"
 ---

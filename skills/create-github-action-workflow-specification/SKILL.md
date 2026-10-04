@@ -1,6 +1,6 @@
 ---
 name: "create-github-action-workflow-specification"
-description: "Create a formal specification for an existing GitHub Actions CI/CD workflow, optimized for AI consumption and workflow maintenance."
+description: "为现有的 GitHub Actions CI/CD 工作流生成标准化规范，针对 AI 解析与工作流维护进行深度优化。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "copilot-usage-metrics"
-description: "Retrieve and display GitHub Copilot usage metrics for organizations and enterprises using the GitHub CLI and REST API."
+description: "通过 GitHub CLI 和 REST API 查询并展示组织与企业的 GitHub Copilot 使用指标"
 version: "1.0.0"
 license: "MIT"
 ---

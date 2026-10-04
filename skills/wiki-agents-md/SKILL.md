@@ -1,6 +1,6 @@
 ---
 name: "wiki-agents-md"
-description: "Generates AGENTS.md files for repository folders — coding agent context files with build commands, testing instructions, code style, project structure, and boundaries. Only generates where AGENTS.md is missing."
+description: "为仓库目录生成缺失的 AGENTS.md 文件，提供包含构建命令、测试说明、代码规范、项目结构和开发边界的编程智能体上下文。"
 version: "1.0.0"
 license: "MIT"
 metadata:

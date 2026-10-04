@@ -1,6 +1,6 @@
 ---
 name: "containerize-aspnetcore"
-description: "Containerize an ASP.NET Core project by creating Dockerfile and .dockerfile files customized for the project."
+description: "通过创建定制的 Dockerfile 和 .dockerfile 文件，将 ASP.NET Core 项目容器化。"
 version: "1.0.0"
 license: "MIT"
 ---

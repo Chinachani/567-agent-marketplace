@@ -1,6 +1,6 @@
 ---
 name: "breakdown-test"
-description: "Test Planning and Quality Assurance prompt that generates comprehensive test strategies, task breakdowns, and quality validation plans for GitHub projects."
+description: "为 GitHub 项目生成全面的测试策略、任务拆解和质量验证计划，系统化推进测试规划与质量保障。"
 version: "1.0.0"
 license: "MIT"
 ---

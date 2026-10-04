@@ -1,6 +1,6 @@
 ---
 name: "refactor"
-description: "Surgical code refactoring to improve maintainability without changing behavior. Covers extracting functions, renaming variables, breaking down god functions, improving type safety, eliminating code smells, and applying design patterns. Less drastic than repo-rebuilder; use for gradual improvements."
+description: "在保持程序原有行为的前提下执行精准代码重构，提升代码可维护性。涵盖提炼函数、规范变量命名、拆解上帝函数、强化类型安全、消除代码坏味道及引入设计模式。变动幅度较 repo-rebuilder 更为温和克制，专用于渐进式持续优化。"
 version: "1.0.0"
 license: "MIT"
 ---

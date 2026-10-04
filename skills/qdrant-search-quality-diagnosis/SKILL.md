@@ -1,6 +1,6 @@
 ---
 name: "qdrant-search-quality-diagnosis"
-description: "Diagnoses Qdrant search quality issues. Use when someone reports 'results are bad', 'wrong results', 'not relevant results', 'missing matches', 'recall is low', 'approximate search worse than exact', 'which embedding model', or 'quality dropped after quantization'. Also use when search quality degrades without obvious changes."
+description: "诊断与排查 Qdrant 搜索质量问题。适用于反馈“检索效果差”、“结果错误”、“相关度低”、“漏检匹配项”、“召回率低”、“近似搜索劣于精确搜索”、“如何选型嵌入模型”或“量化后质量下降”等场景；亦可用于无明显变更但检索质量异常下滑时的深度排查。"
 version: "1.0.0"
 license: "MIT"
 ---

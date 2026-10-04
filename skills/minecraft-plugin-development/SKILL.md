@@ -1,6 +1,6 @@
 ---
 name: "minecraft-plugin-development"
-description: "Use this skill when building or modifying Minecraft server plugins for Paper, Spigot, or Bukkit, including plugin.yml setup, commands, listeners, schedulers, player state, team or arena systems, persistent progression, economy or profile data, configuration files, Adventure text, and version-safe API usage. Trigger for requests like \"build a Minecraft plugin\", \"add a Paper command\", \"fix a Bukkit listener\", \"create plugin.yml\", \"implement a minigame mechanic\", \"add a perk or quest system\", or \"debug server plugin behavior\"."
+description: "用于开发或修改 Paper、Spigot 和 Bukkit 平台的 Minecraft 服务器插件。支持 plugin.yml 配置、指令与事件监听器开发、任务调度、玩家状态管理、队伍/竞技场系统、数据持久化、经济与档案系统、配置文件读写、Adventure 文本组件处理及多版本安全 API 调用。适用于“制作 Minecraft 插件”、“添加 Paper 指令”、“修复 Bukkit 监听器”、“编写 plugin.yml”、“实现小游戏玩法”、“添加特权或任务系统”以及“排查插件异常行为”等需求。"
 version: "1.0.0"
 license: "MIT"
 ---

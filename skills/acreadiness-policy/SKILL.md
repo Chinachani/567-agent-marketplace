@@ -1,6 +1,6 @@
 ---
 name: "acreadiness-policy"
-description: "Help the user pick, write, or apply an AgentRC policy. Policies customise readiness scoring by disabling irrelevant checks, overriding impact/level, setting pass-rate thresholds, or chaining org baselines with team overrides. Use when the user asks about strict mode, AI-only scoring, custom weights, CI gating, or wants org-wide standardisation."
+description: "协助用户选择、编写或应用 AgentRC 策略。策略支持通过禁用无关检查、覆盖影响与级别、设置通过率阈值，或将组织基准与团队规则串联来自定义就绪度评分。适用于用户咨询严格模式、纯 AI 评分、自定义权重、CI 门禁或寻求全组织标准化的场景。"
 version: "1.0.0"
 license: "MIT"
 argument-hint: "[show | new <name> | apply <path-or-pkg>] — e.g. /acreadiness-policy show, /acreadiness-policy new strict-frontend"

@@ -1,6 +1,6 @@
 ---
 name: "mcp-release-qa"
-description: "Verify an MCP server before release by exercising a real protocol session, comparing runtime capabilities with source and documentation, testing failure paths, and recording reproducible evidence. Use when shipping or reviewing an MCP server, tool, resource, prompt, catalog, or install path."
+description: "在发布前验证 MCP 服务器：通过执行真实协议会话，比对运行时能力与源码及文档，测试异常链路并记录可复现的验证凭据。适用于交付或审查 MCP 服务器、工具、资源、提示词、目录或安装路径等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

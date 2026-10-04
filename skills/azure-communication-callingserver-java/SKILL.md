@@ -1,6 +1,6 @@
 ---
 name: "azure-communication-callingserver-java"
-description: "Azure Communication Services CallingServer (legacy) Java SDK. Note - This SDK is deprecated. Use azure-communication-callautomation instead for new projects. Only use this skill when maintaining legacy code."
+description: "管理与维护 Azure Communication Services CallingServer（旧版）Java SDK 代码。注意：该 SDK 已废弃，新项目请改用 azure-communication-callautomation。仅在维护遗留代码时使用此技能。"
 version: "1.0.0"
 license: "MIT"
 metadata:

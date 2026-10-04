@@ -1,6 +1,6 @@
 ---
 name: "ad-campaign-analyzer"
-description: "Use this skill when the user shares ad campaign performance data and asks what to cut, scale, or test. Trigger for prompts like \"analyze my ad campaigns\", \"where am I wasting ad spend\", \"reallocate my ad budget\", \"which ads are actually working\", or \"ROAS analysis\". Do not trigger for campaign planning or creative generation without performance data."
+description: "当用户提供广告投放数据，并询问如何关停、放量或测试广告时使用此技能。适用于“分析我的广告活动”、“广告费浪费在哪里了”、“重新分配广告预算”、“哪些广告真正有效”或“ROAS分析”等指令。若未提供投放效果数据，仅涉及广告策划或素材创意生成时请勿触发。"
 version: "1.0"
 license: "MIT"
 compatibility: 'Cross-platform. Pure reasoning skill over user-provided campaign exports (CSV, paste, or screenshot from Google, Meta, or LinkedIn) — no external tools, network calls, or API keys.'

@@ -1,6 +1,6 @@
 ---
 name: "reviewing-oracle-to-postgres-migration"
-description: "Identifies Oracle-to-PostgreSQL migration risks by cross-referencing code against known behavioral differences (empty strings, refcursors, type coercion, sorting/collations, UNION ALL planner risks, materialized-view refresh requirements, timestamps, concurrent transactions, etc.). Use when planning a database migration, reviewing migration artifacts, or validating that integration tests cover Oracle/PostgreSQL differences."
+description: "深入比对代码与已知数据库特性差异（包括空字符串、游标、隐式类型转换、排序规则、UNION ALL 执行计划风险、物化视图刷新机制、时间戳及并发事务等），精准排查 Oracle 迁移至 PostgreSQL 的兼容性风险。适用于规划数据库迁移方案、审查迁移交付物，或验证集成测试用例是否充分覆盖两者的行为差异。"
 version: "1.0.0"
 license: "MIT"
 ---

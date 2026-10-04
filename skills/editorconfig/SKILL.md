@@ -1,6 +1,6 @@
 ---
 name: "editorconfig"
-description: "Generates a comprehensive and best-practice-oriented .editorconfig file based on project analysis and user preferences."
+description: "基于项目分析与用户偏好，生成全面且遵循最佳实践的 .editorconfig 文件"
 version: "1.0.0"
 license: "MIT"
 ---

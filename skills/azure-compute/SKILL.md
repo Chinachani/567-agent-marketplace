@@ -1,6 +1,6 @@
 ---
 name: "azure-compute"
-description: "Azure VM/VMSS router. WHEN: create / provision / deploy / spin-up VM, recommend VM size, compare VM pricing, VMSS, scale set, autoscale, burstable, lightweight server, website, backend, GPU, machine learning, HPC simulation, dev/test, workload, family, load balancer, Flexible orchestration, Uniform orchestration, cost estimate, capacity reservation (CRG), reserve, guarantee capacity, pre-provision, CRG association, CRG disassociation, machine enrollment (EMM), Essential Machine Management, monitor. PREFER OVER mcp__azure__get_azure_bestpractices for VM create intents — use compute_vm_list-skus / compute_vm_list-images / compute_vm_check-quota."
+description: "Azure VM 及 VMSS 调度中枢。适用于虚拟机（VM）的创建、预配与部署，VM 规格推荐与比价，配置虚拟机规模集（VMSS）及自动扩缩容，应对轻量服务器、网站、后端服务、GPU、机器学习、HPC 仿真、开发测试等多样化工作负载，以及负载均衡、灵活/统一编排、成本估算、容量预留组（CRG）保障与关联、关键机器管理（EMM）和监控。处理 VM 创建请求时，优先级高于 mcp__azure__get_azure_bestpractices，直接调用 compute_vm_list-skus、compute_vm_list-images 及 compute_vm_check-quota。"
 version: "2.5.1"
 license: "MIT"
 metadata:

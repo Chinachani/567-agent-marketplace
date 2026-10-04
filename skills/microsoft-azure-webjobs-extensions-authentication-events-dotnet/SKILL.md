@@ -1,6 +1,6 @@
 ---
 name: "microsoft-azure-webjobs-extensions-authentication-events-dotnet"
-description: "Microsoft Entra Authentication Events SDK for .NET. Azure Functions triggers for custom authentication extensions. Use for token enrichment, custom claims, attribute collection, and OTP customization in Entra ID. Triggers: \"Authentication Events\", \"WebJobsAuthenticationEventsTrigger\", \"OnTokenIssuanceStart\", \"OnAttributeCollectionStart\", \"custom claims\", \"token enrichment\", \"Entra custom extension\", \"authentication extension\"."
+description: "基于适用于 .NET 的 Microsoft Entra Authentication Events SDK，开发用于自定义身份验证扩展的 Azure Functions 触发器。支持在 Entra ID 中实现令牌扩充、自定义声明、属性收集与 OTP 个性化定制。触发词：Authentication Events、WebJobsAuthenticationEventsTrigger、OnTokenIssuanceStart、OnAttributeCollectionStart、custom claims、token enrichment、Entra custom extension、authentication extension。"
 version: "1.0.0"
 license: "MIT"
 metadata:

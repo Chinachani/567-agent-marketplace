@@ -1,6 +1,6 @@
 ---
 name: "phoenix-evals"
-description: "Build and run evaluators for AI/LLM applications using Phoenix."
+description: "使用 Phoenix 构建并运行 AI/LLM 应用的评估器"
 version: "1.0.0"
 license: "Apache-2.0"
 compatibility: Requires Phoenix server. Python skills need phoenix and openai packages; TypeScript skills need @arizeai/phoenix-client.

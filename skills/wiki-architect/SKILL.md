@@ -1,6 +1,6 @@
 ---
 name: "wiki-architect"
-description: "Analyzes code repositories and generates hierarchical documentation structures with onboarding guides. Use when the user wants to create a wiki, generate documentation, map a codebase structure, or understand a project's architecture at a high level."
+description: "分析代码仓库并生成包含新手上手指南的层级化文档结构。适用于创建项目 Wiki、生成技术文档、梳理代码库结构或宏观了解项目整体架构等场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

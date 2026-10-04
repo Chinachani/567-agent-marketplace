@@ -1,6 +1,6 @@
 ---
 name: "gtm-operating-cadence"
-description: "Design meeting rhythms, metric reporting, quarterly planning, and decision-making velocity for scaling companies. Use when decisions are slow, planning is broken, the company is growing but alignment is worse, or leadership meetings consume all time without producing decisions."
+description: "为成长型企业搭建高效的会议节奏、指标汇报、季度规划机制，全面提升决策速度。适用于决策迟缓、规划失效、规模扩张导致协同恶化，或高管会议耗时冗长却无法产出明确决断的场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

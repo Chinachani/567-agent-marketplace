@@ -1,6 +1,6 @@
 ---
 name: "legacy-circuit-mockups"
-description: "Generate breadboard circuit mockups and visual diagrams using HTML5 Canvas drawing techniques. Use when asked to create circuit layouts, visualize electronic component placements, draw breadboard diagrams, mockup 6502 builds, generate retro computer schematics, or design vintage electronics projects. Supports 555 timers, W65C02S microprocessors, 28C256 EEPROMs, W65C22 VIA chips, 7400-series logic gates, LEDs, resistors, capacitors, switches, buttons, crystals, and wires."
+description: "基于 HTML5 Canvas 绘制面包板电路原型与可视化图表。适用于设计电路布局、展示电子元器件排布、绘制面包板接线图、搭建 6502 系统原型、生成复古计算机原理图或设计怀旧电子项目。支持 555 定时器、W65C02S 微处理器、28C256 EEPROM、W65C22 VIA 芯片、7400 系列逻辑门，以及 LED、电阻、电容、开关、按键、晶振和各类导线。"
 version: "1.0.0"
 license: "MIT"
 ---

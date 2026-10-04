@@ -1,6 +1,6 @@
 ---
 name: "efcore-d2-db-diagram"
-description: "Generate D2 database diagrams from Entity Framework Core models. USE FOR: EF Core database diagram, Entity Framework Core ERD, DbContext diagram, C# entity relationship diagram, PostgreSQL schema visualization, generate .d2 file from EF Core entities, Fluent API mapping diagram, migrations-based database diagram, table relationships, owned types, many-to-many join tables, indexes and constraints. DO NOT USE FOR: runtime debugging, database migration execution, schema deployment, SQL performance tuning, or draw.io diagrams."
+description: "基于 Entity Framework Core 模型生成 D2 数据库架构图。适用于：创建 EF Core 数据库图表与 ERD、DbContext 结构图、C# 实体关系图、PostgreSQL 架构可视化、从 EF Core 实体生成 .d2 文件、Fluent API 映射图、基于迁移的数据库关系图，以及可视化表间关系、从属类型（Owned Types）、多对多关联表、索引和约束。不适用于：运行时调试、执行数据库迁移、架构部署、SQL 性能调优或绘制 draw.io 图表。"
 version: "1.0.0"
 license: "MIT"
 ---

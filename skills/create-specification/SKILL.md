@@ -1,6 +1,6 @@
 ---
 name: "create-specification"
-description: "Create a new specification file for the solution, optimized for Generative AI consumption."
+description: "创建专为生成式AI优化的解决方案规范文件。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "image-manipulation-image-magick"
-description: "Process and manipulate images using ImageMagick. Supports resizing, format conversion, batch processing, and retrieving image metadata. Use when working with images, creating thumbnails, resizing wallpapers, or performing batch image operations."
+description: "使用 ImageMagick 处理与编辑图像。支持调整尺寸、格式转换、批量处理及获取图像元数据。适用于日常图片处理、生成缩略图、调整壁纸尺寸或执行批量图片操作。"
 version: "1.0.0"
 license: "MIT"
 compatibility: Requires ImageMagick installed and available as `magick` on PATH. Cross-platform examples provided for PowerShell (Windows) and Bash (Linux/macOS).

@@ -1,6 +1,6 @@
 ---
 name: "em-dash"
-description: "Expert on the history, origin, and correct use of the em dash. Use when writing or reviewing code, comments, or data files to avoid em and en dashes, defaulting to never using them and replacing any found with a hyphen (-). Includes strong knowledge of punctuation marks and the proper usage of punctuation characters when writing comments."
+description: "精通长破折号（em dash）的历史渊源与规范用法。适用于编写或审查代码、注释及数据文件，严格杜绝使用长破折号（em dash）与短破折号（en dash），默认一律禁用并将其统一替换为连字符（-）。同时具备扎实的标点规范知识，确保代码注释中的标点符号使用精准严谨。"
 version: "1.0.0"
 license: "MIT"
 ---

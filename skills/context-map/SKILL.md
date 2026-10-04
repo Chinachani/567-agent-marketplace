@@ -1,6 +1,6 @@
 ---
 name: "context-map"
-description: "Generate a map of all files relevant to a task before making changes"
+description: "在修改前生成与任务相关的所有文件关联图"
 version: "1.0.0"
 license: "MIT"
 ---

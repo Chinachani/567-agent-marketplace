@@ -1,6 +1,6 @@
 ---
 name: "create-spring-boot-java-project"
-description: "Create Spring Boot Java Project Skeleton"
+description: "搭建 Spring Boot Java 项目骨架"
 version: "1.0.0"
 license: "MIT"
 ---

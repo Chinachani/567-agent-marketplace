@@ -1,6 +1,6 @@
 ---
 name: "azure-kubernetes-app-deploy"
-description: "Use when deploying an existing web application or API to an already-running Azure Kubernetes Service cluster. Detects the framework, generates a Dockerfile and Kubernetes manifests, validates against AKS Deployment Safeguards, and deploys with verification. WHEN: deploy app to AKS, deploy to existing AKS cluster, containerize app for Kubernetes, generate K8s manifests for Azure, set up CI/CD for AKS, my AKS deployment is failing safeguard checks, I have a Django/Express/Spring Boot app to run on AKS. DO NOT USE FOR: creating or provisioning an AKS cluster (use azure-kubernetes), assessing migration to AKS Automatic (use azure-kubernetes-automatic-readiness), or deploying to non-AKS targets like Web Apps, Container Apps, or Functions."
+description: "用于将现有 Web 应用或 API 部署至已运行的 Azure Kubernetes Service (AKS) 集群。支持自动识别开发框架、生成 Dockerfile 和 Kubernetes 清单、针对 AKS 部署安全规则（Safeguards）进行合规校验，并执行部署与状态验证。\n\n适用场景：向现有 AKS 集群部署应用、为 Kubernetes 进行应用容器化、生成 Azure K8s 配置清单、配置 AKS CI/CD、解决 AKS 部署被安全策略拦截问题，或在 AKS 上部署 Django、Express、Spring Boot 等应用。\n\n不适用场景：创建或预配 AKS 集群（请使用 azure-kubernetes）、评估迁移到 AKS Automatic（请使用 azure-kubernetes-automatic-readiness），或部署至 Web Apps、Container Apps、Functions 等非 AKS 目标。"
 version: "1.0.0"
 license: "MIT"
 metadata:

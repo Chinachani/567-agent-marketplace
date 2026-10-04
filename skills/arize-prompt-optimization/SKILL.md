@@ -1,6 +1,6 @@
 ---
 name: "arize-prompt-optimization"
-description: "Optimizes, improves, and debugs LLM prompts using production trace data, evaluations, and annotations. Extracts prompts from spans, gathers performance signal, and runs a data-driven optimization loop using the ax CLI. Use when the user mentions optimize prompt, improve prompt, make AI respond better, improve output quality, prompt engineering, prompt tuning, or system prompt improvement."
+description: "基于生产追踪数据、评估结果与标注信息，优化、改进和调试大语言模型提示词。从调用链路（Spans）中提取提示词，捕获性能反馈信号，并通过 ax CLI 运行数据驱动的闭环优化。当用户提出优化提示词、改进提示词、提升AI回复质量、提示词工程调优或优化系统提示词等需求时使用。"
 version: "1.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "performance-optimization"
-description: "Optimizes application performance across frontend, backend, queries, and databases. Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or when profiling reveals bottlenecks."
+description: "全面优化前端、后端、查询及数据库的应用性能。适用于有明确性能指标要求、排查疑似性能回退、提升核心网页指标（Core Web Vitals）与加载速度、修复 N+1 查询问题，或依据性能分析定位并解决瓶颈。"
 version: "1.0.0"
 license: "MIT"
 ---

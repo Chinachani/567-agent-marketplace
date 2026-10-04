@@ -1,6 +1,6 @@
 ---
 name: "react19-test-patterns"
-description: "Provides before/after patterns for migrating test files to React 19 compatibility, including act() imports, Simulate removal, and StrictMode call count changes."
+description: "提供将测试文件迁移适配 React 19 的修改前后对比范式，涵盖 act() 导入变更、Simulate 移除以及 StrictMode 调用次数变化。"
 version: "1.0.0"
 license: "MIT"
 ---

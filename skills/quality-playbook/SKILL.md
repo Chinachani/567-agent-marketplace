@@ -1,6 +1,6 @@
 ---
 name: "quality-playbook"
-description: "Run a complete quality engineering audit on any codebase. Derives behavioral requirements from the code, generates spec-traced functional tests, runs a three-pass code review with regression tests, executes a multi-model spec audit (Council of Three), and produces a consolidated bug report with TDD-verified patches. Finds the 35% of real defects that structural code review alone cannot catch. Works with any language. Trigger on 'quality playbook', 'spec audit', 'Council of Three', 'fitness-to-purpose', or 'coverage theater'."
+description: "对任意代码库执行全面的质量工程审计。深入代码推导行为需求，生成可追溯至规范的功能测试；执行包含回归测试的三轮代码审查与多模型规范审计（Council of Three），并输出附带TDD验证补丁的综合缺陷报告。精准捕获仅靠结构化代码审查无法发现的35%深层真实缺陷。支持所有编程语言。触发词包括“quality playbook”、“spec audit”、“Council of Three”、“fitness-to-purpose”或“coverage theater”。"
 version: "1.5.6"
 license: "Apache-2.0"
 metadata:

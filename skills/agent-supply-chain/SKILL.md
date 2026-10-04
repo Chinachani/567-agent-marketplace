@@ -1,6 +1,6 @@
 ---
 name: "agent-supply-chain"
-description: "Verify supply chain integrity for AI agent plugins, tools, and dependencies. Use this skill when: - Generating SHA-256 integrity manifests for agent plugins or tool packages - Verifying that installed plugins match their published manifests - Detecting tampered, modified, or untracked files in agent tool directories - Auditing dependency pinning and version policies for agent components - Building provenance chains for agent plugin promotion (dev → staging → production) - Any request like \"verify plugin integrity\", \"generate manifest\", \"check supply chain\", or \"sign this plugin\""
+description: "校验 AI Agent 插件、工具及依赖项的供应链完整性。适用于以下场景：\n- 为 Agent 插件或工具包生成 SHA-256 完整性清单\n- 验证已安装插件与官方发布清单的一致性\n- 检测 Agent 工具目录中被篡改、被修改或未跟踪的文件\n- 审计 Agent 组件的依赖版本锁定机制与版本策略\n- 构建插件晋级部署（开发 → 预发 → 生产）的溯源链路\n- 处理“验证插件完整性”、“生成校验清单”、“检查供应链”或“对该插件签名”等相关请求"
 version: "1.0.0"
 license: "MIT"
 ---

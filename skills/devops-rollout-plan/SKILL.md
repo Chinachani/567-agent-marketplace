@@ -1,6 +1,6 @@
 ---
 name: "devops-rollout-plan"
-description: "Generate comprehensive rollout plans with preflight checks, step-by-step deployment, verification signals, rollback procedures, and communication plans for infrastructure and application changes"
+description: "为基础设施和应用变更制定完备的发布计划，涵盖上线前预检、分步部署流程、验证指标、回滚预案及沟通通报机制。"
 version: "1.0.0"
 license: "MIT"
 ---

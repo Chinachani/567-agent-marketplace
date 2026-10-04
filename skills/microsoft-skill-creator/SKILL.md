@@ -1,6 +1,6 @@
 ---
 name: "microsoft-skill-creator"
-description: "Create agent skills for Microsoft technologies using Learn MCP tools. Use when users want to create a skill that teaches agents about any Microsoft technology, library, framework, or service (Azure, .NET, M365, VS Code, Bicep, etc.). Investigates topics deeply, then generates a hybrid skill storing essential knowledge locally while enabling dynamic deeper investigation."
+description: "借助 Learn MCP 工具构建面向微软技术栈的智能体技能。适用于需要让智能体掌握任意微软技术、库、框架或服务（如 Azure、.NET、M365、VS Code、Bicep 等）的场景。该技能可深入调研目标主题，并生成兼具本地核心知识存储与动态深度检索能力的混合型技能。"
 version: "1.0.0"
 license: "MIT"
 context: fork

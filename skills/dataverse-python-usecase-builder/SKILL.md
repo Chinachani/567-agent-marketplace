@@ -1,6 +1,6 @@
 ---
 name: "dataverse-python-usecase-builder"
-description: "Generate complete solutions for specific Dataverse SDK use cases with architecture recommendations"
+description: "针对特定 Dataverse SDK 应用场景构建完整解决方案，并提供架构建议"
 version: "1.0.0"
 license: "MIT"
 ---

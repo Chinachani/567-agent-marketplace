@@ -1,6 +1,6 @@
 ---
 name: "mcp-copilot-studio-server-generator"
-description: "Generate a complete MCP server implementation optimized for Copilot Studio integration with proper schema constraints and streamable HTTP support"
+description: "生成专为 Copilot Studio 集成优化的完整 MCP 服务器实现，具备规范的 Schema 约束并支持 HTTP 流式传输"
 version: "1.0.0"
 license: "MIT"
 ---

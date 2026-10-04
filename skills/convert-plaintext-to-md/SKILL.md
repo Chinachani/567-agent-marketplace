@@ -1,6 +1,6 @@
 ---
 name: "convert-plaintext-to-md"
-description: "Convert a text-based document to markdown following instructions from prompt, or if a documented option is passed, follow the instructions for that option."
+description: "根据提示词要求将文本文档转换为 Markdown 格式；若传入指定选项，则遵循该选项的说明进行转换。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "copilot-instructions-blueprint-generator"
-description: "Technology-agnostic blueprint generator for creating comprehensive copilot-instructions.md files that guide GitHub Copilot to produce code consistent with project standards, architecture patterns, and exact technology versions by analyzing existing codebase patterns and avoiding assumptions."
+description: "通用技术蓝图生成工具：通过深度分析既有代码库模式并杜绝主观臆断，自动构建详尽的 copilot-instructions.md 指引文件，引导 GitHub Copilot 高效生成契合项目规范、架构模式及精确技术版本的代码。"
 version: "1.0.0"
 license: "MIT"
 ---

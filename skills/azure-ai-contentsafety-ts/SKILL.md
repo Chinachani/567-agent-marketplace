@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-contentsafety-ts"
-description: "Analyze text and images for harmful content using Azure AI Content Safety (@azure-rest/ai-content-safety). Use when moderating user-generated content, detecting hate speech, violence, sexual content, or self-harm, or managing custom blocklists."
+description: "使用 Azure AI Content Safety (@azure-rest/ai-content-safety) 检测文本与图像中的有害内容。适用于审核用户生成内容（UGC），识别仇恨言论、暴力、色情或自残信息，以及管理自定义屏蔽列表。"
 version: "1.0.0"
 license: "MIT"
 metadata:

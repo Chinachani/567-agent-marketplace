@@ -1,6 +1,6 @@
 ---
 name: "daily-focus-board"
-description: "Spin up a personal, motivating daily focus board that renders in a browser canvas and that the user drives by talking to their AI partner. Tasks track status (to-do → in progress → done) with timestamped progress notes and roll up into a \"today's momentum\" feed; numeric-goal tasks (pages, pomodoros, reps) render as progress-bar counters. Executive-function / neurodivergent-friendly by design: Focus mode, kind \"not today\" carryover (no overdue-shaming), a brain-dump box, reduced-motion, and gentle deadline countdowns. Add, reorder, and relabel tasks live, assign Eisenhower priority (Do first / Schedule / Delegate / Later), open with an above/below-the-line check-in and a daily mantra, and save an end-of-day recap. Use when someone wants to plan their day, stay focused, kick off a work session, or track progress. Progress persists in the browser (localStorage)."
+description: "在浏览器画布中即时生成个人专属的每日专注看板，通过与AI对话即可随心驱动。支持全流程任务追踪（待办→进行中→已完成）、带时间戳的进度记录与定量目标进度条，并自动汇聚为“今日势头”动态流。\n\n专为神经多样性与执行功能设计，内置沉浸专注模式、告别负罪感的温和顺延机制（不渲染逾期焦虑）、灵感倾倒区及减弱动画效果。支持任务实时重排与重命名，运用艾森豪威尔四象限划分优先级；以状态签到和每日格言开启清爽一天，并在收工时生成复盘总结。\n\n适用于规划日程、保持专注、启动深度工作或追踪进度，所有数据均自动保存在浏览器本地（localStorage）。"
 version: "1.0.0"
 license: "MIT"
 ---

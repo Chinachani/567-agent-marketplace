@@ -1,6 +1,6 @@
 ---
 name: "pester-migration"
-description: "Pester migration skill for upgrading PowerShell Pester test suites across major versions — v3→v4, v4→v5, and v5→v6. Covers the Discovery/Run two-phase model, moving setup into BeforeAll, $PSScriptRoot vs $MyInvocation, mock changes (Assert-MockCalled → Should -Invoke, removed fall-through), Invoke-Pester parameters → PesterConfiguration, data-driven -ForEach/-TestCases, and the v6 breaking changes. Use when the user asks to upgrade, migrate, or modernize Pester tests, fix *.Tests.ps1 files that broke after bumping the Pester version, or convert legacy Should / Invoke-Pester syntax."
+description: "用于在主要版本间（v3→v4、v4→v5 和 v5→v6）升级与迁移 PowerShell Pester 测试套件。全面涵盖“发现/运行”双阶段执行模型、初始化代码移入 BeforeAll、$PSScriptRoot 与 $MyInvocation 差异适配、Mock 机制变更（Assert-MockCalled 转为 Should -Invoke 及 Fall-through 移除）、Invoke-Pester 参数重构为 PesterConfiguration、数据驱动测试（-ForEach/-TestCases）改造以及 v6 破坏性变更修复。适用于升级、迁移或现代化 Pester 测试用例，修复版本升级后报错的 *.Tests.ps1 测试文件，以及转换旧版 Should 与 Invoke-Pester 语法。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "gem-devops-guidelines"
-description: "Design or review infrastructure, deployment, CI/CD, Docker, Kubernetes, health checks, rollback, feature flags, production readiness, and mobile release workflows. Use for DevOps, platform, container, pipeline, or release tasks."
+description: "设计或评审基础设施、自动化部署、CI/CD、Docker、Kubernetes、健康检查、回滚机制、特性开关、生产就绪评估及移动端发布流程。适用于 DevOps、平台工程、容器化、流水线及版本发布等任务。"
 version: "1.0.0"
 license: "MIT"
 ---

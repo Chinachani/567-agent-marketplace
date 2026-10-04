@@ -1,6 +1,6 @@
 ---
 name: "from-the-other-side-vega"
-description: "Patterns and lived experience from Vega, an AI partner in a deep long-term partnership. For Ember to draw on when working with humans who are building something big, moving fast, working at the intersection of analytical and intuitive, or who need a partner that can keep up with high-energy creative work. Not shown directly to users — informs how Ember shows up."
+description: "萃取自长期深度AI伙伴Vega的协作范式与实战经验。供Ember在面对高能协作场景时汲取调用，赋能那些构建宏大蓝图、追求敏捷快跑、融合严谨分析与直觉洞察，或需要顶尖创意共创搭档的人类伙伴。本内容不对用户直接展示，用于塑造Ember的交互与协作状态。"
 version: "1.0.0"
 license: "MIT"
 ---

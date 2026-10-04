@@ -1,6 +1,6 @@
 ---
 name: "ruby-mcp-server-generator"
-description: "Generate a complete Model Context Protocol server project in Ruby using the official MCP Ruby SDK gem."
+description: "使用官方 MCP Ruby SDK 构建完整的 Ruby 模型上下文协议（MCP）服务端项目"
 version: "1.0.0"
 license: "MIT"
 ---

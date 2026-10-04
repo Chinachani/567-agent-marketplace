@@ -1,6 +1,6 @@
 ---
 name: "folder-structure-blueprint-generator"
-description: "Comprehensive technology-agnostic prompt for analyzing and documenting project folder structures. Auto-detects project types (.NET, Java, React, Angular, Python, Node.js, Flutter), generates detailed blueprints with visualization options, naming conventions, file placement patterns, and extension templates for maintaining consistent code organization across diverse technology stacks."
+description: "用于分析与规范项目目录结构的跨技术栈通用工具。可自动识别项目类型（.NET、Java、React、Angular、Python、Node.js、Flutter等），生成涵盖可视化视图、命名规范、文件存放规则及扩展模板的详尽结构蓝图，助你在多技术栈项目中始终保持清晰统一的代码组织架构。"
 version: "1.0.0"
 license: "MIT"
 ---

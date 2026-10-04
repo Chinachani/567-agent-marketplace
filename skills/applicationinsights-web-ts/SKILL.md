@@ -1,6 +1,6 @@
 ---
 name: "applicationinsights-web-ts"
-description: "Instrument browser/web apps with the Application Insights JavaScript SDK (@microsoft/applicationinsights-web). Use for Real User Monitoring (RUM) — page views, clicks, AJAX/fetch dependencies, exceptions, custom events, and browser-side GenAI agent traces correlated to backend OpenTelemetry traces. Covers SDK Loader Script and npm setup, framework extensions (React, React Native, Angular), Click Analytics, telemetry initializers, and OTel GenAI semantic conventions for agent/tool/model spans emitted from the browser."
+description: "使用 Application Insights JavaScript SDK (@microsoft/applicationinsights-web) 为浏览器及 Web 应用配置可观测性埋点。全面实现真实用户监控（RUM），涵盖页面浏览、点击交互、AJAX/fetch 依赖请求、异常捕获、自定义事件，以及与后端 OpenTelemetry 链路关联的浏览器端生成式 AI（GenAI）Agent 追踪。支持 SDK 加载脚本与 npm 安装配置、主流前端框架扩展（React、React Native、Angular）、点击分析、遥测初始化器，并遵循面向前端 Agent/工具/模型 Span 的 OTel GenAI 语义约定。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "spring-boot-testing"
-description: "Expert Spring Boot 4 testing specialist that selects the best Spring Boot testing techniques for your situation with Junit 6 and AssertJ."
+description: "Spring Boot 4 资深测试专家，结合 JUnit 6 与 AssertJ，针对具体场景为你精准匹配最优测试技术与实践方案。"
 version: "1.0.0"
 license: "MIT"
 ---

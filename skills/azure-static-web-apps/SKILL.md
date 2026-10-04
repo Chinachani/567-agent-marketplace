@@ -1,6 +1,6 @@
 ---
 name: "azure-static-web-apps"
-description: "Helps create, configure, and deploy Azure Static Web Apps using the SWA CLI. Use when deploying static sites to Azure, setting up SWA local development, configuring staticwebapp.config.json, adding Azure Functions APIs to SWA, or setting up GitHub Actions CI/CD for Static Web Apps."
+description: "使用 SWA CLI 创建、配置和部署 Azure Static Web Apps。适用于将静态站点部署至 Azure、搭建 SWA 本地开发环境、配置 staticwebapp.config.json、为应用集成 Azure Functions API，以及设置 GitHub Actions CI/CD 自动化流水线。"
 version: "1.0.0"
 license: "MIT"
 ---

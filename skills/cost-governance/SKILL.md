@@ -1,6 +1,6 @@
 ---
 name: "cost-governance"
-description: "Govern Azure costs with budgets, alerts, tags, and policy restrictions. WHEN: \"Azure budget health\", \"configured budget overrun\", \"list Azure budgets\", \"create Azure budget\", \"budget alerts\", \"budget coverage\", \"missing CostCenter tags\", \"allowed VM SKUs\", \"allowed Azure regions\", \"would this SKU be denied\", \"cost guardrails\". DO NOT USE FOR: planning-target forecasts, bill investigations, pricing, rightsizing, or commitments."
+description: "通过预算、告警、标签和策略限制管控 Azure 成本。适用于：评估 Azure 预算健康状况、监控预算超支、查询或创建 Azure 预算、管理预算告警与覆盖率、排查缺失的 CostCenter 标签、查询允许的 VM SKU 及 Azure 区域、预检 SKU 是否受阻，以及设置成本防护栏。不适用于：规划目标预测、账单排查、定价查询、资源规格优化（rightsizing）或承诺折扣管理。"
 version: "1.0.1"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "wiki-changelog"
-description: "Analyzes git commit history and generates structured changelogs categorized by change type. Use when the user asks about recent changes, wants a changelog, or needs to understand what changed in the repository."
+description: "分析 Git 提交历史，按变更类型分类生成结构化更新日志。适用于查询近期改动、生成更新日志或了解代码仓库变更的场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

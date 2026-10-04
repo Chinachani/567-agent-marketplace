@@ -1,6 +1,6 @@
 ---
 name: "create-tldr-page"
-description: "Create a tldr page from documentation URLs and command examples, requiring both URL and command name."
+description: "根据文档链接和命令示例生成 tldr 页面，需同时提供 URL 与命令名称。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "copilot-spaces"
-description: "Use Copilot Spaces to provide project-specific context to conversations. Use this skill when users mention a \"Copilot space\", want to load context from a shared knowledge base, discover available spaces, or ask questions grounded in curated project documentation, code, and instructions."
+description: "利用 Copilot Spaces 为对话提供特定项目的上下文。当用户提及“Copilot 空间”、希望从共享知识库加载上下文、查找可用空间，或基于精选的项目文档、代码和指令提问时，使用此技能。"
 version: "1.0.0"
 license: "MIT"
 ---

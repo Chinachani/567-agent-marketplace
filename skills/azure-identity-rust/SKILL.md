@@ -1,6 +1,6 @@
 ---
 name: "azure-identity-rust"
-description: "Azure Identity library for Rust. Microsoft Entra ID authentication for all Azure SDK clients. Triggers: \"azure identity rust\", \"DeveloperToolsCredential\", \"authentication rust\", \"managed identity rust\", \"credential rust\", \"Entra ID rust\"."
+description: "适用于 Rust 的 Azure Identity 库。为所有 Azure SDK 客户端提供 Microsoft Entra ID 身份验证。触发词：azure identity rust、DeveloperToolsCredential、authentication rust、managed identity rust、credential rust、Entra ID rust。"
 version: "1.0.0"
 license: "MIT"
 metadata:

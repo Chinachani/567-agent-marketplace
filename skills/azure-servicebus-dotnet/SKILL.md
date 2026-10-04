@@ -1,6 +1,6 @@
 ---
 name: "azure-servicebus-dotnet"
-description: "Azure Service Bus SDK for .NET. Enterprise messaging with queues, topics, subscriptions, and sessions. Use for reliable message delivery, pub/sub patterns, dead letter handling, and background processing. Triggers: \"Service Bus\", \"ServiceBusClient\", \"ServiceBusSender\", \"ServiceBusReceiver\", \"ServiceBusProcessor\", \"message queue\", \"pub/sub .NET\", \"dead letter queue\"."
+description: "适用于 .NET 的 Azure Service Bus SDK。支持利用队列、主题、订阅和会话实现企业级消息传递。适用于构建高可靠消息投递、发布/订阅（Pub/Sub）模式、死信队列处理及后台异步任务。触发词：\"Service Bus\"、\"ServiceBusClient\"、\"ServiceBusSender\"、\"ServiceBusReceiver\"、\"ServiceBusProcessor\"、\"message queue\"、\"pub/sub .NET\"、\"dead letter queue\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

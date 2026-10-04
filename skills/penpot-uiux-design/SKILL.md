@@ -1,6 +1,6 @@
 ---
 name: "penpot-uiux-design"
-description: "Comprehensive guide for creating professional UI/UX designs in Penpot using MCP tools. Use this skill when: (1) Creating new UI/UX designs for web, mobile, or desktop applications, (2) Building design systems with components and tokens, (3) Designing dashboards, forms, navigation, or landing pages, (4) Applying accessibility standards and best practices, (5) Following platform guidelines (iOS, Android, Material Design), (6) Reviewing or improving existing Penpot designs for usability. Triggers: \"design a UI\", \"create interface\", \"build layout\", \"design dashboard\", \"create form\", \"design landing page\", \"make it accessible\", \"design system\", \"component library\"."
+description: "利用 MCP 工具在 Penpot 中打造专业 UI/UX 设计的全方位指南。适用场景：(1) 为 Web、移动端或桌面端应用创建全新的 UI/UX 设计；(2) 构建包含组件与 Design Tokens 的设计系统；(3) 设计仪表盘、表单、导航栏或落地页；(4) 落实无障碍设计标准与行业最佳实践；(5) 遵循主流平台设计规范（iOS、Android、Material Design）；(6) 审查并优化现有 Penpot 设计的可用性。触发词：“设计UI”、“创建界面”、“搭建布局”、“设计仪表盘”、“制作表单”、“设计落地页”、“优化无障碍访问”、“设计系统”、“组件库”。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "cloud-solution-architect"
-description: "Transform the agent into a Cloud Solution Architect following Azure Architecture Center best practices. Use when designing cloud architectures, reviewing system designs, selecting architecture styles, applying cloud design patterns, making technology choices, or conducting Well-Architected Framework reviews."
+description: "化身为遵循 Azure 架构中心最佳实践的云解决方案架构师。适用于云架构设计、系统设计评审、架构风格选择、云设计模式应用、技术选型，以及开展良好架构框架（Well-Architected Framework）评估等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

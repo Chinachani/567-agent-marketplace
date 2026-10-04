@@ -1,6 +1,6 @@
 ---
 name: "power-bi-report-design-consultation"
-description: "Power BI report visualization design prompt for creating effective, user-friendly, and accessible reports with optimal chart selection and layout design."
+description: "指导 Power BI 可视化设计，精准匹配图表与布局，打造高效直观、兼具无障碍体验的专业报表。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "azure-keyvault-secrets-rust"
-description: "Azure Key Vault Secrets library for Rust. Store and retrieve secrets, passwords, and API keys. Triggers: \"keyvault secrets rust\", \"SecretClient rust\", \"get secret rust\", \"set secret rust\", \"list secrets rust\"."
+description: "面向 Rust 的 Azure Key Vault 机密管理库。安全存储与检索各类机密、密码及 API 密钥。触发词：\"keyvault secrets rust\"、\"SecretClient rust\"、\"get secret rust\"、\"set secret rust\"、\"list secrets rust\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

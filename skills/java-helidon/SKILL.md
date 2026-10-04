@@ -1,6 +1,6 @@
 ---
 name: "java-helidon"
-description: "Get best practices for developing applications with Helidon 4 (SE and MP). Use when working with Helidon SE or Helidon MP, HttpService routing, Helidon DB Client, MicroProfile Config, Helidon Security, or Helidon testing in Java 21+ projects."
+description: "获取 Helidon 4（SE 和 MP）应用开发的最佳实践。适用于在 Java 21+ 项目中开发 Helidon SE 或 MP、配置 HttpService 路由、集成 Helidon DB Client、使用 MicroProfile Config、实现 Helidon Security 以及进行应用测试等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

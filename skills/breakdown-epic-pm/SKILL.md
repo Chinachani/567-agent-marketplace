@@ -1,6 +1,6 @@
 ---
 name: "breakdown-epic-pm"
-description: "Prompt for creating an Epic Product Requirements Document (PRD) for a new epic. This PRD will be used as input for generating a technical architecture specification."
+description: "编写新Epic产品需求文档（PRD），为后续生成技术架构规范提供核心输入。"
 version: "1.0.0"
 license: "MIT"
 ---

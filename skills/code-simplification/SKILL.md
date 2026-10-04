@@ -1,6 +1,6 @@
 ---
 name: "code-simplification"
-description: "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity."
+description: "精简代码以提升清晰度。适用于在不改变既有功能的前提下优化代码可读性；当代码虽能正常运行但晦涩难懂、难以维护或扩展时；以及在审查过程中消除累积的不必要复杂度时使用。"
 version: "1.0.0"
 license: "MIT"
 ---

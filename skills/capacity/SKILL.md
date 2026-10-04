@@ -1,6 +1,6 @@
 ---
 name: "capacity"
-description: "Discovers available Azure OpenAI model capacity across regions and projects. Analyzes quota limits, compares availability, and recommends optimal deployment locations based on capacity requirements. USE FOR: find capacity, check quota, where can I deploy, capacity discovery, best region for capacity, multi-project capacity search, quota analysis, model availability, region comparison, check TPM availability. DO NOT USE FOR: actual deployment (hand off to preset or customize after discovery), quota increase requests (direct user to Azure Portal), listing existing deployments."
+description: "全面探测跨区域与跨项目的 Azure OpenAI 模型可用容量。深度分析配额限制，对比各区域可用性，并按需推荐最优部署位置。\n\n适用场景：查询容量与配额、评估部署位置、容量探测、最佳区域推荐、多项目容量检索、配额分析、模型可用性对比、检查 TPM 可用性。\n不适用场景：执行实际部署（探测完成后请使用预设或自定义流程）、提交配额提升申请（需引导至 Azure 门户）、查询现有部署列表。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "azure-compliance"
-description: "Run Azure compliance and security audits with azqr plus Key Vault expiration checks. Covers best-practice assessment, resource review, policy/compliance validation, and security posture checks. WHEN: compliance scan, security audit, BEFORE running azqr (compliance cli tool), Azure best practices, Key Vault expiration check, expired certificates, expiring secrets, orphaned resources, compliance assessment."
+description: "使用 azqr 执行 Azure 合规与安全审计，并集成 Key Vault 到期检查。覆盖最佳实践评估、资源审查、策略合规验证及安全态势排查。适用场景：合规扫描、安全审计、运行 azqr（合规命令行工具）前、Azure 最佳实践评估、Key Vault 到期检查、排查已过期证书与即将过期的机密、清理孤立资源以及合规性评估。"
 version: "1.2.3"
 license: "MIT"
 metadata:

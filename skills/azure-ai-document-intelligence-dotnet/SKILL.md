@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-document-intelligence-dotnet"
-description: "Azure AI Document Intelligence SDK for .NET. Extract text, tables, and structured data from documents using prebuilt and custom models. Use for invoice processing, receipt extraction, ID document analysis, and custom document models. Triggers: \"Document Intelligence\", \"DocumentIntelligenceClient\", \"form recognizer\", \"invoice extraction\", \"receipt OCR\", \"document analysis .NET\"."
+description: "面向 .NET 的 Azure AI 文档智能 SDK。借助预构建和自定义模型，从各类文档中快速提取文本、表格和结构化数据。适用于发票处理、收据提取、身份证件识别及自定义文档分析。触发词：\"Document Intelligence\"、\"DocumentIntelligenceClient\"、\"form recognizer\"、\"invoice extraction\"、\"receipt OCR\"、\"document analysis .NET\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

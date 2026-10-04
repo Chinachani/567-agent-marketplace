@@ -1,6 +1,6 @@
 ---
 name: "azure-security-keyvault-secrets-java"
-description: "Azure Key Vault Secrets Java SDK for secret management. Use when storing, retrieving, or managing passwords, API keys, connection strings, or other sensitive configuration data."
+description: "使用 Azure Key Vault Secrets Java SDK 进行机密管理。适用于存储、获取和管理密码、API 密钥、连接字符串等敏感配置数据。"
 version: "1.0.0"
 license: "MIT"
 metadata:

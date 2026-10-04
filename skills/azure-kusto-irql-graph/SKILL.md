@@ -1,6 +1,6 @@
 ---
 name: "azure-kusto-irql-graph"
-description: "Apply IRQL graph functions to KQL or IRQL query results for Kusto Explorer visualization. Generates Lift_To_Graph mappings and composes Graph_Render_View, Graph_Fold_By_Property, Extract_Node_*, Enrich_Node_*, and Enrich_Graph_* calls. Accepts a supplied query or limited basic natural-language source request; it is not a general natural-language-to-KQL/IRQL skill. WHEN: Lift_To_Graph, Graph_Render_View, Graph_Fold_By_Property, IRQL graph enrichment, graph mapping for existing query results, icon-decorated graph, fold graph nodes. Use azure-kusto-graph for native make-graph analysis, graph-match, shortest paths, components, or persistent graphs."
+description: "将 IRQL 图函数应用于 KQL 或 IRQL 查询结果，以实现 Kusto Explorer 图可视化。可生成 Lift_To_Graph 映射，并编排 Graph_Render_View、Graph_Fold_By_Property、Extract_Node_*、Enrich_Node_* 及 Enrich_Graph_* 等函数调用。支持输入现有查询或基础的自然语言源请求（非通用的自然语言转 KQL/IRQL 技能）。适用场景：Lift_To_Graph、Graph_Render_View、Graph_Fold_By_Property、IRQL 图丰富化、已有查询结果图映射、带图标装饰的图渲染及折叠图节点。若需执行原生 make-graph 分析、graph-match、最短路径、连通分量或持久化图操作，请使用 azure-kusto-graph。"
 version: "1.2.1"
 license: "MIT"
 metadata:

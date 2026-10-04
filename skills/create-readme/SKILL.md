@@ -1,6 +1,6 @@
 ---
 name: "create-readme"
-description: "Create a README.md file for the project"
+description: "为项目创建 README.md 文件"
 version: "1.0.0"
 license: "MIT"
 ---

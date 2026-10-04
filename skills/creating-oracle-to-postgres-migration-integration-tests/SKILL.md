@@ -1,6 +1,6 @@
 ---
 name: "creating-oracle-to-postgres-migration-integration-tests"
-description: "Creates integration test cases targeting Oracle for .NET data access artifacts. Tests capture Oracle expected behavior as the authoritative baseline; they are written once and later ported to PostgreSQL by migrating the test project in Phase 6. Use only during Phase 3, before any PostgreSQL migration work has begun. Do not invoke during Phase 6 or against a project that has already been migrated."
+description: "针对 .NET 数据访问组件创建面向 Oracle 的集成测试用例。该测试以 Oracle 预期行为作为权威基准，仅需编写一次，并在第 6 阶段通过迁移测试项目移植至 PostgreSQL。仅限在第 3 阶段（任何 PostgreSQL 迁移工作启动前）使用；严禁在第 6 阶段或针对已迁移的项目调用。"
 version: "1.0.0"
 license: "MIT"
 ---

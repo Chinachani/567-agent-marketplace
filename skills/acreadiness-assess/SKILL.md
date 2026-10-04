@@ -1,6 +1,6 @@
 ---
 name: "acreadiness-assess"
-description: "Run the AgentRC readiness assessment on the current repository and produce a static HTML dashboard at reports/index.html. Wraps `npx github:microsoft/agentrc readiness` and hands off rendering to the @ai-readiness-reporter custom agent. Supports policies (--policy) for org-specific scoring. Use when asked to assess, audit, or score the AI readiness of a repo."
+description: "对当前仓库执行 AgentRC 就绪度评估，并在 reports/index.html 生成静态 HTML 仪表盘。内部封装了 `npx github:microsoft/agentrc readiness` 命令，并交由 @ai-readiness-reporter 自定义智能体完成可视化渲染。支持通过策略参数（--policy）进行组织专属评分。适用于需要评估、审计或为代码仓库的 AI 就绪度打分的场景。"
 version: "1.0.0"
 license: "MIT"
 argument-hint: "[--policy <path-or-pkg>] [--per-area] — e.g. /acreadiness-assess, /acreadiness-assess --policy ./policies/strict.json"

@@ -1,6 +1,6 @@
 ---
 name: "sql-object-impact-analysis"
-description: "Before modifying a table, column, stored procedure, view, or trigger in a legacy codebase, trace every place that references it — across other SQL objects (procs, views, triggers) AND application code (C#, Angular/TypeScript, JS, or any language in the repo) — and produce a structured blast-radius report so you know what breaks before you change it. Use when the user asks 'what uses this column/table/procedure', 'is it safe to change X', 'what depends on this', 'impact of renaming/dropping X', or before any schema/proc modification in an unfamiliar or legacy codebase. Not for privacy/PII exposure analysis (see data-breach-blast-radius) or query performance tuning (see sql-optimization)."
+description: "在遗留代码库中修改数据表、列、存储过程、视图或触发器之前，全面追踪其在其他 SQL 对象及应用层代码（如 C#、Angular/TypeScript、JS 等）中的所有引用，生成结构化的改动影响面评估报告，提前排查潜在破坏风险。适用于分析“哪些地方使用了该对象/列”、“修改 X 是否安全”、“依赖项排查”、“重命名/删除 X 的影响”，或在陌生代码库中变更数据库结构与存储过程前的安全预检。不适用于隐私/敏感数据泄露分析（参见 data-breach-blast-radius）或 SQL 查询性能调优（参见 sql-optimization）。"
 version: "1.0.0"
 license: "MIT"
 ---

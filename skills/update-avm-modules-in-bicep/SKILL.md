@@ -1,6 +1,6 @@
 ---
 name: "update-avm-modules-in-bicep"
-description: "Update Azure Verified Modules (AVM) to latest versions in Bicep files."
+description: "更新 Bicep 文件中的 Azure 验证模块 (AVM) 至最新版本"
 version: "1.0.0"
 license: "MIT"
 ---

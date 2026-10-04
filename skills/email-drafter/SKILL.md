@@ -1,6 +1,6 @@
 ---
 name: "email-drafter"
-description: "Draft and review professional emails that match your personal writing style. Analyzes your sent emails for tone, greeting, structure, and sign-off patterns via WorkIQ, then generates context-aware drafts for any recipient. USE FOR: draft email, write email, compose email, reply email, follow-up email, analyze email tone, email style."
+description: "起草并润色契合个人写作风格的专业邮件。通过 WorkIQ 深度分析历史发件的语气、称呼、篇章结构及落款习惯，针对不同收件人智能生成契合语境的邮件草稿。适用场景：撰写与起草邮件、回复与跟进邮件、分析邮件语气、定制邮件风格。"
 version: "1.0.0"
 license: "MIT"
 ---

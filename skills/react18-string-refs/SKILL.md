@@ -1,6 +1,6 @@
 ---
 name: "react18-string-refs"
-description: "Provides exact migration patterns for React string refs (ref=\"name\" + this.refs.name) to React.createRef() in class components. Use this skill whenever migrating string ref usage - including single element refs, multiple refs in a component, refs in lists, callback refs, and refs passed to child components. Always use this skill before writing any ref migration code - the multiple-refs-in-list pattern is particularly tricky and this skill prevents the most common mistakes. Use it for React 18.3.1 migration (string refs warn) and React 19 migration (string refs removed)."
+description: "提供 React 类组件中将字符串 ref（ref=\"name\" 与 this.refs.name）迁移至 React.createRef() 的精准方案。适用于所有字符串 ref 迁移场景，涵盖单元素 ref、组件内多 ref、列表项 ref、回调 ref 及子组件跨层级传递。编写迁移代码前请务必使用——尤其针对极易出错的列表多 ref 模式，可有效规避常见陷阱。专用于 React 18.3.1（废弃警告）与 React 19（彻底移除）的平滑升级。"
 version: "1.0.0"
 license: "MIT"
 ---

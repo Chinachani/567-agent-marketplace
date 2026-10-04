@@ -1,6 +1,6 @@
 ---
 name: "desk-journal"
-description: "Write, append, or read desk journal entries. The journal is persistent memory — what survives session boundaries. A good entry has: what was done, current state, next step."
+description: "创建、追加或读取工作日志。日志作为跨会话的持久化记忆，用于长期留存信息。一条规范的记录应包含：已完成工作、当前状态与下一步计划。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "v-development"
-description: "Guide GitHub Copilot through V language development: installing the toolchain, project layout with v.mod, building, testing, formatting, and writing idiomatic V including Option/Result error handling. Use when the user works with V source files, v.mod projects, or asks about V syntax, tooling, and conventions."
+description: "全面指导 V 语言开发：涵盖工具链安装、v.mod 项目布局、构建、测试、代码格式化，以及包含 Option/Result 错误处理的地道代码编写。适用于处理 V 源文件、v.mod 项目，或咨询 V 语言语法、工具链和编码规范等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "azure-storage-file-datalake-py"
-description: "Azure Data Lake Storage Gen2 SDK for Python. Use for hierarchical file systems, big data analytics, and file/directory operations. Triggers: \"data lake\", \"DataLakeServiceClient\", \"FileSystemClient\", \"ADLS Gen2\", \"hierarchical namespace\"."
+description: "适用于 Python 的 Azure Data Lake Storage Gen2 SDK。用于操作分层文件系统、支持大数据分析及执行文件和目录管理。触发词：\"data lake\"、\"DataLakeServiceClient\"、\"FileSystemClient\"、\"ADLS Gen2\"、\"hierarchical namespace\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

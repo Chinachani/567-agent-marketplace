@@ -1,6 +1,6 @@
 ---
 name: "speak-summary"
-description: "Convert text, markdown, or a summary produced by another skill into a listenable MP3 using local CPU-only neural text-to-speech. Rewrites written prose for the ear before synthesising. Use when the user asks to \"read this out\", \"turn this into audio\", \"make an MP3\", \"I want to listen to this\", \"podcast version\", or wants a spoken digest for a commute or breakfast."
+description: "利用本地纯CPU神经网络文本转语音技术，将文本、Markdown或其他技能生成的摘要转换为高品质MP3音频。语音合成前会自动将书面语润色为更适合聆听的口语表达。适用于用户要求“朗读出来”、“转成音频”、“生成MP3”、“我想听这个”、“做成播客版”，或希望在通勤、早餐时收听有声摘要的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

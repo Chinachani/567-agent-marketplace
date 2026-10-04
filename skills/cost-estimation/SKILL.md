@@ -1,6 +1,6 @@
 ---
 name: "cost-estimation"
-description: "Forecast Azure spend and price planned resources or workloads. WHEN: \"forecast Azure spending\", \"project next month cost\", \"compare forecast to my planning target\", \"how much will Azure cost\", \"estimate VM cost\", \"compare storage tiers\", \"compare Azure regions\", \"retail price\", \"EA rate card\", \"negotiated pricesheet\". DO NOT USE FOR: configured budget health or alerts, bill analysis, cost spikes, rightsizing, or commitments."
+description: "预测 Azure 支出并估算规划中资源或工作负载的成本。\n\n适用场景：预测 Azure 费用、预估下月支出、将预测值与规划预算对比、测算虚拟机成本、对比不同存储层级或 Azure 区域价格，以及查询零售价、EA 费率卡或协议价目表。\n不适用于：已配置预算的健康度与告警检查、账单明细分析、费用突增排查、资源规格合理化（Rightsizing）调优，以及预留实例/节省计划等承诺折扣分析。"
 version: "1.1.1"
 license: "MIT"
 metadata:

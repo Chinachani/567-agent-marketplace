@@ -1,6 +1,6 @@
 ---
 name: "exam-ready"
-description: "Activate this skill when a student provides study material (PDF or pasted notes) and a syllabus, and wants to prepare for an exam. Extracts key definitions, points, keywords, diagrams, exam-ready sentences, and practice questions strictly from the provided material."
+description: "当学生提供学习资料（PDF或粘贴笔记）和考试大纲以准备考试时启用。严格基于所给材料，精准提取核心定义、知识考点、关键词、图表信息、应试金句及模拟习题。"
 version: "1.0.0"
 license: "MIT"
 ---

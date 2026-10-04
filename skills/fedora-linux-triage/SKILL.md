@@ -1,6 +1,6 @@
 ---
 name: "fedora-linux-triage"
-description: "Triage and resolve Fedora issues with dnf, systemd, and SELinux-aware guidance."
+description: "结合 dnf、systemd 与 SELinux 专业指引，排查并解决 Fedora 系统问题。"
 version: "1.0.0"
 license: "MIT"
 ---

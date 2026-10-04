@@ -1,6 +1,6 @@
 ---
 name: "qdrant-monitoring-debugging"
-description: "Diagnoses Qdrant production issues using metrics and observability tools. Use when someone reports 'optimizer stuck', 'indexing too slow', 'memory too high', 'OOM crash', 'queries are slow', 'latency spike', or 'search was fast now it's slow'. Also use when performance degrades without obvious config changes."
+description: "基于监控指标与可观测性工具诊断 Qdrant 生产环境故障。适用于排查优化器卡死、索引过慢、内存占用过高、OOM 崩溃、查询延迟激增或搜索变慢等异常反馈，以及无配置变更下的性能衰退排查。"
 version: "1.0.0"
 license: "MIT"
 ---

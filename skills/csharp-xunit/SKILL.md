@@ -1,6 +1,6 @@
 ---
 name: "csharp-xunit"
-description: "Get best practices for XUnit unit testing, including data-driven tests"
+description: "获取 XUnit 单元测试最佳实践，涵盖数据驱动测试"
 version: "1.0.0"
 license: "MIT"
 ---

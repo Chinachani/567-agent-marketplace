@@ -1,6 +1,6 @@
 ---
 name: "landing-page-conversion-audit"
-description: "Audit a landing page, sales page or checkout page for conversion leaks and return a fix list ordered by expected revenue impact. Use when asked to review, critique or improve a landing page, sales page, opt-in page, product page or checkout flow, when conversion rate is low, when paid traffic is not converting, or when someone asks \"why isn't this page converting\" or wants a CRO / landing page review."
+description: "深度排查着陆页、销售页或结算页的转化漏洞，并按预期增收潜力排序输出优化清单。适用于审查、诊断或改进各类页面（着陆页、销售页、留资页、商详页及结算流程）；转化率低或付费流量不转化时；排查“页面为什么不转化”的原因；或需要开展 CRO（转化率优化）与落地页诊断的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

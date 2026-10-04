@@ -1,6 +1,6 @@
 ---
 name: "flowstudio-power-automate-debug"
-description: "Debug failing Power Automate cloud flows using the FlowStudio MCP server. The Graph API only shows top-level status codes. This skill gives your agent action-level inputs and outputs to find the actual root cause. Load this skill when asked to: debug a flow, investigate a failed run, why is this flow failing, inspect action outputs, find the root cause of a flow error, fix a broken Power Automate flow, diagnose a timeout, trace a DynamicOperationRequestFailure, check connector auth errors, read error details from a run, or troubleshoot expression failures. Requires a FlowStudio MCP subscription — see https://mcp.flowstudio.app"
+description: "借助 FlowStudio MCP 服务器调试运行失败的 Power Automate 云端流。突破 Graph API 仅显示顶层状态码的限制，该技能可提供操作（Action）级别的详细输入与输出，助智能体精准定位根本原因。适用于调试流、调查失败运行、分析流报错原因、检查操作输出、排查异常流、诊断超时、追踪 DynamicOperationRequestFailure、检查连接器鉴权错误、读取运行错误详情或排查表达式计算故障等场景。需要 FlowStudio MCP 订阅——详见 https://mcp.flowstudio.app"
 version: "1.0.0"
 license: "MIT"
 ---

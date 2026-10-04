@@ -1,6 +1,6 @@
 ---
 name: "csharp-docs"
-description: "Ensure that C# types are documented with XML comments and follow best practices for documentation."
+description: "确保 C# 类型具备规范的 XML 注释，并遵循文档最佳实践。"
 version: "1.0.0"
 license: "MIT"
 ---

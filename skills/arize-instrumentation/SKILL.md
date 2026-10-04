@@ -1,6 +1,6 @@
 ---
 name: "arize-instrumentation"
-description: "Adds Arize AX tracing to an LLM application for the first time. Follows a two-phase agent-assisted flow to analyze the codebase then implement instrumentation after user confirmation. Use when the user wants to instrument their app, add tracing from scratch, set up LLM observability, integrate OpenTelemetry or openinference, or get started with Arize tracing."
+description: "首次为 LLM 应用接入 Arize AX 链路追踪。采用两阶段智能体辅助流程，先深度分析代码库，经用户确认后再实施埋点集成。适用于需要从零添加追踪、搭建 LLM 可观测性、集成 OpenTelemetry 或 openinference，以及快速上手 Arize 追踪的场景。"
 version: "1.0"
 license: "MIT"
 metadata:

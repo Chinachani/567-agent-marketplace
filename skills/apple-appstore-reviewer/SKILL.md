@@ -1,6 +1,6 @@
 ---
 name: "apple-appstore-reviewer"
-description: "Serves as a reviewer of the codebase with instructions on looking for Apple App Store optimizations or rejection reasons."
+description: "审查代码库，精准排查 Apple App Store 优化项与潜在拒审风险。"
 version: "1.0.0"
 license: "MIT"
 ---

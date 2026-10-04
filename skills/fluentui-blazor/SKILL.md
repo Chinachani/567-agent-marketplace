@@ -1,6 +1,6 @@
 ---
 name: "fluentui-blazor"
-description: "Guide for using the Microsoft Fluent UI Blazor component library (Microsoft.FluentUI.AspNetCore.Components NuGet package) in Blazor applications. Use this when the user is building a Blazor app with Fluent UI components, setting up the library, using FluentUI components like FluentButton, FluentDataGrid, FluentDialog, FluentToast, FluentNavMenu, FluentTextField, FluentSelect, FluentAutocomplete, FluentDesignTheme, or any component prefixed with \"Fluent\". Also use when troubleshooting missing providers, JS interop issues, or theming."
+description: "指导在 Blazor 应用中集成与使用 Microsoft Fluent UI Blazor 组件库（Microsoft.FluentUI.AspNetCore.Components）。适用于配置该库、使用各类 Fluent 组件（如 FluentButton、FluentDataGrid、FluentDialog、FluentToast、FluentNavMenu、FluentTextField、FluentSelect、FluentAutocomplete、FluentDesignTheme 等带有“Fluent”前缀的组件），以及排查 Provider 缺失、JS 互操作或主题定制等相关问题。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "gtm-0-to-1-launch"
-description: "Launch new products from idea to first customers. Use when launching products, finding early adopters, building launch week playbooks, diagnosing why adoption stalls, or learning that press coverage does not equal growth. Includes the three-layer diagnosis, the 2-week experiment cycle, and the launch that got 50K impressions and 12 signups."
+description: "助力新产品从构想到获取首批客户。适用于产品发布、寻找早期种子用户、制定发布周执行手册、排查增长停滞原因，或认清“媒体曝光不等于实际增长”等场景。内含“三层诊断法”、2周快速实验周期，以及复盘“5万次曝光仅获12个注册”的真实发布案例。"
 version: "1.0.0"
 license: "MIT"
 metadata:

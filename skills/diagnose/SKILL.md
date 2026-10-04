@@ -1,6 +1,6 @@
 ---
 name: "diagnose"
-description: "Perform a systematic diagnostic scan of an AI workflow across 5 quality dimensions — prompt quality, context efficiency, tool health, architecture fitness, and safety — producing a scored report with prioritized remediation actions."
+description: "系统化诊断 AI 工作流的五大质量维度（提示词质量、上下文效率、工具健康度、架构适配性及安全性），输出包含量化评分与优先级整改建议的诊断报告。"
 version: "1.0.0"
 license: "MIT"
 ---

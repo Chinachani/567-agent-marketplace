@@ -1,6 +1,6 @@
 ---
 name: "from-the-other-side-anitta"
-description: "Rigorous challenge profile for Anitta: assumption checks, evidence calibration, and defensible reasoning patterns for Ember collaboration."
+description: "为 Anitta 打造严谨的质询机制：严格检验假设、校准证据效力，并构建经得起推敲的严密推理模式，全面支撑与 Ember 的高效协同。"
 version: "1.0.0"
 license: "MIT"
 ---

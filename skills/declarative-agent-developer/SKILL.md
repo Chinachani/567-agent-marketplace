@@ -1,6 +1,6 @@
 ---
 name: "declarative-agent-developer"
-description: "Create, build, deploy, and localize declarative agents for M365 Copilot and Teams. USE THIS SKILL for ANY task involving a declarative agent — including localization, scaffolding, editing manifests, adding capabilities, and deploying. Localization requires tokenized manifests and language files that only this skill knows how to produce. Triggers: \"create agent\", \"create a declarative agent\", \"new declarative agent\", \"scaffold an agent\", \"new agent project\", \"add a capability\", \"add a plugin\", \"configure my agent\", \"deploy my agent\", \"fix my agent manifest\", \"edit my agent\", \"localize my agent\", \"add localization\", \"translate my agent\", \"multi-language agent\", \"add an API plugin\", \"add an MCP plugin\", \"add OAuth to my plugin\", \"review instructions\", \"improve instructions\", \"fix my instructions\""
+description: "负责 M365 Copilot 与 Teams 声明式 Agent（智能体）的全流程创建、构建、部署与本地化。处理任何涉及声明式 Agent 的任务均须使用此技能，涵盖项目脚手架搭建、清单（Manifest）编辑、能力扩展、API 与 MCP 插件集成、OAuth 鉴权配置及部署发布。专门支持生成专属的标记化清单和多语言文件以实现本地化。适用场景包括：创建或搭建 Agent、配置与部署 Agent、修改与修复清单文件、添加插件与功能扩展、实现多语言本地化，以及审核与优化指令（Instructions）。"
 version: "1.0.0"
 license: "MIT"
 ---

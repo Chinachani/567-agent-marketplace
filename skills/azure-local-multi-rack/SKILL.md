@@ -1,6 +1,6 @@
 ---
 name: "azure-local-multi-rack"
-description: "Plan, deploy, operate, and troubleshoot multi-rack (rack scale) deployments of Azure Local — preintegrated racks scaling to hundreds of machines, built on Network Fabric Controller, Cluster Manager, SAN storage, and managed network fabric. Use for the Microsoft.NetworkCloud and Microsoft.ManagedNetworkFabric control plane. NOT for standard 1-16 node Azure Local, and NOT for rack-aware clusters (two racks as availability zones, up to 8 nodes, synchronous replication) — those are standard scale. WHEN: multi-rack, rack scale Azure Local, aggregation rack, compute rack, Network Fabric Controller, NFC, Cluster Manager, network fabric, isolation domain, az networkcloud, az networkfabric, multi-rack logical network, multi-rack Arc VM."
+description: "规划、部署、运维及排错 Azure Local 多机架（机架级规模）部署。支持由网络交换矩阵控制器（NFC）、集群管理器（Cluster Manager）、SAN 存储及托管网络交换矩阵构建的预集成机架环境，可扩展至数百台物理机；专用于 Microsoft.NetworkCloud 和 Microsoft.ManagedNetworkFabric 控制平面。\n\n不适用于标准的 1-16 节点 Azure Local，亦不适用于机架感知型集群（将两个机架作为可用区、最多 8 节点、采用同步复制的标准规模环境）。\n\n适用场景：涉及多机架（multi-rack）、机架级（rack scale）Azure Local、汇聚机架（aggregation rack）、计算机架（compute rack）、网络交换矩阵控制器（NFC）、集群管理器、网络交换矩阵（network fabric）、隔离域（isolation domain）、az networkcloud、az networkfabric、多机架逻辑网络及多机架 Arc VM 等相关任务。"
 version: "1.0.1"
 license: "MIT"
 metadata:

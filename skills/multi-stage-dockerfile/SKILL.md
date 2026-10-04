@@ -1,6 +1,6 @@
 ---
 name: "multi-stage-dockerfile"
-description: "Create optimized multi-stage Dockerfiles for any language or framework"
+description: "为任意语言或框架构建优化的多阶段 Dockerfile"
 version: "1.0.0"
 license: "MIT"
 ---

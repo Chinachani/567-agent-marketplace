@@ -1,6 +1,6 @@
 ---
 name: "salesforce-apex-quality"
-description: "Apex code quality guardrails for Salesforce development. Enforces bulk-safety rules (no SOQL/DML in loops), sharing model requirements, CRUD/FLS security, SOQL injection prevention, PNB test coverage (Positive / Negative / Bulk), and modern Apex idioms. Use this skill when reviewing or generating Apex classes, trigger handlers, batch jobs, or test classes to catch governor limit risks, security gaps, and quality issues before deployment."
+description: "专为 Salesforce 开发打造的 Apex 代码质量防护规范。严格执行批量化安全原则（严禁在循环内执行 SOQL/DML）、共享模式要求、CRUD/FLS 权限校验、防 SOQL 注入规则、PNB（正向/反向/批量）测试覆盖及现代 Apex 编程规范。在审查或编写 Apex 类、Trigger 处理类、批处理作业及测试类时使用此技能，于部署前排查并消除 Governor Limit 超限风险、安全漏洞与代码质量隐患。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "docs-sync-audit"
-description: "Run a read-only documentation drift audit for a feature, PR, branch, release, API, configuration change, workflow, CLI, package, or repository area. Use when the user asks whether docs are stale, missing, inconsistent with code, or need updates after code changes. Checks README files, setup guides, API docs, env docs, changelogs, examples, comments, generated docs, and user-facing instructions. This is not a general code review; it compares what the docs claim against what the code does."
+description: "针对指定功能、PR、分支、发布版本、API、配置变更、工作流、CLI、软件包或仓库区域，执行只读的文档偏离审计。适用于排查文档是否过时、缺失、与代码脱节，或在代码变更后确认文档是否需要同步更新。检查范围涵盖 README、安装指南、API 文档、环境变量说明、更新日志、示例代码、代码注释、生成文档及用户手册。该功能并非通用代码审查，而是专注于核对“文档说明”与“代码实际行为”的一致性。"
 version: "1.0.0"
 license: "MIT"
 ---

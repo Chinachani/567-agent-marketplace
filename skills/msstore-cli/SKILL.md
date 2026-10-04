@@ -1,6 +1,6 @@
 ---
 name: "msstore-cli"
-description: "Microsoft Store Developer CLI (msstore) for publishing Windows applications to the Microsoft Store. Use when asked to configure Store credentials, list Store apps, check submission status, publish submissions, manage package flights, set up CI/CD for Store publishing, or integrate with Partner Center. Supports Windows App SDK/WinUI, UWP, .NET MAUI, Flutter, Electron, React Native, and PWA applications."
+description: "使用 Microsoft Store 开发者命令行工具 (msstore) 将 Windows 应用发布至 Microsoft Store。适用于配置商店凭据、查看应用列表、查询审核与提交状态、发布新版本、管理分级测试包 (Package Flights)、配置自动化 CI/CD 发布流程或对接合作伙伴中心 (Partner Center)。支持 Windows App SDK/WinUI、UWP、.NET MAUI、Flutter、Electron、React Native 及 PWA 等多种框架的应用。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "azure-quotas"
-description: "Check/manage Azure quotas and usage across providers. For deployment planning, capacity validation, region selection. WHEN: \"check quotas\", \"service limits\", \"current usage\", \"request quota increase\", \"quota exceeded\", \"validate capacity\", \"regional availability\", \"provisioning limits\", \"vCPU limit\", \"how many vCPUs available in my subscription\"."
+description: "查询并管理 Azure 各资源提供商的配额与使用量，用于部署规划、容量验证和区域选择。适用于以下场景：查询配额与当前用量、检查服务或置备上限、排查配额超限、申请提高配额、验证容量与区域可用性，以及核对订阅中的 vCPU 剩余可用额度。"
 version: "1.2.1"
 license: "MIT"
 metadata:

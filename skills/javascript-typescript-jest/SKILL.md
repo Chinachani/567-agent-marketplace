@@ -1,6 +1,6 @@
 ---
 name: "javascript-typescript-jest"
-description: "Best practices for writing JavaScript/TypeScript tests using Jest, including mocking strategies, test structure, and common patterns."
+description: "提供基于 Jest 编写 JavaScript/TypeScript 测试的最佳实践，涵盖 Mock 策略、测试结构设计与常用测试模式。"
 version: "1.0.0"
 license: "MIT"
 ---

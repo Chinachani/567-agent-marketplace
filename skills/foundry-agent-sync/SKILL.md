@@ -1,6 +1,6 @@
 ---
 name: "foundry-agent-sync"
-description: "Create and synchronize prompt-based AI agents directly within Azure AI Foundry via REST API, from a local JSON manifest. Unlike scaffolding skills that only generate local code, this skill registers agents in the Foundry service itself — making them immediately available for invocation. Use when the user asks to create agents in Foundry, sync, deploy, register, or push agents to Foundry, update agent instructions, or scaffold the manifest and sync script for a new repository. Triggers: 'create agent in foundry', 'sync foundry agents', 'deploy agents to foundry', 'register agents in foundry', 'push agents', 'create foundry agent manifest', 'scaffold agent sync'."
+description: "基于本地 JSON 清单，通过 REST API 直接在 Azure AI Foundry 中创建并同步提示词 AI 智能体。与仅生成本地代码的脚手架不同，本技能会将智能体直接注册至 Foundry 服务，使其可立即投入调用。适用于在 Foundry 中创建、同步、部署、注册或推送智能体，更新智能体指令，或为新仓库生成配置清单与同步脚本等场景。触发词：'create agent in foundry', 'sync foundry agents', 'deploy agents to foundry', 'register agents in foundry', 'push agents', 'create foundry agent manifest', 'scaffold agent sync'。"
 version: "1.0.0"
 license: "MIT"
 ---

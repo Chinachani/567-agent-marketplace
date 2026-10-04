@@ -1,6 +1,6 @@
 ---
 name: "lsp-setup"
-description: "Enable code intelligence (go-to-definition, find-references, hover, type info) for any programming language by installing and configuring an LSP server for Copilot CLI. Detects the OS, installs the right server, and generates the JSON configuration (user-level or repo-level). Use when you need deeper code understanding and no LSP server is configured, or when the user asks to set up, install, or configure an LSP server."
+description: "为 Copilot CLI 安装并配置指定语言的 LSP 服务端，开启跳转到定义、查找引用、悬停提示、类型信息等代码智能功能。支持自动检测操作系统、安装适配的服务器，并生成用户级或仓库级的 JSON 配置文件。适用于需要深度理解代码且未配置 LSP，或用户明确要求安装、设置与配置 LSP 服务器的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

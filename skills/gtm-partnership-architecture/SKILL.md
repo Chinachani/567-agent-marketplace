@@ -1,6 +1,6 @@
 ---
 name: "gtm-partnership-architecture"
-description: "Build and scale partner ecosystems that drive revenue and platform adoption. Use when building partner programs from scratch, tiering partnerships, managing co-marketing, making build-vs-partner decisions, or structuring crawl-walk-run partner deployment."
+description: "构建并拓展合作伙伴生态，驱动营收增长与平台普及。适用于从零搭建伙伴体系、实施伙伴分级、管理联合营销、权衡自研与合作决策，以及规划循序渐进的生态落地路径。"
 version: "1.0.0"
 license: "MIT"
 metadata:

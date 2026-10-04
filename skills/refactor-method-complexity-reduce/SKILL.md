@@ -1,6 +1,6 @@
 ---
 name: "refactor-method-complexity-reduce"
-description: "Refactor given method `${input:methodName}` to reduce its cognitive complexity to `${input:complexityThreshold}` or below, by extracting helper methods."
+description: "通过提取辅助方法重构指定方法 `${input:methodName}`，将其认知复杂度降至 `${input:complexityThreshold}` 或更低"
 version: "1.0.0"
 license: "MIT"
 ---

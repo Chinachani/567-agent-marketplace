@@ -1,6 +1,6 @@
 ---
 name: "azure-storage-queue-ts"
-description: "Azure Queue Storage JavaScript/TypeScript SDK (@azure/storage-queue) for message queue operations. Use for sending, receiving, peeking, and deleting messages in queues. Supports visibility timeout, message encoding, and batch operations. Triggers: \"queue storage\", \"@azure/storage-queue\", \"QueueServiceClient\", \"QueueClient\", \"send message\", \"receive message\", \"dequeue\", \"visibility timeout\"."
+description: "使用 Azure Queue Storage JavaScript/TypeScript SDK (@azure/storage-queue) 执行消息队列操作。适用于在队列中发送、接收、查看和删除消息，支持可见性超时、消息编码与批处理操作。触发词：\"queue storage\"、\"@azure/storage-queue\"、\"QueueServiceClient\"、\"QueueClient\"、\"send message\"、\"receive message\"、\"dequeue\"、\"visibility timeout\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

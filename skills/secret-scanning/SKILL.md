@@ -1,6 +1,6 @@
 ---
 name: "secret-scanning"
-description: "Guide for configuring and managing GitHub secret scanning, push protection, custom patterns, and secret alert remediation. For pre-commit secret scanning in AI coding agents via the GitHub MCP Server, this skill references the Advanced Security plugin (`advanced-security@copilot-plugins`). Use this skill when enabling secret scanning, setting up push protection, defining custom patterns, triaging alerts, resolving blocked pushes, or when an agent needs to scan code for secrets before committing."
+description: "指导配置与管理 GitHub 机密扫描、推送保护、自定义匹配模式及机密告警修复。针对 AI 编程智能体通过 GitHub MCP Server 执行提交前机密扫描的场景，本技能支持调用高级安全插件（`advanced-security@copilot-plugins`）。适用于启用机密扫描、配置推送保护、定义自定义规则、审阅排查告警、解除受阻推送，或智能体在提交代码前需排查机密泄露等任务。"
 version: "1.0.0"
 license: "MIT"
 ---

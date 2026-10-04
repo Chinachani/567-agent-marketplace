@@ -1,6 +1,6 @@
 ---
 name: "resx-source-generator-migration"
-description: "Migrates a project that uses checked-in .designer.cs files behind .resx to using a source-generator instead"
+description: "将项目从依赖已签入的 .resx 关联 .designer.cs 文件迁移至使用源码生成器"
 version: "1.0.0"
 license: "MIT"
 disable-model-invocation: true

@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-anomalydetector-java"
-description: "Build anomaly detection applications with Azure AI Anomaly Detector SDK for Java. Use when implementing univariate/multivariate anomaly detection, time-series analysis, or AI-powered monitoring."
+description: "使用 Azure AI 异常检测器 Java SDK 构建异常检测应用。适用于实现单变量/多变量异常检测、时间序列分析或 AI 驱动的智能监控场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

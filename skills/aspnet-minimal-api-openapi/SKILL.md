@@ -1,6 +1,6 @@
 ---
 name: "aspnet-minimal-api-openapi"
-description: "Create ASP.NET Minimal API endpoints with proper OpenAPI documentation"
+description: "构建具备规范 OpenAPI 文档的 ASP.NET Minimal API 端点"
 version: "1.0.0"
 license: "MIT"
 ---

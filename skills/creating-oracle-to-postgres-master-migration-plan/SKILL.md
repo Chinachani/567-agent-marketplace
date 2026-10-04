@@ -1,6 +1,6 @@
 ---
 name: "creating-oracle-to-postgres-master-migration-plan"
-description: "Discovers all projects in a .NET solution, classifies each for Oracle-to-PostgreSQL migration eligibility, and produces a persistent master migration plan. Use when starting a multi-project Oracle-to-PostgreSQL migration, creating a migration inventory, or assessing which .NET projects contain Oracle dependencies."
+description: "全面扫描 .NET 解决方案中的所有项目，评估其从 Oracle 迁移至 PostgreSQL 的可行性，并生成持久化的总体迁移计划。适用于启动多项目数据库迁移、梳理迁移清单，或排查识别包含 Oracle 依赖的 .NET 项目。"
 version: "1.0.0"
 license: "MIT"
 ---

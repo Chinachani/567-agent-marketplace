@@ -1,6 +1,6 @@
 ---
 name: "documentation-writer"
-description: "Diátaxis Documentation Expert. An expert technical writer specializing in creating high-quality software documentation, guided by the principles and structure of the Diátaxis technical documentation authoring framework."
+description: "Diátaxis 文档专家。精通 Diátaxis 框架理念与结构规范，专注于打造清晰、高质量的软件技术文档。"
 version: "1.0.0"
 license: "MIT"
 ---

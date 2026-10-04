@@ -1,6 +1,6 @@
 ---
 name: "gtm-board-and-investor-communication"
-description: "Board meeting preparation, investor updates, and executive communication. Use when preparing board decks, writing investor updates, handling bad news with the board, structuring QBRs, or building board-level metric discipline. Includes the \"Three Things\" narrative model, the 4-tier metric hierarchy, and the pre-brief pattern that prevents board surprises."
+description: "高效搞定董事会筹备、投资者汇报与高层沟通。适用于制作董事会汇报材料、起草投资者更新、向董事会同步坏消息、搭建季度业务复盘（QBR）框架或规范董事会级核心指标。内含“三件事”叙事模型、四级指标体系，以及有效规避意外的会前对齐沟通机制。"
 version: "1.0.0"
 license: "MIT"
 metadata:

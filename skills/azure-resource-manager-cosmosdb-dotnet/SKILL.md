@@ -1,6 +1,6 @@
 ---
 name: "azure-resource-manager-cosmosdb-dotnet"
-description: "Azure Resource Manager SDK for Cosmos DB in .NET. Use for MANAGEMENT PLANE operations: creating/managing Cosmos DB accounts, databases, containers, throughput settings, and RBAC via Azure Resource Manager. NOT for data plane operations (CRUD on documents) - use Microsoft.Azure.Cosmos for that. Triggers: \"Cosmos DB account\", \"create Cosmos account\", \"manage Cosmos resources\", \"ARM Cosmos\", \"CosmosDBAccountResource\", \"provision Cosmos DB\"."
+description: "适用于 .NET 的 Cosmos DB Azure Resource Manager (ARM) SDK。专用于管理平面操作：通过 ARM 创建和管理 Cosmos DB 账户、数据库、容器、吞吐量配置以及 RBAC 访问控制。请勿用于数据平面操作（文档的 CRUD 读写）——此类场景请使用 Microsoft.Azure.Cosmos。触发词包括：\"Cosmos DB account\"、\"create Cosmos account\"、\"manage Cosmos resources\"、\"ARM Cosmos\"、\"CosmosDBAccountResource\"、\"provision Cosmos DB\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

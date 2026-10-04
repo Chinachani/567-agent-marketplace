@@ -1,6 +1,6 @@
 ---
 name: "steno-mode"
-description: "Shorthand-first response compression that cuts ~40% of response tokens while preserving technical precision and exact literals. Use when the user says \"steno mode\", \"shorthand mode\", \"compressed responses\", \"token reduction\", \"brief structured output\", or invokes /steno. Supports four compression levels: lite, brief, court, machine. Do not trigger for requests needing polished prose such as onboarding/tutorial content, stakeholder or customer-facing copy, or teaching-focused explanations."
+description: "以速记优先的回复压缩工具，在确保技术精度与原样字面量的同时削减约40%的Token消耗。当用户输入 \"steno mode\"、\"shorthand mode\"、\"compressed responses\"、\"token reduction\"、\"brief structured output\" 或调用 /steno 时启用。支持四种压缩级别：lite（轻度）、brief（简要）、court（速记级）、machine（机器级）。请勿在需要文案润色的场景中触发，如引导/教程内容、面向客户或干系人的文案以及教学式解析。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "generate-custom-instructions-from-codebase"
-description: "Migration and code evolution instructions generator for GitHub Copilot. Analyzes differences between two project versions (branches, commits, or releases) to create precise instructions allowing Copilot to maintain consistency during technology migrations, major refactoring, or framework version upgrades."
+description: "面向 GitHub Copilot 的代码迁移与演进指令生成器。深入分析两个项目版本（分支、提交或发布版本）的差异，生成精准指令，帮助 Copilot 在技术迁移、重大重构或框架升级时始终保持代码一致性。"
 version: "1.0.0"
 license: "MIT"
 ---

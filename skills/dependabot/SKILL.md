@@ -1,6 +1,6 @@
 ---
 name: "dependabot"
-description: "Comprehensive guide for configuring and managing GitHub Dependabot. Use this skill when users ask about creating or optimizing dependabot.yml files, managing Dependabot pull requests, configuring dependency update strategies, setting up grouped updates, monorepo patterns, multi-ecosystem groups, security update configuration, auto-triage rules, or any GitHub Advanced Security (GHAS) supply chain security topic related to Dependabot. For pre-commit dependency vulnerability scanning in AI coding agents via the GitHub MCP Server, this skill references the Advanced Security plugin (`advanced-security@copilot-plugins`). Use this skill when an agent needs to scan dependencies for known vulnerabilities before committing."
+description: "全面指导 GitHub Dependabot 的配置与管理。适用于协助用户创建或优化 dependabot.yml 文件、管理 Dependabot PR、制定依赖更新策略、配置分组更新、处理 Monorepo 模式与多生态依赖、设置安全更新与自动分流规则，以及解决与 GHAS 相关的软件供应链安全问题。针对 AI 编程智能体通过 GitHub MCP Server 执行提交前依赖漏洞扫描的场景，本技能集成了 Advanced Security 插件（`advanced-security@copilot-plugins`），支持在代码提交前精准扫描并排查依赖项中的已知漏洞。"
 version: "1.0.0"
 license: "MIT"
 ---

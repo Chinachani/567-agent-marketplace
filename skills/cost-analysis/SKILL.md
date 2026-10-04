@@ -1,6 +1,6 @@
 ---
 name: "cost-analysis"
-description: "Analyze actual Azure spend, bill changes, and AKS or AI costs. WHEN: \"Azure cost breakdown\", \"most expensive resources\", \"why did my bill increase\", \"cost spike\", \"unexpected charge\", \"Cosmos DB charges\", \"Foundry model costs\", \"AKS cluster cost\", \"namespace cost\", \"enable AKS cost analysis\", \"idle AKS capacity\". DO NOT USE FOR: forecasts, pricing estimates, rightsizing, commitments, or budgets."
+description: "分析实际 Azure 开销、账单异常变动以及 AKS 或 AI 服务成本。适用场景包括：查询 Azure 费用明细、排查高成本资源、分析账单上涨或成本激增原因、核实意外扣费、分析 Cosmos DB 费用、Foundry 模型成本、AKS 集群与命名空间费用，以及启用 AKS 成本分析或排查 AKS 闲置容量。不适用于：成本预测、定价预估、规格优化（Rightsizing）、预留承诺折扣管理或预算设定。"
 version: "1.1.1"
 license: "MIT"
 metadata:

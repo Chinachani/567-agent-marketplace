@@ -1,6 +1,6 @@
 ---
 name: "arize-annotation"
-description: "Creates and manages annotation configs (categorical, continuous, freeform label schemas) and annotation queues (human review workflows) on Arize. Applies human annotations to project spans via the Python SDK. Use when the user mentions annotation config, annotation queue, label schema, human feedback, bulk annotate spans, update_annotations, labeling queue, annotate record, or human review."
+description: "在 Arize 上创建并管理标注配置（分类、连续型及自由文本标签模式）与标注队列（人工审核工作流），并通过 Python SDK 将人工标注应用至项目 Span。当用户提及标注配置（annotation config）、标注队列（annotation queue）、标签模式（label schema）、人工反馈（human feedback）、批量标注 Span（bulk annotate spans）、update_annotations、标注记录（annotate record）或人工审核（human review）时使用。"
 version: "1.0"
 license: "MIT"
 metadata:

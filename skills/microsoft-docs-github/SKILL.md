@@ -1,6 +1,6 @@
 ---
 name: "microsoft-docs-github"
-description: "Query official Microsoft documentation to find concepts, tutorials, and code examples across Azure, .NET, Agent Framework, Aspire, VS Code, GitHub, and more. Uses Microsoft Learn MCP as the default, with Context7 and Aspire MCP for content that lives outside learn.microsoft.com."
+description: "检索微软官方文档，获取涵盖 Azure、.NET、Agent Framework、Aspire、VS Code、GitHub 等领域的核心概念、教程与代码示例。默认基于 Microsoft Learn MCP 进行检索，并协同 Context7 与 Aspire MCP 补充获取 learn.microsoft.com 之外的技术内容。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "typespec-create-api-plugin"
-description: "Generate a TypeSpec API plugin with REST operations, authentication, and Adaptive Cards for Microsoft 365 Copilot"
+description: "为 Microsoft 365 Copilot 生成支持 REST 操作、身份验证和自适应卡片的 TypeSpec API 插件"
 version: "1.0.0"
 license: "MIT"
 ---

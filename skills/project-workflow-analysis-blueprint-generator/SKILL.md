@@ -1,6 +1,6 @@
 ---
 name: "project-workflow-analysis-blueprint-generator"
-description: "Comprehensive technology-agnostic prompt generator for documenting end-to-end application workflows. Automatically detects project architecture patterns, technology stacks, and data flow patterns to generate detailed implementation blueprints covering entry points, service layers, data access, error handling, and testing approaches across multiple technologies including .NET, Java/Spring, React, and microservices architectures."
+description: "通用型跨技术栈提示词生成工具，专用于梳理端到端应用工作流。可自动识别项目架构模式、技术栈和数据流向，面向 .NET、Java/Spring、React 及微服务等多种架构生态生成详尽的落地实现蓝图，全面覆盖程序入口、服务层、数据访问、异常处理及测试方案。"
 version: "1.0.0"
 license: "MIT"
 ---

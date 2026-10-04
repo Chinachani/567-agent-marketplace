@@ -1,6 +1,6 @@
 ---
 name: "qdrant-monitoring-setup"
-description: "Guides Qdrant monitoring setup including Prometheus scraping, health probes, Hybrid Cloud metrics, alerting, and log centralization. Use when someone asks 'how to set up monitoring', 'Prometheus config', 'Grafana dashboard', 'health check endpoints', 'how to scrape Hybrid Cloud', 'what alerts to set', 'how to centralize logs', or 'audit logging'."
+description: "指导配置 Qdrant 监控体系，涵盖 Prometheus 指标抓取、健康检查探针、混合云指标、告警设置及集中式日志管理。适用于咨询“如何搭建监控”、“Prometheus 配置”、“Grafana 仪表盘”、“健康检查端点”、“如何采集混合云指标”、“应设置哪些告警”、“如何集中管理日志”或“审计日志”等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

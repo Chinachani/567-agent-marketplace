@@ -1,6 +1,6 @@
 ---
 name: "first-ask"
-description: "Interactive, input-tool powered, task refinement workflow: interrogates scope, deliverables, constraints before carrying out the task; Requires the Joyride extension."
+description: "基于输入工具的交互式任务细化工作流：在执行任务前深入明确需求范围、交付成果与限制条件；需搭配 Joyride 扩展使用。"
 version: "1.0.0"
 license: "MIT"
 ---

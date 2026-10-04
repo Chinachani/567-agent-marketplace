@@ -1,6 +1,6 @@
 ---
 name: "transloadit-media-processing"
-description: "Process media files (video, audio, images, documents) using Transloadit. Use when asked to encode video to HLS/MP4, generate thumbnails, resize or watermark images, extract audio, concatenate clips, add subtitles, OCR documents, or run any media processing pipeline. Covers 86+ processing robots for file transformation at scale."
+description: "使用 Transloadit 处理各类媒体文件（视频、音频、图片、文档）。适用于视频转码（HLS/MP4）、生成缩略图、图片缩放与加水印、音频提取、视频拼接、添加字幕、文档 OCR 识别或运行自动化媒体处理工作流。内置 86+ 款处理机器人，支持大规模文件转换。"
 version: "1.0.0"
 license: "MIT"
 compatibility: Requires a free Transloadit account (https://transloadit.com/signup). Uses the @transloadit/mcp-server MCP server or the @transloadit/node CLI.

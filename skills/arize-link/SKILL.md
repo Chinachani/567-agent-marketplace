@@ -1,6 +1,6 @@
 ---
 name: "arize-link"
-description: "Generates deep links to the Arize UI for traces, spans, sessions, datasets, labeling queues, evaluators, and annotation configs. Produces clickable URLs for sharing Arize resources with team members. Use when the user wants to link to or open a trace, span, session, dataset, evaluator, or annotation config in the Arize UI."
+description: "生成直达 Arize UI 的深度链接，支持 Trace、Span、Session、数据集、标注队列、评估器及标注配置，一键输出可点击的 URL 便于团队协作与资源共享。适用于需要在 Arize 控制台中定位、打开或分享指定资源的场景。"
 version: "1.0"
 license: "MIT"
 metadata:

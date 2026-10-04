@@ -1,6 +1,6 @@
 ---
 name: "entra-agent-user"
-description: "Create Agent Users in Microsoft Entra ID from Agent Identities, enabling AI agents to act as digital workers with user identity capabilities in Microsoft 365 and Azure environments."
+description: "基于代理身份在 Microsoft Entra ID 中创建代理用户，赋予 AI 智能体用户身份能力，使其在 Microsoft 365 和 Azure 环境中充当数字员工开展工作。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "aws-cloudwatch-investigation"
-description: "Reusable investigation patterns for AWS CloudWatch: Logs Insights query templates, alarm-to-deployment correlation, blast-radius narrowing decision tree, and PromQL-style metric query patterns for structured incident triage."
+description: "提供适用于 AWS CloudWatch 的可复用排障模式，涵盖 Logs Insights 查询模板、告警与部署关联分析、影响范围收敛决策树及类 PromQL 指标查询范式，助力高效开展结构化故障分诊与排查。"
 version: "1.0.0"
 license: "MIT"
 ---

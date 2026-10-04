@@ -1,6 +1,6 @@
 ---
 name: "azure-mgmt-apicenter-py"
-description: "Azure API Center Management SDK for Python. Use for managing API inventory, metadata, and governance across your organization. Triggers: \"azure-mgmt-apicenter\", \"ApiCenterMgmtClient\", \"API Center\", \"API inventory\", \"API governance\"."
+description: "使用 Python 版 Azure API 中心管理 SDK，统一管控全组织的 API 资产清单、元数据与治理规范。触发词：azure-mgmt-apicenter、ApiCenterMgmtClient、API Center、API inventory、API governance。"
 version: "1.0.0"
 license: "MIT"
 metadata:

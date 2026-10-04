@@ -1,6 +1,6 @@
 ---
 name: "server-side-conversion-tracking"
-description: "Set up server-side conversion tracking so purchases are reported accurately to Facebook, TikTok, Google and Bing despite iOS restrictions, ad blockers and cookie loss. Use when conversions are under-reported, when platform-reported purchases do not match real orders, when asked about Conversions API / Events API / offline conversions / CAPI, click id passthrough (fbclid, ttclid, gclid, msclkid), or when ad optimization has degraded after tracking changes."
+description: "配置服务端转化追踪，突破 iOS 限制、广告拦截插件及 Cookie 损耗，确保购买数据精准回传至 Facebook、TikTok、Google 和 Bing。适用于转化数据漏报、平台数据与真实订单不符、涉及 Conversions API (CAPI) / Events API / 离线转化、点击 ID（fbclid、ttclid、gclid、msclkid）透传，或因追踪变动导致广告投放效果下滑等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

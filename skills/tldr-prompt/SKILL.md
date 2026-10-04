@@ -1,6 +1,6 @@
 ---
 name: "tldr-prompt"
-description: "Create tldr summaries for GitHub Copilot files (prompts, agents, instructions, collections), MCP servers, or documentation from URLs and queries."
+description: "基于URL或查询，为GitHub Copilot文件（提示词、智能体、指令、集合）、MCP服务器及各类文档快速生成极简TL;DR摘要。"
 version: "1.0.0"
 license: "MIT"
 ---

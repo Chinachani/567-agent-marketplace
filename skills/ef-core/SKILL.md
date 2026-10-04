@@ -1,6 +1,6 @@
 ---
 name: "ef-core"
-description: "Get best practices for Entity Framework Core"
+description: "获取 Entity Framework Core 最佳实践"
 version: "1.0.0"
 license: "MIT"
 ---

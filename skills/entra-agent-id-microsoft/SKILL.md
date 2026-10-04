@@ -1,6 +1,6 @@
 ---
 name: "entra-agent-id-microsoft"
-description: "Microsoft Entra Agent ID (preview) for creating OAuth2-capable AI agent identities via Microsoft Graph beta API. Covers Agent Identity Blueprints, BlueprintPrincipals, Agent Identities, required permissions, sponsors, and Workload Identity Federation. Includes Microsoft Entra SDK for AgentID (containerized sidecar) for polyglot agent authentication (Docker/Kubernetes), 3P agent integration, autonomous and interactive agent patterns. Triggers: \"agent identity\", \"agent id\", \"Agent Identity Blueprint\", \"BlueprintPrincipal\", \"entra agent\", \"agent identity provisioning\", \"Graph agent identity\", \"entra sidecar\", \"agent id sidecar\", \"auth sidecar\", \"3P agent\", \"third-party agent identity\", \"polyglot agent auth\"."
+description: "基于 Microsoft Graph beta API 与 Microsoft Entra Agent ID（预览版）构建具备 OAuth2 能力的 AI Agent 身份体系。全面涵盖 Agent 身份蓝图（Agent Identity Blueprints）、蓝图主体（BlueprintPrincipals）、Agent 身份配置、权限管控、Sponsor 机制及工作负载身份联合（Workload Identity Federation）。支持借助 AgentID 容器化 Sidecar SDK 实现多语言 Agent（Docker/Kubernetes）认证、第三方 Agent 集成，以及自主与交互式 Agent 运行模式。触发词：agent identity、agent id、Agent Identity Blueprint、BlueprintPrincipal、entra agent、agent identity provisioning、Graph agent identity、entra sidecar、agent id sidecar、auth sidecar、3P agent、third-party agent identity、polyglot agent auth。"
 version: "1.0.0"
 license: "MIT"
 ---

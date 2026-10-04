@@ -1,6 +1,6 @@
 ---
 name: "azure-local"
-description: "Plan, deploy, operate, and troubleshoot Azure Local (formerly Azure Stack HCI): sizing and prerequisites, Arc registration, lifecycle updates, workloads (Azure Local VMs, AKS on Azure Local, images, disks, logical networks), SDN and network security, and failure triage — starting read-only and confirming before risky changes. WHEN: Azure Local, Azure Stack HCI, Arc resource bridge, custom location, Azure Local VM, Arc VM, AKS on Azure Local, AKS hybrid, SDN, Lifecycle Manager, Azure Local update, disconnected site."
+description: "规划、部署、运维和排查 Azure Local（原 Azure Stack HCI）：涵盖容量选型与前置要求、Arc 注册、生命周期更新、各类工作负载（Azure Local 虚拟机、Azure Local 上的 AKS、镜像、磁盘及逻辑网络）、SDN 与网络安全，以及故障排查；遵循先只读检查、执行高危变更前严格确认的安全准则。适用场景：涉及 Azure Local、Azure Stack HCI、Arc 资源网桥、自定义位置、Azure Local 虚拟机、Arc 虚拟机、Azure Local 上的 AKS、AKS 混合部署、SDN、生命周期管理器、Azure Local 更新或离线/断网站点等需求。"
 version: "1.0.1"
 license: "MIT"
 metadata:

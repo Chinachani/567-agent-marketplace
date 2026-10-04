@@ -1,6 +1,6 @@
 ---
 name: "mini-context-graph"
-description: "A persistent, compounding knowledge base combining Karpathy's LLM Wiki pattern with a structured knowledge graph. Ingest documents once — the LLM writes wiki pages, extracts entities/relations into the graph, and stores raw content for evidence retrieval. Knowledge accumulates and cross-references; it is never re-derived from scratch."
+description: "融合 Karpathy 的 LLM Wiki 范式与结构化知识图谱的持久化复利知识库。仅需一次导入文档，LLM 即可自动撰写 Wiki 页面、向图谱中提取实体与关系，并留存原始内容以供佐证溯源。知识持续累积并交叉互引，告别从零重复推导。"
 version: "1.0.0"
 license: "MIT"
 ---

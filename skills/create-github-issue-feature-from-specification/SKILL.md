@@ -1,6 +1,6 @@
 ---
 name: "create-github-issue-feature-from-specification"
-description: "Create GitHub Issue for feature request from specification file using feature_request.yml template."
+description: "根据规格说明文件，使用 feature_request.yml 模板创建功能需求 GitHub Issue"
 version: "1.0.0"
 license: "MIT"
 ---

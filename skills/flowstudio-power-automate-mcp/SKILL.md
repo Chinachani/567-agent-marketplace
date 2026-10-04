@@ -1,6 +1,6 @@
 ---
 name: "flowstudio-power-automate-mcp"
-description: "Foundation skill for Power Automate via FlowStudio MCP — auth setup, the reusable MCP helper (Python + Node.js), tool discovery via `list_skills` / `tool_search`, and oversized-response handling. Load this skill first when connecting an agent to Power Automate. For specialized workflows, load `flowstudio-power-automate-build`, `flowstudio-power-automate-debug`, `flowstudio-power-automate-monitoring` (Pro+), or `flowstudio-power-automate-governance` (Pro+) — each contains the workflow narrative, this skill provides the plumbing they all rely on. Requires a FlowStudio MCP subscription or compatible server — see https://mcp.flowstudio.app"
+description: "基于 FlowStudio MCP 的 Power Automate 基础技能，涵盖身份验证配置、可复用 MCP 辅助程序（Python + Node.js）、基于 `list_skills` 与 `tool_search` 的工具发现以及超大响应处理。将智能体连接至 Power Automate 时，请优先加载此技能。针对专项工作流，可按需加载 `flowstudio-power-automate-build`、`flowstudio-power-automate-debug`、`flowstudio-power-automate-monitoring`（Pro+）或 `flowstudio-power-automate-governance`（Pro+）——上述技能封装了具体的业务流程，而本技能为其提供通用的底层基础设施支撑。使用前需要 FlowStudio MCP 订阅或兼容服务器，详见 https://mcp.flowstudio.app"
 version: "1.0.0"
 license: "MIT"
 ---

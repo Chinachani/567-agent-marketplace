@@ -1,6 +1,6 @@
 ---
 name: "prepare"
-description: "Prepare — Architecture Planning & Cost Estimation"
+description: "前期筹备 — 架构规划与成本估算"
 version: "1.0.0"
 license: "MIT"
 ---

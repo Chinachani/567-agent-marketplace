@@ -1,6 +1,6 @@
 ---
 name: "java-springboot"
-description: "Get best practices for developing applications with Spring Boot."
+description: "获取 Spring Boot 应用开发最佳实践"
 version: "1.0.0"
 license: "MIT"
 ---

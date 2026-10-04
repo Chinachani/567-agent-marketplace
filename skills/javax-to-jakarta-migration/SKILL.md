@@ -1,6 +1,6 @@
 ---
 name: "javax-to-jakarta-migration"
-description: "Migrate Java code from javax.* to jakarta.* namespace. Use when upgrading to Tomcat 11, Jakarta EE 10, or when javax imports are detected in the codebase."
+description: "将 Java 代码从 javax.* 迁移至 jakarta.* 命名空间。适用于升级至 Tomcat 11、Jakarta EE 10，或在代码库中检测到 javax 导入时。"
 version: "1.0.0"
 license: "MIT"
 argument-hint: "File, package, or module to migrate"

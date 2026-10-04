@@ -1,6 +1,6 @@
 ---
 name: "microsoft-store-publisher"
-description: "Prepare, validate, submit, and monitor Windows desktop apps in Microsoft Partner Center. Use for MSIX packaging, Store identity, listings, WACK, Partner Center automation, certification, and publishing."
+description: "在 Microsoft 合作伙伴中心准备、验证、提交和监控 Windows 桌面应用。适用于 MSIX 打包、商店标识配置、应用详情管理、WACK 测试、合作伙伴中心自动化、应用认证与发布上线。"
 version: "1.0.0"
 license: "MIT"
 ---

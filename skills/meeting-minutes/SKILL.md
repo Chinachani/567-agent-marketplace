@@ -1,6 +1,6 @@
 ---
 name: "meeting-minutes"
-description: "Generate concise, actionable meeting minutes for internal meetings. Includes metadata, attendees, agenda, decisions, action items (owner + due date), and follow-up steps."
+description: "高效生成精炼、可落地的内部会议纪要，涵盖会议基本信息、参会人员、议程、核心决议、行动项（负责人与截止时间）及后续跟进步骤。"
 version: "1.0.0"
 license: "MIT"
 ---

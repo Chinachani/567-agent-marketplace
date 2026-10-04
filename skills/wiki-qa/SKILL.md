@@ -1,6 +1,6 @@
 ---
 name: "wiki-qa"
-description: "Answers questions about a code repository using source file analysis. Use when the user asks a question about how something works, wants to understand a component, or needs help navigating the codebase."
+description: "通过源码分析解答代码库相关问题。适用于探究运行机制、理解特定组件或梳理代码结构的场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

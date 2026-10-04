@@ -1,6 +1,6 @@
 ---
 name: "azure-communication-common-java"
-description: "Azure Communication Services common utilities for Java. Use when working with CommunicationTokenCredential, user identifiers, token refresh, or shared authentication across ACS services."
+description: "适用于 Java 的 Azure Communication Services 通用工具库。用于处理 CommunicationTokenCredential 凭据、用户标识符、令牌刷新以及跨 ACS 服务的共享身份验证。"
 version: "1.0.0"
 license: "MIT"
 metadata:

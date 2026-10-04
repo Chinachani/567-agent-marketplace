@@ -1,6 +1,6 @@
 ---
 name: "azure-role-selector"
-description: "When user is asking for guidance for which role to assign to an identity given desired permissions, this agent helps them understand the role that will meet the requirements with least privilege access and how to apply that role."
+description: "根据所需权限推荐符合最小特权原则的身份角色，并指导具体的配置与分配方法。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools: ['Azure MCP/documentation', 'Azure MCP/bicepschema', 'Azure MCP/extension_cli_generate', 'Azure MCP/get_bestpractices']

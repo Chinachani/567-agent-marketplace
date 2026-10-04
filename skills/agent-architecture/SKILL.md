@@ -1,6 +1,6 @@
 ---
 name: "agent-architecture"
-description: "Design AI agent architectures through requirements discovery, or audit and diagnose architectural flaws in existing agents. Architecture only; excludes implementation and general code review."
+description: "通过需求洞察设计AI智能体架构，或审查与诊断现有智能体的架构缺陷。仅聚焦系统架构，不涉及具体代码实现及常规代码审查。"
 version: "1.0.0"
 license: "MIT"
 ---

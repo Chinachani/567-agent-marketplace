@@ -1,6 +1,6 @@
 ---
 name: "cli-mastery"
-description: "Interactive training for the GitHub Copilot CLI. Guided lessons, quizzes, scenario challenges, and a full reference covering slash commands, shortcuts, modes, agents, skills, MCP, and configuration. Say \"cliexpert\" to start."
+description: "GitHub Copilot CLI 交互式实战教学。包含引导式课程、随堂测验、场景挑战，并提供涵盖斜杠命令、快捷键、模式、智能体、技能、MCP 及配置的完整参考指南。输入“cliexpert”即刻开启。"
 version: "1.2.0"
 license: "MIT"
 metadata:

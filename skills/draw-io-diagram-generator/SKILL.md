@@ -1,6 +1,6 @@
 ---
 name: "draw-io-diagram-generator"
-description: "Use when creating, editing, or generating draw.io diagram files (.drawio, .drawio.svg, .drawio.png). Covers mxGraph XML authoring, shape libraries, style strings, flowcharts, system architecture, sequence diagrams, ER diagrams, UML class diagrams, network topology, layout strategy, the hediet.vscode-drawio VS Code extension, and the full agent workflow from request to a ready-to-open file."
+description: "适用于创建、编辑和生成 draw.io 图表文件（.drawio、.drawio.svg、.drawio.png）。全面覆盖 mxGraph XML 编写、形状库调用与样式语法，擅长绘制流程图、系统架构图、时序图、ER 图、UML 类图及网络拓扑图；支持智能布局策略与 hediet.vscode-drawio VS Code 插件联动，实现从需求输入到交付可直接打开文件的端到端全流程。"
 version: "1.0.0"
 license: "MIT"
 ---

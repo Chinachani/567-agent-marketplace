@@ -1,6 +1,6 @@
 ---
 name: "oo-component-documentation"
-description: "Create or update standardized object-oriented component documentation using a shared template plus mode-specific guidance for new and existing docs."
+description: "使用共享模板与模式专属指引，创建或更新标准化的面向对象组件文档（适用于新建与已有文档）。"
 version: "1.0.0"
 license: "MIT"
 ---

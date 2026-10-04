@@ -1,6 +1,6 @@
 ---
 name: "protobuf-grpc-api-review"
-description: "Review Protocol Buffer (.proto) and gRPC API changes for wire and JSON compatibility, safe schema evolution, rollout hazards, and RPC contract quality. Use when reviewing proto diffs, adding or changing messages and services, planning migrations, or diagnosing cross-version failures."
+description: "审查 Protocol Buffer (.proto) 及 gRPC API 变更，全面评估二进制与 JSON 兼容性、Schema 安全演进、发布风险及 RPC 契约质量。适用于审查 Proto 变更差异、增改 Message 与 Service、规划版本迁移方案或排查跨版本兼容故障。"
 version: "1.0.0"
 license: "MIT"
 ---

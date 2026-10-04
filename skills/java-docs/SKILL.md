@@ -1,6 +1,6 @@
 ---
 name: "java-docs"
-description: "Ensure that Java types are documented with Javadoc comments and follow best practices for documentation."
+description: "确保 Java 类型具备规范的 Javadoc 注释，并遵循文档编写最佳实践。"
 version: "1.0.0"
 license: "MIT"
 ---

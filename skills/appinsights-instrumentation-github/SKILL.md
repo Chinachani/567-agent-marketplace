@@ -1,6 +1,6 @@
 ---
 name: "appinsights-instrumentation-github"
-description: "Instrument a webapp to send useful telemetry data to Azure App Insights"
+description: "为 Web 应用配置监控埋点，向 Azure App Insights 发送高价值遥测数据"
 version: "1.0.0"
 license: "MIT"
 ---

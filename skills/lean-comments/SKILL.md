@@ -1,6 +1,6 @@
 ---
 name: "lean-comments"
-description: "Audits, writes, and refines maintained first-party source-code comments and declaration-level documentation across languages. Use when adding, editing, reviewing, cleaning up, or auditing comments, doc comments, docstrings, TODO, FIXME, NOTE, suppressions, or other source commentary, including while modifying code and deciding whether a comment is warranted at all. Defaults to no comment unless it preserves meaningful, non-obvious information that cannot reasonably be recovered from the code or nearby repository context."
+description: "跨语言审查、编写并优化源码注释与声明级文档。适用于添加、修改、清理或审计各类代码注释（如文档字符串、TODO/FIXME 标记及警告抑制说明），并在编码时评估注释的必要性。坚持“非必要不注释”原则，仅当信息关键、非显而易见且无法从代码本身或上下文中推断时才添加注释。"
 version: "1.0.0"
 license: "MIT"
 ---

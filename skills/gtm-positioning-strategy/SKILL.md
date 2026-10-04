@@ -1,6 +1,6 @@
 ---
 name: "gtm-positioning-strategy"
-description: "Find and own a defensible market position. Use when messaging sounds like competitors, conversion is weak despite awareness, repositioning a product, or testing positioning claims. Includes Crawl-Walk-Run rollout methodology and the word change that improved enterprise deal progression."
+description: "发掘并确立具有竞争壁垒的市场定位。适用于营销话术与竞品雷同、知名度高却转化乏力、产品重新定位或验证定位主张等场景。内含“爬-走-跑”渐进式落地方法论，以及能显著加速企业级大单推进的关键措辞技巧。"
 version: "1.0.0"
 license: "MIT"
 metadata:

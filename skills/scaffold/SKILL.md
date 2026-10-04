@@ -1,6 +1,6 @@
 ---
 name: "scaffold"
-description: "Azure App Onboard Scaffold — IaC Generation + Self-Review"
+description: "构建Azure应用接入脚手架：自动生成IaC并执行代码自审"
 version: "1.0.0"
 license: "MIT"
 ---

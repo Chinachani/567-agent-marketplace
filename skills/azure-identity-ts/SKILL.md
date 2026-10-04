@@ -1,6 +1,6 @@
 ---
 name: "azure-identity-ts"
-description: "Authenticate to Azure services using Azure Identity library for JavaScript (@azure/identity). Use when configuring authentication with DefaultAzureCredential, managed identity, service principals, or interactive browser login."
+description: "使用适用于 JavaScript 的 Azure Identity 库（@azure/identity）对 Azure 服务进行身份验证。适用于配置 DefaultAzureCredential、托管标识、服务主体或交互式浏览器登录等认证场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

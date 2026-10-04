@@ -1,6 +1,6 @@
 ---
 name: "adobe-illustrator-scripting"
-description: "Write, debug, and optimize Adobe Illustrator automation scripts using ExtendScript (JavaScript/JSX). Use when creating or modifying scripts that manipulate documents, layers, paths, text frames, colors, symbols, artboards, or any Illustrator DOM objects. Covers the complete JavaScript object model, coordinate system, measurement units, export workflows, and scripting best practices."
+description: "使用 ExtendScript (JavaScript/JSX) 编写、调试和优化 Adobe Illustrator 自动化脚本。适用于创建或修改涉及文档、图层、路径、文本框、颜色、符号、画板等各类 Illustrator DOM 对象的开发场景。全面覆盖 JavaScript 对象模型、坐标系、计量单位、导出工作流及脚本最佳实践。"
 version: "1.0.0"
 license: "MIT"
 ---

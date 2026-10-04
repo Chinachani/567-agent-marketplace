@@ -1,6 +1,6 @@
 ---
 name: "eval-driven-dev"
-description: "Improve AI application with evaluation-driven development. Define eval criteria, instrument the application, build golden datasets, observe and evaluate application runs, analyze results, and produce a concrete action plan for improvements. ALWAYS USE THIS SKILL when the user asks to set up QA, add tests, add evals, evaluate, benchmark, fix wrong behaviors, improve quality, or do quality assurance for any Python project that calls an LLM model."
+description: "基于评测驱动开发优化 AI 应用。明确评测指标，完成应用埋点，构建黄金数据集，监测并评估运行表现，深入分析结果并制定切实的改进方案。凡是用户要求为调用大语言模型的 Python 项目建立质检机制、添加测试或评测、执行基准测试、修复异常行为、提升输出质量或进行质量保障时，必须使用此技能。"
 version: "0.8.4"
 license: "MIT"
 compatibility: Python 3.10+

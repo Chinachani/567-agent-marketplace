@@ -1,6 +1,6 @@
 ---
 name: "premium-frontend-ui"
-description: "A comprehensive guide for GitHub Copilot to craft immersive, high-performance web experiences with advanced motion, typography, and architectural craftsmanship."
+description: "全面指导 GitHub Copilot 融合前沿动效、精致排版与卓越架构，打造沉浸式、高性能的 Web 体验。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "planning-oracle-to-postgres-migration-integration-testing"
-description: "Creates an integration testing plan for .NET data access artifacts during Oracle-to-PostgreSQL database migrations. Analyzes a single project to identify repositories, DAOs, and service layers that interact with the database, then produces a structured testing plan. Use when planning integration test coverage for a migrated project, identifying which data access methods need tests, or preparing for Oracle-to-PostgreSQL migration validation."
+description: "在 Oracle 迁移至 PostgreSQL 期间，为 .NET 数据访问组件制定集成测试计划。通过分析单一项目，识别与数据库交互的仓储（Repository）、DAO 和服务层，进而生成结构化测试方案。适用于规划迁移项目的集成测试覆盖、确定待测数据访问方法，或筹备 Oracle 到 PostgreSQL 的迁移验证。"
 version: "1.0.0"
 license: "MIT"
 ---

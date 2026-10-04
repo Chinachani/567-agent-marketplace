@@ -1,6 +1,6 @@
 ---
 name: "create-llms"
-description: "Create an llms.txt file from scratch based on repository structure following the llms.txt specification at https://llmstxt.org/"
+description: "遵循 https://llmstxt.org/ 规范，基于代码仓库结构从零生成 llms.txt 文件"
 version: "1.0.0"
 license: "MIT"
 ---

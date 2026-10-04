@@ -1,6 +1,6 @@
 ---
 name: "ssma-console"
-description: "Use when: SSMA console operations — create project, generate assessment report, convert schema, migrate data, Oracle to SQL Server migration, schema conversion, data migration"
+description: "适用于通过 SSMA 控制台执行 Oracle 到 SQL Server 迁移：创建项目、生成评估报告、转换数据库架构及迁移数据。"
 version: "1.0.0"
 license: "MIT"
 ---

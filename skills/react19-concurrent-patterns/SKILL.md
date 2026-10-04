@@ -1,6 +1,6 @@
 ---
 name: "react19-concurrent-patterns"
-description: "Preserve React 18 concurrent patterns and adopt React 19 APIs (useTransition, useDeferredValue, Suspense, use(), useOptimistic, Actions) during migration."
+description: "在迁移过程中保留 React 18 并发模式，并全面接入 React 19 API（useTransition、useDeferredValue、Suspense、use()、useOptimistic、Actions）。"
 version: "1.0.0"
 license: "MIT"
 ---

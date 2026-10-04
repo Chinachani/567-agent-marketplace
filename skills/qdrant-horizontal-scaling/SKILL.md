@@ -1,6 +1,6 @@
 ---
 name: "qdrant-horizontal-scaling"
-description: "Diagnoses and guides Qdrant horizontal scaling decisions. Use when someone asks 'vertical or horizontal?', 'how many nodes?', 'how many shards?', 'how to add nodes', 'resharding', 'data doesn't fit', or 'need more capacity'. Also use when data growth outpaces current deployment."
+description: "评估并指导 Qdrant 水平扩容决策。适用于规划集群容量、评估垂直或水平扩容选型、确定节点与分片数量、指导添加节点与重新分片，以及解决数据暴增、单机容量不足等扩容瓶颈场景。"
 version: "1.0.0"
 license: "MIT"
 ---

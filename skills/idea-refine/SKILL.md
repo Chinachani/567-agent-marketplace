@@ -1,6 +1,6 @@
 ---
 name: "idea-refine"
-description: "Refines raw ideas into sharp, actionable concepts through structured divergent and convergent thinking. Use when an idea is still vague, when you need to stress-test assumptions before committing to a plan, or when you want to expand options before converging on one. Triggers on \"ideate\", \"refine this idea\", or \"stress-test my plan\"."
+description: "运用结构化发散与收敛思维，将粗糙想法打磨为精准、可执行的成熟概念。适用于构想尚不清晰、推进前需压力测试关键假设，或定案前需要拓展备选方案的场景。输入“ideate（构思）”、“refine this idea（打磨想法）”或“stress-test my plan（方案压力测试）”即可触发。"
 version: "1.0.0"
 license: "MIT"
 ---

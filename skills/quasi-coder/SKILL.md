@@ -1,6 +1,6 @@
 ---
 name: "quasi-coder"
-description: "Expert 10x engineer skill for interpreting and implementing code from shorthand, quasi-code, and natural language descriptions. Use when collaborators provide incomplete code snippets, pseudo-code, or descriptions with potential typos or incorrect terminology. Excels at translating non-technical or semi-technical descriptions into production-quality code."
+description: "具备顶尖（10x）工程师的代码理解与实现能力。适用于协作者提供残缺代码、伪代码，或带有错别字、术语不规范等模糊描述的场景。擅长精准解析简写与自然语言，将非技术或半技术性表述高效转化为高质量的生产级代码。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "azure-speech-to-text-rest-py"
-description: "Azure Speech to Text REST API for short audio (Python). Use for simple speech recognition of audio files up to 60 seconds without the Speech SDK. Triggers: \"speech to text REST\", \"short audio transcription\", \"speech recognition REST API\", \"STT REST\", \"recognize speech REST\". DO NOT USE FOR: Long audio (>60 seconds), real-time streaming, batch transcription, custom speech models, speech translation. Use Speech SDK or Batch Transcription API instead."
+description: "适用于短音频的 Azure 语音转文本 REST API（Python）。用于在无需集成 Speech SDK 的情况下，对 60 秒以内的音频文件进行轻量级语音识别。触发词：speech to text REST、short audio transcription、speech recognition REST API、STT REST、recognize speech REST。请勿用于：长音频（超过 60 秒）、实时流式传输、批量转录、自定义语音模型及语音翻译；此类需求请改用 Speech SDK 或批量转录 API。"
 version: "1.0.0"
 license: "MIT"
 metadata:

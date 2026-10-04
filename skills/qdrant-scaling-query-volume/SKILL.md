@@ -1,6 +1,6 @@
 ---
 name: "qdrant-scaling-query-volume"
-description: "Guides Qdrant query volume scaling. Use when someone asks 'query returns too many results', 'scroll performance', 'large limit values', 'paginating search results', 'fetching many vectors', or 'high cardinality results'."
+description: "指导 Qdrant 大规模查询扩展与性能优化。适用于解决查询返回结果过多、滚动查询（Scroll）性能瓶颈、limit 设置过大、搜索结果分页、批量获取海量向量及高基数结果集处理等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

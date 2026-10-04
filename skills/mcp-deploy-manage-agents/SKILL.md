@@ -1,6 +1,6 @@
 ---
 name: "mcp-deploy-manage-agents"
-description: "Skill converted from mcp-deploy-manage-agents.prompt.md"
+description: "部署与管理智能体：支持基于 MCP 协议的智能体发布、配置与全生命周期运维管理"
 version: "1.0.0"
 license: "MIT"
 ---

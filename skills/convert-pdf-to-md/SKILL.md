@@ -1,6 +1,6 @@
 ---
 name: "convert-pdf-to-md"
-description: "Converts PDF (.pdf) documents into Markdown so their contents can be accurately analyzed, summarized, searched, or extracted from. Use this skill whenever the user shares, references, or asks about a .pdf file — even if they don't say \"convert\" or \"markdown\" explicitly. This includes requests to \"read\", \"summarize\", \"review\", \"extract data from\", \"compare\", or \"analyze\" a PDF report, paper, invoice, form, contract, or scanned document. Always run the bundled conversion script to produce Markdown first; do not attempt to parse PDF content directly or write ad-hoc extraction code. Also use this skill for batch requests involving a whole folder of PDF documents. IMPORTANT: When the user references a folder or set of documents containing multiple file types (.pdf, .docx, .xlsx), invoke ALL three sibling skills — convert-pdf-to-md, convert-word-to-md, and convert-excel-to-md — so no file type is silently skipped."
+description: "将PDF（.pdf）文档转换为Markdown格式，以便精准进行内容分析、总结、检索或信息提取。只要用户提供、提及或咨询.pdf文件，即便未明确说明“转换”或“Markdown”，均须调用此技能；这包括对PDF格式的报告、论文、发票、表单、合同或扫描件执行“阅读”、“总结”、“审查”、“提取数据”、“比对”或“分析”等指令。务必优先运行内置转换脚本生成Markdown，切勿直接解析PDF或临时编写提取代码。对于文件夹级别的批量PDF处理同样适用此技能。重要提示：若用户提及包含多种格式（.pdf、.docx、.xlsx）的文件夹或文档集，须同时调用全部三个关联技能（convert-pdf-to-md、convert-word-to-md 和 convert-excel-to-md），确保不会遗漏任何文件类型。"
 version: "1.0.0"
 license: "MIT"
 ---

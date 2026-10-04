@@ -1,6 +1,6 @@
 ---
 name: "pr-screenshots"
-description: "Embed before/after screenshots and annotated images in pull request descriptions. Covers PR description patterns, image upload for Azure DevOps and GitHub, and sizing best practices."
+description: "在 PR 描述中嵌入前后对比截图及标注图片。涵盖 PR 描述规范、Azure DevOps 与 GitHub 图片上传指南，以及图片尺寸优化的最佳实践。"
 version: "1.0.0"
 license: "MIT"
 ---

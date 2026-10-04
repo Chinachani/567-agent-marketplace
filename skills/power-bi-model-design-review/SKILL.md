@@ -1,6 +1,6 @@
 ---
 name: "power-bi-model-design-review"
-description: "Comprehensive Power BI data model design review prompt for evaluating model architecture, relationships, and optimization opportunities."
+description: "全面审查 Power BI 数据模型设计，深度评估模型架构与表间关系，精准识别性能优化空间。"
 version: "1.0.0"
 license: "MIT"
 ---

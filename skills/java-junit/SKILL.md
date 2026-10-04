@@ -1,6 +1,6 @@
 ---
 name: "java-junit"
-description: "Get best practices for JUnit 5 unit testing, including data-driven tests"
+description: "获取 JUnit 5 单元测试最佳实践，涵盖数据驱动测试"
 version: "1.0.0"
 license: "MIT"
 ---

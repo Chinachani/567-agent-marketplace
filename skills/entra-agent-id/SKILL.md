@@ -1,6 +1,6 @@
 ---
 name: "entra-agent-id"
-description: "Provision Microsoft Entra Agent Identity Blueprints, BlueprintPrincipals, and per-instance Agent Identities via Microsoft Graph, and configure OAuth 2.0 token exchange (fmi_path, OBO, cross-tenant) including the Microsoft Entra SDK for AgentID sidecar. USE FOR: Agent Identity Blueprint, BlueprintPrincipal, agent OAuth, fmi_path token exchange, agent OBO, Workload Identity Federation for agents, polyglot agent auth, Microsoft.Identity.Web.AgentIdentities. DO NOT USE FOR: standard Entra app registration (use entra-app-registration), Microsoft Foundry agent authoring (use microsoft-foundry)."
+description: "通过 Microsoft Graph 配置 Microsoft Entra 代理身份蓝图（Agent Identity Blueprints）、BlueprintPrincipals 及实例级代理身份，并配置 OAuth 2.0 令牌交换（fmi_path、OBO、跨租户）以及面向 AgentID 边车（sidecar）的 Microsoft Entra SDK。适用于：Agent Identity Blueprint、BlueprintPrincipal、代理 OAuth、fmi_path 令牌交换、代理 OBO、代理工作负载身份联合、多语言代理身份验证、Microsoft.Identity.Web.AgentIdentities。不适用于：标准 Entra 应用注册（请使用 entra-app-registration）或 Microsoft Foundry 代理创建（请使用 microsoft-foundry）。"
 version: "1.1.1"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "wiki-llms-txt"
-description: "Generates llms.txt and llms-full.txt files for LLM-friendly project documentation following the llms.txt specification. Use when the user wants to create LLM-readable summaries, llms.txt files, or make their wiki accessible to language models."
+description: "严格遵循 llms.txt 规范生成 llms.txt 和 llms-full.txt 文件，构建大模型友好的项目文档。适用于需要生成大模型易读摘要、配置 llms.txt 文件，或使 Wiki 文档便于大语言模型解析的场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

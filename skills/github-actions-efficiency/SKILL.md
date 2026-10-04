@@ -1,6 +1,6 @@
 ---
 name: "github-actions-efficiency"
-description: "Audit GitHub Actions workflow efficiency and recommend fixes to reduce CI minutes and costs."
+description: "审查 GitHub Actions 工作流效率并提供优化方案，以缩减 CI 运行时间与成本。"
 version: "1.0.0"
 license: "MIT"
 ---

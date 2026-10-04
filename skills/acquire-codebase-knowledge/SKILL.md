@@ -1,6 +1,6 @@
 ---
 name: "acquire-codebase-knowledge"
-description: "Use this skill when the user explicitly asks to map, document, or onboard into an existing codebase. Trigger for prompts like \"map this codebase\", \"document this architecture\", \"onboard me to this repo\", or \"create codebase docs\". Do not trigger for routine feature implementation, bug fixes, or narrow code edits unless the user asks for repository-level discovery."
+description: "当用户明确要求梳理架构、编写文档或快速熟悉现有代码库时使用此技能。适用于诸如“梳理代码库”、“解析此架构”、“带我熟悉该仓库”或“生成代码库文档”等需求。除非用户明确要求进行仓库级的探索分析，否则切勿在常规功能开发、缺陷修复或局部代码修改时触发。"
 version: "1.3"
 license: "MIT"
 compatibility: 'Cross-platform. Requires Python 3.8+ and git. Run scripts/scan.py from the target project root.'

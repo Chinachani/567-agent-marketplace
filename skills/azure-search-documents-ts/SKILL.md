@@ -1,6 +1,6 @@
 ---
 name: "azure-search-documents-ts"
-description: "Build search applications using Azure AI Search SDK for JavaScript (@azure/search-documents). Use when creating/managing indexes, implementing vector/hybrid search, semantic ranking, or building agentic retrieval with knowledge bases."
+description: "使用适用于 JavaScript 的 Azure AI Search SDK (@azure/search-documents) 构建搜索应用。适用于创建与管理索引、实现向量/混合检索、语义重排，以及基于知识库构建智能体检索等场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

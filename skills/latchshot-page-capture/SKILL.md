@@ -1,6 +1,6 @@
 ---
 name: "latchshot-page-capture"
-description: "Use this skill when a user needs a screenshot, website thumbnail, full-page capture, or PDF of a public HTTP(S) webpage saved as a local artifact through Latchshot, including report, QA, archive, and social-preview workflows. Do not use it for private or authenticated pages, raw HTML, scraping or extraction, arbitrary browser actions, CAPTCHA or anti-bot bypass, or local-file capture."
+description: "用于通过 Latchshot 获取公开 HTTP(S) 网页的屏幕截图、网站缩略图、整页长图或 PDF 并保存为本地文件，适用于生成报告、质检测试、内容归档和社交预览等工作流。切勿用于私密或需登录验证的页面、处理原始 HTML、数据爬取与提取、执行任意浏览器操作、绕过验证码/反爬机制，以及截取本地文件。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "dataverse-python-advanced-patterns"
-description: "Generate production code for Dataverse SDK using advanced patterns, error handling, and optimization techniques."
+description: "运用高级设计模式、严谨的错误处理与优化技术，为 Dataverse SDK 构建生产级代码。"
 version: "1.0.0"
 license: "MIT"
 ---

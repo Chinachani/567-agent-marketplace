@@ -1,6 +1,6 @@
 ---
 name: "code-exemplars-blueprint-generator"
-description: "Technology-agnostic prompt generator that creates customizable AI prompts for scanning codebases and identifying high-quality code exemplars. Supports multiple programming languages (.NET, Java, JavaScript, TypeScript, React, Angular, Python) with configurable analysis depth, categorization methods, and documentation formats to establish coding standards and maintain consistency across development teams."
+description: "跨技术栈的AI提示词生成工具，可定制提示词以深度扫描代码库并提取优质代码范例。全面支持.NET、Java、JavaScript、TypeScript、React、Angular及Python等多语言环境，支持自定义分析深度、分类维度与文档输出格式，助力研发团队建立代码规范并保持工程一致性。"
 version: "1.0.0"
 license: "MIT"
 ---

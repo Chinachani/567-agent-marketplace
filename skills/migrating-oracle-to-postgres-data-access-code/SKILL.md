@@ -1,6 +1,6 @@
 ---
 name: "migrating-oracle-to-postgres-data-access-code"
-description: "Migrates .NET/C# data access code from Oracle to PostgreSQL (Npgsql). Replaces Oracle NuGet packages, rewrites OracleConnection/OracleCommand/OracleDataReader usage, fixes DbType mappings, updates stored procedure invocation patterns, and adapts connection string configuration. Use when migrating the application code layer of a .NET project during an Oracle-to-PostgreSQL database migration."
+description: "将 .NET/C# 数据访问代码从 Oracle 迁移至 PostgreSQL (Npgsql)。替换 Oracle NuGet 包，重写 OracleConnection、OracleCommand 及 OracleDataReader 相关调用，修正 DbType 映射，更新存储过程调用模式，并适配连接字符串。适用于 Oracle 迁往 PostgreSQL 场景下的 .NET 项目应用代码层改造。"
 version: "1.0.0"
 license: "MIT"
 ---

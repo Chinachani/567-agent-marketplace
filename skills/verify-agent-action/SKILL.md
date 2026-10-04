@@ -1,6 +1,6 @@
 ---
 name: "verify-agent-action"
-description: "Review a proposed AI-agent action or human-approval packet before execution. Use when an agent wants to run a consequential tool, command, deployment, message, purchase, credential operation, or data mutation; when checking whether approval still matches the exact action; or when auditing action evidence for forged results, parameter swaps, replay, correlated reviewers, missing evidence, expiry, or stale monitoring. Produce an evidence-based review only—never execute or authorize the action."
+description: "在执行前审查拟定的 AI 智能体操作或人工审批数据包。适用于以下情况：智能体拟执行高影响力的工具调用、系统命令、服务部署、消息发送、采购交易、凭据操作或数据变更；核验既有审批是否与当前操作完全一致；或审计操作凭据是否存在结果伪造、参数篡改、重放攻击、关联审批人、凭证缺失、过期失效及监控滞后等问题。仅提供基于事实证据的审查报告，严禁直接执行或授权操作。"
 version: "1.0.0"
 license: "MIT"
 ---

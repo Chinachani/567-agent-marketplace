@@ -1,6 +1,6 @@
 ---
 name: "azure-container-registry-cli"
-description: "Manage Azure Container Registry via the az acr CLI including registries, images, cloud builds, ACR Tasks, authentication, tokens, geo-replication, and networking. Use when working with ACR, az acr commands, pushing/importing/purging container images in Azure, or when the user mentions Azure Container Registry."
+description: "通过 az acr CLI 管理 Azure 容器注册表（ACR），涵盖注册表、镜像管理、云端构建、ACR 任务、身份验证、令牌、异地复制及网络配置。适用于操作 ACR、执行 az acr 命令、在 Azure 中推送/导入/清理容器镜像，或用户提及 Azure 容器注册表时。"
 version: "1.0.0"
 license: "MIT"
 ---

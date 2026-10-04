@@ -1,6 +1,6 @@
 ---
 name: "qdrant-performance-optimization"
-description: "Different techniques to optimize the performance of Qdrant, including indexing strategies, query optimization, and hardware considerations. Use when you want to improve the speed and efficiency of your Qdrant deployment."
+description: "提供 Qdrant 性能调优的多种实用技术，涵盖索引策略、查询优化及硬件配置考量。适用于需要提升 Qdrant 部署环境响应速度与运行效率的场景。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools:

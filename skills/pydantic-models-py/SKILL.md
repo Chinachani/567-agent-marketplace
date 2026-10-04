@@ -1,6 +1,6 @@
 ---
 name: "pydantic-models-py"
-description: "Create Pydantic models following the multi-model pattern with Base, Create, Update, Response, and InDB variants. Use when defining API request/response schemas, database models, or data validation in Python applications using Pydantic v2."
+description: "遵循包含 Base、Create、Update、Response 及 InDB 等变体的多模型模式构建 Pydantic 模型。适用于在基于 Pydantic v2 的 Python 项目中定义 API 请求与响应结构、数据库模型或执行数据验证。"
 version: "1.0.0"
 license: "MIT"
 metadata:

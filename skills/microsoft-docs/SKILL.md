@@ -1,6 +1,6 @@
 ---
 name: "microsoft-docs"
-description: "Understand Microsoft technologies by querying official documentation. Use whenever the user asks how something works, wants tutorials, needs configuration options, limits, quotas, or best practices for any Microsoft technology (Azure, .NET, M365, Windows, Power Platform, etc.)—even if they don't mention \"docs.\" If the question is about understanding a concept rather than writing code, this is the right skill."
+description: "查询微软官方文档以深入解析相关技术。当用户询问任何微软技术（包括 Azure、.NET、M365、Windows、Power Platform 等）的工作原理、操作教程、配置参数、配额限制或最佳实践时触发（即使用户未明确提及“文档”）。若问题侧重于理解概念而非直接编写代码，请调用此技能。"
 version: "1.0.0"
 license: "MIT"
 context: fork

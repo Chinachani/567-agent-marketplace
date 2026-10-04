@@ -1,6 +1,6 @@
 ---
 name: "debugview"
-description: "Sysinternals DebugView CLI (DbgViewCli) for capturing and analyzing usermode and kernel-mode Windows debug output from the command line. USE FOR: capturing OutputDebugString output, kernel DbgPrint/KdPrint capture, boot-time debug logging, remote debug monitoring, filtering debug output by PID or process name, crash dump analysis, automated debug capture with bounded execution. DO NOT USE FOR: non-Windows platforms, application-level logging frameworks (log4j, serilog), Azure Monitor or cloud telemetry, ETW tracing (use WPR/xperf instead), user-mode crash dumps (use WinDbg). Triggers: \"debug output\", \"DbgView\", \"DebugView\", \"kernel debug\", \"capture debug logs\", \"boot logging\", \"OutputDebugString\", \"DbgPrint\", \"KdPrint\", \"remote debug monitor\", \"debug capture CLI\"."
+description: "Sysinternals DebugView 命令行工具 (DbgViewCli)，用于在命令行环境中捕获和分析 Windows 用户模式与内核模式的调试输出。\n\n适用场景：捕获 OutputDebugString 输出、捕获内核级 DbgPrint/KdPrint、记录系统引导期调试日志、远程调试监控、按 PID 或进程名称过滤调试输出、辅助崩溃转储分析，以及限制运行时长的自动化调试捕获。\n\n不适用场景：非 Windows 平台、应用级日志框架（如 log4j、Serilog）、Azure Monitor 或云端遥测、ETW 事件跟踪（请改用 WPR/xperf）、用户态崩溃转储分析（请改用 WinDbg）。\n\n触发词：\"debug output\"、\"DbgView\"、\"DebugView\"、\"kernel debug\"、\"capture debug logs\"、\"boot logging\"、\"OutputDebugString\"、\"DbgPrint\"、\"KdPrint\"、\"remote debug monitor\"、\"debug capture CLI\"。"
 version: "1.0.0"
 license: "MIT"
 ---

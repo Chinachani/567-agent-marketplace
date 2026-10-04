@@ -1,6 +1,6 @@
 ---
 name: "shopify-review-triage"
-description: "Use this skill when someone wants public Shopify App Store reviews, low-star reviews, or merchant feedback triaged, prioritized, clustered, or turned into a product or support brief. Trigger for prompts like \"triage these app store reviews\", \"what should we fix first from this feedback\", \"cluster our 1-star reviews\", or \"write a weekly low-star review brief\", for a single Shopify app or a portfolio plus watched competitors. Produces a P0-P3 brief covering incident risk, repeated friction, pricing confusion, feature requests, and an explicit needs-human-read bucket, where every item keeps its public source link and stays labeled first pass or human-checked. Do not trigger for support tickets, order data, or any other private merchant data, and never use it to reply to or contact a reviewer."
+description: "适用于对 Shopify 应用商店的公开评价、低星差评或商家反馈进行分级归类、优先级排序、痛点聚类，并生成产品或客服支持简报。可响应“整理这些应用商店评价”、“根据反馈先修什么”、“归类我们的一星差评”或“写一份差评周报”等需求，支持单一应用、应用矩阵及竞品监控。输出涵盖 P0-P3 优先级的结构化简报，包含事故风险、高频阻碍、定价困扰、功能需求以及明确的“需人工复核”板块；所有条目均保留公开来源链接，并标明为“初筛”或“人工复核”。请勿用于客服工单、订单数据等商家私有数据，严禁用于回复或直接联系评价者。"
 version: "1.0"
 license: "MIT"
 compatibility: 'Cross-platform. Pure reasoning skill over review rows the user pastes - no network access, scripts, API keys, or system packages. Portable to any client that supports the Agent Skills SKILL.md format.'

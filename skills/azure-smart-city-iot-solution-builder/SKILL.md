@@ -1,6 +1,6 @@
 ---
 name: "azure-smart-city-iot-solution-builder"
-description: "Design and plan end-to-end Azure IoT and Smart City solutions: requirements, architecture, security, operations, cost, and a phased delivery plan with concrete implementation artifacts."
+description: "设计与规划端到端 Azure 物联网及智慧城市解决方案：涵盖需求分析、系统架构、安全保障、运维运营与成本控制，并提供包含具体实施交付物的分阶段落地计划。"
 version: "1.0.0"
 license: "MIT"
 ---

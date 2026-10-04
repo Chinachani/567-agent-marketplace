@@ -1,6 +1,6 @@
 ---
 name: "azure-resource-visualizer-github"
-description: "Analyze Azure resource groups and generate detailed Mermaid architecture diagrams showing the relationships between individual resources. Use this skill when the user asks for a diagram of their Azure resources or help in understanding how the resources relate to each other."
+description: "分析 Azure 资源组并生成详细的 Mermaid 架构图，清晰呈现各资源间的关联关系。当用户需要绘制 Azure 资源拓扑图或希望梳理资源间的相互关系时使用此技能。"
 version: "1.0.0"
 license: "MIT"
 metadata:

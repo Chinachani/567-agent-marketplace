@@ -1,6 +1,6 @@
 ---
 name: "azure-mgmt-botservice-dotnet"
-description: "Azure Resource Manager SDK for Bot Service in .NET. Management plane operations for creating and managing Azure Bot resources, channels (Teams, DirectLine, Slack), and connection settings. Triggers: \"Bot Service\", \"BotResource\", \"Azure Bot\", \"DirectLine channel\", \"Teams channel\", \"bot management .NET\", \"create bot\"."
+description: "基于 .NET 的 Azure Bot Service 资源管理 SDK。提供管理平面操作能力，用于创建和管理 Azure Bot 资源、配置各通信渠道（Teams、DirectLine、Slack）及连接设置。触发词：Bot Service、BotResource、Azure Bot、DirectLine channel、Teams channel、bot management .NET、create bot。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "harness-engineering"
-description: "Adopt repository-level harness engineering for coding agents. Use when a user wants to prevent repeated AI coding-agent mistakes by turning failures into durable instructions, drift checks, regression tests, failure memory, and adoption reports tailored to the target repository."
+description: "为代码智能体构建代码库级 Harness 治理工程。适用于防止 AI 编码助手重复犯错的场景，将历史失败转化为针对目标仓库定制的长效规范、漂移检查、回归测试、错误记忆及落地报告。"
 version: "1.0.0"
 license: "MIT"
 ---

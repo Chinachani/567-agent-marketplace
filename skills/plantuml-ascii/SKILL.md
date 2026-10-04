@@ -1,6 +1,6 @@
 ---
 name: "plantuml-ascii"
-description: "Generate ASCII art diagrams using PlantUML text mode. Use when user asks to create ASCII diagrams, text-based diagrams, terminal-friendly diagrams, or mentions plantuml ascii, text diagram, ascii art diagram. Supports: Converting PlantUML diagrams to ASCII art, Creating sequence diagrams, class diagrams, flowcharts in ASCII format, Generating Unicode-enhanced ASCII art with -utxt flag"
+description: "利用 PlantUML 文本模式生成 ASCII 字符图表。适用于创建 ASCII 图表、纯文本图表、终端友好型图表，或涉及 plantuml ascii、text diagram、ascii art diagram 等需求场景。支持将 PlantUML 图表转换为 ASCII 字符画，绘制 ASCII 格式的时序图、类图和流程图，以及通过 -utxt 参数生成 Unicode 增强字符图。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools: Bash, Write, Read

@@ -1,6 +1,6 @@
 ---
 name: "constraint-driven-development"
-description: "Establishes a project's quality bar as a written contract and stops agents quietly lowering it. Interviews the user on which dimensions matter, supplies sane default thresholds when they have no number in mind, records everything in CONSTRAINTS.md, and watches the diff for a weakened bar — new @ts-ignore or eslint-disable suppressions, skipped or deleted tests, assertions stripped out, unimplemented stubs, thresholds edited down. Use when no quality bar is written down, when the user says \"set up constraints\" or \"define our standards\", when the user wants dimensions they care about — accessibility, web performance, coverage — set up as enforced constraints, when an agent keeps silencing checks or skipping tests to get to green, when you need a coverage or performance threshold and don't know what number to pick, or when an agent writes more code than anyone will read."
+description: "以书面契约的形式确立项目质量基准，坚决防止智能体悄悄拉低标准。通过与用户沟通明确核心维度，提供合理的默认阈值，并沉淀为 CONSTRAINTS.md。实时监控代码变更，杜绝新增 @ts-ignore 或 eslint-disable、跳过或删除测试、剥离断言、残留空桩函数以及调低阈值等劣化行为。适用于项目未定义质量规范、需要“设立约束”或“明确标准”、欲将无障碍/性能/覆盖率等指标转为强制约束，或智能体为强行跑通测试而频繁屏蔽报错、跳过用例、生成海量冗余代码等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

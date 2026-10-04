@@ -1,6 +1,6 @@
 ---
 name: "mvvm-toolkit"
-description: "CommunityToolkit.Mvvm (the MVVM Toolkit) core: source generators ([ObservableProperty], [RelayCommand], [NotifyPropertyChangedFor], [NotifyCanExecuteChangedFor], [NotifyDataErrorInfo]), base classes (ObservableObject / ObservableValidator / ObservableRecipient), commands (RelayCommand / AsyncRelayCommand), and validation. Companion skills: mvvm-toolkit-messenger for pub/sub, mvvm-toolkit-di for Microsoft.Extensions.DependencyInjection wiring. Works across WPF, WinUI 3, MAUI, Uno, and Avalonia."
+description: "精通 CommunityToolkit.Mvvm (MVVM Toolkit) 核心特性：高效运用源码生成器（[ObservableProperty]、[RelayCommand]、[NotifyPropertyChangedFor]、[NotifyCanExecuteChangedFor]、[NotifyDataErrorInfo]）、基础类（ObservableObject / ObservableValidator / ObservableRecipient）、命令模型（RelayCommand / AsyncRelayCommand）及数据校验机制。协同使用 mvvm-toolkit-messenger 实现发布/订阅解耦通信，结合 mvvm-toolkit-di 深度集成 Microsoft.Extensions.DependencyInjection 依赖注入。全面赋能 WPF、WinUI 3、MAUI、Uno 和 Avalonia 跨平台客户端开发。"
 version: "1.0.0"
 license: "MIT"
 ---

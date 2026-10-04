@@ -1,6 +1,6 @@
 ---
 name: "automate-this"
-description: "Analyze a screen recording of a manual process and produce targeted, working automation scripts. Extracts frames and audio narration from video files, reconstructs the step-by-step workflow, and proposes automation at multiple complexity levels using tools already installed on the user machine."
+description: "分析人工操作录屏，生成精准可用的自动化脚本。从视频中提取画面与语音旁白以重构分步工作流，并结合本机已安装的工具提供不同复杂度的自动化方案。"
 version: "1.0.0"
 license: "MIT"
 ---

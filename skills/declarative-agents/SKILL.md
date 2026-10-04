@@ -1,6 +1,6 @@
 ---
 name: "declarative-agents"
-description: "Complete development kit for Microsoft 365 Copilot declarative agents with three comprehensive workflows (basic, advanced, validation), TypeSpec support, and Microsoft 365 Agents Toolkit integration"
+description: "专为 Microsoft 365 Copilot 声明式智能体打造的完整开发套件，深度集成 Microsoft 365 Agents Toolkit 并支持 TypeSpec，提供涵盖基础、进阶与验证的三套全流程工作流。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "repo-story-time"
-description: "Generate a comprehensive repository summary and narrative story from commit history"
+description: "基于代码提交历史生成全面的仓库总结与演进故事"
 version: "1.0.0"
 license: "MIT"
 ---

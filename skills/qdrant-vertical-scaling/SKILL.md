@@ -1,6 +1,6 @@
 ---
 name: "qdrant-vertical-scaling"
-description: "Guides Qdrant vertical scaling decisions. Use when someone asks 'how to scale up a node', 'need more RAM', 'upgrade node size', 'vertical scaling', 'resize cluster', 'scale up vs scale out', or when memory/CPU is insufficient on current nodes. Also use when someone wants to avoid the complexity of horizontal scaling."
+description: "提供 Qdrant 垂直扩容（纵向扩展）决策指南。当用户咨询“如何升级单节点配置”、“需要增加内存/RAM”、“提升节点规格”、“垂直扩容”、“调整集群大小”、“纵向扩展对比横向扩展”，或当前节点出现内存/CPU 不足时使用；同样适用于希望避开横向扩展复杂架构的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

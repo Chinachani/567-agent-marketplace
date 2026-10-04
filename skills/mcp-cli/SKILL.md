@@ -1,6 +1,6 @@
 ---
 name: "mcp-cli"
-description: "Interface for MCP (Model Context Protocol) servers via CLI. Use when you need to interact with external tools, APIs, or data sources through MCP servers, list available MCP servers/tools, or call MCP tools from command line."
+description: "通过命令行与 MCP（模型上下文协议）服务器交互。适用于需要通过 MCP 连接外部工具、API 或数据源，查看可用的 MCP 服务器及工具列表，或直接在命令行调用 MCP 工具的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

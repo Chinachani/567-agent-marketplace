@@ -1,6 +1,6 @@
 ---
 name: "azure-data-tables-py"
-description: "Azure Tables SDK for Python (Storage and Cosmos DB). Use for NoSQL key-value storage, entity CRUD, and batch operations. Triggers: \"table storage\", \"TableServiceClient\", \"TableClient\", \"entities\", \"PartitionKey\", \"RowKey\"."
+description: "适用于 Python 的 Azure Tables SDK（支持 Storage 和 Cosmos DB）。用于高效处理 NoSQL 键值存储、实体增删改查（CRUD）及批处理操作。触发词：table storage、TableServiceClient、TableClient、entities、PartitionKey、RowKey。"
 version: "1.0.0"
 license: "MIT"
 metadata:

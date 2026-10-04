@@ -1,6 +1,6 @@
 ---
 name: "tiny-stepping"
-description: "Incremental development workflow that makes the smallest meaningful change per step and pauses for feedback, so the direction gets validated early before continuing. Use for careful, iterative implementation with continuous validation."
+description: "采用渐进式开发流程，每步仅完成最小的有效变更并暂停等待反馈，以便在继续前尽早校准方向。适用于需要持续验证与审慎推进的迭代开发场景。"
 version: "1.0.0"
 license: "MIT"
 ---

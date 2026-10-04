@@ -1,6 +1,6 @@
 ---
 name: "fabric-lakehouse"
-description: "Use this skill to get context about Fabric Lakehouse and its features for software systems and AI-powered functions. It offers descriptions of Lakehouse data components, organization with schemas and shortcuts, access control, and code examples. This skill supports users in designing, building, and optimizing Lakehouse solutions using best practices."
+description: "全面获取 Fabric Lakehouse 及其在软件系统与 AI 应用中的核心特性。涵盖数据组件解析、架构与快捷方式组织、访问控制策略及实战代码示例，助力用户遵循最佳实践高效设计、构建和优化 Lakehouse 解决方案。"
 version: "1.0"
 license: "MIT"
 metadata:

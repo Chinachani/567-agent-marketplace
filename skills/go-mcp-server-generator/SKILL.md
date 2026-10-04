@@ -1,6 +1,6 @@
 ---
 name: "go-mcp-server-generator"
-description: "Generate a complete Go MCP server project with proper structure, dependencies, and implementation using the official github.com/modelcontextprotocol/go-sdk."
+description: "基于官方 github.com/modelcontextprotocol/go-sdk，构建结构规范、依赖完备且具备具体实现的完整 Go 语言 MCP 服务端项目"
 version: "1.0.0"
 license: "MIT"
 ---

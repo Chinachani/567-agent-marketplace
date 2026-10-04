@@ -1,6 +1,6 @@
 ---
 name: "cosmosdb-datamodeling"
-description: "Step-by-step guide for capturing key application requirements for NoSQL use-case and produce Azure Cosmos DB Data NoSQL Model design using best practices and common patterns, artifacts_produced: \"cosmosdb_requirements.md\" file and \"cosmosdb_data_model.md\" file"
+description: "分步梳理 NoSQL 场景的核心业务需求，基于最佳实践与通用设计模式构建 Azure Cosmos DB NoSQL 数据模型，并生成 cosmosdb_requirements.md 与 cosmosdb_data_model.md 文档。"
 version: "1.0.0"
 license: "MIT"
 ---

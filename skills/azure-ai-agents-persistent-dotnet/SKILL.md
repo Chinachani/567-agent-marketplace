@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-agents-persistent-dotnet"
-description: "Azure AI Agents Persistent SDK for .NET. Low-level SDK for creating and managing AI agents with threads, messages, runs, and tools. Use for agent CRUD, conversation threads, streaming responses, function calling, file search, and code interpreter. Triggers: \"PersistentAgentsClient\", \"persistent agents\", \"agent threads\", \"agent runs\", \"streaming agents\", \"function calling agents .NET\"."
+description: "利用适用于 .NET 的 Azure AI Agents 持久化底层 SDK 构建与管理 AI Agent。轻松实现 Agent 生命周期管理（CRUD）、对话线程控制、运行跟踪与工具集成，全面支持流式响应、函数调用、文件检索及代码解释器。触发词包括：PersistentAgentsClient、persistent agents、agent threads、agent runs、streaming agents、function calling agents .NET。"
 version: "1.0.0"
 license: "MIT"
 metadata:

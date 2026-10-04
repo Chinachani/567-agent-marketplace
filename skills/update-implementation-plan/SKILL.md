@@ -1,6 +1,6 @@
 ---
 name: "update-implementation-plan"
-description: "Update an existing implementation plan file with new or update requirements to provide new features, refactoring existing code or upgrading packages, design, architecture or infrastructure."
+description: "根据新增或变更需求更新现有的实施计划文件，涵盖新功能开发、代码重构、依赖包升级以及设计、架构与基础设施的调整。"
 version: "1.0.0"
 license: "MIT"
 ---

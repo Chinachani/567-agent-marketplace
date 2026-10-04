@@ -1,6 +1,6 @@
 ---
 name: "deploy-model"
-description: "Unified Azure OpenAI model deployment skill with intelligent intent-based routing. Handles quick preset deployments, fully customized deployments (version/SKU/capacity/RAI policy), and capacity discovery across regions and projects. USE FOR: deploy model, deploy gpt, create deployment, model deployment, deploy openai model, set up model, provision model, find capacity, check model availability, where can I deploy, best region for model, capacity analysis. DO NOT USE FOR: listing existing deployments (use foundry_models_deployments_list MCP tool), deleting deployments, agent creation (use agent/create), project creation (use project/create)."
+description: "具备智能意图路由的统一 Azure OpenAI 模型部署技能。支持快速预设部署、全自定义部署（版本/SKU/容量/RAI 策略），以及跨区域和跨项目的容量发现。\n\n适用于：部署模型、部署 GPT、创建部署、配置或置备模型、查询容量与模型可用性、寻找最佳部署区域、容量分析。\n不适用于：列出已有部署（请使用 foundry_models_deployments_list MCP 工具）、删除部署、创建智能体（请使用 agent/create）、创建项目（请使用 project/create）。"
 version: "1.0.0"
 license: "MIT"
 metadata:

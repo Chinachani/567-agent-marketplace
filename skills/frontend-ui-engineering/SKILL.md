@@ -1,6 +1,6 @@
 ---
 name: "frontend-ui-engineering"
-description: "Builds production-quality, accessible, responsive user-facing UIs. Use when building or modifying interfaces and pages, creating components, implementing layouts, meeting WCAG accessibility requirements, managing state, or when the output needs to look and feel production-quality rather than AI-generated."
+description: "用于构建生产级、响应式且兼顾无障碍的用户界面。适用于开发或修改页面与交互、封装组件、实现布局、满足 WCAG 无障碍规范、管理状态，或需要交付高度打磨、摆脱“AI生成感”的成熟产品级 UI 时。"
 version: "1.0.0"
 license: "MIT"
 ---

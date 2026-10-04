@@ -1,6 +1,6 @@
 ---
 name: "gtm-product-led-growth"
-description: "Build self-serve acquisition and expansion motions. Use when deciding PLG vs sales-led, optimizing activation, driving freemium conversion, building growth equations, or recognizing when product complexity demands human touch. Includes the parallel test where sales-led won 10x on revenue."
+description: "构建自助式获客与增购增长机制。适用于抉择PLG与销售驱动模式、优化用户激活、推进免费转付费转化、搭建增长模型，以及判断产品复杂度何时需要人工销售介入。内含销售驱动实现10倍营收增长的平行对照测试案例。"
 version: "1.0.0"
 license: "MIT"
 metadata:

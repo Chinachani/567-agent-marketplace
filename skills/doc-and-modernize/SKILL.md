@@ -1,6 +1,6 @@
 ---
 name: "doc-and-modernize"
-description: "Two related workflows for a locally-cloned codebase, in one skill. Documentation mode produces a single, comprehensive, verifiable architecture document primarily by reading files on disk (local-first) — use it whenever the user wants to understand, map, document, research, or onboard onto a codebase (\"research this repo\", \"write up the architecture\", \"do an architecture deep dive\", \"document how this codebase works\", \"map the system design\", \"create an onboarding doc\"). Modernization mode generates a phased plan to modernize, migrate, upgrade, or rewrite a legacy system (\"modernize this\", \"plan the migration\", \"how would we rewrite this\", \"how do we get off this legacy stack\"); if no architecture document exists yet it first runs Documentation mode, then continues straight through to the plan. It assumes the legacy stack may be dead, runs a time-boxed feasibility spike, and picks the highest achievable rung on a safety ladder instead of demanding a fully-green legacy CI gate up front."
+description: "针对本地代码库提供两套一体化工作流：\n\n• 文档模式：以本地文件读取优先，生成一份详尽且可验证的系统架构文档。适用于快速理解、全面梳理、深入调研代码库或编写新人上手指南（如“调研此仓库”、“输出架构文档”、“深度剖析系统设计”）。\n\n• 现代化改造模式：输出分阶段的遗留系统改造、迁移、升级或重写落地方案（如“现代化改造”、“规划迁移路线”、“如何重构老旧技术栈”）。若缺少前置架构文档，将自动优先执行文档模式再顺畅推进方案；该模式预设老技术栈可能已失效，通过限时可行性探针（Feasibility Spike）快速摸底，并在安全阶梯中选取最高可行级别，无需预先强求老系统 CI 全绿通过。"
 version: "1.0.0"
 license: "MIT"
 ---

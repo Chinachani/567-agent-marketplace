@@ -1,6 +1,6 @@
 ---
 name: "azure-eventhub-ts"
-description: "Build event streaming applications using Azure Event Hubs SDK for JavaScript (@azure/event-hubs). Use when implementing high-throughput event ingestion, real-time analytics, IoT telemetry, or event-driven architectures with partitioned consumers."
+description: "使用 Azure Event Hubs JavaScript SDK (@azure/event-hubs) 构建事件流应用。适用于实现高吞吐量事件接入、实时分析、IoT 遥测，以及基于分区消费者的事件驱动架构。"
 version: "1.0.0"
 license: "MIT"
 metadata:

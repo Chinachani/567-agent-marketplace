@@ -1,6 +1,6 @@
 ---
 name: "kql"
-description: "KQL language expertise for writing correct, efficient Kusto Query Language queries. Covers syntax gotchas, join patterns, dynamic types, datetime pitfalls, regex patterns, serialization, memory management, result-size discipline, and advanced functions (geo, vector, graph). USE THIS SKILL whenever writing, debugging, or reviewing KQL queries — even simple ones — because the gotchas section prevents the most common errors that waste tool calls and cause expensive retry cascades. Trigger on: KQL, Kusto, ADX, Azure Data Explorer, Fabric Real-Time Intelligence, EventHouse, Log Analytics, log analysis, data exploration, time series, anomaly detection, summarize, where clause, join, extend, project, let statement, parse operator, extract function, any mention of pipe-forward query syntax."
+description: "专注于编写准确、高效的 KQL（Kusto 查询语言）查询。深度涵盖语法避坑指南、Join 模式、动态类型处理、日期时间陷阱、正则表达式、序列化、内存管理、结果集大小控制以及高级函数（地理、向量、图计算）。无论编写、调试还是审查 KQL 查询（即便极为简单），均应使用本技能；内置的易错点规避机制能有效防止工具调用浪费及昂贵的连锁重试。触发场景：涉及 KQL、Kusto、ADX、Azure Data Explorer、Fabric Real-Time Intelligence、EventHouse、Log Analytics、日志分析、数据探索、时序数据、异常检测、summarize、where 子句、join、extend、project、let 语句、parse 运算符、extract 函数，或提及任何管道式查询语法时。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "rust-mcp-server-generator"
-description: "Generate a complete Rust Model Context Protocol server project with tools, prompts, resources, and tests using the official rmcp SDK"
+description: "基于官方 rmcp SDK 构建完整的 Rust MCP 服务端项目，涵盖工具、提示词、资源及测试用例"
 version: "1.0.0"
 license: "MIT"
 ---

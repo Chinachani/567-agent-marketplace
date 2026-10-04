@@ -1,6 +1,6 @@
 ---
 name: "vscode-ext-localization"
-description: "Guidelines for proper localization of VS Code extensions, following VS Code extension development guidelines, libraries and good practices"
+description: "遵循 VS Code 插件开发规范与最佳实践，指导并规范实现插件的本地化与多语言适配。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "playwright-explore-website"
-description: "Website exploration for testing using Playwright MCP"
+description: "利用 Playwright MCP 探索网站并执行测试"
 version: "1.0.0"
 license: "MIT"
 ---

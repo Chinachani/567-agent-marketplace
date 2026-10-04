@@ -1,6 +1,6 @@
 ---
 name: "azure-eventgrid-dotnet"
-description: "Azure Event Grid SDK for .NET. Client library for publishing and consuming events with Azure Event Grid. Use for event-driven architectures, pub/sub messaging, CloudEvents, and EventGridEvents. Triggers: \"Event Grid\", \"EventGridPublisherClient\", \"CloudEvent\", \"EventGridEvent\", \"publish events .NET\", \"event-driven\", \"pub/sub\"."
+description: "面向 .NET 的 Azure Event Grid SDK。用于在 Azure Event Grid 中发布和消费事件的客户端库。适用于构建事件驱动架构、实现发布/订阅（Pub/Sub）消息传递，以及处理 CloudEvents 和 EventGridEvents。触发词：Event Grid、EventGridPublisherClient、CloudEvent、EventGridEvent、publish events .NET、event-driven、pub/sub。"
 version: "1.0.0"
 license: "MIT"
 metadata:

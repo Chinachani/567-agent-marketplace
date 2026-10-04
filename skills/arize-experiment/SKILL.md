@@ -1,6 +1,6 @@
 ---
 name: "arize-experiment"
-description: "Creates, runs, and analyzes Arize experiments for evaluating and comparing model performance. Covers experiment CRUD, exporting runs, comparing results, and evaluation workflows using the ax CLI. Use when the user mentions create experiment, run experiment, compare models, model performance, evaluate AI, experiment results, benchmark, A/B test models, or measure accuracy."
+description: "创建、运行并分析 Arize 实验，以评估和对比模型性能。涵盖实验增删改查、导出运行记录、结果对比以及基于 ax CLI 的评估工作流。当用户提及创建实验、运行实验、对比模型、模型性能、AI 评估、实验结果、基准测试、模型 A/B 测试或测量准确率时使用。"
 version: "1.0"
 license: "MIT"
 metadata:

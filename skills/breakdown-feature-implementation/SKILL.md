@@ -1,6 +1,6 @@
 ---
 name: "breakdown-feature-implementation"
-description: "Prompt for creating detailed feature implementation plans, following Epoch monorepo structure."
+description: "遵循 Epoch monorepo 架构规范，生成详细的功能实现方案"
 version: "1.0.0"
 license: "MIT"
 ---

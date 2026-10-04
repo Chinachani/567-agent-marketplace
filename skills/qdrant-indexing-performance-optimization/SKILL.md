@@ -1,6 +1,6 @@
 ---
 name: "qdrant-indexing-performance-optimization"
-description: "Diagnoses and fixes slow Qdrant indexing and data ingestion. Use when someone reports 'uploads are slow', 'indexing takes forever', 'optimizer is stuck', 'HNSW build time too long', or 'data uploaded but search is bad'. Also use when optimizer status shows errors, segments won't merge, or indexing threshold questions arise."
+description: "诊断并修复 Qdrant 索引构建缓慢与数据入库卡顿问题。适用于排查“数据上传慢”、“索引耗时极长”、“优化器卡死”、“HNSW 构建过慢”或“写入后检索异常”等情况；亦可用于处理优化器报错、数据段无法合并及索引阈值调优等疑难场景。"
 version: "1.0.0"
 license: "MIT"
 ---

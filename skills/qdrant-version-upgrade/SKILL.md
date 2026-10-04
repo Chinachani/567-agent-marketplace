@@ -1,6 +1,6 @@
 ---
 name: "qdrant-version-upgrade"
-description: "Guidance on how to upgrade your Qdrant version without interrupting the availability of your application and ensuring data integrity."
+description: "指导在确保应用服务不中断且数据完整的前提下，平滑升级 Qdrant 版本。"
 version: "1.0.0"
 license: "MIT"
 ---

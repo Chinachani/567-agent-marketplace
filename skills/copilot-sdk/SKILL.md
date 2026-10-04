@@ -1,6 +1,6 @@
 ---
 name: "copilot-sdk"
-description: "Build applications powered by GitHub Copilot using the Copilot SDK. Use when creating programmatic integrations with Copilot across Node.js/TypeScript, Python, Go, or .NET. Covers session management, custom tools, streaming, hooks, MCP servers, BYOK providers, session persistence, custom agents, skills, and deployment patterns. Requires GitHub Copilot CLI installed and a GitHub Copilot subscription (unless using BYOK)."
+description: "使用 Copilot SDK 构建由 GitHub Copilot 驱动的应用程序。适用于在 Node.js/TypeScript、Python、Go 或 .NET 中以编程方式集成 Copilot 的开发场景。涵盖会话管理、自定义工具、流式传输、生命周期钩子（Hooks）、MCP 服务器、BYOK 提供商、会话持久化、自定义智能体、技能扩展及部署模式。使用前需安装 GitHub Copilot CLI 并拥有 GitHub Copilot 订阅（使用 BYOK 模式除外）。"
 version: "1.0.0"
 license: "MIT"
 ---

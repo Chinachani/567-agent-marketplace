@@ -1,6 +1,6 @@
 ---
 name: "entra-app-registration"
-description: "Guides Microsoft Entra ID app registration, OAuth 2.0 authentication, and MSAL integration. USE FOR: create app registration, register Azure AD app, configure OAuth, set up authentication, add API permissions, generate service principal, MSAL example, console app auth, Entra ID setup, Azure AD authentication. DO NOT USE FOR: Key Vault secrets (use azure-keyvault-expiration-audit), general Azure resource security guidance."
+description: "指导 Microsoft Entra ID 应用注册、OAuth 2.0 身份验证及 MSAL 集成。适用于：创建应用注册、注册 Azure AD 应用、配置 OAuth、设置身份验证、添加 API 权限、生成服务主体、获取 MSAL 示例、控制台应用认证、Entra ID 配置及 Azure AD 身份验证。不适用于：Key Vault 密钥/机密管理（请使用 azure-keyvault-expiration-audit）或通用 Azure 资源安全指引。"
 version: "1.2.1"
 license: "MIT"
 metadata:

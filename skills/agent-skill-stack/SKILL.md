@@ -1,6 +1,6 @@
 ---
 name: "agent-skill-stack"
-description: "Find, evaluate, and assemble the smallest compatible set of AI Agent Skills for an end-to-end natural-language goal. Use when a user wants Skills for a multi-step workflow, asks which Skills fit a project, needs an installed-Skill audit or conflict check, has low Skill recall, wants indirect helpers such as humanizers or compliance checks, or wants a project-specific Skill Stack with controlled installation. Search local Skills, registries, GitHub, and OpenCLI; compare adoption, verified fit, safety, and overlap. Do not use for locating one known or common Skill; use the generic find-skills workflow."
+description: "围绕端到端自然语言目标，检索、评估并组装最小兼容的 AI Agent 技能集。适用于以下场景：构建多步骤工作流所需技能、评估项目技能适配性、审计已安装技能或排查冲突、技能召回不足、需要文本润色或合规审查等辅助工具，或构建受控安装的项目级技能栈。全面搜索本地技能、注册表、GitHub 与 OpenCLI，综合对比普及度、认证适配性、安全性及功能重叠度。请勿用于检索单个已知或通用技能，此类需求请直接使用常规的 find-skills 工作流。"
 version: "1.0.0"
 license: "MIT"
 ---

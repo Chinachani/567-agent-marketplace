@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-projects-ts"
-description: "Build AI applications using Azure AI Projects SDK for JavaScript (@azure/ai-projects). Use when working with Foundry project clients, agents, connections, deployments, datasets, indexes, evaluations, or getting OpenAI clients."
+description: "使用适用于 JavaScript 的 Azure AI Projects SDK (@azure/ai-projects) 构建 AI 应用程序。适用于开发和管理 Foundry 项目客户端、智能体 (Agents)、连接、部署、数据集、索引、评估以及获取 OpenAI 客户端等场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

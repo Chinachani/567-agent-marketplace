@@ -1,6 +1,6 @@
 ---
 name: "azure-kubernetes"
-description: "Plan, create, and configure production-ready Azure Kubernetes Service (AKS) clusters. Covers Day-0 checklist, SKU selection (Automatic vs Standard), networking options (private API server, Azure CNI Overlay, egress configuration), security, and operations (autoscaling, upgrade strategy, cost analysis). WHEN: create AKS environment, provision AKS, enable AKS observability, design AKS networking, choose AKS SKU, secure AKS, optimize AKS, AKS spot nodes, AKS cluster-autoscaler, rightsize AKS pod, pod rightsizing, over-provisioned AKS pod, pod resource requests and limits, Vertical Pod Autoscaler, VPA recommendations."
+description: "规划、创建并配置生产级 Azure Kubernetes Service (AKS) 集群。涵盖 Day-0 准备清单、SKU 选型（Automatic 与 Standard 对比）、网络方案设计（专用 API 服务器、Azure CNI Overlay、出站流量配置）、安全加固以及日常运维策略（自动伸缩、平滑升级、成本优化）。\n\n适用场景：创建或置备 AKS 环境、启用集群可观测性、设计网络架构、评估集群 SKU、加固集群安全、实施集群与成本优化、配置竞价 (Spot) 节点、启用集群自动伸缩 (Cluster Autoscaler)、治理 Pod 资源超配与规格调优 (Rightsizing)、设置 Pod 资源请求与限制 (Requests/Limits) 以及应用垂直自动伸缩 (VPA) 建议。"
 version: "1.2.2"
 license: "MIT"
 metadata:

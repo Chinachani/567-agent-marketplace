@@ -1,6 +1,6 @@
 ---
 name: "webmcpify"
-description: "Make a web app agent-ready — propose a WebMCP tool manifest, integrate, verify in a real browser, heal; unrelated code stays untouched. Use for \"webmcpify\", \"add WebMCP\", or \"expose app actions to AI agents\"."
+description: "让 Web 应用全面接入 AI 智能体：生成 WebMCP 工具清单、执行集成、在真实浏览器中验证并自动修复，且不改动无关代码。适用于“webmcpify”、“添加 WebMCP”或“向 AI 智能体开放应用操作”等场景。"
 version: "1.0.0"
 license: "MIT"
 argument-hint: "[inventory|integrate|verify|status|full] [scope notes]"

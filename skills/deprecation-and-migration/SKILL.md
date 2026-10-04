@@ -1,6 +1,6 @@
 ---
 name: "deprecation-and-migration"
-description: "Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when migrating a database schema in production, such as renaming or dropping a column without downtime (expand/contract). Use when deciding whether to maintain or sunset existing code."
+description: "管理废弃与平滑迁移。适用于下线旧系统、API 或功能；在不同实现方案间迁移用户；执行生产环境零停机数据库架构迁移（如采用展开/收缩模式重命名或删除列）；以及评估现有代码应继续维护还是逐步淘汰下线。"
 version: "1.0.0"
 license: "MIT"
 ---

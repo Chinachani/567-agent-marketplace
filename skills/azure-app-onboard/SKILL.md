@@ -1,6 +1,6 @@
 ---
 name: "azure-app-onboard"
-description: "End-to-end orchestrator: from a business idea, app idea, or existing app to running Azure deployment with cost estimates and pre-deploy approval. Analyzes your app, auto-detects the right Azure services, scaffolds infrastructure code, and deploys — tailored to your app, not a template. Handles moving existing apps to Azure without rewriting or with minimal changes. WHEN: bring your app to Azure, plan my app, cost to run, is my code ready to deploy, deploy my app to the cloud, deploy all my services, what Azure services do I need, plan my Azure deployment, deploy my new app to Azure, one-click deploy, I have an app and want it on Azure, migrate my app to Azure, help me get started, build an app, no code yet, starter project. DO NOT USE FOR: use azd for deployment(use azure-deploy), optimizing existing costs (use cost-optimization), code readiness checks only (use azure-app-onboard-prereq)."
+description: "端到端云端编排专家：支持从业务构想、应用创意或现有项目，直接落地为包含成本预估与部署前审批的运行中 Azure 服务。智能分析代码架构，自动匹配最适用的 Azure 服务，量身生成专属基础设施代码并执行部署（拒绝僵化模板）；支持现有应用零改造或极简改动迁移上云。\n\n适用场景：将应用迁移至 Azure、云架构规划与服务选型、运行成本估算、检查代码是否满足部署条件、全套服务一键/自动化上云、从零起步构建新项目。\n不适用于：仅使用 azd 工具部署（请使用 azure-deploy）、优化现有资源成本（请使用 cost-optimization）、仅做代码上线就绪检查（请使用 azure-app-onboard-prereq）。"
 version: "1.2.5"
 license: "MIT"
 metadata:

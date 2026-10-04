@@ -1,6 +1,6 @@
 ---
 name: "microsoft-code-reference"
-description: "Look up Microsoft API references, find working code samples, and verify SDK code is correct. Use when working with Azure SDKs, .NET libraries, or Microsoft APIs—to find the right method, check parameters, get working examples, or troubleshoot errors. Catches hallucinated methods, wrong signatures, and deprecated patterns by querying official docs."
+description: "查询微软 API 参考文档，获取可运行的代码示例，并验证 SDK 代码的准确性。适用于使用 Azure SDK、.NET 类库或微软 API 的开发场景——助你快速定位目标方法、核对参数、获取实战示例及排查故障。通过实时检索官方文档，精准拦截虚构方法（幻觉）、错误函数签名及已弃用的代码写法。"
 version: "1.0.0"
 license: "MIT"
 compatibility: Works best with Microsoft Learn MCP Server (https://learn.microsoft.com/api/mcp). Can also use the mslearn CLI as a fallback.

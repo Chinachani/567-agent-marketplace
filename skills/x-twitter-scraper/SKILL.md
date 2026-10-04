@@ -1,6 +1,6 @@
 ---
 name: "x-twitter-scraper"
-description: "Build GitHub Copilot workflows with Xquik X API SDKs, REST endpoints, hosted Apify Actor runs, MCP tools, TweetClaw OpenClaw plugin installs, signed webhooks, tweet search, user lookup, follower exports, media actions, and agent automation."
+description: "利用 Xquik X API SDK、REST 接口、托管式 Apify Actor、MCP 工具与 TweetClaw OpenClaw 插件，支持推文搜索、用户查询、粉丝导出、媒体操作及签名 Webhook，构建 GitHub Copilot 智能体自动化工作流。"
 version: "1.0.0"
 license: "MIT"
 ---

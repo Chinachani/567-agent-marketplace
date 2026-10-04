@@ -1,6 +1,6 @@
 ---
 name: "linkedin-post-formatter"
-description: "Format and draft compelling LinkedIn posts using Unicode bold/italic styling, visual separators, structured sections, and engagement-optimized patterns. USE FOR: draft LinkedIn post, format text for LinkedIn, create social media post, write thought leadership post, convert content to LinkedIn format, LinkedIn carousel text, Unicode bold italic formatting."
+description: "运用 Unicode 粗斜体排版、视觉分隔线、清晰结构与高互动模式，起草并美化极具吸引力的 LinkedIn 帖子。适用于：撰写 LinkedIn 动态、领英文本排版美化、创作社媒内容、撰写行业见解与思想领袖文章、将现有内容转化为领英格式、编写领英轮播图文案，以及生成 Unicode 粗斜体文本。"
 version: "1.0.0"
 license: "MIT"
 ---

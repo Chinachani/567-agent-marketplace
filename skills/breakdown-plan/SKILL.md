@@ -1,6 +1,6 @@
 ---
 name: "breakdown-plan"
-description: "Issue Planning and Automation prompt that generates comprehensive project plans with Epic > Feature > Story/Enabler > Test hierarchy, dependencies, priorities, and automated tracking."
+description: "高效生成结构化项目计划，支持“史诗 > 特性 > 故事/使能 > 测试”层级分解，精准梳理依赖关系与优先级，实现事务自动化规划与全程跟踪。"
 version: "1.0.0"
 license: "MIT"
 ---

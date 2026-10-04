@@ -1,6 +1,6 @@
 ---
 name: "winmd-api-search"
-description: "Find and explore Windows desktop APIs. Use when building features that need platform capabilities — camera, file access, notifications, UI controls, AI/ML, sensors, networking, etc. Discovers the right API for a task and retrieves full type details (methods, properties, events, enumeration values)."
+description: "检索并探索 Windows 桌面 API。适用于构建需要调用系统原生特性的功能，例如相机、文件访问、系统通知、UI 控件、AI/ML、传感器及网络等。可为特定任务精准匹配适用 API，并获取完整的类型详情（方法、属性、事件及枚举值）。"
 version: "1.0.0"
 license: "MIT"
 ---

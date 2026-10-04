@@ -1,6 +1,6 @@
 ---
 name: "sandbox-npm-install"
-description: "Install npm packages in a Docker sandbox environment. Use this skill whenever you need to install, reinstall, or update node_modules inside a container where the workspace is mounted via virtiofs. Native binaries (esbuild, lightningcss, rollup) crash on virtiofs, so packages must be installed on the local ext4 filesystem and symlinked back."
+description: "在 Docker 沙箱环境中安全安装 npm 依赖包。当容器工作区通过 virtiofs 挂载，且需要安装、重装或更新 node_modules 时使用此技能。为避免原生二进制文件（如 esbuild、lightningcss、rollup）在 virtiofs 上运行崩溃，该技能会将依赖统一安装至本地 ext4 文件系统，并自动创建软链接映射回工作区。"
 version: "1.0.0"
 license: "MIT"
 ---

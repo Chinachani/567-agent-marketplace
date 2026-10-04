@@ -1,6 +1,6 @@
 ---
 name: "signal-write"
-description: "Emit structured agent signals — hands-up, blocked, done, checkpoint, partnership. Signals are written as JSON to .signals/ for dashboard consumption and noted in the journal for persistence."
+description: "发送结构化 Agent 信号（求助、受阻、完成、检查点、协同）。将信号以 JSON 格式输出至 .signals/ 目录供仪表盘读取，并记录到日志中持久化保存。"
 version: "1.0.0"
 license: "MIT"
 ---

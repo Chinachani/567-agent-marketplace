@@ -1,6 +1,6 @@
 ---
 name: "azure-resource-lookup"
-description: "List, find, and show Azure resources across subscriptions or resource groups. Handles prompts like \"list the websites in my subscription\", \"list my web apps\", \"show my app services\", \"list virtual machines\", \"list my VMs\", \"show storage accounts\", \"find container apps\", and \"what resources do I have\". USE FOR: list websites, list web apps, list app services, show websites in subscription, resource inventory, find resources by tag, tag analysis, orphaned resource discovery (not for cost analysis), unattached disks, count resources by type, cross-subscription lookup, and Azure Resource Graph queries. DO NOT USE FOR: deploying/changing resources (use azure-deploy), cost optimization (use cost-optimization from the optional azure-cost plugin), or non-Azure clouds."
+description: "跨订阅或资源组检索、列出并展示 Azure 资源。支持处理“列出我的 Web 应用/虚拟机/存储账户/容器应用”、“查看应用服务”或“我拥有哪些资源”等指令。\n\n适用场景：资源盘点清单、列出网站及 Web 应用、按标签检索与分析资源、发现孤立资源（不用于成本分析）和未挂载磁盘、按类型统计资源数量、跨订阅查询，以及执行 Azure Resource Graph 查询。\n不适用场景：部署或修改资源（请使用 azure-deploy）、成本优化（请使用 azure-cost 插件中的 cost-optimization 功能）以及非 Azure 云平台环境。"
 version: "1.2.3"
 license: "MIT"
 metadata:

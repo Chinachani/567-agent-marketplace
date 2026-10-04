@@ -1,6 +1,6 @@
 ---
 name: "azure-kusto"
-description: "Query and analyze data in Azure Data Explorer (Kusto/ADX) using KQL for log analytics, telemetry, and time series analysis. WHEN: KQL queries, Kusto database queries, Azure Data Explorer, ADX clusters, log analytics, time series data, IoT telemetry, anomaly detection."
+description: "使用 KQL 在 Azure Data Explorer (Kusto/ADX) 中查询与分析数据，用于日志分析、遥测及时间序列分析。适用场景：KQL 查询、Kusto 数据库查询、Azure Data Explorer、ADX 集群、日志分析、时序数据、IoT 遥测、异常检测。"
 version: "1.2.1"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "update-llms"
-description: "Update the llms.txt file in the root folder to reflect changes in documentation or specifications following the llms.txt specification at https://llmstxt.org/"
+description: "遵循 https://llmstxt.org/ 规范更新根目录下的 llms.txt 文件，以同步文档或规范的最新变更。"
 version: "1.0.0"
 license: "MIT"
 ---

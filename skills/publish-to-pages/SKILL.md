@@ -1,6 +1,6 @@
 ---
 name: "publish-to-pages"
-description: "Publish presentations and web content to GitHub Pages. Converts PPTX, PDF, HTML, or Google Slides to a live GitHub Pages URL. Handles repo creation, file conversion, Pages enablement, and returns the live URL. Use when the user wants to publish, deploy, or share a presentation or HTML file via GitHub Pages."
+description: "将演示文稿和网页内容发布至 GitHub Pages。支持将 PPTX、PDF、HTML 或 Google Slides 转换为在线访问链接，全自动处理代码仓库创建、文件转换及 Pages 页面启用，并返回访问网址。适用于需要通过 GitHub Pages 发布、部署或分享演示文稿及 HTML 文件的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "daily-prep"
-description: "Prepare for tomorrow's meetings and tasks. Pulls calendar from Outlook via WorkIQ, cross-references open tasks and workspace context, classifies meetings, detects conflicts and day-fit issues, finds learning and deep-work slots, and generates a structured HTML prep file with productivity recommendations."
+description: "全面筹备明日会议与任务。通过 WorkIQ 同步 Outlook 日历，交叉比对未办事项与工作区上下文，智能分类会议并检测冲突与过载风险，挖掘学习与深度工作时段，生成包含效能建议的结构化 HTML 准备文档。"
 version: "1.0.0"
 license: "MIT"
 ---

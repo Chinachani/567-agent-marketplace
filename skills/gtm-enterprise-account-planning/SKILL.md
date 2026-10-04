@@ -1,6 +1,6 @@
 ---
 name: "gtm-enterprise-account-planning"
-description: "Strategic account planning and execution for enterprise deals. Use when planning complex sales cycles, managing multiple stakeholders, applying MEDDICC qualification, tracking deal health, or building mutual action plans. Includes the \"stale MAP equals dead deal\" pattern."
+description: "大客户交易的战略规划与落地执行。适用于规划复杂销售周期、协调多方利益相关者、应用 MEDDICC 销售评估、监控商机健康度及制定共同行动计划（MAP）。内置“停滞的 MAP 即为死单”实战法则。"
 version: "1.0.0"
 license: "MIT"
 metadata:

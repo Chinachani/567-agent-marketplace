@@ -1,6 +1,6 @@
 ---
 name: "codeql"
-description: "Comprehensive guide for setting up and configuring CodeQL code scanning via GitHub Actions workflows and the CodeQL CLI. This skill should be used when users need help with code scanning configuration, CodeQL workflow files, CodeQL CLI commands, SARIF output, security analysis setup, or troubleshooting CodeQL analysis."
+description: "提供基于 GitHub Actions 工作流与 CodeQL CLI 的 CodeQL 代码扫描配置全流程指南。适用于编写 CodeQL 工作流文件、执行 CLI 命令、处理 SARIF 输出、搭建安全分析流程及排查扫描分析故障。"
 version: "1.0.0"
 license: "MIT"
 ---

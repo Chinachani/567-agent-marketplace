@@ -1,6 +1,6 @@
 ---
 name: "github-actions-runtime-upgrade-conventions"
-description: "Upgrade GitHub Actions to supported runtimes by selecting safe action versions, preserving workflow behavior, and validating post-upgrade execution."
+description: "升级 GitHub Actions 至受支持的运行环境，选用安全的 Action 版本并保持工作流行为不变，全面验证升级后的执行状态。"
 version: "1.0.0"
 license: "MIT"
 ---

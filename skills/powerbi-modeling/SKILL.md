@@ -1,6 +1,6 @@
 ---
 name: "powerbi-modeling"
-description: "Power BI semantic modeling assistant for building optimized data models. Use when working with Power BI semantic models, creating measures, designing star schemas, configuring relationships, implementing RLS, or optimizing model performance. Triggers on queries about DAX calculations, table relationships, dimension/fact table design, naming conventions, model documentation, cardinality, cross-filter direction, calculation groups, and data model best practices. Always connects to the active model first using power-bi-modeling MCP tools to understand the data structure before providing guidance."
+description: "专用于构建高性能数据模型的 Power BI 语义建模助手。适用于开发语义模型、编写 DAX 度量值、设计星型架构、配置表间关系、实现行级安全性 (RLS) 及优化模型性能等场景。针对 DAX 计算、维度与事实表设计、命名规范、模型文档、基数与交叉筛选方向、计算组以及建模最佳实践等需求即时响应。提供指导前，优先调用 power-bi-modeling MCP 工具连接活动模型，在全面解析现有数据结构后提供针对性建议。"
 version: "1.0.0"
 license: "MIT"
 ---

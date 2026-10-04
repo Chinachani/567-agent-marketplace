@@ -1,6 +1,6 @@
 ---
 name: "azure-appconfiguration-java"
-description: "Azure App Configuration SDK for Java. Centralized application configuration management with key-value settings, feature flags, and snapshots. Triggers: \"ConfigurationClient java\", \"app configuration java\", \"feature flag java\", \"configuration setting java\", \"azure config java\"."
+description: "适用于 Java 的 Azure App Configuration SDK。通过键值设置、功能标志和快照集中管理应用程序配置。触发词：\"ConfigurationClient java\"、\"app configuration java\"、\"feature flag java\"、\"configuration setting java\"、\"azure config java\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

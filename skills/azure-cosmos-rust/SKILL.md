@@ -1,6 +1,6 @@
 ---
 name: "azure-cosmos-rust"
-description: "Azure Cosmos DB library for Rust (NoSQL API). Document CRUD, containers, and globally distributed data. Triggers: \"cosmos db rust\", \"CosmosClient rust\", \"document crud rust\", \"NoSQL rust\", \"partition key rust\"."
+description: "适用于 Rust 的 Azure Cosmos DB（NoSQL API）开发库。轻松实现文档 CRUD、容器管理与全球分布式数据操作。触发词：cosmos db rust、CosmosClient rust、document crud rust、NoSQL rust、partition key rust。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "azure-storage-blob-java"
-description: "Build blob storage applications with Azure Storage Blob SDK for Java. Use when uploading, downloading, or managing files in Azure Blob Storage, working with containers, or implementing streaming data operations."
+description: "使用 Azure Storage Blob SDK for Java 构建 Blob 存储应用。适用于在 Azure Blob 存储中上传、下载与管理文件，操作容器，以及实现流式数据传输等场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

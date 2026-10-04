@@ -1,6 +1,6 @@
 ---
 name: "az-cost-optimize"
-description: "Analyze Azure resources used in the app (IaC files and/or resources in a target rg) and optimize costs - creating GitHub issues for identified optimizations."
+description: "分析应用所使用的 Azure 资源（IaC 文件及目标资源组资源）以优化成本，并为识别出的优化项创建 GitHub Issue。"
 version: "1.0.0"
 license: "MIT"
 ---

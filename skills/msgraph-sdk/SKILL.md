@@ -1,6 +1,6 @@
 ---
 name: "msgraph-sdk"
-description: "Integrate Microsoft Graph SDK into any project — .NET, TypeScript/JavaScript, or Python. Covers auth patterns (client credentials, OBO, managed identity), SDK setup, calling Graph APIs, batching, delta queries, change notifications, throttling, and permission scopes. Use when accessing Microsoft 365 data (users, mail, calendar, Teams, files, SharePoint) from any application type."
+description: "在任意 .NET、TypeScript/JavaScript 或 Python 项目中集成 Microsoft Graph SDK。涵盖身份验证模式（客户端凭据、OBO、托管标识）、SDK 配置、Graph API 调用、请求批处理、增量查询、变更通知、限流处理及权限范围配置。适用于从各类应用程序中访问 Microsoft 365 数据（用户、邮件、日历、Teams、文件和 SharePoint 等场景）。"
 version: "1.0.0"
 license: "MIT"
 ---

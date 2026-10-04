@@ -1,6 +1,6 @@
 ---
 name: "bug-receipt"
-description: "Close defects and incidents with a BUG RECEIPT and VERIFIED, PARTIAL, or BLOCKED status after diagnosis, repair, or recovery."
+description: "完成诊断、修复或恢复后，生成缺陷回执，并以 VERIFIED（已验证）、PARTIAL（部分解决）或 BLOCKED（受阻）状态关闭缺陷与事件。"
 version: "1.4.1"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "scoutqa-test"
-description: "This skill should be used when the user asks to \"test this website\", \"run exploratory testing\", \"check for accessibility issues\", \"verify the login flow works\", \"find bugs on this page\", or requests automated QA testing. Triggers on web application testing scenarios including smoke tests, accessibility audits, e-commerce flows, and user flow validation using ScoutQA CLI. Use this skill proactively after implementing web application features to verify they work correctly."
+description: "当用户要求“测试此网站”、“执行探索性测试”、“检查无障碍问题”、“验证登录流程”、“排查页面 Bug”或请求自动化 QA 测试时使用。适用于基于 ScoutQA CLI 的 Web 应用测试场景，包括冒烟测试、无障碍审计、电商业务流程及用户操作链路验证。在完成 Web 功能开发后应主动调用此技能，确保功能运行正常。"
 version: "1.0.0"
 license: "MIT"
 ---

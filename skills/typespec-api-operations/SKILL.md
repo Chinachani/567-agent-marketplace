@@ -1,6 +1,6 @@
 ---
 name: "typespec-api-operations"
-description: "Add GET, POST, PATCH, and DELETE operations to a TypeSpec API plugin with proper routing, parameters, and adaptive cards"
+description: "为 TypeSpec API 插件添加 GET、POST、PATCH 和 DELETE 操作，并配置规范的路由、参数及自适应卡片"
 version: "1.0.0"
 license: "MIT"
 ---

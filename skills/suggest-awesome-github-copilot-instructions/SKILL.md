@@ -1,6 +1,6 @@
 ---
 name: "suggest-awesome-github-copilot-instructions"
-description: "Suggest relevant GitHub Copilot instruction files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing instructions in this repository, and identifying outdated instructions that need updates."
+description: "基于当前代码仓上下文和对话记录，从 awesome-copilot 仓库推荐适用的 GitHub Copilot 指令文件，自动过滤已有重复项，并识别需更新的过时指令。"
 version: "1.0.0"
 license: "MIT"
 ---

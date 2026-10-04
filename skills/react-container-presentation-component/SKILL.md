@@ -1,6 +1,6 @@
 ---
 name: "react-container-presentation-component"
-description: "Create a React component using the Container/Presentation pattern in src/components by asking for the component name and type (ui or features), then scaffold files that follow this repository's TypeScript, Storybook, and SCSS conventions. Use when the user explicitly asks for a Container/Presentation-based component or runs /react-container-presentation-component."
+description: "询问组件名称及类型（ui 或 features），在 src/components 目录下基于容器/展示模式（Container/Presentation）创建 React 组件，并生成符合本仓库 TypeScript、Storybook 及 SCSS 规范的文件结构。适用于用户明确要求创建容器/展示模式组件或调用 /react-container-presentation-component 时。"
 version: "1.0.0"
 license: "MIT"
 argument-hint: "componentName type(ui|features)"

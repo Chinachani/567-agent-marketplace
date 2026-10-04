@@ -1,6 +1,6 @@
 ---
 name: "java-refactoring-remove-parameter"
-description: "Refactoring using Remove Parameter in Java Language"
+description: "在Java中应用移除参数重构代码"
 version: "1.0.0"
 license: "MIT"
 ---

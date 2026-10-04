@@ -1,6 +1,6 @@
 ---
 name: "rhino3d-scripts"
-description: "Authoring and debugging scripts for Rhinoceros 3D (Rhino 8 and later). Use when asked to write RhinoScript (VBScript / .rvb / .vbs), RhinoPython, or RhinoCommon-based scripts; automate Rhino modeling tasks; build command macros; manipulate Rhino geometry, layers, blocks, or document objects; pick objects from the viewport; control redraw and undo; or load and run scripts from the Rhino Script Editor. Covers `rhinoscriptsyntax`, `scriptcontext`, the `Rhino.*` RhinoCommon namespaces (`Rhino.Geometry`, `Rhino.DocObjects`, `Rhino.Input`, `Rhino.UI`, `Rhino.Display`, `Rhino.FileIO`), and the Rhino 8 unified Script Editor."
+description: "编写与调试 Rhinoceros 3D（Rhino 8 及更高版本）脚本。适用于编写 RhinoScript（VBScript / .rvb / .vbs）、RhinoPython 或基于 RhinoCommon 的脚本，实现 Rhino 建模任务自动化、构建命令宏、操作几何体/图层/图块及文档对象、在视口中拾取对象、控制视图重绘与撤销记录，以及在脚本编辑器中加载并运行脚本。涵盖 `rhinoscriptsyntax`、`scriptcontext`、RhinoCommon 核心命名空间（`Rhino.Geometry`、`Rhino.DocObjects`、`Rhino.Input`、`Rhino.UI`、`Rhino.Display`、`Rhino.FileIO`）和 Rhino 8 统一脚本编辑器。"
 version: "1.0.0"
 license: "MIT"
 ---

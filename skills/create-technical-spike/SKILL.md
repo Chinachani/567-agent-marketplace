@@ -1,6 +1,6 @@
 ---
 name: "create-technical-spike"
-description: "Create time-boxed technical spike documents for researching and resolving critical development decisions before implementation."
+description: "编写限时技术调研（Spike）文档，在正式实现前探索并敲定关键研发决策。"
 version: "1.0.0"
 license: "MIT"
 ---

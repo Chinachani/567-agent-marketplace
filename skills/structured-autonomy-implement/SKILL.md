@@ -1,6 +1,6 @@
 ---
 name: "structured-autonomy-implement"
-description: "Structured Autonomy Implementation Prompt"
+description: "结构化自主执行落地提示词"
 version: "1.0.0"
 license: "MIT"
 ---

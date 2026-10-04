@@ -1,6 +1,6 @@
 ---
 name: "azure-storage-queue-py"
-description: "Azure Queue Storage SDK for Python. Use for reliable message queuing, task distribution, and asynchronous processing. Triggers: \"queue storage\", \"QueueServiceClient\", \"QueueClient\", \"message queue\", \"dequeue\"."
+description: "适用于 Python 的 Azure 队列存储 SDK。用于实现可靠的消息排队、任务分发与异步处理。触发词：\"queue storage\"、\"QueueServiceClient\"、\"QueueClient\"、\"message queue\"、\"dequeue\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

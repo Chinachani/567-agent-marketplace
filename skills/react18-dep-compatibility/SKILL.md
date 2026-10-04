@@ -1,6 +1,6 @@
 ---
 name: "react18-dep-compatibility"
-description: "React 18.3.1 and React 19 dependency compatibility matrix."
+description: "查询 React 18.3.1 与 React 19 依赖兼容性矩阵"
 version: "1.0.0"
 license: "MIT"
 ---

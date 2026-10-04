@@ -1,6 +1,6 @@
 ---
 name: "azure-identity-java"
-description: "Azure Identity library for Java authentication with Azure services. Use when implementing DefaultAzureCredential, managed identity, service principal, or any Azure authentication pattern in Java applications."
+description: "用于 Java 应用对接 Azure 服务的身份验证库。适用于实现 DefaultAzureCredential、托管标识、服务主体及各类 Azure 身份验证模式。"
 version: "1.0.0"
 license: "MIT"
 metadata:

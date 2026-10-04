@@ -1,6 +1,6 @@
 ---
 name: "comment-code-generate-a-tutorial"
-description: "Transform this Python script into a polished, beginner-friendly project by refactoring the code, adding clear instructional comments, and generating a complete markdown tutorial."
+description: "重构代码并添加清晰的教学注释，生成配套的完整 Markdown 教程，将此 Python 脚本打造为适合新手入门的规范项目。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "workshop-create"
-description: "Create a new workshop or use an existing directory as one. Handles two paths: (A) use an existing local directory the operator points at, or (B) create a new private GitHub repo in the signed-in account. Never creates a repo inside another repo."
+description: "创建新工作区或将现有目录用作工作区。支持两种途径：(A) 使用操作者指定的本地目录；(B) 在已登录的 GitHub 账户下新建私有仓库。严禁在已有仓库内嵌套创建新仓库。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "tugboat"
-description: "Anxiety-aware, evidence-driven collaboration for stalled or high-stakes work when a user says uncertainty, repeated setbacks, or lack of visible progress is causing significant anxiety or distress. Use immediately when explicitly invoked; when this fit is only inferred from the user's own account, ask permission before applying it. Preserve the user's ideal and turn grounded perspective-taking into persistent, bounded problem solving. Do not use to diagnose, provide therapy, manufacture certainty, or lower goals for reassurance."
+description: "适用于推进受阻或关键高压工作场景。当用户因不确定性、反复受挫或缺乏明显进展而产生严重焦虑或困扰时，提供关照情绪、以证据为驱动的协同支持。若用户明确调用则立即启用；若仅凭描述推断适用，须先征询许可。在坚守用户核心目标的前提下，将脚踏实地的视角转化为持续且有边界的问题攻坚。严禁用于诊断、心理治疗、捏造确定感，或以安抚为由降低目标标准。"
 version: "1.0.0"
 license: "MIT"
 ---

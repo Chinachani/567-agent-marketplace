@@ -1,6 +1,6 @@
 ---
 name: "remember"
-description: "Transforms lessons learned into domain-organized memory instructions (global or workspace). Syntax: `/remember [>domain [scope]] lesson clue` where scope is `global` (default), `user`, `workspace`, or `ws`."
+description: "将经验教训转化为按领域分类的记忆指令（全局或工作区）。语法：`/remember [>domain [scope]] lesson clue`，其中 scope 可选 `global`（默认）、`user`、`workspace` 或 `ws`。"
 version: "1.0.0"
 license: "MIT"
 ---

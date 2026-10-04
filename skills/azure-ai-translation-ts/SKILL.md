@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-translation-ts"
-description: "Build translation applications using Azure Translation SDKs for JavaScript (@azure-rest/ai-translation-text, @azure-rest/ai-translation-document). Use when implementing text translation, transliteration, language detection, or batch document translation."
+description: "基于 JavaScript 版 Azure Translation SDK（@azure-rest/ai-translation-text、@azure-rest/ai-translation-document）构建翻译应用。适用于实现文本翻译、音译转换、语种检测及批量文档翻译等场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

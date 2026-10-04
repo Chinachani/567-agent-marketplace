@@ -1,6 +1,6 @@
 ---
 name: "create-canvas-extension"
-description: "Create or register a canvas extension in the awesome-copilot repository. Use when asked to scaffold a new canvas extension, create its plugin.json, add a reusable extension to one or more plugins, or migrate extension metadata. Extensions are reusable source under extensions/; shippable plugin manifests belong under plugins/."
+description: "在 awesome-copilot 仓库中创建或注册画布扩展（Canvas Extension）。适用于搭建新画布扩展脚手架、生成 plugin.json、将可复用扩展添加至一个或多个插件，以及迁移扩展元数据。扩展源码归放于 extensions/ 目录以便复用，可发布的插件清单文件则位于 plugins/ 目录。"
 version: "1.0.0"
 license: "MIT"
 argument-hint: '[optional extension name or description]'

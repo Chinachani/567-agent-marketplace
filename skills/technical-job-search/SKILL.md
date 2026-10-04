@@ -1,6 +1,6 @@
 ---
 name: "technical-job-search"
-description: "Use this skill when a software engineer asks for help with job search tasks: parsing or analyzing a job description, tailoring a CV/resume, writing a cover letter, evaluating a job offer, or drafting a post-interview follow-up email. Do not activate for general career advice unrelated to an active job search action."
+description: "当软件工程师寻求具体求职协助时使用此技能，包括：解析职位要求（JD）、量身定制简历、撰写求职信、评估工作 Offer 以及起草面试跟进邮件。若咨询与具体求职行动无关的泛职业规划建议，请勿启用。"
 version: "1.0.0"
 license: "MIT"
 argument-hint: 'Optional: the specific task — e.g. "analyze this JD", "tailor my CV", "write cover letter", "evaluate this offer"'

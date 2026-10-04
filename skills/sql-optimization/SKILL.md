@@ -1,6 +1,6 @@
 ---
 name: "sql-optimization"
-description: "Universal SQL performance optimization assistant for comprehensive query tuning, indexing strategies, and database performance analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Provides execution plan analysis, pagination optimization, batch operations, and performance monitoring guidance."
+description: "全能型 SQL 性能调优助手，支持主流数据库（MySQL、PostgreSQL、SQL Server、Oracle）的深度查询优化、索引策略制定与性能瓶颈分析。精准提供执行计划解读、分页调优、批处理设计及全方位的性能监控指导。"
 version: "1.0.0"
 license: "MIT"
 ---

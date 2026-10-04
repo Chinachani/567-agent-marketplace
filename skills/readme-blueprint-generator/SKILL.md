@@ -1,6 +1,6 @@
 ---
 name: "readme-blueprint-generator"
-description: "Intelligent README.md generation prompt that analyzes project documentation structure and creates comprehensive repository documentation. Scans .github/copilot directory files and copilot-instructions.md to extract project information, technology stack, architecture, development workflow, coding standards, and testing approaches while generating well-structured markdown documentation with proper formatting, cross-references, and developer-focused content."
+description: "智能分析项目文档结构，一键生成详尽的代码仓库 README.md。通过自动扫描 `.github/copilot` 目录与 `copilot-instructions.md` 文件，深度提取项目信息、技术栈、系统架构、开发工作流、编码规范及测试策略，生成结构清晰、格式规范、包含交叉引用且贴合开发者需求的专业 Markdown 文档。"
 version: "1.0.0"
 license: "MIT"
 ---

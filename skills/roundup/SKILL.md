@@ -1,6 +1,6 @@
 ---
 name: "roundup"
-description: "Generate personalized status briefings on demand. Pulls from your configured data sources (GitHub, email, Teams, Slack, and more), synthesizes across them, and drafts updates in your own communication style for any audience you define."
+description: "按需生成个性化工作简报。自动提取已关联数据源（GitHub、邮件、Teams、Slack 等）的信息进行综合提炼，并针对指定的受众，以你的专属沟通风格起草进展汇报。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "pytest-coverage"
-description: "Run pytest tests with coverage, discover lines missing coverage, and increase coverage to 100%."
+description: "运行 pytest 覆盖率测试，定位未覆盖代码行，将测试覆盖率提升至 100%。"
 version: "1.0.0"
 license: "MIT"
 ---

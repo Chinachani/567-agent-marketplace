@@ -1,6 +1,6 @@
 ---
 name: "integrate-context-matic"
-description: "Discovers and integrates third-party APIs using the context-matic MCP server. Uses `fetch_api` to find available API SDKs, `ask` for integration guidance, `model_search` and `endpoint_search` for SDK details. Use when the user asks to integrate a third-party API, add an API client, implement features with an external API, or work with any third-party API or SDK."
+description: "利用 context-matic MCP 服务发现并集成第三方 API。通过 `fetch_api` 检索可用的 API SDK，借助 `ask` 获取集成指导，调用 `model_search` 和 `endpoint_search` 查询 SDK 详情。适用于集成第三方 API、添加 API 客户端、基于外部 API 开发功能，或处理各类第三方 API 与 SDK 的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

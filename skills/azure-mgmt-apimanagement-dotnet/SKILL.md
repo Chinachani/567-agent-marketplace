@@ -1,6 +1,6 @@
 ---
 name: "azure-mgmt-apimanagement-dotnet"
-description: "Azure Resource Manager SDK for API Management in .NET. Use for MANAGEMENT PLANE operations: creating/managing APIM services, APIs, products, subscriptions, policies, users, groups, gateways, and backends via Azure Resource Manager. Triggers: \"API Management\", \"APIM service\", \"create APIM\", \"manage APIs\", \"ApiManagementServiceResource\", \"API policies\", \"APIM products\", \"APIM subscriptions\"."
+description: "适用于 .NET 的 Azure Resource Manager API 管理（APIM）SDK。专用于管理平面（Management Plane）操作：通过 Azure Resource Manager 创建与管理 APIM 服务、API、产品、订阅、策略、用户、用户组、网关及后端资源。触发词：\"API Management\"、\"APIM service\"、\"create APIM\"、\"manage APIs\"、\"ApiManagementServiceResource\"、\"API policies\"、\"APIM products\"、\"APIM subscriptions\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

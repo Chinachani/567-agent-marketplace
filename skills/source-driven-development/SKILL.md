@@ -1,6 +1,6 @@
 ---
 name: "source-driven-development"
-description: "Grounds every implementation decision in official documentation. Use when you want to verify an approach against the official docs before implementing it, or when you want authoritative, source-cited code free from outdated patterns. Use when building with any framework or library where correctness matters."
+description: "所有技术决策均严格依托官方文档。适用于在动手编码前需对照官方文档验证方案、需要杜绝过时写法并获取带权威出处的代码，以及任何对代码正确性要求严苛的框架或类库开发场景。"
 version: "1.0.0"
 license: "MIT"
 ---

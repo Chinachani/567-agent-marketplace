@@ -1,6 +1,6 @@
 ---
 name: "create-spring-boot-kotlin-project"
-description: "Create Spring Boot Kotlin Project Skeleton"
+description: "搭建 Spring Boot Kotlin 项目骨架"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "azure-maps-search-dotnet"
-description: "Azure Maps SDK for .NET. Location-based services including geocoding, routing, rendering, geolocation, and weather. Use for address search, directions, map tiles, IP geolocation, and weather data. Triggers: \"Azure Maps\", \"MapsSearchClient\", \"MapsRoutingClient\", \"MapsRenderingClient\", \"geocoding .NET\", \"route directions\", \"map tiles\", \"geolocation\"."
+description: "适用于 .NET 的 Azure Maps SDK，提供地理编码、路径规划、地图渲染、地理定位和天气等位置服务。支持地址检索、路线导航、地图瓦片加载、IP 定位及天气数据获取。触发词：Azure Maps、MapsSearchClient、MapsRoutingClient、MapsRenderingClient、geocoding .NET、route directions、map tiles、geolocation。"
 version: "1.0.0"
 license: "MIT"
 metadata:

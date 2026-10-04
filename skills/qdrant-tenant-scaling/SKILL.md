@@ -1,6 +1,6 @@
 ---
 name: "qdrant-tenant-scaling"
-description: "Guides Qdrant multi-tenant scaling. Use when someone asks 'how to scale tenants', 'one collection per tenant?', 'tenant isolation', 'dedicated shards', or reports tenant performance issues. Also use when multi-tenant workloads outgrow shared infrastructure."
+description: "提供 Qdrant 多租户扩展与架构优化指导。适用于解答租户扩容方案、“一租户一集合”架构权衡、租户隔离策略、独立分片配置，或排查租户性能瓶颈等问题；亦可用于在多租户负载超出共享基础设施承载能力时，制定架构升级与迁移方案。"
 version: "1.0.0"
 license: "MIT"
 ---

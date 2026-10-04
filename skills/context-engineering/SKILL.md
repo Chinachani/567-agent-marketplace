@@ -1,6 +1,6 @@
 ---
 name: "context-engineering"
-description: "Optimizes agent context setup. Use when starting a new session, when agent output quality degrades, when switching between tasks, or when you need to configure rules files and context for a project."
+description: "优化智能体上下文配置。适用于开启新会话、输出质量下降、切换任务，或需要为项目配置规则文件与上下文时。"
 version: "1.0.0"
 license: "MIT"
 ---

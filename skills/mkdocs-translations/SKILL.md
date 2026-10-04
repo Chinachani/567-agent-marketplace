@@ -1,6 +1,6 @@
 ---
 name: "mkdocs-translations"
-description: "Generate a language translation for a mkdocs documentation stack."
+description: "为 MkDocs 文档生成多语言翻译"
 version: "1.0.0"
 license: "MIT"
 ---

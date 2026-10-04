@@ -1,6 +1,6 @@
 ---
 name: "qdrant-search-strategies"
-description: "Guides Qdrant search strategy selection. Use when someone asks 'should I use hybrid search?', 'BM25 or sparse vectors?', 'how to rerank?', 'results are not relevant', 'I don't get needed results from my dataset but they're there', 'retrieval quality is not good enough', 'results too similar', 'need diversity', 'MMR', 'relevance feedback', 'recommendation API', 'discovery API', 'ColBERT reranking', or 'missing keyword matches'"
+description: "指导 Qdrant 检索策略选型与优化。适用于咨询是否使用混合检索、BM25 与稀疏向量选型、重排方法（如 ColBERT），或排查检索结果不相关、存在漏检、检索质量差、结果过于相似需要多样性（MMR）、缺失关键词匹配等问题，以及应用推荐（Recommendation）与探索（Discovery）API、相关性反馈等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

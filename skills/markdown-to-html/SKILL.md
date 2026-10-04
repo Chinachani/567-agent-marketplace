@@ -1,6 +1,6 @@
 ---
 name: "markdown-to-html"
-description: "Convert Markdown files to HTML similar to `marked.js`, `pandoc`, `gomarkdown/markdown`, or similar tools; or writing custom script to convert markdown to html and/or working on web template systems like `jekyll/jekyll`, `gohugoio/hugo`, or similar web templating systems that utilize markdown documents, converting them to html. Use when asked to \"convert markdown to html\", \"transform md to html\", \"render markdown\", \"generate html from markdown\", or when working with .md files and/or web a templating system that converts markdown to HTML output. Supports CLI and Node.js workflows with GFM, CommonMark, and standard Markdown flavors."
+description: "将 Markdown 文件转换为 HTML，支持类似 marked.js、Pandoc、gomarkdown 等工具的转换能力，可编写自定义转换脚本，或配合 Jekyll、Hugo 等基于 Markdown 的网页模板系统使用。适用于“Markdown 转 HTML”、“渲染 MD 文件”、“从 Markdown 生成页面”以及处理 .md 文档模板的场景。支持 CLI 与 Node.js 工作流，全面兼容 GFM、CommonMark 及标准 Markdown 语法规范。"
 version: "1.0.0"
 license: "MIT"
 ---

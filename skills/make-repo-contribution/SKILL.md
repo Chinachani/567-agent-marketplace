@@ -1,6 +1,6 @@
 ---
 name: "make-repo-contribution"
-description: "All changes to code must follow the guidance documented in the repository. Before any issue is filed, branch is made, commits generated, or pull request (or PR) created, a search must be done to ensure the right steps are followed. Whenever asked to create an issue, commit messages, to push code, or create a PR, use this skill so everything is done correctly."
+description: "严格遵循仓库规范管理代码变更。在提交 Issue、创建分支、生成 Commit 或发起 PR 之前，检索并确认标准操作步骤。凡涉及创建 Issue、撰写提交信息、推送代码或发起 PR 等操作，均调用此技能以确保准确规范执行。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools: Read Edit Bash(git:*) Bash(gh issue:*) Bash(gh pr:*)

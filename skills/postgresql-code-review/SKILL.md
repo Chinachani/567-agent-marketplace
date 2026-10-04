@@ -1,6 +1,6 @@
 ---
 name: "postgresql-code-review"
-description: "PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards. Covers JSONB operations, array usage, custom types, schema design, function optimization, and PostgreSQL-exclusive security features like Row Level Security (RLS)."
+description: "专为 PostgreSQL 打造的代码审查助手，聚焦最佳实践、反模式规避及严苛的质量标准。深度覆盖 JSONB 操作、数组应用、自定义类型、模式设计与函数优化，并全面审查行级安全策略（RLS）等特有安全机制。"
 version: "1.0.0"
 license: "MIT"
 ---

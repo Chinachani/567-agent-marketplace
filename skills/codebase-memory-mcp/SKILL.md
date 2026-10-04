@@ -1,6 +1,6 @@
 ---
 name: "codebase-memory-mcp"
-description: "Use when exploring unfamiliar code, mapping architecture, finding symbols or relationships, tracing callers, callees, data flow or dependencies, assessing impact, auditing dead or complex code, or handling explicit Codebase Memory requests. Otherwise skip tasks confined to a supplied known file, tiny one-file check, exact literal, configuration value, error string, or non-code text."
+description: "适用于探索陌生代码、梳理系统架构、检索符号及关联、追踪调用链路（调用方与被调方）、分析数据流与依赖、评估改动影响、审计冗余或复杂代码，以及处理明确的代码库记忆（Codebase Memory）请求。若任务仅限于已知的单一文件处理、微型单文件检查、精确字面量/配置值/报错信息搜索或非代码文本，请勿使用。"
 version: "1.0.0"
 license: "MIT"
 ---

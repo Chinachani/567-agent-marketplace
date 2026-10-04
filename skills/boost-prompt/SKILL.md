@@ -1,6 +1,6 @@
 ---
 name: "boost-prompt"
-description: "Interactive prompt refinement workflow: interrogates scope, deliverables, constraints; copies final markdown to clipboard; never writes code. Requires the Joyride extension."
+description: "交互式提示词润色工作流：深入梳理需求范围、交付物与约束条件；自动将最终 Markdown 复制到剪贴板；全程不编写代码。需配合 Joyride 插件使用。"
 version: "1.0.0"
 license: "MIT"
 ---

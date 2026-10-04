@@ -1,6 +1,6 @@
 ---
 name: "ci-cd-and-automation"
-description: "Automates CI/CD pipeline setup. Use when setting up or modifying build and deployment pipelines. Use when you need to automate quality gates, configure test runners in CI, or establish deployment strategies."
+description: "自动化搭建与配置 CI/CD 流水线。适用于新建或修改构建与部署流程，或需要自动化质量门禁、配置 CI 测试运行器及制定部署策略等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

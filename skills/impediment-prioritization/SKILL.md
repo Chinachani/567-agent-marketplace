@@ -1,6 +1,6 @@
 ---
 name: "impediment-prioritization"
-description: "Ranks any list of impediments and their countermeasures using a value-stream scoring model (ROI, Cost to Implement, Ease of Deployment, Risk Factor) and a fixed prioritization formula. Use when someone asks to prioritize, rank, sequence, or triage impediments, countermeasures, remediation items, risks, findings, gaps, action items, or backlog entries; or mentions value-stream prioritization, A3 / lean countermeasure ranking, ROI vs. effort scoring, or building a remediation / improvement backlog. Works with GHQR findings, audit results, retrospective action items, risk registers, architecture review gaps, or any free-form `{impediment, countermeasure}` list."
+description: "基于价值流评分模型（ROI、实施成本、部署难度、风险系数）及预设优先级公式，对各类阻碍项及其应对措施进行量化排序。适用于对阻碍问题、对策、整改项、风险、差距、行动项或待办列表进行优先级排序、排期与分类处理的场景；支持价值流优先级评估、A3/精益对策排序、ROI投入产出评分以及构建整改与持续改进待办清单。可直接兼容 GHQR 发现项、审计结果、复盘行动项、风险登记簿、架构评审差距或任意自定义的“阻碍-对策”清单。"
 version: "2.0.0"
 license: "MIT"
 metadata:

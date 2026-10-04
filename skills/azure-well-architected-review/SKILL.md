@@ -1,6 +1,6 @@
 ---
 name: "azure-well-architected-review"
-description: "Perform an Azure Well-Architected Framework review of the current workload IaC and architecture, generating findings and GitHub issues for improvements."
+description: "基于 Azure 良好架构框架审查当前工作负载的 IaC 与架构，生成评估结果并创建用于改进的 GitHub Issue。"
 version: "1.0.0"
 license: "MIT"
 ---

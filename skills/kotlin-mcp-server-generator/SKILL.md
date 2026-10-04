@@ -1,6 +1,6 @@
 ---
 name: "kotlin-mcp-server-generator"
-description: "Generate a complete Kotlin MCP server project with proper structure, dependencies, and implementation using the official io.modelcontextprotocol:kotlin-sdk library."
+description: "基于官方 io.modelcontextprotocol:kotlin-sdk 库，生成结构规范、依赖完整且包含具体实现的 Kotlin MCP 服务端项目。"
 version: "1.0.0"
 license: "MIT"
 ---

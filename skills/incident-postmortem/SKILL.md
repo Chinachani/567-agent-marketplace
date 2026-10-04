@@ -1,6 +1,6 @@
 ---
 name: "incident-postmortem"
-description: "Use when an outage, production incident, or significant service degradation has occurred and the team needs to write a structured blameless post-mortem. Triggers on phrases like \"write a post-mortem\", \"incident review\", \"what went wrong\", \"outage report\", \"root cause analysis\", or \"RCA\". Covers timeline reconstruction, contributing factor analysis, impact quantification, and action item generation with owners."
+description: "适用于发生系统宕机、线上事故或严重服务降级，团队需要撰写结构化“对事不对人”复盘报告（Blameless Post-mortem）的场景。可响应“撰写复盘报告”、“事故回顾”、“故障排查分析”、“出具故障报告”或“RCA”等指令。支持时间线复盘、诱发因素分析、业务影响量化，并生成责任到人的改进行动项。"
 version: "1.0.0"
 license: "MIT"
 ---

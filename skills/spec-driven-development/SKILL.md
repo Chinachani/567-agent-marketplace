@@ -1,6 +1,6 @@
 ---
 name: "spec-driven-development"
-description: "Creates specs before coding. Use when starting a new project, feature, or significant change and no specification exists yet. Use when drafting a PRD or requirements document with objectives and scope, or when requirements are unclear, ambiguous, or only exist as a vague idea. Use when a single requirement spans several independently testable capabilities and needs decomposing into a capability map of modules before specifying."
+description: "在编码前制定规格说明与技术规范。适用于启动新项目、新功能或重大变更且尚未建立规范的场景；用于起草明确目标与范围的 PRD 或需求文档，以及需求不明确、含糊甚至仅有初步构想时；也适用于单项需求涵盖多个可独立测试的能力，需在细化规范前将其拆解为模块化能力图谱的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

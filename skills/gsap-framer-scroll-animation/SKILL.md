@@ -1,6 +1,6 @@
 ---
 name: "gsap-framer-scroll-animation"
-description: "Use this skill whenever the user wants to build scroll animations, scroll effects, parallax, scroll-triggered reveals, pinned sections, horizontal scroll, text animations, or any motion tied to scroll position — in vanilla JS, React, or Next.js. Covers GSAP ScrollTrigger (pinning, scrubbing, snapping, timelines, horizontal scroll, ScrollSmoother, matchMedia) and Framer Motion / Motion v12 (useScroll, useTransform, useSpring, whileInView, variants). Use this skill even if the user just says \"animate on scroll\", \"fade in as I scroll\", \"make it scroll like Apple\", \"parallax effect\", \"sticky section\", \"scroll progress bar\", or \"entrance animation\". Also triggers for Copilot prompt patterns for GSAP or Framer Motion code generation. Pairs with the premium-frontend-ui skill for creative philosophy and design-level polish."
+description: "当用户需要在原生 JavaScript、React 或 Next.js 中构建滚动动画、滚动特效、视差滚动、滚动触发显现、区域吸附固定、横向滚动、文本动效或任何与滚动位置绑定的交互动画时，使用此技能。全面支持 GSAP ScrollTrigger（吸顶固定 pinning、平滑跟随 scrubbing、贴靠对齐 snapping、时间线、横向滚动、ScrollSmoother 平滑滚动及 matchMedia 响应式适配）与 Framer Motion / Motion v12（useScroll、useTransform、useSpring、whileInView 及 variants 变体）。当用户提出“滚动动画”、“边滚边淡入”、“苹果官网风格滚动”、“视差特效”、“吸顶固定”、“滚动进度条”或“入场动效”等需求，或需要生成 GSAP 与 Framer Motion 相关代码时均应触发。可搭配 premium-frontend-ui 技能使用，进一步实现创意理念与设计层面的精细打磨。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "qdrant-monitoring"
-description: "Guides Qdrant monitoring and observability setup. Use when someone asks 'how to monitor Qdrant', 'what metrics to track', 'is Qdrant healthy', 'optimizer stuck', 'why is memory growing', 'requests are slow', or needs to set up Prometheus, Grafana, or health checks. Also use when debugging production issues that require metric analysis."
+description: "指导搭建 Qdrant 监控与可观测性体系。适用于咨询“如何监控 Qdrant”、“应关注哪些关键指标”、“Qdrant 是否健康”，排查“优化器卡死”、“内存持续增长”、“请求变慢”等性能问题，配置 Prometheus、Grafana 与健康检查，或结合指标分析定位生产环境故障。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools:

@@ -1,6 +1,6 @@
 ---
 name: "playwright-generate-test"
-description: "Generate a Playwright test based on a scenario using Playwright MCP"
+description: "使用 Playwright MCP 基于指定场景生成 Playwright 自动化测试脚本"
 version: "1.0.0"
 license: "MIT"
 ---

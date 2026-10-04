@@ -1,6 +1,6 @@
 ---
 name: "foundry-iq"
-description: "Foundry IQ knowledge bases. WHEN: make local or Blob documents searchable; create/diagnose KBs; triage unsupported connectors or multi-source KB creation/reconfiguration; connect existing KB to agents (including multi-source KBs); create/reuse a Search service; retrieve from an existing knowledge base with citations; no brand words needed. Read its procedure before query/target questions. NOT: other KB providers, repository-file search, classic Azure AI Search index/query/app work, generic agent creation."
+description: "管理与检索 Foundry IQ 知识库。适用场景：使本地或 Blob 文档支持检索；创建或诊断知识库；排查不支持的连接器问题或处理多源知识库的创建与重新配置；将现有知识库（含多源知识库）连接至智能体；创建或复用 Search 服务；从现有知识库中检索带引用的内容（无需包含品牌词）。在执行查询或处理目标问题前，请先阅读其操作规程。不适用于：其他知识库提供商、代码仓库文件搜索、传统 Azure AI Search 索引/查询/应用开发，以及通用智能体创建。"
 version: "0.1.4"
 license: "MIT"
 compatibility: Azure

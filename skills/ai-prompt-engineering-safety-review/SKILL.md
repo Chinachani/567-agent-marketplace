@@ -1,6 +1,6 @@
 ---
 name: "ai-prompt-engineering-safety-review"
-description: "Comprehensive AI prompt engineering safety review and improvement prompt. Analyzes prompts for safety, bias, security vulnerabilities, and effectiveness while providing detailed improvement recommendations with extensive frameworks, testing methodologies, and educational content."
+description: "全面审查并优化AI提示词的安全与性能。深度检测安全隐患、潜在偏见、漏洞风险及有效性，依托专业分析框架、测试方法论与教学指导，提供详尽可落地的改进方案。"
 version: "1.0.0"
 license: "MIT"
 ---

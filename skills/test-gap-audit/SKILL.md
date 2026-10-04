@@ -1,6 +1,6 @@
 ---
 name: "test-gap-audit"
-description: "Run a read-only audit for missing, weak, stale, or mis-scoped test coverage. If the user does not name a scope, audit the full repository and identify important code paths, routes, features, services, workflows, and contracts that lack proper tests. If the user names a feature, PR, branch, route, workflow, service, bug fix, API, security-sensitive path, or risky code change, focus only on that specific scope. Use when the user asks what tests are missing, whether coverage is enough, what regression tests to add, or how to prove a change is safe. This is not a general bug audit and not a security review; it evaluates whether behavior is covered by tests."
+description: "执行只读审计，排查缺失、薄弱、过时或范围不当的测试覆盖。若未指定范围，则扫描整个代码库，识别缺乏充分测试的核心代码路径、路由、功能、服务、工作流及接口契约；若指定了具体功能、PR、分支、路由、服务、Bug修复、API、安全敏感路径或高风险变更，则严格聚焦于该特定范围。适用于用户询问缺失哪些测试、覆盖率是否充足、需要补充哪些回归测试，或如何验证代码变更安全性等场景。注意：本功能非通用 Bug 排查或安全审计，核心专注于评估系统行为是否已被测试有效覆盖。"
 version: "1.0.0"
 license: "MIT"
 ---

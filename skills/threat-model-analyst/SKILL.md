@@ -1,6 +1,6 @@
 ---
 name: "threat-model-analyst"
-description: "Full STRIDE-A threat model analysis and incremental update skill for repositories and systems. Supports two modes: (1) Single analysis — full STRIDE-A threat model of a repository, producing architecture overviews, DFD diagrams, STRIDE-A analysis, prioritized findings, and executive assessments. (2) Incremental analysis — takes a previous threat model report as baseline, compares the codebase at the latest (or a given commit), and produces an updated report with change tracking (new, resolved, still-present threats), STRIDE heatmap, findings diff, and an embedded HTML comparison. Only activate when the user explicitly requests a threat model analysis, incremental update, or invokes /threat-model-analyst directly."
+description: "提供针对代码仓库与系统的全量 STRIDE-A 威胁建模分析及增量更新能力。支持两种工作模式：(1) 单次全量分析：开展代码库完整的 STRIDE-A 威胁建模，生成架构概览、数据流图 (DFD)、STRIDE-A 深度分析、按优先级排序的风险清单及管理层评估；(2) 增量更新分析：以历史威胁建模报告为基线对比最新或指定提交的代码差异，输出涵盖状态追踪（新增、已解决、持续存在）、STRIDE 热力图、风险差异对比及内嵌 HTML 对照视图的更新报告。仅在用户明确请求威胁建模分析、增量更新，或直接调用 /threat-model-analyst 时激活。"
 version: "1.0.0"
 license: "MIT"
 ---

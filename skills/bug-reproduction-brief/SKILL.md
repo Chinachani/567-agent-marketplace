@@ -1,6 +1,6 @@
 ---
 name: "bug-reproduction-brief"
-description: "Turn a vague, intermittent, or environment-specific bug report into a minimal evidence-backed reproduction before proposing a fix."
+description: "提出修复方案前，将模糊、偶发或特定环境下的Bug报告转化为证据确凿的最小化复现用例。"
 version: "1.0.0"
 license: "MIT"
 ---

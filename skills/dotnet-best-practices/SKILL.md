@@ -1,6 +1,6 @@
 ---
 name: "dotnet-best-practices"
-description: "Ensure .NET/C# code meets best practices for the solution/project."
+description: "确保 .NET/C# 代码符合解决方案与项目的最佳实践"
 version: "1.0.0"
 license: "MIT"
 ---

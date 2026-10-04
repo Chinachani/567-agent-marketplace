@@ -1,6 +1,6 @@
 ---
 name: "typescript-mcp-server-generator"
-description: "Generate a complete MCP server project in TypeScript using the MCP TypeScript SDK v2 (@modelcontextprotocol/server) with tools, resources, and proper configuration"
+description: "使用 MCP TypeScript SDK v2 (@modelcontextprotocol/server) 生成完整的 TypeScript MCP 服务端项目，包含工具、资源及规范配置"
 version: "1.0.0"
 license: "MIT"
 ---

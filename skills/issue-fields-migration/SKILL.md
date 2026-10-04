@@ -1,6 +1,6 @@
 ---
 name: "issue-fields-migration"
-description: "Bulk-migrate metadata to GitHub issue fields from two sources: repo labels (e.g. priority labels to a Priority field) and Project V2 fields. Use when users say \"migrate my labels to issue fields\", \"migrate project fields to issue fields\", \"convert labels to issue fields\", \"copy project field values to issue fields\", or ask about adopting issue fields. Issue fields are org-level typed metadata (single select, text, number, date) that replace label-based workarounds with structured, searchable, cross-repo fields."
+description: "支持从仓库标签（如将优先级标签映射为 Priority 字段）和 Project V2 字段两类来源，批量将元数据迁移至 GitHub Issue 字段。当用户提出“将标签迁移到 issue 字段”、“把项目字段迁移到 issue 字段”、“将标签转换为 issue 字段”、“复制项目字段值到 issue 字段”，或咨询如何启用 Issue 字段时调用。Issue 字段属于组织级强类型元数据（支持单选、文本、数值、日期），能以结构化、可检索且跨仓库的标准字段，彻底替代原先基于标签的临时过渡方案。"
 version: "1.0.0"
 license: "MIT"
 ---

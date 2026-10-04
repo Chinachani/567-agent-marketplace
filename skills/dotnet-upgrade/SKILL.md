@@ -1,6 +1,6 @@
 ---
 name: "dotnet-upgrade"
-description: "Ready-to-use prompts for comprehensive .NET framework upgrade analysis and execution"
+description: "提供开箱即用的提示词，助你全面分析并高效执行 .NET 框架升级"
 version: "1.0.0"
 license: "MIT"
 ---

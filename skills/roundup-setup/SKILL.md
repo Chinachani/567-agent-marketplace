@@ -1,6 +1,6 @@
 ---
 name: "roundup-setup"
-description: "Interactive onboarding that learns your communication style, audiences, and data sources to configure personalized status briefings. Paste in examples of updates you already write, answer a few questions, and roundup calibrates itself to your workflow."
+description: "交互式引导快速配置，主动学习你的沟通风格、受众与数据来源，量身定制专属状态简报。只需粘贴平时的汇报范例并回答几个简单问题，Roundup 即可自动适配并融入你的工作流。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "agentic-workflows"
-description: "Route gh-aw workflow design/create/debug/upgrade requests to the right prompts."
+description: "将 gh-aw 工作流的设计、创建、调试与升级请求精准分发至对应的提示词"
 version: "1.0.0"
 license: "MIT"
 ---

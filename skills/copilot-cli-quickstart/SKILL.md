@@ -1,6 +1,6 @@
 ---
 name: "copilot-cli-quickstart"
-description: "Use this skill when someone wants to learn GitHub Copilot CLI from scratch. Offers interactive step-by-step tutorials with separate Developer and Non-Developer tracks, plus on-demand Q&A. Just say \"start tutorial\" or ask a question! Note: This skill targets GitHub Copilot CLI specifically and uses CLI-specific tools (ask_user, sql, fetch_copilot_cli_documentation)."
+description: "适用于零基础学习 GitHub Copilot CLI 的场景。提供交互式逐步教程，分为开发者与非开发者专属学习路线，并支持实时答疑。只需发送“开始教程”或直接提问即可开启学习！注：本技能专门针对 GitHub Copilot CLI，需配合专属 CLI 工具（ask_user、sql、fetch_copilot_cli_documentation）使用。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools: ask_user, sql, fetch_copilot_cli_documentation

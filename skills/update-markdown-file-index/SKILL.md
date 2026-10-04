@@ -1,6 +1,6 @@
 ---
 name: "update-markdown-file-index"
-description: "Update a markdown file section with an index/table of files from a specified folder."
+description: "将指定文件夹的文件索引或表格更新至Markdown文件的对应章节"
 version: "1.0.0"
 license: "MIT"
 ---

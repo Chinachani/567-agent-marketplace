@@ -1,6 +1,6 @@
 ---
 name: "aspire"
-description: "Aspire skill covering the Aspire CLI, AppHost orchestration, service discovery, integrations, MCP server, VS Code extension, Dev Containers, GitHub Codespaces, templates, dashboard, and deployment. Use when the user asks to create, run, debug, configure, deploy, or troubleshoot an Aspire distributed application."
+description: "涵盖 Aspire CLI、AppHost 编排、服务发现、组件集成、MCP 服务器、VS Code 扩展、Dev Containers、GitHub Codespaces、模板、仪表板及部署等核心能力。适用于创建、运行、调试、配置、部署或排查 Aspire 分布式应用程序。"
 version: "1.0.0"
 license: "MIT"
 ---

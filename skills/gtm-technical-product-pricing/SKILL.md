@@ -1,6 +1,6 @@
 ---
 name: "gtm-technical-product-pricing"
-description: "Pricing strategy for technical products. Use when choosing usage-based vs seat-based, designing freemium thresholds, structuring enterprise pricing conversations, deciding when to raise prices, or using price as a positioning signal."
+description: "制定技术产品定价策略。适用于权衡按用量或按席位计费、设定免费增值转化门槛、构建企业级商务议价框架、把控提价时机，以及利用价格锚定市场定位。"
 version: "1.0.0"
 license: "MIT"
 metadata:

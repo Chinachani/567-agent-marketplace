@@ -1,6 +1,6 @@
 ---
 name: "aws-resource-query"
-description: "Query AWS resources using natural language. Covers EC2, S3, RDS, Lambda, ECS, EKS, Secrets Manager, IAM, VPC, networking, messaging, and more. Strictly read-only — no writes, deletes, or mutations."
+description: "使用自然语言查询 AWS 资源。覆盖 EC2、S3、RDS、Lambda、ECS、EKS、Secrets Manager、IAM、VPC、网络及消息等服务。严格只读，不执行写入、删除或任何变更操作。"
 version: "1.0.0"
 license: "MIT"
 ---

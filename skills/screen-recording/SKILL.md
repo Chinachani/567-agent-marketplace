@@ -1,6 +1,6 @@
 ---
 name: "screen-recording"
-description: "Create annotated animated GIF demos and screen recordings for pull requests and documentation. Covers frame capture, timing, imageio-based GIF creation, and per-frame annotation workflows."
+description: "为 Pull Request 和文档制作带批注的动态 GIF 演示与屏幕录制。涵盖帧捕获、时间控制、基于 imageio 的 GIF 生成及逐帧批注工作流。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "architecture-blueprint-generator"
-description: "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development."
+description: "全方位项目架构蓝图生成工具，通过深度分析代码库生成详尽的架构文档。可自动识别技术栈与架构模式，生成可视化架构图，沉淀实现范式，并提供可扩展的架构蓝图，助力保障系统架构一致性并高效指导后续开发。"
 version: "1.0.0"
 license: "MIT"
 ---

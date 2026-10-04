@@ -1,6 +1,6 @@
 ---
 name: "microsoft-agent-framework"
-description: "Create, update, refactor, explain, or review Microsoft Agent Framework solutions using shared guidance plus language-specific references for .NET and Python."
+description: "基于通用规范与 .NET、Python 语言参考，创建、更新、重构、解析或审查 Microsoft Agent Framework 解决方案。"
 version: "1.0.0"
 license: "MIT"
 ---

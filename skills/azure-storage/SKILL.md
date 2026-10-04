@@ -1,6 +1,6 @@
 ---
 name: "azure-storage"
-description: "Azure Storage Services including Blob Storage, File Shares, Queue Storage, Table Storage, and Data Lake. Answers questions about storage access tiers (hot, cool, cold, archive), when to use each tier, and tier comparison. Provides object storage, SMB file shares, async messaging, NoSQL key-value, and big data analytics. Includes lifecycle management. USE FOR: blob storage, file shares, queue storage, table storage, data lake, upload files, download blobs, storage accounts, access tiers, storage tiers, hot cool cold archive, storage tier comparison, when to use storage tiers, lifecycle management, Azure Storage concepts. DO NOT USE FOR: SQL databases, Cosmos DB (use azure-prepare), messaging with Event Hubs or Service Bus (use azure-messaging)."
+description: "全面支持 Azure 存储服务，涵盖 Blob 存储、文件共享、队列存储、表存储及 Data Lake 数据湖。提供对象存储、SMB 文件共享、异步消息、NoSQL 键值存储及大数据分析指导，解答存储访问层（热、冷、极冷、存档）对比与选型问题，并支持生命周期管理配置。\n\n适用于：Blob 存储、文件共享、队列与表存储、数据湖、文件上传与下载、存储账户管理、访问层级选型与对比、生命周期管理及 Azure 存储核心概念。\n不适用于：SQL 数据库与 Cosmos DB（请使用 azure-prepare），或 Event Hubs、Service Bus 消息服务（请使用 azure-messaging）。"
 version: "1.2.1"
 license: "MIT"
 metadata:

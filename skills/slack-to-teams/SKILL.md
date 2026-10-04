@@ -1,6 +1,6 @@
 ---
 name: "slack-to-teams"
-description: "Sub-skill of microsoft-365-agents-toolkit. Routed expert system with 100+ micro-expert files for migrating Slack bots to Teams, cross-platform bridging, and dual-platform bot development. USE FOR: migrating Slack bot to Teams, adding Teams support to Slack bot, building dual-platform bots, converting Block Kit to Adaptive Cards, identity/OAuth bridging, deploying bots to Azure or AWS, configuring AI model providers. DO NOT USE FOR: general web development, non-bot projects, standalone Teams development without Slack (use parent skill instead)."
+description: "microsoft-365-agents-toolkit 的子技能，基于包含 100 多个微专家的路由专家系统，专注于 Slack 机器人迁移至 Teams、跨平台桥接及双平台机器人开发。\n\n适用于：\n- 将 Slack 机器人迁移至 Teams\n- 为现有 Slack 机器人添加 Teams 支持\n- 开发与构建双平台机器人\n- 将 Block Kit 转换为自适应卡片 (Adaptive Cards)\n- 身份验证与 OAuth 桥接\n- 将机器人部署至 Azure 或 AWS\n- 配置各类 AI 模型提供商\n\n不适用于：\n- 常规 Web 开发\n- 非机器人项目\n- 不涉及 Slack 的独立 Teams 开发（请直接使用父级技能）"
 version: "1.0.0"
 license: "MIT"
 ---

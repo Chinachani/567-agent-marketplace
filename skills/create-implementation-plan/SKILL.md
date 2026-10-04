@@ -1,6 +1,6 @@
 ---
 name: "create-implementation-plan"
-description: "Create a new implementation plan file for new features, refactoring existing code or upgrading packages, design, architecture or infrastructure."
+description: "为新功能开发、代码重构、依赖升级以及架构或基础设施改造创建实施计划文件"
 version: "1.0.0"
 license: "MIT"
 ---

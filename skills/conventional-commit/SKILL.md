@@ -1,6 +1,6 @@
 ---
 name: "conventional-commit"
-description: "Prompt and workflow for generating conventional commit messages using a structured XML format. Guides users to create standardized, descriptive commit messages in line with the Conventional Commits specification, including instructions, examples, and validation."
+description: "基于结构化 XML 格式生成约定式提交（Conventional Commits）信息的提示词与工作流。提供操作指引、参考示例与校验机制，引导用户高效撰写符合规范、表意清晰的标准化 Git 提交记录。"
 version: "1.0.0"
 license: "MIT"
 ---

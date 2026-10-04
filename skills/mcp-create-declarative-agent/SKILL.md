@@ -1,6 +1,6 @@
 ---
 name: "mcp-create-declarative-agent"
-description: "Skill converted from mcp-create-declarative-agent.prompt.md"
+description: "转换自 mcp-create-declarative-agent.prompt.md 的声明式智能体构建技能"
 version: "1.0.0"
 license: "MIT"
 ---

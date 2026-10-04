@@ -1,6 +1,6 @@
 ---
 name: "d365-solution-blueprint"
-description: "Authors a Dynamics 365 Finance and Supply Chain Management Solution Blueprint from scratch through a structured, section-by-section architect interview, establishing scope, target operating model, application and data architecture, integration landscape, migration strategy, security model, ALM, testing, deployment, and support approach, with a decision log capturing rationale and rejected alternatives. Use when the user wants to create D365 implementation architecture documentation, start a D365 implementation, design the architecture, prepare a Solution Blueprint, or identify the architectural decisions the programme must make. Do not use for critique of an existing design; that is a review task rather than blueprint authoring."
+description: "通过结构化的分章节架构师访谈，从零构建 Dynamics 365 财务与供应链管理（F&SCM）解决方案蓝图。全面梳理并确立实施范围、目标运营模式、应用与数据架构、系统集成全景、数据迁移策略、安全模型、ALM、测试、部署及运维支持方案，并同步生成决策日志以完整记录决策依据及已否决的备选方案。适用于编写 D365 实施架构文档、启动项目实施、设计整体架构、编制解决方案蓝图或厘清关键技术决策的场景。请勿用于评审现有架构设计（该场景属于审查任务，而非蓝图构建）。"
 version: "1.0.0"
 license: "MIT"
 ---

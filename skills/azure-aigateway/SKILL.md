@@ -1,6 +1,6 @@
 ---
 name: "azure-aigateway"
-description: "Configure Azure API Management as an AI Gateway for AI models, MCP tools, and agents. WHEN: semantic caching, token limit, content safety, load balancing, AI model governance, MCP rate limiting, jailbreak detection, add Azure OpenAI backend, add AI Foundry model, test AI gateway, LLM policies, configure AI backend, token metrics, AI cost control, convert API to MCP, import OpenAPI to gateway."
+description: "将 Azure API Management 配置为面向 AI 模型、MCP 工具和 Agent 的 AI 网关。适用于：语义缓存、Token 限制、内容安全、负载均衡、AI 模型治理、MCP 速率限制、越狱检测、添加 Azure OpenAI 或 AI Foundry 后端、配置与测试 AI 网关及 LLM 策略、监控 Token 指标、控制 AI 成本，以及将 API 转换为 MCP 或导入 OpenAPI 规范。"
 version: "3.2.1"
 license: "MIT"
 metadata:

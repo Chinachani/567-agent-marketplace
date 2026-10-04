@@ -1,6 +1,6 @@
 ---
 name: "wiki-ado-convert"
-description: "Converts VitePress/GFM wiki markdown to Azure DevOps Wiki-compatible format. Generates a Node.js build script that transforms Mermaid syntax, strips front matter, fixes links, and outputs ADO-compatible copies to dist/ado-wiki/."
+description: "将 VitePress/GFM 维基 Markdown 转换为兼容 Azure DevOps Wiki 的格式。生成 Node.js 构建脚本，自动转换 Mermaid 语法、移除 Front Matter、修复链接，并将兼容 ADO 的副本输出至 dist/ado-wiki/ 目录。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "salesforce-component-standards"
-description: "Quality standards for Salesforce Lightning Web Components (LWC), Aura components, and Visualforce pages. Covers SLDS 2 compliance, accessibility (WCAG 2.1 AA), data access pattern selection, component communication rules, XSS prevention, CSRF enforcement, FLS/CRUD in AuraEnabled methods, view state management, and Jest test requirements. Use this skill when building or reviewing any Salesforce UI component to enforce platform-specific security and quality standards."
+description: "Salesforce Lightning Web 组件 (LWC)、Aura 组件和 Visualforce 页面的质量标准指南。涵盖 SLDS 2 规范适配、无障碍访问（WCAG 2.1 AA）、数据访问模式选型、组件通信规则、XSS 防御、CSRF 强化、AuraEnabled 方法中的 FLS/CRUD 权限校验、视图状态管理及 Jest 测试规范。在构建或审查各类 Salesforce UI 组件时使用此技能，严格落实平台专属的安全与质量标准。"
 version: "1.0.0"
 license: "MIT"
 ---

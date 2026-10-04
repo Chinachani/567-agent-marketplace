@@ -1,6 +1,6 @@
 ---
 name: "ai-team-orchestration"
-description: "Bootstrap and run a lightweight multi-agent development team. Use when starting or adopting a project, planning work, coordinating implementation and optional QA, brainstorming with distinct perspectives, or preserving context across sessions."
+description: "快速构建并调度轻量级多智能体开发团队。适用于启动或接手项目、规划工作任务、协同代码实现与QA测试、开展多视角头脑风暴，以及跨会话保留上下文记忆。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "doubt-driven-development"
-description: "Subjects every non-trivial decision to a fresh-context adversarial review before it stands. Use when you want every assumption cross-examined before proceeding, when stress-testing a plan for hidden failure modes, when correctness matters more than speed, when working in unfamiliar code, when stakes are high (production auth, security-sensitive logic, a high-stakes migration, irreversible operations), or any time a confident output would be cheaper to verify now than to debug later."
+description: "在最终确立关键决策前，引入独立视角的对抗性审查。适用于推进前需严格质询所有假设、压力测试方案以深挖潜在隐患、正确性远重于速度、接手陌生代码，或涉及高危场景（如生产认证、安全敏感逻辑、重大迁移、不可逆操作）。凡是“现在验证的成本远低于事后排障成本”的关键任务，皆可使用。"
 version: "1.0.0"
 license: "MIT"
 ---

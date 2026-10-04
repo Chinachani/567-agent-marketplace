@@ -1,6 +1,6 @@
 ---
 name: "bigquery-pipeline-audit"
-description: "Audits Python + BigQuery pipelines for cost safety, idempotency, and production readiness. Returns a structured report with exact patch locations."
+description: "审查 Python + BigQuery 数据管线的成本安全、幂等性与生产就绪度，生成标有精准修复位置的结构化报告。"
 version: "1.0.0"
 license: "MIT"
 ---

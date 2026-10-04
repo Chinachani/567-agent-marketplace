@@ -1,6 +1,6 @@
 ---
 name: "code-review-and-quality"
-description: "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch. Use when asked to review a diff or a pull request, even when the diff is pasted inline."
+description: "执行多维度代码审查。在合并任何代码变更前使用。适用于审查自身、其他智能体或人类编写的代码；在代码合入主分支前全面评估其多维度质量；以及审查各类 Diff 或 Pull Request（包括直接粘贴在上下文中的代码差异）。"
 version: "1.0.0"
 license: "MIT"
 ---

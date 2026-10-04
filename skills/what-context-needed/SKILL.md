@@ -1,6 +1,6 @@
 ---
 name: "what-context-needed"
-description: "Ask Copilot what files it needs to see before answering a question"
+description: "询问 Copilot 回答问题前需要查看哪些文件"
 version: "1.0.0"
 license: "MIT"
 ---

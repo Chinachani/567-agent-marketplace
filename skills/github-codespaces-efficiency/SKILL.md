@@ -1,6 +1,6 @@
 ---
 name: "github-codespaces-efficiency"
-description: "Audit and improve GitHub Codespaces efficiency. Use this skill when a user wants faster Codespaces startup, lower Codespaces spend, slim devcontainers, right-size machines, tune idle timeout, or scope prebuilds to branches with sustained usage."
+description: "审计并提升 GitHub Codespaces 运行效率。当用户需要加快启动速度、降低使用成本、精简开发容器、合理匹配机器规格、微调空闲超时设置，或为高频使用分支精准配置预构建时，使用此技能。"
 version: "1.0.0"
 license: "MIT"
 ---

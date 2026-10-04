@@ -1,6 +1,6 @@
 ---
 name: "autoresearch"
-description: "Autonomous iterative experimentation loop for any programming task. Guides the user through defining goals, measurable metrics, and scope constraints, then runs an autonomous loop of code changes, testing, measuring, and keeping/discarding results. Inspired by Karpathy's autoresearch. USE FOR: autonomous improvement, iterative optimization, experiment loop, auto research, performance tuning, automated experimentation, hill climbing, try things automatically, optimize code, run experiments, autonomous coding loop. DO NOT USE FOR: one-shot tasks, simple bug fixes, code review, or tasks without a measurable metric."
+description: "适用于各类编程任务的自主迭代实验循环。首先引导用户设定明确目标、可量化指标与边界约束，随后自主执行“修改代码—测试—评估指标—保留或放弃改动”的完整实验闭环。灵感源自 Karpathy 的 autoresearch 项目。\n\n【适用场景】自主改进、迭代优化、实验循环、自动研究、性能调优、自动化实验、爬山寻优、自动尝试方案、代码优化、运行实验、自主编程闭环。\n【禁用场景】单次任务、简单 Bug 修复、代码审查，或缺乏明确量化指标的任务。"
 version: "1.0.0"
 license: "MIT"
 compatibility: Requires git. The project must be a git repository. Requires terminal access to run commands.

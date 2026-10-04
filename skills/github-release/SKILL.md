@@ -1,6 +1,6 @@
 ---
 name: "github-release"
-description: "Guides IA through releasing a new version of a GitHub library end-to-end. Handles SemVer versioning and Keep a Changelog formatting automatically."
+description: "端到端指导 GitHub 代码库新版本发布，自动处理 SemVer 语义化版本与 Keep a Changelog 规范的更新日志。"
 version: "1.0.0"
 license: "MIT"
 compatibility: "requires: gh CLI and git"

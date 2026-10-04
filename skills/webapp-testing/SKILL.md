@@ -1,6 +1,6 @@
 ---
 name: "webapp-testing"
-description: "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs."
+description: "基于 Playwright 的本地 Web 应用交互与测试工具包。支持验证前端功能、调试 UI 行为、捕获浏览器截图及查看运行日志。"
 version: "1.0.0"
 license: "MIT"
 ---

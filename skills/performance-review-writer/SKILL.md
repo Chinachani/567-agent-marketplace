@@ -1,6 +1,6 @@
 ---
 name: "performance-review-writer"
-description: "Draft performance reviews, self-assessments, peer reviews, and upward feedback in your own voice. Analyzes your contributions, emails, and meeting history via WorkIQ, then produces honest, impact-focused drafts using the STAR format. USE FOR: write my performance review, draft self-assessment, peer review, 360 feedback, annual review, mid-year review, upward feedback, write review for colleague, performance appraisal."
+description: "以契合个人表达风格的语言，高效撰写自我评价、同事互评、向上反馈等各类绩效报告。结合 WorkIQ 深度分析你的工作贡献、往来邮件和会议日程，依托 STAR 原则生成客观、突出业务影响力的评估初稿。适用于：撰写自评、360度环评、年度/年中绩效回顾、为同事写评价、向上反馈及绩效述职。"
 version: "1.0.0"
 license: "MIT"
 ---

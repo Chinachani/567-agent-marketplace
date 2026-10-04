@@ -1,6 +1,6 @@
 ---
 name: "convert-excel-to-md"
-description: "Converts Excel (.xlsx) workbooks into Markdown so their contents can be accurately analyzed, summarized, searched, or extracted from. Use this skill whenever the user shares, references, or asks about a .xlsx file — even if they don't say \"convert\" or \"markdown\" explicitly. This includes requests to \"read\", \"summarize\", \"review\", \"extract data from\", \"compare\", \"chart\", or \"analyze\" a spreadsheet, workbook, budget, data export, or tracker. Always run the bundled conversion script to produce Markdown first; do not attempt to parse .xlsx content directly or write ad-hoc extraction code. Also use this skill for batch requests involving a whole folder of Excel workbooks. IMPORTANT: When the user references a folder or set of documents containing multiple file types (.pdf, .docx, .xlsx), invoke ALL three sibling skills — convert-pdf-to-md, convert-word-to-md, and convert-excel-to-md — so no file type is silently skipped."
+description: "将 Excel (.xlsx) 工作簿转换为 Markdown 格式，以便精准进行内容分析、总结、检索或数据提取。只要用户提供、引用或咨询 .xlsx 文件，无论是否明确提及“转换”或“Markdown”，均须使用此技能。这包括对电子表格、工作簿、预算表、导出数据或追踪表执行“读取”、“总结”、“审查”、“提取数据”、“对比”、“绘图”或“分析”等指令。必须优先运行内置转换脚本生成 Markdown，严禁直接解析 .xlsx 文件或临时编写提取代码。本技能同样适用于整组或整个文件夹的 Excel 批量转换。重要提示：若用户提供的文件夹或文档集中混合了多种文件类型（.pdf、.docx、.xlsx），请务必同时调用三项关联技能（convert-pdf-to-md、convert-word-to-md 及 convert-excel-to-md），确保不遗漏任何文件。"
 version: "1.0.0"
 license: "MIT"
 ---

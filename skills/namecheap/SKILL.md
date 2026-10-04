@@ -1,6 +1,6 @@
 ---
 name: "namecheap"
-description: "Manage DNS records for domains registered with Namecheap via their API. List domains, view/add/update/remove DNS host entries (A, AAAA, CNAME, MX, TXT, etc.), and guide users through API setup including public IP detection and credential configuration. Use when the user mentions Namecheap, DNS records, domain management, or wants to add/change/remove A records, CNAME records, MX records, or TXT records for their domains."
+description: "通过 Namecheap API 管理域名的 DNS 解析记录。支持列出域名，查看、添加、更新或删除各类 DNS 主机记录（A、AAAA、CNAME、MX、TXT 等），并引导完成包含公网 IP 检测与凭据配置的 API 设置。当用户提及 Namecheap、DNS 记录、域名管理，或需要添加、修改、删除域名的 A 记录、CNAME 记录、MX 记录、TXT 记录时使用。"
 version: "1.0.0"
 license: "MIT"
 ---

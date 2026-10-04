@@ -1,6 +1,6 @@
 ---
 name: "qdrant-scaling"
-description: "Guides Qdrant scaling decisions. Use when someone asks 'how many nodes do I need', 'data doesn't fit on one node', 'need more throughput', 'cluster is slow', 'too many tenants', 'vertical or horizontal', 'how to shard', or 'need to add capacity'."
+description: "指导 Qdrant 扩缩容架构决策。适用于节点数量规划、单机容量不足、吞吐量提升、集群变慢排查、多租户场景优化、横向与纵向扩容选型、分片策略设计及集群扩容等场景。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools:

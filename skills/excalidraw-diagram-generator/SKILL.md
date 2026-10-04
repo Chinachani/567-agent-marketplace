@@ -1,6 +1,6 @@
 ---
 name: "excalidraw-diagram-generator"
-description: "Generate Excalidraw diagrams from natural language descriptions. Use when asked to \"create a diagram\", \"make a flowchart\", \"visualize a process\", \"draw a system architecture\", \"create a mind map\", or \"generate an Excalidraw file\". Supports flowcharts, relationship diagrams, mind maps, and system architecture diagrams. Outputs .excalidraw JSON files that can be opened directly in Excalidraw."
+description: "根据自然语言描述快速生成 Excalidraw 图表。适用于“绘制图表”、“制作流程图”、“流程可视化”、“设计系统架构”、“创建思维导图”或“生成 Excalidraw 文件”等需求。全面支持流程图、关系图、思维导图和架构图，直接输出可在 Excalidraw 中打开编辑的 .excalidraw JSON 文件。"
 version: "1.0.0"
 license: "MIT"
 ---

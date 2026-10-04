@@ -1,6 +1,6 @@
 ---
 name: "memory-merger"
-description: "Merges mature lessons from a domain memory file into its instruction file. Syntax: `/memory-merger >domain [scope]` where scope is `global` (default), `user`, `workspace`, or `ws`."
+description: "将领域记忆文件中的成熟经验合并至其指令文件中。语法：`/memory-merger >domain [scope]`，其中 scope 为 `global`（默认）、`user`、`workspace` 或 `ws`。"
 version: "1.0.0"
 license: "MIT"
 ---

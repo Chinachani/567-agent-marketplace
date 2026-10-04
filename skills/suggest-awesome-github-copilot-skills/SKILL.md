@@ -1,6 +1,6 @@
 ---
 name: "suggest-awesome-github-copilot-skills"
-description: "Suggest relevant GitHub Copilot skills from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing skills in this repository, and identifying outdated skills that need updates."
+description: "结合当前仓库上下文与对话记录，从 awesome-copilot 仓库推荐适用的 GitHub Copilot 技能，自动排除现有重复项，并识别需更新的过时技能。"
 version: "1.0.0"
 license: "MIT"
 ---

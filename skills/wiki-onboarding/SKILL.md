@@ -1,6 +1,6 @@
 ---
 name: "wiki-onboarding"
-description: "Generates four audience-tailored onboarding guides in an onboarding/ folder — Contributor, Staff Engineer, Executive, and Product Manager. Use when the user wants onboarding documentation for a codebase."
+description: "在 onboarding/ 目录下生成针对贡献者、Staff 工程师、高管和产品经理的 4 份专属上手指南。当需要为代码库构建多角色入职文档时使用。"
 version: "1.0.0"
 license: "MIT"
 metadata:

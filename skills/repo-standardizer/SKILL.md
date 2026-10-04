@@ -1,6 +1,6 @@
 ---
 name: "repo-standardizer"
-description: "Polish any GitHub repository's surface — labels (emoji rating tiers, P0–P3 priority, impact severity), issue forms, PR template, CI workflows, CODEOWNERS, rulesets, docs. Repo meta & config only — no code logic touched. Use when creating a new repo or polishing an existing one."
+description: "全面规范并打磨 GitHub 仓库的基础工程配置：定制标准化标签体系（Emoji 分级、P0–P3 优先级及严重程度）、Issue 表单、PR 模板、CI 工作流、CODEOWNERS、规则集与基础文档。仅维护仓库元数据与协作规范，不涉及任何业务代码逻辑。适用于新建仓库初始化或现有仓库的规范化治理。"
 version: "1.0.0"
 license: "MIT"
 ---

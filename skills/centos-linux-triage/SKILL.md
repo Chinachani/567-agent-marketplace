@@ -1,6 +1,6 @@
 ---
 name: "centos-linux-triage"
-description: "Triage and resolve CentOS issues using RHEL-compatible tooling, SELinux-aware practices, and firewalld."
+description: "运用 RHEL 兼容工具链、SELinux 最佳实践及 firewalld，高效排查并解决 CentOS 系统故障。"
 version: "1.0.0"
 license: "MIT"
 ---

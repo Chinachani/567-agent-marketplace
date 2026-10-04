@@ -1,6 +1,6 @@
 ---
 name: "dotnet-timezone"
-description: ".NET timezone handling guidance for C# applications. Use when working with TimeZoneInfo, DateTimeOffset, NodaTime, UTC conversion, daylight saving time, scheduling across timezones, cross-platform Windows/IANA timezone IDs, or when a .NET user needs the timezone for a city, address, region, or country and copy-paste-ready C# code."
+description: "面向 C# 应用的 .NET 时区处理指南。适用于涉及 TimeZoneInfo、DateTimeOffset、NodaTime、UTC 转换、夏令时（DST）、跨时区调度及跨平台 Windows/IANA 时区 ID 映射的开发场景；或用于查询特定城市、地址、地区或国家的时区，并生成可直接复制运行的 C# 代码。"
 version: "1.0.0"
 license: "MIT"
 ---

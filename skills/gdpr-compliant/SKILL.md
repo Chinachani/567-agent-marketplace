@@ -1,6 +1,6 @@
 ---
 name: "gdpr-compliant"
-description: "Apply GDPR-compliant engineering practices across your codebase. Use this skill whenever you are designing APIs, writing data models, building authentication flows, implementing logging, handling user data, writing retention/deletion jobs, designing cloud infrastructure, or reviewing pull requests for privacy compliance. Trigger this skill for any task involving personal data, user accounts, cookies, analytics, emails, audit logs, encryption, pseudonymization, anonymization, data exports, breach response, CI/CD pipelines that process real data, or any question framed as \"is this GDPR-compliant?\". Inspired by CNIL developer guidance and GDPR Articles 5, 25, 32, 33, 35."
+description: "在代码库中全面落地符合GDPR要求的合规工程实践。当需要设计API、构建数据模型、开发认证流程、实现日志记录、处理用户数据、编写数据留存/删除任务、设计云基础设施，或针对隐私合规进行PR审查时使用此技能。适用于涉及个人数据、用户账户、Cookie、埋点分析、电子邮件、审计日志、加密、假名化、匿名化、数据导出、数据泄露应急响应、处理真实数据的CI/CD流水线，以及任何评估“是否符合GDPR”的任务场景。参考CNIL开发者指南及GDPR第5条、第25条、第32条、第33条与第35条规范。"
 version: "1.0.0"
 license: "MIT"
 ---

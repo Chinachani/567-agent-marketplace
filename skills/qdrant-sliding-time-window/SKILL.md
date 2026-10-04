@@ -1,6 +1,6 @@
 ---
 name: "qdrant-sliding-time-window"
-description: "Guides sliding time window scaling in Qdrant. Use when someone asks 'only recent data matters', 'how to expire old vectors', 'time-based data rotation', 'delete old data efficiently', 'social media feed search', 'news search', 'log search with retention', or 'how to keep only last N months of data'."
+description: "指导在 Qdrant 中实现基于滑动时间窗口的数据扩展与管理。适用于用户需要仅保留近期数据、设置旧向量过期淘汰、按时间轮转数据、高效清理历史数据，或实现社交动态检索、新闻搜索、带保留期的日志检索，以及询问“如何仅保留最近 N 个月数据”等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "playwright-automation-fill-in-form"
-description: "Automate filling in a form using Playwright MCP"
+description: "使用 Playwright MCP 自动填写表单"
 version: "1.0.0"
 license: "MIT"
 ---

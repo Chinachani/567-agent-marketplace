@@ -1,6 +1,6 @@
 ---
 name: "power-platform-architect"
-description: "Use this skill when the user needs to transform business requirements, use case descriptions, or meeting transcripts into a technical Power Platform solution architecture, including component selection and Mermaid.js diagrams."
+description: "用于将业务需求、用例描述或会议纪要转化为 Power Platform 技术解决方案架构，包括组件选型并生成 Mermaid.js 架构图。"
 version: "1.0.0"
 license: "MIT"
 metadata:

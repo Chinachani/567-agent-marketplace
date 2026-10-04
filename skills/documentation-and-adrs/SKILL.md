@@ -1,6 +1,6 @@
 ---
 name: "documentation-and-adrs"
-description: "Records decisions and documentation. Use when you need to document an architecture decision (ADR) or the reasoning behind a design choice, when changing public APIs, shipping features, or when you need to record context that future engineers and agents will need to understand the codebase."
+description: "记录决策与技术文档。适用于沉淀架构决策（ADR）及设计考量、变更公共 API、发布新功能，或为未来的工程师与 Agent 留存理解代码库所需的背景上下文。"
 version: "1.0.0"
 license: "MIT"
 ---

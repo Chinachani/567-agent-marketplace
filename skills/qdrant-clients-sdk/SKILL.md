@@ -1,6 +1,6 @@
 ---
 name: "qdrant-clients-sdk"
-description: "Qdrant provides client SDKs for various programming languages, allowing easy integration with Qdrant deployments."
+description: "利用 Qdrant 提供的多语言客户端 SDK，轻松对接并集成 Qdrant 部署服务。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools:

@@ -1,6 +1,6 @@
 ---
 name: "arize-evaluator"
-description: "Handles LLM-as-judge evaluation workflows on Arize including creating/updating evaluators, running evaluations on spans or experiments, managing tasks, trigger-run operations, column mapping, and continuous monitoring. Use when the user mentions create evaluator, LLM judge, hallucination, faithfulness, correctness, relevance, run eval, score spans, score experiment, trigger-run, column mapping, continuous monitoring, or improve evaluator prompt."
+description: "在 Arize 平台上执行与管理 LLM-as-a-judge 评估工作流，涵盖评估器的创建与更新、对 Span 或实验运行评估打分、任务管理、触发运行、列映射及持续监控。适用于用户涉及创建评估器、LLM 裁判、幻觉检测、忠实度、正确性、相关性、运行评估、Span 打分、实验打分、触发运行、列映射、持续监控或优化评估器提示词等场景。"
 version: "1.0"
 license: "MIT"
 metadata:

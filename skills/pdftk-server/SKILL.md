@@ -1,6 +1,6 @@
 ---
 name: "pdftk-server"
-description: "Skill for using the command-line tool pdftk (PDFtk Server) for working with PDF files. Use when asked to merge PDFs, split PDFs, rotate pages, encrypt or decrypt PDFs, fill PDF forms, apply watermarks, stamp overlays, extract metadata, burst documents into pages, repair corrupted PDFs, attach or extract files, or perform any PDF manipulation from the command line."
+description: "用于使用命令行工具 pdftk (PDFtk Server) 高效处理 PDF 文件。适用于合并与拆分 PDF、旋转页面、加密与解密、填写表单、添加水印与图章叠加、提取元数据、按页拆解文档、修复损坏文件、附加或提取文件，以及通过命令行执行各类 PDF 深度操作。"
 version: "1.0.0"
 license: "MIT"
 ---

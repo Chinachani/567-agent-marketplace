@@ -1,6 +1,6 @@
 ---
 name: "azure-mgmt-fabric-dotnet"
-description: "Azure Resource Manager SDK for Fabric in .NET. Use for MANAGEMENT PLANE operations: provisioning, scaling, suspending/resuming Microsoft Fabric capacities, checking name availability, and listing SKUs via Azure Resource Manager. Triggers: \"Fabric capacity\", \"create capacity\", \"suspend capacity\", \"resume capacity\", \"Fabric SKU\", \"provision Fabric\", \"ARM Fabric\", \"FabricCapacityResource\"."
+description: "适用于 .NET 的 Microsoft Fabric Azure 资源管理器 (ARM) SDK。专用于管理平面操作：通过 ARM 预配、调整规模、暂停或恢复 Fabric 容量，验证名称可用性并查询可用 SKU。触发词：\"Fabric capacity\"、\"create capacity\"、\"suspend capacity\"、\"resume capacity\"、\"Fabric SKU\"、\"provision Fabric\"、\"ARM Fabric\"、\"FabricCapacityResource\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "qdrant-search-quality"
-description: "Diagnoses and improves Qdrant search relevance. Use when someone reports 'search results are bad', 'wrong results', 'low precision', 'low recall', 'irrelevant matches', 'missing expected results', or asks 'how to improve search quality?', 'which embedding model?', 'should I use hybrid search?', 'should I use reranking?'. Also use when search quality degrades after quantization, model change, or data growth."
+description: "诊断并优化 Qdrant 检索相关性。适用于解决“搜索结果差”、“结果不准”、“准确率或召回率低”、“匹配不相关”或“遗漏预期结果”等问题；解答“如何提升检索质量”、“Embedding 模型选型”、“是否采用混合检索或重排序 (Rerank)”等策略咨询。当因量化、模型变更或数据规模增长导致检索效果下滑时同样适用。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools:

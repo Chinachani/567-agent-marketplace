@@ -1,6 +1,6 @@
 ---
 name: "azure-monitor-opentelemetry-ts"
-description: "Instrument applications with Azure Monitor and OpenTelemetry for JavaScript (@azure/monitor-opentelemetry). Use when adding distributed tracing, metrics, and logs to Node.js applications with Application Insights."
+description: "使用面向 JavaScript 的 Azure Monitor 和 OpenTelemetry (@azure/monitor-opentelemetry) 为应用配置遥测监控。适用于通过 Application Insights 为 Node.js 应用接入分布式链路追踪、指标和日志。"
 version: "1.0.0"
 license: "MIT"
 metadata:

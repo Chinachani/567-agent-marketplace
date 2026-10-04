@@ -1,6 +1,6 @@
 ---
 name: "flowstudio-power-automate-build"
-description: "Build, scaffold, and deploy Power Automate cloud flows using the FlowStudio MCP server. Your agent constructs flow definitions, wires connections, deploys, and tests — all via MCP without opening the portal. Load this skill when asked to: create a flow, build a new flow, deploy a flow definition, scaffold a Power Automate workflow, construct a flow JSON, update an existing flow's actions, patch a flow definition, add actions to a flow, wire up connections, or generate a workflow definition from scratch. Requires a FlowStudio MCP subscription — see https://mcp.flowstudio.app"
+description: "使用 FlowStudio MCP 服务构建、搭建与部署 Power Automate 云端流。智能体无需打开网页门户，即可直接通过 MCP 完成流定义构建、连接配置、自动化部署及测试。适用于创建新流、部署流定义、搭建工作流脚手架、生成流 JSON、更新或修改现有流操作、添加步骤节点、绑定连接关系以及从零生成工作流定义等场景。需要 FlowStudio MCP 订阅，详情请访问 https://mcp.flowstudio.app"
 version: "1.0.0"
 license: "MIT"
 ---

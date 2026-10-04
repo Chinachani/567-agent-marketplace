@@ -1,6 +1,6 @@
 ---
 name: "dotnet-design-pattern-review"
-description: "Review the C#/.NET code for design pattern implementation and suggest improvements."
+description: "审查 C#/.NET 代码的设计模式实现，并提出优化建议。"
 version: "1.0.0"
 license: "MIT"
 ---

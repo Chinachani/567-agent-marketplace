@@ -1,6 +1,6 @@
 ---
 name: "macos-golden-gate-design"
-description: "Design, implement, review, or refactor native macOS 27 Golden Gate interfaces in SwiftUI or AppKit. Use when a Mac app must match Apple's current macOS 27 UI kit and restrained Liquid Glass language: integrated windows, full-height sidebars, native toolbars, flat lists, tables, and forms, clear pane boundaries, accessible materials, and removal of unnecessary nested cards, framed panels, or glassmorphism. Also use for Figma macOS 27 design-to-code work and audits of interfaces that feel too boxed."
+description: "使用 SwiftUI 或 AppKit 设计、开发、审查或重构原生 macOS 27 Golden Gate 界面。适用于 Mac 应用需要严格遵循 Apple 当前 macOS 27 UI 规范与内敛的“液态玻璃（Liquid Glass）”设计语言的场景：打造一体化窗口、通高侧边栏、原生工具栏、扁平化列表/表格与表单、清晰的窗格分界和无障碍材质，去除冗余的嵌套卡片、带框面板或繁杂的毛玻璃特效。同时支持 Figma macOS 27 设计稿转代码，以及对过度卡片化、“盒子感”过重的界面进行专业审查与重构。"
 version: "1.0.0"
 license: "MIT"
 ---

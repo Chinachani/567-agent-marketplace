@@ -1,6 +1,6 @@
 ---
 name: "azure-validate"
-description: "Pre-deployment validation for Azure readiness. Run deep checks on configuration, infrastructure (Bicep or Terraform), RBAC role assignments, managed identity permissions, and prerequisites before deploying. WHEN: validate my app, check deployment readiness, run preflight checks, verify configuration, check if ready to deploy, validate azure.yaml, validate Bicep, test before deploying, troubleshoot deployment errors, validate Azure Functions, validate function app, validate serverless deployment, verify RBAC roles, check role assignments, review managed identity permissions, what-if analysis, validate Container Apps deployment."
+description: "执行 Azure 部署就绪性深度预检。在部署前全面检查配置、基础设施代码（Bicep 或 Terraform）、RBAC 角色分配、托管标识权限及相关先决条件。适用于：评估部署就绪状态、执行预检与 What-If 分析、验证 azure.yaml 或 Bicep 配置、排查部署错误、审查权限分配，以及验证 Azure Functions 和 Container Apps 等无服务器或容器化应用的部署规范。"
 version: "1.2.3"
 license: "MIT"
 metadata:

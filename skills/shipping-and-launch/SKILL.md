@@ -1,6 +1,6 @@
 ---
 name: "shipping-and-launch"
-description: "Prepares production launches. Use when preparing to deploy to production, or when asking what needs to be in place before shipping. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a rollback strategy."
+description: "全面筹备生产发布。适用于准备部署至生产环境或确认上线前置要求时。可用于梳理上线检查清单、配置监控体系、规划分阶段灰度发布以及制定应急回滚预案。"
 version: "1.0.0"
 license: "MIT"
 ---

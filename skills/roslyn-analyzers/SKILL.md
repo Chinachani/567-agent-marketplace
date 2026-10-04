@@ -1,6 +1,6 @@
 ---
 name: "roslyn-analyzers"
-description: "Build, review, debug, package, and test Roslyn diagnostic analyzers, code fix providers, and incremental source generators. Use for DiagnosticAnalyzer, CodeFixProvider, IIncrementalGenerator, IOperation analysis, Microsoft.CodeAnalysis dependency pinning, Roslyn test harnesses, C#/VB tests, and analyzer NuGet packaging."
+description: "构建、审查、调试、打包及测试 Roslyn 诊断分析器、代码修复程序与增量源生成器。适用于 DiagnosticAnalyzer、CodeFixProvider、IIncrementalGenerator 开发、IOperation 语法分析、Microsoft.CodeAnalysis 依赖版本锁定、Roslyn 测试框架搭建、C#/VB 自动化测试以及分析器 NuGet 打包发布。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "agent-owasp-compliance"
-description: "Check any AI agent codebase against the OWASP Agentic Security Initiative (ASI) Top 10 risks. Use this skill when: - Evaluating an agent system's security posture before production deployment - Running a compliance check against OWASP ASI 2026 standards - Mapping existing security controls to the 10 agentic risks - Generating a compliance report for security review or audit - Comparing agent framework security features against the standard - Any request like \"is my agent OWASP compliant?\", \"check ASI compliance\", or \"agentic security audit\""
+description: "对照 OWASP Agentic Security Initiative (ASI) Top 10 风险清单审查任意 AI Agent 代码库。适用于以下场景：\n- 生产环境部署前评估 Agent 系统的安全态势\n- 针对 OWASP ASI 2026 标准进行合规性检查\n- 将现有安全控制措施映射至 10 大 Agent 风险\n- 生成用于安全评审或合规审计的报告\n- 对照安全标准评估并比对 Agent 框架的安全特性\n- 处理任何类似“我的 Agent 符合 OWASP 规范吗？”、“检查 ASI 合规性”或“Agent 安全审计”等请求"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "sponsor-finder"
-description: "Find which of a GitHub repository's dependencies are sponsorable via GitHub Sponsors. Uses deps.dev API for dependency resolution across npm, PyPI, Cargo, Go, RubyGems, Maven, and NuGet. Checks npm funding metadata, FUNDING.yml files, and web search. Verifies every link. Shows direct and transitive dependencies with OSSF Scorecard health data. Invoke with /sponsor followed by a GitHub owner/repo (e.g. \"/sponsor expressjs/express\")."
+description: "查找 GitHub 仓库中支持 GitHub Sponsors 赞助的依赖项。基于 deps.dev API 解析 npm、PyPI、Cargo、Go、RubyGems、Maven 和 NuGet 生态依赖；全面检索 npm funding 元数据、FUNDING.yml 及网络信息并验证链接有效性；清晰展示直接与间接依赖及其 OSSF Scorecard 健康度评分。输入 /sponsor 后接 GitHub 仓库路径即可调用（例如：/sponsor expressjs/express）。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "batch-files"
-description: "Expert-level Windows batch file (.bat/.cmd) skill for writing, debugging, and maintaining CMD scripts. Use when asked to \"create a batch file\", \"write a .bat script\", \"automate a Windows task\", \"CMD scripting\", \"batch automation\", \"scheduled task script\", \"Windows shell script\", or when working with .bat/.cmd files in the workspace. Covers cmd.exe syntax, environment variables, control flow, string processing, error handling, and integration with system tools."
+description: "精通 Windows 批处理（.bat/.cmd）脚本开发，用于编写、调试与维护高效的 CMD 脚本。适用于“创建批处理文件”、“编写 .bat 脚本”、“Windows 任务自动化”、“CMD 脚本编写”、“计划任务脚本”或处理工作区内 .bat/.cmd 文件的场景。全面覆盖 cmd.exe 语法、环境变量、流程控制、字符串处理、错误捕获及系统工具集成。"
 version: "1.0.0"
 license: "MIT"
 ---

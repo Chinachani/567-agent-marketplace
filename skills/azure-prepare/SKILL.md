@@ -1,6 +1,6 @@
 ---
 name: "azure-prepare"
-description: "Prepare azd-based Azure projects for deployment: generates azure.yaml, infrastructure (Bicep/Terraform), and Dockerfiles for the Azure Developer CLI (azd) workflow. USE ONLY when the user explicitly wants to use azd as the deployment tool, or the project already has an azure.yaml file. DO NOT USE FOR: non-azd deployments, Python App Service code-only deploys (use python-appservice-deploy), or cross-cloud migration (use azure-cloud-migrate). WHEN: prepare app for azd, create azure.yaml, set up azd infrastructure, modernize app for Azure with azd, deploy with azd, function app, timer trigger, service bus trigger, event-driven function, managed identity, generate Bicep, generate Terraform, create and deploy to Azure."
+description: "为基于 Azure Developer CLI (azd) 的项目准备部署资源：生成 azure.yaml 配置文件、基础设施代码（Bicep 或 Terraform）以及 Dockerfile。仅在用户明确指定使用 azd 部署，或项目中已存在 azure.yaml 时调用。切勿用于：非 azd 部署、仅部署 Python App Service 代码（请使用 python-appservice-deploy）或跨云迁移（请使用 azure-cloud-migrate）。适用场景包括：准备 azd 应用、生成 azure.yaml、搭建 azd 基础设施、利用 azd 现代化改造或部署 Azure 应用、配置 Function App（定时器触发、Service Bus 触发、事件驱动函数）、配置托管标识（Managed Identity）、生成 Bicep/Terraform 代码，以及创建并部署资源至 Azure。"
 version: "1.3.5"
 license: "MIT"
 metadata:

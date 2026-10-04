@@ -1,6 +1,6 @@
 ---
 name: "vscode-ext-commands"
-description: "Guidelines for contributing commands in VS Code extensions. Indicates naming convention, visibility, localization and other relevant attributes, following VS Code extension development guidelines, libraries and good practices"
+description: "遵循 VS Code 插件官方开发指南与最佳实践，指导扩展命令的规范贡献与配置，明确命名约定、可见性控制、多语言本地化等核心属性设置。"
 version: "1.0.0"
 license: "MIT"
 ---

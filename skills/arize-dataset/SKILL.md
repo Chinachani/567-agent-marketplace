@@ -1,6 +1,6 @@
 ---
 name: "arize-dataset"
-description: "Creates, manages, and queries Arize datasets and examples. Covers dataset CRUD, appending examples, exporting data, and file-based dataset creation using the ax CLI. Use when the user needs test data, evaluation examples, or mentions create dataset, list datasets, export dataset, append examples, dataset version, golden dataset, or test set."
+description: "创建、管理与查询 Arize 数据集及样本。支持数据集的增删改查（CRUD）、样本追加、数据导出，以及通过 ax CLI 基于文件构建数据集。当用户需要测试数据、评估样本，或提及创建数据集、列出数据集、导出数据集、追加样本、数据集版本、黄金数据集或测试集时使用。"
 version: "1.0"
 license: "MIT"
 metadata:

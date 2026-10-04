@@ -1,6 +1,6 @@
 ---
 name: "observability-and-instrumentation"
-description: "Instruments code so production behavior is visible and diagnosable. Use when adding logging, metrics, tracing, or alerting. Use when shipping any feature that runs in production and you need evidence it works. Use when production issues are reported but you can't tell what happened from the available data."
+description: "为代码配置监控埋点，使生产环境运行状态清晰可见、易于排查。适用于添加日志、指标监控、链路追踪或告警通知；上线生产环境功能并需验证其正常运行；以及收到线上问题反馈却因数据不足无法定位故障时。"
 version: "1.0.0"
 license: "MIT"
 ---

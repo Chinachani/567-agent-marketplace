@@ -1,6 +1,6 @@
 ---
 name: "bench-read"
-description: "Read artifacts from the shared bench — the workspace where desks leave findings, verdicts, and work products for each other and the operator."
+description: "从共享工作台读取产出工件，获取各工位为彼此及操作员留存的分析发现、判定结论与工作成果。"
 version: "1.0.0"
 license: "MIT"
 ---

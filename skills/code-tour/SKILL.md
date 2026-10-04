@@ -1,6 +1,6 @@
 ---
 name: "code-tour"
-description: "Use this skill to create CodeTour .tour files — persona-targeted, step-by-step walkthroughs that link to real files and line numbers. Trigger for: \"create a tour\", \"make a code tour\", \"generate a tour\", \"onboarding tour\", \"tour for this PR\", \"tour for this bug\", \"RCA tour\", \"architecture tour\", \"explain how X works\", \"vibe check\", \"PR review tour\", \"contributor guide\", \"help someone ramp up\", or any request for a structured walkthrough through code. Supports 20 developer personas (new joiner, bug fixer, architect, PR reviewer, vibecoder, security reviewer, and more), all CodeTour step types (file/line, selection, pattern, uri, commands, view), and tour-level fields (ref, isPrimary, nextTour). Works with any repository in any language."
+description: "用于生成精准关联文件与行号的 CodeTour (.tour) 交互式代码导览。适用于创建入职培训、PR 审查导览、架构解析、Bug 根因分析 (RCA)、代码原理解析及各类结构化走查需求。全面支持新人、架构师、安全审查员等 20 种开发者角色画像，覆盖所有 CodeTour 步骤类型与配置字段，无缝适配任何语言与代码仓库。"
 version: "1.0.0"
 license: "MIT"
 ---

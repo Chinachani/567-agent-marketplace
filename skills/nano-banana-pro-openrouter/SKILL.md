@@ -1,6 +1,6 @@
 ---
 name: "nano-banana-pro-openrouter"
-description: "Generate or edit images via OpenRouter with the Gemini 3 Pro Image model. Use for prompt-only image generation, image edits, and multi-image compositing; supports 1K/2K/4K output."
+description: "通过 OpenRouter 调用 Gemini 3 Pro Image 模型生成或编辑图像。支持纯文本生图、图像修改与多图合成，提供 1K/2K/4K 高清分辨率输出。"
 version: "1.0.0"
 license: "MIT"
 metadata:

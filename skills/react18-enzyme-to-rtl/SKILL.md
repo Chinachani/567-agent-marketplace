@@ -1,6 +1,6 @@
 ---
 name: "react18-enzyme-to-rtl"
-description: "Provides exact Enzyme → React Testing Library migration patterns for React 18 upgrades. Use this skill whenever Enzyme tests need to be rewritten - shallow, mount, wrapper.find(), wrapper.simulate(), wrapper.prop(), wrapper.state(), wrapper.instance(), Enzyme configure/Adapter calls, or any test file that imports from enzyme. This skill covers the full API mapping and the philosophy shift from implementation testing to behavior testing. Always read this skill before rewriting Enzyme tests - do not translate Enzyme APIs 1:1, that produces brittle RTL tests."
+description: "为 React 18 升级提供精准的 Enzyme 至 React Testing Library (RTL) 迁移方案。凡需重写 Enzyme 测试时即可使用——涵盖 shallow、mount、wrapper.find()、wrapper.simulate()、wrapper.prop()、wrapper.state()、wrapper.instance()、Adapter 配置，以及任何引入了 enzyme 的测试文件。深度覆盖完整的 API 映射规则，并指导完成从“测试实现细节”向“测试用户行为”的理念转变。重写测试前请务必查阅此技能——切勿对 Enzyme API 进行 1:1 机械直译，以避免编写出脆弱易碎的 RTL 测试。"
 version: "1.0.0"
 license: "MIT"
 ---

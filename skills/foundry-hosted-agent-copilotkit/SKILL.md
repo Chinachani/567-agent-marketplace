@@ -1,6 +1,6 @@
 ---
 name: "foundry-hosted-agent-copilotkit"
-description: "Ongoing development guidance for agentic web apps that pair a CopilotKit frontend with Microsoft Agent Framework agents on Azure AI Foundry hosted agents over the AG-UI protocol - add and gate agent tools, wire human-in-the-loop approvals, build generative UI and shared state, debug the event stream, upgrade pre-1.0 packages safely, and deploy hosted agent updates."
+description: "指导基于 AG-UI 协议协同 CopilotKit 前端与 Azure AI Foundry 托管的 Microsoft Agent Framework 智能体 Web 应用持续开发：添加与管控智能体工具、接入人机协同审批流程、构建生成式 UI 与共享状态、调试事件流、安全升级 pre-1.0 依赖包，以及部署托管智能体更新。"
 version: "1.0.0"
 license: "MIT"
 ---

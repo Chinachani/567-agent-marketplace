@@ -1,6 +1,6 @@
 ---
 name: "debian-linux-triage"
-description: "Triage and resolve Debian Linux issues with apt, systemd, and AppArmor-aware guidance."
+description: "排查并解决 Debian Linux 故障，提供兼顾 apt、systemd 及 AppArmor 的专业指引。"
 version: "1.0.0"
 license: "MIT"
 ---

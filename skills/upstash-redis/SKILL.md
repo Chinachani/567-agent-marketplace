@@ -1,6 +1,6 @@
 ---
 name: "upstash-redis"
-description: "Use Redis over HTTP from serverless and edge runtimes with @upstash/redis, and add rate limiting with @upstash/ratelimit. Use when the user mentions Upstash Redis, needs Redis from a Next.js route handler or middleware, Vercel, Cloudflare Workers, Deno, or Bun without TCP connection pooling, or wants cache-aside with TTLs, a session store, counters, or a 429 rate limiter using fixed window, sliding window, or token bucket. DO NOT use for self-hosted or TCP Redis clients (ioredis, node-redis), Redis Cluster administration, or vector similarity search."
+description: "在 Serverless 和 Edge 运行时中，利用 @upstash/redis 通过 HTTP 访问 Redis，并结合 @upstash/ratelimit 实现请求限流。适用于涉及 Upstash Redis，在 Next.js 路由或中间件、Vercel、Cloudflare Workers、Deno、Bun 等无 TCP 连接池环境下调用 Redis，或需要构建带 TTL 的旁路缓存、会话存储、计数器，以及基于固定窗口、滑动窗口或令牌桶算法实现 429 限流的场景。不适用于自建或 TCP 协议 Redis 客户端（如 ioredis、node-redis）、Redis 集群运维管理或向量相似度检索。"
 version: "1.0.0"
 license: "MIT"
 compatibility: "@upstash/redis 1.x, @upstash/ratelimit 2.x, Node.js 18+ or any runtime with global fetch"

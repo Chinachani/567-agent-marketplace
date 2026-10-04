@@ -1,6 +1,6 @@
 ---
 name: "qdrant-minimize-latency"
-description: "Guides Qdrant query latency optimization. Use when someone asks 'search is slow', 'how to reduce latency', 'p99 is too high', 'tail latency', 'single query too slow', 'how to make search faster', or 'latency spikes'."
+description: "指导优化 Qdrant 的查询延迟。适用于排查与解决“搜索速度慢”、“如何降低延迟”、“P99 延迟过高”、“长尾延迟”、“单次查询过慢”、“如何加快搜索”或“延迟突增”等性能问题。"
 version: "1.0.0"
 license: "MIT"
 ---

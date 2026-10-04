@@ -1,6 +1,6 @@
 ---
 name: "azure-ai"
-description: "Use for Azure AI: Search, Speech, OpenAI, Document Intelligence. Helps with search, vector/hybrid search, speech-to-text, text-to-speech, transcription, OCR. WHEN: AI Search, query search, vector search, hybrid search, semantic search, speech-to-text, text-to-speech, transcribe, OCR, convert text to speech."
+description: "适用于 Azure AI 服务（包括 AI 搜索、语音服务、OpenAI 及文档智能）。支持全文检索、向量/混合/语义搜索、语音转文字、文字转语音、音频转写与 OCR 识别。当需要执行 AI 搜索、复杂检索，或处理语音互转和文档文字提取时调用。"
 version: "1.2.1"
 license: "MIT"
 metadata:

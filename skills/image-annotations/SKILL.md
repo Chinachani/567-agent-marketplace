@@ -1,6 +1,6 @@
 ---
 name: "image-annotations"
-description: "Annotate screenshots, diagrams, and images with callout rectangles, arrows, labels, and color-coded highlights using PIL. Includes rules for animated GIF annotations with timing and pacing."
+description: "使用 PIL 为屏幕截图、图表和图像添加标注矩形框、箭头、标签及色彩高亮；支持具备时序与节奏控制的动态 GIF 标注。"
 version: "1.0.0"
 license: "MIT"
 ---

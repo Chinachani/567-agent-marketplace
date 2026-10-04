@@ -1,6 +1,6 @@
 ---
 name: "update-specification"
-description: "Update an existing specification file for the solution, optimized for Generative AI consumption based on new requirements or updates to any existing code."
+description: "根据新需求或既有代码变更，更新方案规范文件，并针对生成式 AI 的解析与调用进行优化。"
 version: "1.0.0"
 license: "MIT"
 ---

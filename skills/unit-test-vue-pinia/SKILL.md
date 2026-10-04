@@ -1,6 +1,6 @@
 ---
 name: "unit-test-vue-pinia"
-description: "Write and review unit tests for Vue 3 + TypeScript + Vitest + Pinia codebases. Use when creating or updating tests for components, composables, and stores; mocking Pinia with createTestingPinia; applying Vue Test Utils patterns; and enforcing black-box assertions over implementation details."
+description: "编写与审查 Vue 3 + TypeScript + Vitest + Pinia 技术栈的单元测试。适用于创建或更新组件、组合式函数（composables）及 Store 的测试；使用 createTestingPinia 进行 Pinia 模拟；应用 Vue Test Utils 规范模式；推行聚焦行为的黑盒断言而非耦合实现细节。"
 version: "1.0.0"
 license: "MIT"
 category: testing

@@ -1,6 +1,6 @@
 ---
 name: "agent-governance"
-description: "Patterns and techniques for adding governance, safety, and trust controls to AI agent systems. Use this skill when: - Building AI agents that call external tools (APIs, databases, file systems) - Implementing policy-based access controls for agent tool usage - Adding semantic intent classification to detect dangerous prompts - Creating trust scoring systems for multi-agent workflows - Building audit trails for agent actions and decisions - Enforcing rate limits, content filters, or tool restrictions on agents - Working with any agent framework (PydanticAI, CrewAI, OpenAI Agents, LangChain, AutoGen)"
+description: "掌握为 AI Agent 系统构建治理、安全与信任控制机制的模式与技术。适用于以下场景：\n- 构建需要调用外部工具（API、数据库、文件系统）的 AI Agent\n- 为 Agent 工具调用实现基于策略的访问控制\n- 引入语义意图分类，精准识别与拦截危险提示词\n- 为多 Agent 协同工作流建立信任评分体系\n- 搭建 Agent 行为与决策的全流程审计日志\n- 对 Agent 实施速率限制、内容过滤或工具使用约束\n- 基于主流 Agent 框架开发（如 PydanticAI、CrewAI、OpenAI Agents、LangChain、AutoGen 等）"
 version: "1.0.0"
 license: "MIT"
 ---

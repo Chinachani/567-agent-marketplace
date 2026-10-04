@@ -1,6 +1,6 @@
 ---
 name: "debugging-and-error-recovery"
-description: "Guides systematic root-cause debugging. Use when tests fail, builds break, something that worked yesterday broke, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need to figure out what broke and why — a systematic approach to finding and fixing the root cause rather than guessing."
+description: "指导系统化排查故障根因。当测试失败、构建崩溃、既有功能失效、运行表现不符预期或遇到任何意外报错时使用。助你告别凭空猜测，以系统化流程厘清故障机制，精准定位并彻底修复根本原因。"
 version: "1.0.0"
 license: "MIT"
 ---

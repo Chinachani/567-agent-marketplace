@@ -1,6 +1,6 @@
 ---
 name: "power-platform-mcp-connector-suite"
-description: "Generate complete Power Platform custom connector with MCP integration for Copilot Studio - includes schema generation, troubleshooting, and validation"
+description: "为 Copilot Studio 构建集成 MCP 的完整 Power Platform 自定义连接器，涵盖架构生成、故障排查与验证"
 version: "1.0.0"
 license: "MIT"
 ---

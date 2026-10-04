@@ -1,6 +1,6 @@
 ---
 name: "arch-linux-triage"
-description: "Triage and resolve Arch Linux issues with pacman, systemd, and rolling-release best practices."
+description: "结合 pacman、systemd 及滚动发行版最佳实践，排查并解决 Arch Linux 系统问题。"
 version: "1.0.0"
 license: "MIT"
 ---

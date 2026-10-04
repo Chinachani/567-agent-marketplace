@@ -1,6 +1,6 @@
 ---
 name: "react19-source-patterns"
-description: "Reference for React 19 source-file migration patterns, including API changes, ref handling, and context updates."
+description: "提供 React 19 源码迁移模式参考，涵盖 API 变更、ref 处理与 Context 升级指南。"
 version: "1.0.0"
 license: "MIT"
 ---

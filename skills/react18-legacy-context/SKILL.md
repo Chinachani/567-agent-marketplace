@@ -1,6 +1,6 @@
 ---
 name: "react18-legacy-context"
-description: "Provides the complete migration pattern for React legacy context API (contextTypes, childContextTypes, getChildContext) to the modern createContext API. Use this skill whenever migrating legacy context in class components - this is always a cross-file migration requiring the provider AND all consumers to be updated together. Use it before touching any contextTypes or childContextTypes code, because migrating only the provider without the consumers (or vice versa) will cause a runtime failure. Always read this skill before writing any context migration - the cross-file coordination steps here prevent the most common context migration bugs."
+description: "提供将 React 旧版 Context API（contextTypes、childContextTypes、getChildContext）完整迁移至现代 createContext API 的操作指南。在类组件中重构旧版 Context 时使用——此类迁移涉及跨文件联动，必须确保 Provider 与所有 Consumer 同步更新。在修改任何旧版 Context 相关代码前务必先调用此技能；单方面迁移任意一侧均会导致运行时崩溃。开始迁移前请务必阅读，遵循其中的跨文件协作步骤以规避最常见的迁移陷阱。"
 version: "1.0.0"
 license: "MIT"
 ---

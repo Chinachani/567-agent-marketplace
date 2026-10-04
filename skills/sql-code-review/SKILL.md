@@ -1,6 +1,6 @@
 ---
 name: "sql-code-review"
-description: "Universal SQL code review assistant that performs comprehensive security, maintainability, and code quality analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Focuses on SQL injection prevention, access control, code standards, and anti-pattern detection. Complements SQL optimization prompt for complete development coverage."
+description: "通用 SQL 代码审查助手，支持主流数据库（MySQL、PostgreSQL、SQL Server、Oracle）的全方位安全性、可维护性与代码质量评估。重点排查 SQL 注入漏洞与反模式，强化访问控制，统一代码规范。与 SQL 优化方案深度互补，全方位保障数据库开发质量。"
 version: "1.0.0"
 license: "MIT"
 ---

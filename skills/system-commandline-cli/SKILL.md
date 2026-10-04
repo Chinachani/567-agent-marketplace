@@ -1,6 +1,6 @@
 ---
 name: "system-commandline-cli"
-description: "Use this skill when adding, modifying, or reviewing CLI commands in a .NET project built with System.CommandLine. Triggers include: creating a new CLI command, adding options or arguments, wiring command handlers, registering subcommands, building command groups, or any architecture decision about CLI command structure. Also use when the user mentions 'System.CommandLine', 'CommandBase', 'SetAction', 'ParseResult', 'RootCommand', 'subcommand', or asks to add a verb to the CLI. Do NOT use for general C# coding, web APIs, UI work, or non-CLI projects."
+description: "适用于在基于 System.CommandLine 的 .NET 项目中新增、修改或审查 CLI 命令。触发场景包括：创建新命令、添加选项或参数、绑定命令处理器、注册子命令、构建命令组，以及制定 CLI 命令结构的架构决策。当提及“System.CommandLine”、“CommandBase”、“SetAction”、“ParseResult”、“RootCommand”、“subcommand”或要求为 CLI 扩展动词指令时同样适用。请勿用于常规 C# 编程、Web API、UI 界面开发或非 CLI 项目。"
 version: "1.0.0"
 license: "MIT"
 ---

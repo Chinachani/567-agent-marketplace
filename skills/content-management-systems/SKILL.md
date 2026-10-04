@@ -1,6 +1,6 @@
 ---
 name: "content-management-systems"
-description: "Workflow for building and modifying content management systems across WordPress, Shopify, Wix, Squarespace, Drupal, WooCommerce, Joomla, HubSpot CMS Hub, Webflow, Adobe Experience Manager, and similar platforms. Use when working on CMS themes, plugins, apps, modules, admin panels, media uploads, content models, editors, markdown pipelines, or static export workflows."
+description: "用于在 WordPress、Shopify、Wix、Squarespace、Drupal、WooCommerce、Joomla、HubSpot CMS Hub、Webflow、Adobe Experience Manager 等平台上构建与定制内容管理系统。适用于开发或维护 CMS 主题、插件、应用、模块、管理后台、媒体上传、内容模型、编辑器、Markdown 管道及静态导出工作流。"
 version: "1.0.0"
 license: "MIT"
 ---

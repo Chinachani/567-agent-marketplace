@@ -1,6 +1,6 @@
 ---
 name: "mcp-implementation-security-review"
-description: "Review the implementation source code of MCP (Model Context Protocol) servers, clients, and tool handlers against a security baseline — authentication, sessions, rate limiting, input-schema validation, official-SDK usage, RCE vectors, and the OWASP MCP Top 10 — producing a report with file/line evidence. Use this skill when: - Reviewing an MCP server implementation for security before release - Checking a server against the baseline controls (MCP-01 to MCP-05) and the OWASP MCP Top 10 - Auditing tools for RCE vectors (command/code injection, unsafe deserialization, path traversal, SSTI, dependency hijacking, SSRF) - Verifying auth, session, rate-limiting, and input-validation controls on a network-exposed server - Reviewing MCP client code that handles untrusted server responses and session IDs - Requests like \"review this MCP server for security\" or \"is my MCP server implementation secure?\""
+description: "对照安全基准（身份验证、会话管理、速率限制、输入模式验证、官方 SDK 规范、RCE 向量及 OWASP MCP Top 10）深度审查 MCP（模型上下文协议）服务端、客户端及工具实现的源码，并生成附带精准文件与代码行依据的审计报告。适用于以下场景：\n\n- MCP 服务端上线发布前的代码安全审计\n- 对照基线控制项（MCP-01 至 MCP-05）与 OWASP MCP Top 10 进行合规检查\n- 排查工具中的 RCE 攻击向量（命令/代码注入、不安全反序列化、路径遍历、SSTI、依赖劫持、SSRF 等）\n- 验证公网暴露服务端的认证鉴权、会话管理、接口限流及输入校验机制\n- 审查涉及不可信服务端响应和会话 ID 处理的 MCP 客户端代码\n- 响应“审查此 MCP 服务的安全性”或“我的 MCP 服务端实现安全吗？”等分析需求"
 version: "1.0.0"
 license: "MIT"
 ---

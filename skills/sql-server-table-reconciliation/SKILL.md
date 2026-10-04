@@ -1,6 +1,6 @@
 ---
 name: "sql-server-table-reconciliation"
-description: "Use when: comparing SQL Server tables across instances, data migration validation, ETL verification, row mismatch detection, schema drift, reconciliation report, production vs staging comparison. Uses mssql-python driver with Apache Arrow for fast columnar data transfer and comparison."
+description: "用于跨实例比对 SQL Server 数据表、验证数据迁移与 ETL 流程、检测行级数据差异、排查表结构漂移、生成对账报告以及比对生产与预发环境。基于 mssql-python 驱动与 Apache Arrow，实现极速列式数据传输与高性能比对。"
 version: "1.0.0"
 license: "MIT"
 ---

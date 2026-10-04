@@ -1,6 +1,6 @@
 ---
 name: "azure-upgrade"
-description: "Assess and upgrade Azure workloads between plans, tiers, or SKUs, or modernize Azure SDK dependencies in source code. WHEN: upgrade Consumption to Flex Consumption, upgrade Azure Functions plan, change hosting plan, function app SKU, migrate App Service to Container Apps, modernize legacy Azure Java SDKs (com.microsoft.azure to com.azure), migrate Azure Cache for Redis (ACR/ACRE) to Azure Managed Redis (AMR)."
+description: "评估并升级 Azure 工作负载的方案、定价层或 SKU，或升级源代码中的 Azure SDK 依赖。适用场景：将消耗方案升级为弹性消耗方案（Flex Consumption）、升级 Azure Functions 方案、变更托管方案或函数应用 SKU、将 App Service 迁移至 Container Apps、升级旧版 Azure Java SDK（从 com.microsoft.azure 迁移至 com.azure），以及将 Azure Cache for Redis (ACR/ACRE) 迁移至 Azure Managed Redis (AMR)。"
 version: "1.2.1"
 license: "MIT"
 compatibility: python3.10+

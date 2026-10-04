@@ -1,6 +1,6 @@
 ---
 name: "azure-ai-openai-dotnet"
-description: "Azure OpenAI SDK for .NET. Client library for Azure OpenAI and OpenAI services. Use for chat completions, embeddings, image generation, audio transcription, and assistants. Triggers: \"Azure OpenAI\", \"AzureOpenAIClient\", \"ChatClient\", \"chat completions .NET\", \"GPT-4\", \"embeddings\", \"DALL-E\", \"Whisper\", \"OpenAI .NET\"."
+description: "面向 .NET 的 Azure OpenAI SDK 客户端库，用于接入 Azure OpenAI 与 OpenAI 服务。支持快速构建聊天对话补全、文本嵌入、图像生成、音频转写和 Assistants 智能助手等功能。触发词：\"Azure OpenAI\"、\"AzureOpenAIClient\"、\"ChatClient\"、\"chat completions .NET\"、\"GPT-4\"、\"embeddings\"、\"DALL-E\"、\"Whisper\"、\"OpenAI .NET\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

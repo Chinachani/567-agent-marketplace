@@ -1,6 +1,6 @@
 ---
 name: "git-workflow-and-versioning"
-description: "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog."
+description: "规范 Git 工作流实践。适用于进行任何代码变更时，涵盖代码提交、分支管理、冲突解决、将杂乱的工作区改动拆分为清晰的原子提交、创建或审查 PR、推送到远程仓库，以及管理多分支并行开发；同时适用于发布版本、确定语义化版本升级、打标签和编写更新日志。"
 version: "1.0.0"
 license: "MIT"
 ---

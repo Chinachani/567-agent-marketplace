@@ -1,6 +1,6 @@
 ---
 name: "vardoger-analyze"
-description: "Use when the user asks to personalize the GitHub Copilot CLI assistant, adapt Copilot to their style, use vardoger, or analyze their Copilot CLI conversation history. Reads the local session directory at `~/.copilot/session-state/`, extracts recurring preferences and conventions, and writes a fenced personalization block into `~/.copilot/copilot-instructions.md`. Runs entirely on the user's machine via the local `vardoger` CLI (`pipx install vardoger`); no network calls and no uploads. Triggers: 'personalize my copilot', 'analyze my copilot history', 'tailor copilot to me', 'run vardoger', 'update my copilot instructions from history', 'make copilot learn my style'."
+description: "当用户需要个性化定制 GitHub Copilot CLI 助手、让其契合个人编程风格、调用 vardoger 或分析 Copilot CLI 对话历史时使用。通过读取本地 `~/.copilot/session-state/` 目录中的会话记录，智能提炼高频偏好与代码规范，并将个性化规则块写入 `~/.copilot/copilot-instructions.md`。依托本地 `vardoger` CLI（通过 `pipx install vardoger` 安装）完全在用户本机运行，不产生任何网络请求，零数据上传。触发短语包括：“personalize my copilot”、“analyze my copilot history”、“tailor copilot to me”、“run vardoger”、“update my copilot instructions from history”、“make copilot learn my style”。"
 version: "1.0.0"
 license: "Apache-2.0"
 ---

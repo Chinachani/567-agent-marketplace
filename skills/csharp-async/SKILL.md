@@ -1,6 +1,6 @@
 ---
 name: "csharp-async"
-description: "Get best practices for C# async programming"
+description: "获取 C# 异步编程最佳实践"
 version: "1.0.0"
 license: "MIT"
 ---

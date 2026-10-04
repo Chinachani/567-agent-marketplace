@@ -1,6 +1,6 @@
 ---
 name: "continual-learning"
-description: "Guide for implementing continual learning in AI coding agents — hooks, memory scoping, reflection patterns. Use when setting up learning infrastructure for agents."
+description: "指导实现AI编程智能体的持续学习机制，涵盖钩子设计、记忆作用域划分与反思模式。适用于为智能体搭建学习基础设施。"
 version: "1.0.0"
 license: "MIT"
 ---

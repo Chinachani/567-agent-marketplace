@@ -1,6 +1,6 @@
 ---
 name: "openapi-to-application-code"
-description: "Generate a complete, production-ready application from an OpenAPI specification"
+description: "基于 OpenAPI 规范生成完整、可直接投产的应用程序"
 version: "1.0.0"
 license: "MIT"
 ---

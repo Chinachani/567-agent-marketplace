@@ -1,6 +1,6 @@
 ---
 name: "preset"
-description: "Intelligently deploys Azure OpenAI models to optimal regions by analyzing capacity across all available regions. Automatically checks current region first and shows alternatives if needed. USE FOR: quick deployment, optimal region, best region, automatic region selection, fast setup, multi-region capacity check, high availability deployment, deploy to best location. DO NOT USE FOR: custom SKU selection (use customize), specific version selection (use customize), custom capacity configuration (use customize), PTU deployments (use customize)."
+description: "通过评估所有可用区域的容量，智能地将 Azure OpenAI 模型部署至最优区域。优先自动检查当前区域，必要时提供备选推荐。适用于：快速部署、最优/最佳区域选择、自动选区、快速配置、多区域容量排查、高可用部署、部署至最佳位置。不适用于：自定义 SKU 选择（请改用 customize）、指定特定版本（请改用 customize）、自定义容量配置（请改用 customize）、PTU 预置吞吐量部署（请改用 customize）。"
 version: "1.0.1"
 license: "MIT"
 metadata:

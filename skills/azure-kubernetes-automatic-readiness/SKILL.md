@@ -1,6 +1,6 @@
 ---
 name: "azure-kubernetes-automatic-readiness"
-description: "Assess Kubernetes workloads and cluster configuration for AKS Automatic compatibility. Identifies incompatibilities, generates fixes, and guides migration from AKS Standard to AKS Automatic. WHEN: migrate to AKS Automatic, check AKS Automatic readiness, validate manifests for Automatic, assess cluster for Automatic compatibility, fix deployment for Automatic compatibility, identify AKS Automatic migration blockers, is my cluster ready for AKS Automatic."
+description: "评估 Kubernetes 工作负载及集群配置的 AKS Automatic 兼容性。精准识别不兼容项、生成修复方案，并全程指导从 AKS Standard 平滑迁移至 AKS Automatic。适用场景：迁移至 AKS Automatic、评估集群就绪状态、验证资源清单、修复部署兼容性问题或排查迁移阻碍。"
 version: "1.0.1"
 license: "MIT"
 metadata:

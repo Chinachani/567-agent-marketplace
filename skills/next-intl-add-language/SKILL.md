@@ -1,6 +1,6 @@
 ---
 name: "next-intl-add-language"
-description: "Add new language to a Next.js + next-intl application"
+description: "为 Next.js + next-intl 应用添加新语言"
 version: "1.0.0"
 license: "MIT"
 ---

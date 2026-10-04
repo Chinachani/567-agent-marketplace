@@ -1,6 +1,6 @@
 ---
 name: "flowstudio-power-automate-monitoring"
-description: "Pro+ subscription required. Tenant-wide Power Automate monitoring using the FlowStudio MCP cached store: failure rates, run-health trends, maker/app inventory, inactive owners, and compliance/health reports. Use only for aggregated tenant views. For one environment, one flow, run control, or root-cause debugging, use flowstudio-power-automate-mcp, flowstudio-power-automate-debug, or the server monitor-flow bundle. Requires FlowStudio for Teams or MCP Pro+."
+description: "基于 FlowStudio MCP 缓存存储实现租户级 Power Automate 全局监控。快速获取运行失败率、健康趋势分析、创建者与应用资产盘点、非活跃负责人统计及合规健康报告。专用于租户层级的全局聚合视图分析；若需针对单个环境或单一工作流进行排查、运行控制或根因分析，请改用 flowstudio-power-automate-mcp、flowstudio-power-automate-debug 或 monitor-flow 套件。使用本功能需具备 FlowStudio for Teams 或 MCP Pro+ 订阅权限。"
 version: "1.0.0"
 license: "MIT"
 ---

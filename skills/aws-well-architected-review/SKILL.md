@@ -1,6 +1,6 @@
 ---
 name: "aws-well-architected-review"
-description: "Perform an AWS Well-Architected Framework review of the current workload IaC and architecture, generating findings and GitHub issues for improvements."
+description: "依据 AWS 架构完善框架审查当前工作负载的 IaC 与架构，输出问题清单并创建 GitHub Issue 推进改进。"
 version: "1.0.0"
 license: "MIT"
 ---

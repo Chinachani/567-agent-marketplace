@@ -1,6 +1,6 @@
 ---
 name: "aws-resource-health-diagnose"
-description: "Analyze AWS resource health, diagnose issues from CloudWatch logs and metrics, and create a remediation plan for identified problems."
+description: "分析 AWS 资源健康状况，基于 CloudWatch 日志和指标诊断故障，并针对发现的问题制定修复方案。"
 version: "1.0.0"
 license: "MIT"
 ---

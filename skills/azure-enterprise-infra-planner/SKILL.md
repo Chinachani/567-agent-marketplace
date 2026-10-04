@@ -1,6 +1,6 @@
 ---
 name: "azure-enterprise-infra-planner"
-description: "Architect and provision enterprise Azure infrastructure from workload descriptions. For cloud architects and platform engineers planning networking, identity, security, compliance, and multi-resource topologies with WAF alignment. Generates Bicep or Terraform directly (no azd). WHEN: 'plan Azure infrastructure', 'architect Azure landing zone', 'design hub-spoke network', 'plan multi-region DR topology', 'set up VNets firewalls and private endpoints', 'subscription-scope Bicep deployment', 'Azure Backup for VM workloads'. PREFER azure-prepare FOR app-centric workflows."
+description: "根据工作负载需求设计并配置企业级 Azure 基础设施。专为云架构师与平台工程师打造，助力规划网络、身份、安全、合规性及符合良好架构框架（WAF）的多资源拓扑。直接生成原生 Bicep 或 Terraform 代码（不依赖 azd）。适用场景：规划 Azure 基础设施、架构 Azure 登陆区（Landing Zone）、设计中心-分支（Hub-Spoke）网络、制定跨区域容灾拓扑、配置虚拟网络/防火墙/专用终结点、订阅级 Bicep 部署及虚拟机备份规划。若执行以应用为中心的工作流，请优先使用 azure-prepare。"
 version: "1.4.2"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "scaffolding-oracle-to-postgres-migration-test-project"
-description: "Scaffolds an xUnit integration test project targeting Oracle in .NET solutions. Creates the test project, transaction-rollback base class, and seed data manager. Use only during Phase 3, before writing Oracle baseline integration tests. Do not invoke during Phase 6 — the PostgreSQL test project is produced by migrating this project, not by running this skill again."
+description: "在 .NET 解决方案中搭建针对 Oracle 的 xUnit 集成测试项目。生成测试工程、事务回滚基类及种子数据管理器。仅限在阶段 3 编写 Oracle 基线集成测试前使用。切勿在阶段 6 调用——PostgreSQL 测试项目需通过迁移本项目生成，不可重复执行此技能。"
 version: "1.0.0"
 license: "MIT"
 ---

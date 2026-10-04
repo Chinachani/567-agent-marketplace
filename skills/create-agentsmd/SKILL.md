@@ -1,6 +1,6 @@
 ---
 name: "create-agentsmd"
-description: "Prompt for generating an AGENTS.md file for a repository"
+description: "为代码仓库生成 AGENTS.md 文件的提示词"
 version: "1.0.0"
 license: "MIT"
 ---

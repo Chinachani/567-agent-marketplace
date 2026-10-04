@@ -1,6 +1,6 @@
 ---
 name: "azure-cosmos-ts"
-description: "Azure Cosmos DB JavaScript/TypeScript SDK (@azure/cosmos) for data plane operations. Use for CRUD operations on documents, queries, bulk operations, and container management. Triggers: \"Cosmos DB\", \"@azure/cosmos\", \"CosmosClient\", \"document CRUD\", \"NoSQL queries\", \"bulk operations\", \"partition key\", \"container.items\"."
+description: "使用 Azure Cosmos DB JavaScript/TypeScript SDK (@azure/cosmos) 执行数据平面操作。适用于文档 CRUD（增删改查）、NoSQL 查询、批量操作及容器管理。触发词：Cosmos DB、@azure/cosmos、CosmosClient、document CRUD、NoSQL queries、bulk operations、partition key、container.items。"
 version: "1.0.0"
 license: "MIT"
 metadata:

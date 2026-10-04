@@ -1,6 +1,6 @@
 ---
 name: "m365-agents-dotnet"
-description: "Microsoft 365 Agents SDK for .NET. Build multichannel agents for Teams/M365/Copilot Studio with ASP.NET Core hosting, AgentApplication routing, and MSAL-based auth. Triggers: \"Microsoft 365 Agents SDK\", \"Microsoft.Agents\", \"AddAgentApplicationOptions\", \"AgentApplication\", \"AddAgentAspNetAuthentication\", \"Copilot Studio client\", \"IAgentHttpAdapter\"."
+description: "使用 .NET 版 Microsoft 365 Agents SDK，结合 ASP.NET Core 托管、AgentApplication 路由及 MSAL 身份验证，为 Teams、M365 和 Copilot Studio 构建多渠道智能体。触发词：\"Microsoft 365 Agents SDK\"、\"Microsoft.Agents\"、\"AddAgentApplicationOptions\"、\"AgentApplication\"、\"AddAgentAspNetAuthentication\"、\"Copilot Studio client\"、\"IAgentHttpAdapter\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

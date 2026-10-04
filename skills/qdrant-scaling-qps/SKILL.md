@@ -1,6 +1,6 @@
 ---
 name: "qdrant-scaling-qps"
-description: "Guides Qdrant query throughput (QPS) scaling. Use when someone asks 'how to increase QPS', 'need more throughput', 'queries per second too low', 'batch search', 'read replicas', or 'how to handle more concurrent queries'."
+description: "指导 Qdrant 查询吞吐量（QPS）的扩容与优化。适用于用户询问“如何提升 QPS”、“需要更高吞吐量”、“每秒查询率太低”、“批量搜索”、“只读副本”或“如何应对更高并发查询”的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

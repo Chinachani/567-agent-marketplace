@@ -1,6 +1,6 @@
 ---
 name: "incremental-implementation"
-description: "Delivers changes incrementally in thin, verifiable slices. Use when implementing any feature or change that touches more than one file, or when picking up the next task from a plan. Use when rolling a change out behind a feature flag, when you're about to write a large amount of code at once, or when a task feels too big to land in one step."
+description: "以细粒度、可验证的切片形式增量交付变更。适用于实现涉及多个文件的功能或变更、承接计划中的下一项任务、通过特性开关发布变更、准备一次性编写大量代码，或任务体量过大难以一步到位落地等场景。"
 version: "1.0.0"
 license: "MIT"
 ---

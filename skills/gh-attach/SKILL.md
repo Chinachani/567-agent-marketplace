@@ -1,6 +1,6 @@
 ---
 name: "gh-attach"
-description: "Uploads a local file (screenshot, image, PDF, zip, video) to GitHub user-attachments, downloads GitHub user-attachments, and embeds local files in a PR, issue, or comment. Use when asked to \"attach a screenshot to the PR\", \"add an image to the issue\", \"embed before/after screenshots\", \"attach this file\", or \"download this GitHub attachment\". Powered by `gh-attach`."
+description: "将本地文件（截图、图片、PDF、ZIP、视频等）上传至 GitHub user-attachments、下载 GitHub 附件，并直接嵌入到 PR、Issue 或评论中。适用于“向 PR 附上截图”、“在 Issue 中添加图片”、“嵌入前后对比截图”、“附加此文件”或“下载该 GitHub 附件”等需求。基于 `gh-attach` 构建。"
 version: "1.0.0"
 license: "MIT"
 ---

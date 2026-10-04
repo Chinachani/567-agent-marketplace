@@ -1,6 +1,6 @@
 ---
 name: "datanalysis-credit-risk"
-description: "Credit risk data cleaning and variable screening pipeline for pre-loan modeling. Use when working with raw credit data that needs quality assessment,  missing value analysis, or variable selection before modeling. it covers data loading and formatting, abnormal period filtering, missing rate calculation, high-missing variable removal,low-IV variable filtering, high-PSI variable removal, Null Importance denoising, high-correlation variable removal, and cleaning report generation. Applicable scenarios arecredit risk data cleaning, variable screening, pre-loan modeling preprocessing."
+description: "用于贷前建模的信贷风控数据清洗与变量筛选流水线。支持在建模前对原始信贷数据进行质量评估、缺失值分析及特征筛选。涵盖数据加载与格式化、异常周期过滤、缺失率计算与高缺失变量剔除、低IV特征初筛、高PSI变量过滤、Null Importance特征降噪、高相关性剔除，并自动生成数据清洗报告。适用于信贷风控数据清洗、变量筛选及贷前建模前置数据预处理。"
 version: "1.0.0"
 license: "MIT"
 ---

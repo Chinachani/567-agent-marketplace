@@ -1,6 +1,6 @@
 ---
 name: "gen-specs-as-issues"
-description: "This workflow guides you through a systematic approach to identify missing features, prioritize them, and create detailed specifications for implementation."
+description: "系统化指引你识别缺失功能、排定优先级，并输出可直接落地的详尽开发规范。"
 version: "1.0.0"
 license: "MIT"
 ---

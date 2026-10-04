@@ -1,6 +1,6 @@
 ---
 name: "noob-mode"
-description: "Plain-English translation layer for non-technical Copilot CLI users. Translates every approval prompt, error message, and technical output into clear, jargon-free English with color-coded risk indicators."
+description: "专为非技术用户打造的 Copilot CLI 通俗翻译层。实时将所有确认提示、报错信息及技术输出转化为易懂的无门槛白话，并辅以直观的彩色风险警示。"
 version: "1.0.0"
 license: "MIT"
 ---

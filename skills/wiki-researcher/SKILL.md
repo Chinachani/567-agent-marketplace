@@ -1,6 +1,6 @@
 ---
 name: "wiki-researcher"
-description: "Conducts multi-turn iterative deep research on specific topics within a codebase with zero tolerance for shallow analysis. Use when the user wants an in-depth investigation, needs to understand how something works across multiple files, or asks for comprehensive analysis of a specific system or pattern."
+description: "对代码库中的特定主题开展多轮迭代式深度调研，杜绝浅层分析。适用于需要深入探究、跨多文件梳理运行机制，或对特定系统及设计模式进行全面剖析的场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

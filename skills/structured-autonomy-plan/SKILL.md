@@ -1,6 +1,6 @@
 ---
 name: "structured-autonomy-plan"
-description: "Structured Autonomy Planning Prompt"
+description: "结构化自主规划提示词"
 version: "1.0.0"
 license: "MIT"
 ---

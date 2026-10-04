@@ -1,6 +1,6 @@
 ---
 name: "prd"
-description: "Generate high-quality Product Requirements Documents (PRDs) for software systems and AI-powered features. Includes executive summaries, user stories, technical specifications, and risk analysis."
+description: "高效生成面向软件系统与AI功能的高质量产品需求文档（PRD），完整涵盖执行摘要、用户故事、技术规范及风险分析。"
 version: "1.0.0"
 license: "MIT"
 ---

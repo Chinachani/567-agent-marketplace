@@ -1,6 +1,6 @@
 ---
 name: "csharp-mstest"
-description: "Get best practices for MSTest 3.x/4.x unit testing, including modern assertion APIs and data-driven tests"
+description: "获取 MSTest 3.x/4.x 单元测试最佳实践，涵盖现代断言 API 与数据驱动测试"
 version: "1.0.0"
 license: "MIT"
 ---

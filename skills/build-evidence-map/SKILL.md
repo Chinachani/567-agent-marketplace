@@ -1,6 +1,6 @@
 ---
 name: "build-evidence-map"
-description: "Build an auditable evidence map for a contested technical choice, research synthesis, proposal review, or consequential decision. Use when Copilot must preserve supporting, contradicting, qualifying, and missing evidence with exact source regions instead of collapsing disagreement into prose."
+description: "为争议性技术选型、研究综述、方案评审或重大决策构建可审计的证据图谱。适用于需要精确定位信息源，完整保留支持、反驳、限定和缺失证据的场景，避免将关键分歧简单归纳为笼统陈述。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "postgresql-optimization"
-description: "PostgreSQL-specific development assistant focusing on unique PostgreSQL features, advanced data types, and PostgreSQL-exclusive capabilities. Covers JSONB operations, array types, custom types, range/geometric types, full-text search, window functions, and PostgreSQL extensions ecosystem."
+description: "专为 PostgreSQL 打造的开发助手，聚焦其独有特性、高级数据类型与专属功能。深度支持 JSONB 操作、数组及自定义类型、范围与几何数据处理、全文检索、复杂窗口函数以及丰富的扩展插件生态。"
 version: "1.0.0"
 license: "MIT"
 ---

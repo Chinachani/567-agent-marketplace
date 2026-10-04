@@ -1,6 +1,6 @@
 ---
 name: "ruff-recursive-fix"
-description: "Run Ruff checks with optional scope and rule overrides, apply safe and unsafe autofixes iteratively, review each change, and resolve remaining findings with targeted edits or user decisions."
+description: "运行 Ruff 检查并支持自定义范围与规则覆盖，迭代应用安全及非安全自动修复，逐项审查变更，并通过针对性修改或用户决策解决剩余问题。"
 version: "1.0.0"
 license: "MIT"
 ---

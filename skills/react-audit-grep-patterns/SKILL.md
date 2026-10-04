@@ -1,6 +1,6 @@
 ---
 name: "react-audit-grep-patterns"
-description: "Provides the complete, verified grep scan command library for auditing React codebases before a React 18.3.1 or React 19 upgrade. Use this skill whenever running a migration audit - for both the react18-auditor and react19-auditor agents. Contains every grep pattern needed to find deprecated APIs, removed APIs, unsafe lifecycle methods, batching vulnerabilities, test file issues, dependency conflicts, and React 19 specific removals. Always use this skill when writing audit scan commands - do not rely on memory for grep syntax, especially for the multi-line async setState patterns which require context flags."
+description: "提供经过全面验证的 grep 扫描命令库，用于在升级至 React 18.3.1 或 React 19 前审计 React 代码库。在 react18-auditor 或 react19-auditor 智能体执行迁移审计时调用此技能。内置完整规则库，可精准排查已废弃/已移除 API、不安全生命周期、批处理隐患、测试文件问题、依赖冲突及 React 19 特有变更。编写扫描命令时务必使用本技能，切勿凭记忆编写 grep 语法，特别是需要指定上下文参数的多行异步 setState 匹配模式。"
 version: "1.0.0"
 license: "MIT"
 ---

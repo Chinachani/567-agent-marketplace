@@ -1,6 +1,6 @@
 ---
 name: "ai-ready"
-description: "Make any repo AI-ready — analyzes your codebase and generates AGENTS.md, copilot-instructions.md, CI workflows, issue templates, and more. Mines your PR review patterns and creates files customized to your stack. USE THIS SKILL when the user asks to \"make this repo ai-ready\", \"set up AI config\", or \"prepare this repo for AI contributions\"."
+description: "一键让代码仓库全面就绪 AI 开发：深度分析代码库，自动生成 AGENTS.md、copilot-instructions.md、CI 工作流及 Issue 模板等配置；挖掘团队 PR 审查规范，量身定制适配当前技术栈的文件。当用户需要“让仓库支持 AI”、“配置 AI 开发环境”或“准备 AI 协作规范”时使用此技能。"
 version: "1.0.0"
 license: "MIT"
 ---

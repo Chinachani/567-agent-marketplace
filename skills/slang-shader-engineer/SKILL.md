@@ -1,6 +1,6 @@
 ---
 name: "slang-shader-engineer"
-description: "Use when working with Slang shaders, shader modules, HLSL-compatible GPU code, graphics pipelines, compute shaders, tessellation, ray tracing, parameter blocks, generics, interfaces, capabilities, cross-compilation, shader optimization, shader review, or C++ engine integration for Slang. Trigger on any mention of Slang, .slang files, slangc, SPIR-V from Slang, Slang modules, [shader(\"compute\")], [shader(\"vertex\")], or requests to write/review/refactor shader code with modern language features. Also trigger for Slang-to-HLSL/GLSL/Metal/CUDA cross-compile questions, or when the user says \"shader\" alongside \"generics\", \"interfaces\", \"parameter blocks\", \"autodiff\", or \"capabilities\"."
+description: "适用于 Slang 着色器与模块开发、兼容 HLSL 的 GPU 编程、图形管线、计算着色器、曲面细分、光线追踪、参数块、泛型、接口、capabilities 特性、跨平台编译、着色器优化审查以及 C++ 引擎集成。当提及 Slang、.slang 文件、slangc、Slang 生成的 SPIR-V、Slang 模块、[shader(\"compute\")]、[shader(\"vertex\")]，或请求使用现代语言特性编写、审查和重构着色器代码时触发。亦适用于 Slang 转 HLSL/GLSL/Metal/CUDA 跨平台编译咨询，或在讨论着色器时同时涉及泛型、接口、参数块、自动微分 (autodiff) 或 capabilities 的相关场景。"
 version: "1.0.0"
 license: "MIT"
 ---

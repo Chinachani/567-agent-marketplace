@@ -1,6 +1,6 @@
 ---
 name: "azure-cosmos-db-py"
-description: "Build Azure Cosmos DB NoSQL services with Python/FastAPI following production-grade patterns. Use when implementing database client setup with dual auth (DefaultAzureCredential + emulator), service layer classes with CRUD operations, partition key strategies, parameterized queries, or TDD patterns for Cosmos. Triggers on phrases like \"Cosmos DB\", \"NoSQL database\", \"document store\", \"add persistence\", \"database service layer\", or \"Python Cosmos SDK\"."
+description: "遵循生产级规范，使用 Python/FastAPI 构建 Azure Cosmos DB NoSQL 服务。适用于配置支持双重认证（DefaultAzureCredential 与本地模拟器）的数据库客户端、实现封装 CRUD 操作的服务层类、设计分区键策略、编写参数化查询，以及应用针对 Cosmos DB 的 TDD 测试驱动开发。当涉及“Cosmos DB”、“NoSQL 数据库”、“文档存储”、“添加持久化”、“数据库服务层”或“Python Cosmos SDK”等场景时触发。"
 version: "1.0.0"
 license: "MIT"
 metadata:

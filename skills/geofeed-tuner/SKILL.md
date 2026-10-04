@@ -1,6 +1,6 @@
 ---
 name: "geofeed-tuner"
-description: "Use this skill whenever the user mentions IP geolocation feeds, RFC 8805, geofeeds, or wants help creating, tuning, validating, or publishing a self-published IP geolocation feed in CSV format. Intended user audience is a network operator, ISP, mobile carrier, cloud provider, hosting company, IXP, or satellite provider asking about IP geolocation accuracy, or geofeed authoring best practices. Helps create, refine, and improve CSV-format IP geolocation feeds with opinionated recommendations beyond RFC 8805 compliance. Do NOT use for private or internal IP address management — applies only to publicly routable IP addresses."
+description: "当用户提及 IP 地理位置源（geofeed）、RFC 8805，或需要创建、调优、验证及发布 CSV 格式的自主 IP 地理位置数据时触发。专为网络运营商、ISP、移动运营商、云厂商、主机服务商、IXP 或卫星网络提供商设计，用于解答 IP 定位精度疑问并指导编写规范；全流程协助构建、优化及改进 CSV 格式数据源，并提供超越 RFC 8805 标准的专业优化建议。注意：仅适用于公网可路由 IP 地址，不适用于私网或内网 IP 管理。"
 version: "0.0.9"
 license: "Apache-2.0"
 metadata:

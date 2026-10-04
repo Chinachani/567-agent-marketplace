@@ -1,6 +1,6 @@
 ---
 name: "optimize-simplicite-logs"
-description: "capability to parse Simplicité logs from a raw `.txt` file, filter fields to reduce noise, and output the result as structured JSON."
+description: "解析原始 .txt 文件中的 Simplicité 日志，过滤冗余字段以降低噪音，并输出为结构化 JSON。"
 version: "1.0.0"
 license: "MIT"
 ---

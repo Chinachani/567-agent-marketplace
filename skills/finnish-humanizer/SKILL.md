@@ -1,6 +1,6 @@
 ---
 name: "finnish-humanizer"
-description: "Detect and remove AI-generated markers from Finnish text, making it sound like a native Finnish speaker wrote it. Use when asked to \"humanize\", \"naturalize\", or \"remove AI feel\" from Finnish text, or when editing .md/.txt files containing Finnish content. Identifies 26 patterns (12 Finnish-specific + 14 universal) and 4 style markers."
+description: "检测并消除芬兰语文本中的AI痕迹，重塑地道的母语表达质感。适用于需要将芬兰语内容“拟人化”、“自然化”或“去AI味”的场景，以及编辑包含芬兰语的.md与.txt文件。可精准识别26种特征模式（12种芬兰语专有+14种通用模式）及4类风格标记。"
 version: "1.0.0"
 license: "MIT"
 ---

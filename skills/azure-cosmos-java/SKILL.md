@@ -1,6 +1,6 @@
 ---
 name: "azure-cosmos-java"
-description: "Azure Cosmos DB SDK for Java. NoSQL database operations with global distribution, multi-model support, and reactive patterns. Triggers: \"CosmosClient java\", \"CosmosAsyncClient\", \"cosmos database java\", \"cosmosdb java\", \"document database java\"."
+description: "使用适用于 Java 的 Azure Cosmos DB SDK 执行 NoSQL 数据库操作，支持全球分布式架构、多模型数据及响应式编程模式。触发词：\"CosmosClient java\"、\"CosmosAsyncClient\"、\"cosmos database java\"、\"cosmosdb java\"、\"document database java\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

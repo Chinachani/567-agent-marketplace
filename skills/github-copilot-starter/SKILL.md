@@ -1,6 +1,6 @@
 ---
 name: "github-copilot-starter"
-description: "Set up complete GitHub Copilot configuration for a new project based on technology stack"
+description: "基于技术栈为新项目搭建完整的 GitHub Copilot 配置"
 version: "1.0.0"
 license: "MIT"
 ---

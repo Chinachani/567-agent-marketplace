@@ -1,6 +1,6 @@
 ---
 name: "structured-autonomy-generate"
-description: "Structured Autonomy Implementation Generator Prompt"
+description: "结构化自主落地方案生成提示词"
 version: "1.0.0"
 license: "MIT"
 ---

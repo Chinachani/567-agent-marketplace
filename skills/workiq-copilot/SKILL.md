@@ -1,6 +1,6 @@
 ---
 name: "workiq-copilot"
-description: "Guides the Copilot CLI on how to use the WorkIQ CLI/MCP server to query Microsoft 365 Copilot data (emails, meetings, docs, Teams, people) for live context, summaries, and recommendations."
+description: "指导 Copilot CLI 通过 WorkIQ CLI/MCP 服务查询 Microsoft 365 Copilot 数据（邮件、会议、文档、Teams 及联系人），以获取实时上下文、摘要与建议。"
 version: "1.0.0"
 license: "MIT"
 ---

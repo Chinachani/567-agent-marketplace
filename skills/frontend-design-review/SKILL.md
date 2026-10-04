@@ -1,6 +1,6 @@
 ---
 name: "frontend-design-review"
-description: "Review and create distinctive, production-grade frontend interfaces with high design quality and design system compliance. Evaluates using three pillars: frictionless insight-to-action, quality craft, and trustworthy building. USE FOR: PR reviews, design reviews, accessibility audits, design system compliance checks, creative frontend design, UI code review, component reviews, responsive design checks, theme testing, and creating memorable UI. DO NOT USE FOR: Backend API reviews, database schema reviews, infrastructure or DevOps work, pure business logic without UI, or non-frontend code."
+description: "审查并构建兼具卓越设计水准与规范一致性的高品质生产级前端界面。立足三大核心维度开展评估：顺畅的交互转化、精湛的视觉工艺与可靠的工程构建。适用于：PR 审查、设计评审、无障碍审计、设计系统合规性检查、创意前端设计、UI 代码审查、组件评审、响应式适配检查、主题测试以及打造高质感 UI。不适用于：后端 API 审查、数据库模型评审、基础设施或 DevOps 运维、脱离界面的纯业务逻辑或非前端代码。"
 version: "1.0.0"
 license: "MIT"
 acknowledgments: |

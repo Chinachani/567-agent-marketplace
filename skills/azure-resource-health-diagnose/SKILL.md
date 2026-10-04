@@ -1,6 +1,6 @@
 ---
 name: "azure-resource-health-diagnose"
-description: "Analyze Azure resource health, diagnose issues from logs and telemetry, and create a remediation plan for identified problems."
+description: "分析 Azure 资源运行状况，结合日志与遥测数据诊断故障，并针对已识别的问题制定修复方案。"
 version: "1.0.0"
 license: "MIT"
 ---

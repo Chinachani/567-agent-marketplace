@@ -1,6 +1,6 @@
 ---
 name: "shuffle-json-data"
-description: "Shuffle repetitive JSON objects safely by validating schema consistency before randomising entries."
+description: "在随机重排前预先校验Schema一致性，安全打乱重复的JSON对象。"
 version: "1.0.0"
 license: "MIT"
 ---

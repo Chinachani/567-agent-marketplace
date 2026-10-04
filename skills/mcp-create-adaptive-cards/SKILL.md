@@ -1,6 +1,6 @@
 ---
 name: "mcp-create-adaptive-cards"
-description: "Skill converted from mcp-create-adaptive-cards.prompt.md"
+description: "快速构建自适应卡片（基于 mcp-create-adaptive-cards.prompt.md 转换）"
 version: "1.0.0"
 license: "MIT"
 ---

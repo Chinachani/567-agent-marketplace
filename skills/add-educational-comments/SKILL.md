@@ -1,6 +1,6 @@
 ---
 name: "add-educational-comments"
-description: "Add educational comments to the file specified, or prompt asking for file to comment if one is not provided."
+description: "为指定文件添加教学注释；若未提供，则提示输入要注释的文件。"
 version: "1.0.0"
 license: "MIT"
 ---

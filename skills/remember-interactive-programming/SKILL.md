@@ -1,6 +1,6 @@
 ---
 name: "remember-interactive-programming"
-description: "A micro-prompt that reminds the agent that it is an interactive programmer. Works great in Clojure when Copilot has access to the REPL (probably via Backseat Driver). Will work with any system that has a live REPL that the agent can use. Adapt the prompt with any specific reminders in your workflow and/or workspace."
+description: "提供精炼提示词，强化智能体的交互式编程定位。特别适用于 Copilot 可访问 REPL（如借助 Backseat Driver）的 Clojure 开发环境，并通用兼容任何支持实时 REPL 的系统。可根据你的具体工作流与工作区定制调整。"
 version: "1.0.0"
 license: "MIT"
 ---

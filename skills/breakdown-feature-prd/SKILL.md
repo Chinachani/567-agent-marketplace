@@ -1,6 +1,6 @@
 ---
 name: "breakdown-feature-prd"
-description: "Prompt for creating Product Requirements Documents (PRDs) for new features, based on an Epic."
+description: "基于 Epic 撰写新功能产品需求文档（PRD）"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "conventional-branch"
-description: "Create Git branches following the Conventional Branch specification (feature/, bugfix/, hotfix/, release/, chore/). Use when creating a new branch, naming a branch, or checking whether a branch name complies with the spec."
+description: "基于约定式分支规范（feature/、bugfix/、hotfix/、release/、chore/）创建 Git 分支。适用于新建分支、规范命名分支或校验分支名称合规性。"
 version: "1.0.0"
 license: "MIT"
 ---

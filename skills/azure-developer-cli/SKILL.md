@@ -1,6 +1,6 @@
 ---
 name: "azure-developer-cli"
-description: "Design, create, review, migrate, or troubleshoot Azure Developer CLI (azd) projects using current Microsoft guidance. Use for azd, azure.yaml, AZD templates, Bicep or Terraform under infra, AZD environments and secrets, hooks, deployment workflows, and azd-managed CI/CD."
+description: "基于微软最新规范设计、构建、审查、迁移或排查 Azure Developer CLI (azd) 项目。适用于 azd 核心配置、azure.yaml、AZD 模板、infra 目录下的 Bicep 或 Terraform 代码、环境与机密配置、生命周期钩子 (hooks)、部署工作流及 azd 托管的 CI/CD 流水线。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "arize-ai-provider-integration"
-description: "Creates, reads, updates, and deletes Arize AI integrations that store LLM provider credentials used by evaluators and other Arize features. Supports any LLM provider (e.g. OpenAI, Anthropic, Azure OpenAI, AWS Bedrock, Vertex AI, Gemini, NVIDIA NIM). Use when the user mentions AI integration, LLM provider credentials, create integration, list integrations, update credentials, delete integration, or connecting an LLM provider to Arize."
+description: "管理 Arize AI 集成（增删改查），用于配置评估器及其他 Arize 功能所需的 LLM 提供商凭据。支持各类主流 LLM 服务商（如 OpenAI、Anthropic、Azure OpenAI、AWS Bedrock、Vertex AI、Gemini、NVIDIA NIM 等）。适用于配置 AI 集成、管理 LLM 凭据、创建/查看/更新/删除集成，或将 LLM 提供商接入 Arize 的场景。"
 version: "1.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "azure-storage-blob-py"
-description: "Azure Blob Storage SDK for Python. Use for uploading, downloading, listing blobs, managing containers, and blob lifecycle. Triggers: \"blob storage\", \"BlobServiceClient\", \"ContainerClient\", \"BlobClient\", \"upload blob\", \"download blob\"."
+description: "Python 版 Azure Blob Storage SDK。支持上传、下载与列举 Blob，管理存储容器及 Blob 生命周期。触发词：blob storage、BlobServiceClient、ContainerClient、BlobClient、upload blob、download blob。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "data-breach-blast-radius"
-description: "Pre-breach impact analysis: inventories sensitive data (PII, PHI, PCI-DSS, credentials), traces data flows, scores exposure vectors, and produces a regulatory blast radius report with fine ranges sourced verbatim from GDPR Art. 83, CCPA § 1798.155(a), and HIPAA 45 CFR § 160.404. Cost benchmarks from IBM Cost of a Data Breach Report (annually updated). All citations in references/SOURCES.md for verification. Use when asked: \"assess breach impact\", \"what data could be exposed\", \"calculate blast radius\", \"data exposure analysis\", \"how bad would a breach be\", \"quantify data risk\", \"sensitive data inventory\", \"data flow security audit\", \"pre-breach assessment\", \"worst-case breach scenario\", \"breach readiness\", \"data risk report\", \"/data-breach-blast-radius\". For any stack handling user data, health records, or financial information. Output labels law-sourced figures (exact) vs heuristic estimates (planning only). Does not replace legal counsel."
+description: "数据泄露事前影响分析：全面盘点敏感数据（PII、PHI、PCI-DSS、凭证等），追踪数据流向，量化暴露风险，并生成合规“影响半径”报告。报告中的罚金区间严格逐字引自 GDPR 第 83 条、CCPA § 1798.155(a) 及 HIPAA 45 CFR § 160.404；损失基准源自每年更新的《IBM 数据泄露成本报告》（详见 references/SOURCES.md 供核验）。\n\n适用于处理用户数据、医疗记录或金融信息的任何技术栈。当需要“评估泄露影响”、“分析数据暴露面”、“计算影响半径”、“量化数据风险”、“盘点敏感数据”、“审计数据流安全”、“模拟最坏泄露后果”或调用 `/data-breach-blast-radius` 时使用。输出结果明确区分法定确切数值与规划估算指标。注意：本评估不能替代专业法律意见。"
 version: "1.0.0"
 license: "MIT"
 ---

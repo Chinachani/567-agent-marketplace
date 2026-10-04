@@ -1,6 +1,6 @@
 ---
 name: "suggest-awesome-github-copilot-agents"
-description: "Suggest relevant GitHub Copilot Custom Agents files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing custom agents in this repository, and identifying outdated agents that need updates."
+description: "结合当前仓库上下文与对话记录，从 awesome-copilot 仓库推荐适用的 GitHub Copilot 自定义智能体文件，自动过滤本地已有配置，并识别需更新的旧版智能体。"
 version: "1.0.0"
 license: "MIT"
 ---

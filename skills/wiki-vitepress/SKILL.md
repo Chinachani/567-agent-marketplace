@@ -1,6 +1,6 @@
 ---
 name: "wiki-vitepress"
-description: "Packages generated wiki Markdown into a VitePress static site with dark theme, dark-mode Mermaid diagrams with click-to-zoom, and production build output. Use when the user wants to create a browsable website from generated wiki pages."
+description: "将生成的 Wiki Markdown 打包为 VitePress 静态站点，配备暗色主题、支持点击放大的深色模式 Mermaid 图表，并输出生产构建产物。适用于需要将生成的 Wiki 页面转化为可浏览网站的场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "competitor-ad-intelligence"
-description: "Use this skill when the user asks to analyze, tear down, or reverse-engineer a competitor's paid ads. Trigger for prompts like \"what ads is [competitor] running\", \"tear down their ad strategy\", \"competitor ad analysis\", \"find ad angles we haven't tried\", or \"reverse-engineer their paid funnel\". Do not trigger for organic/SEO competitor research or website positioning analysis."
+description: "用于分析、拆解或逆向推导竞品的付费广告策略。适用于“【竞品】在投放哪些广告”、“拆解其广告策略”、“竞品广告分析”、“挖掘我们尚未尝试的广告切入点”或“反向推导其付费投放漏斗”等诉求。注意：请勿在进行自然流量/SEO竞品调研或网站定位分析时触发。"
 version: "1.0"
 license: "MIT"
 compatibility: 'Cross-platform. Uses web search and public ad libraries (Meta Ad Library, Google Ads Transparency Center) only — no API keys or credentials required.'

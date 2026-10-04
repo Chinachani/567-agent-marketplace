@@ -1,6 +1,6 @@
 ---
 name: "mcp-security-audit"
-description: "Audit MCP (Model Context Protocol) server configurations for security issues. Use this skill when: - Reviewing .mcp.json files for security risks - Checking MCP server args for hardcoded secrets or shell injection patterns - Validating that MCP servers use pinned versions (not @latest) - Detecting unpinned dependencies in MCP server configurations - Auditing which MCP servers a project registers and whether they're on an approved list - Checking for environment variable usage vs. hardcoded credentials in MCP configs - Any request like \"is my MCP config secure?\", \"audit my MCP servers\", or \"check .mcp.json\" keywords: [mcp, security, audit, secrets, shell-injection, supply-chain, governance]"
+description: "全面审计 MCP（模型上下文协议）服务器配置的安全隐患。适用于以下场景：\n- 审查 .mcp.json 文件中的安全漏洞\n- 检测 MCP 服务启动参数中的硬编码机密或 Shell 注入风险\n- 验证服务及依赖是否锁定具体版本（避免使用 @latest 等动态标签）\n- 审计项目注册的 MCP 服务是否符合安全白名单或准入规范\n- 检查凭据配置是否规范采用环境变量而非明文硬编码\n- 处理诸如“我的 MCP 配置安全吗？”、“审计我的 MCP 服务”或“检查 .mcp.json”等安全评估需求\n\n关键词：MCP、安全、审计、机密凭据、Shell 注入、供应链安全、合规治理"
 version: "1.0.0"
 license: "MIT"
 ---

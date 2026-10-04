@@ -1,6 +1,6 @@
 ---
 name: "generate-image"
-description: "Generate images using AI. Use when asked to generate, create, or make images, textures, icons, sprites, artwork, visual assets, or mockups. Supports OpenAI (gpt-image-2) and Google Gemini (Nano Banana). Requires an API key for the chosen provider."
+description: "使用 AI 生成图像。当需要生成、创建或制作图片、纹理、图标、精灵图、艺术作品、视觉素材或原型效果图时调用。支持 OpenAI (gpt-image-2) 和 Google Gemini (Nano Banana)。使用前需配置对应服务商的 API 密钥。"
 version: "2.1.0"
 license: "MIT"
 argument-hint: "[description of the image to generate]"

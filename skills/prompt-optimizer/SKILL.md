@@ -1,6 +1,6 @@
 ---
 name: "prompt-optimizer"
-description: "Turn any rough prompt, half-formed idea, or task description into a finished, ready-to-send prompt optimized for any LLM model inside a chat interface — NOT the API. Use this skill whenever the user wants to write, rewrite, optimize, improve, sharpen, or polish a prompt for chat. Trigger phrases include \"rewrite this prompt\", \"make this a better prompt\", \"optimize this prompt\", \"turn this into a prompt\", \"help me prompt this\", \"draft a prompt that...\", \"I want to ask...\", or whenever the user pastes a draft prompt and asks for improvements. Also trigger when the user describes a task they plan to send to an LLM model and clearly wants a reusable, well-structured prompt rather than a direct answer. The output is always a single, copy-pasteable prompt in a code block that the user sends as-is — never a template with placeholders."
+description: "将任何粗糙的提示词草稿、雏形想法或任务描述，转化为专为聊天界面（非API）优化、开箱即用的最终提示词。适用于编写、重写、优化或润色对话提示词的场景。触发短语包括“重写提示词”、“优化提示词”、“帮我写个提示词”、“把这个转成提示词”、“我想问……”或粘贴草稿寻求改进；当用户描述任务且明确需要一份结构规范的高质量提示词而非直接答案时同样适用。输出始终为置于代码块中、支持一键复制直接发送的完整提示词，绝不提供含占位符的半成品模板。"
 version: "1.0.0"
 license: "MIT"
 ---

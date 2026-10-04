@@ -1,6 +1,6 @@
 ---
 name: "review-and-refactor"
-description: "Review and refactor code in your project according to defined instructions"
+description: "根据指定要求审查并重构项目代码"
 version: "1.0.0"
 license: "MIT"
 ---

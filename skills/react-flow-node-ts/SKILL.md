@@ -1,6 +1,6 @@
 ---
 name: "react-flow-node-ts"
-description: "Create React Flow node components with TypeScript types, handles, and Zustand integration. Use when building custom nodes for React Flow canvas, creating visual workflow editors, or implementing node-based UI components."
+description: "构建集成 TypeScript 类型、连接桩（Handle）与 Zustand 状态管理的 React Flow 自定义节点组件。适用于为 React Flow 画布定制节点、开发可视化工作流编辑器或实现节点式 UI 组件。"
 version: "1.0.0"
 license: "MIT"
 metadata:

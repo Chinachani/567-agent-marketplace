@@ -1,6 +1,6 @@
 ---
 name: "azure-resource-manager-mysql-dotnet"
-description: "Azure MySQL Flexible Server SDK for .NET. Database management for MySQL Flexible Server deployments. Use for creating servers, databases, firewall rules, configurations, backups, and high availability. Triggers: \"MySQL\", \"MySqlFlexibleServer\", \"MySQL Flexible Server\", \"Azure Database for MySQL\", \"MySQL database management\", \"MySQL firewall\", \"MySQL backup\"."
+description: "适用于 .NET 的 Azure MySQL 灵活服务器 SDK。用于管理 MySQL 灵活服务器部署，支持创建与管理服务器、数据库、防火墙规则、参数配置、备份及高可用性。触发词：MySQL、MySqlFlexibleServer、MySQL Flexible Server、Azure Database for MySQL、MySQL 数据库管理、MySQL 防火墙、MySQL 备份。"
 version: "1.0.0"
 license: "MIT"
 metadata:

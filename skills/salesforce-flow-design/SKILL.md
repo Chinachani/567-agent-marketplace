@@ -1,6 +1,6 @@
 ---
 name: "salesforce-flow-design"
-description: "Salesforce Flow architecture decisions, flow type selection, bulk safety validation, and fault handling standards. Use this skill when designing or reviewing Record-Triggered, Screen, Autolaunched, Scheduled, or Platform Event flows to ensure correct type selection, no DML/Get Records in loops, proper fault connectors on all data-changing elements, and appropriate automation density checks before deployment."
+description: "指导 Salesforce Flow 架构决策、类型选型、批量安全校验及异常处理规范。在设计或审查记录触发流、屏幕流、自动启动流、定时调度流或平台事件流时运用此技能，确保流程选型精准，杜绝循环内执行 DML 或数据查询，为所有数据变更节点配置完善的容错分支，并在部署前完成自动化密度审查。"
 version: "1.0.0"
 license: "MIT"
 ---

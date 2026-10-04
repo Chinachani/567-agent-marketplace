@@ -1,6 +1,6 @@
 ---
 name: "python-pypi-package-builder"
-description: "End-to-end skill for building, testing, linting, versioning, and publishing a production-grade Python library to PyPI. Covers all four build backends (setuptools+setuptools_scm, hatchling, flit, poetry), PEP 440 versioning, semantic versioning, dynamic git-tag versioning, OOP/SOLID design, type hints (PEP 484/526/544/561), Trusted Publishing (OIDC), and the full PyPA packaging flow. Use for: creating Python packages, pip-installable SDKs, CLI tools, framework plugins, pyproject.toml setup, py.typed, setuptools_scm, semver, mypy, pre-commit, GitHub Actions CI/CD, or PyPI publishing."
+description: "端到端掌握生产级 Python 库的构建、测试、代码检查、版本管理与 PyPI 发布全流程。全面覆盖四大构建后端（setuptools+setuptools_scm、hatchling、flit、poetry）、PEP 440 规范、语义化版本、Git Tag 动态版本管理、OOP/SOLID 设计原则、PEP 规范类型提示（PEP 484/526/544/561）、OIDC 可信发布机制及标准 PyPA 打包规范。适用于创建 Python 软件包、可 pip 安装的 SDK、CLI 命令行工具、框架插件，以及配置 pyproject.toml、py.typed、mypy、pre-commit、GitHub Actions CI/CD 流水线与自动化发布 PyPI。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "agentic-eval"
-description: "Patterns and techniques for evaluating and improving AI agent outputs. Use this skill when: - Implementing self-critique and reflection loops - Building evaluator-optimizer pipelines for quality-critical generation - Creating test-driven code refinement workflows - Designing rubric-based or LLM-as-judge evaluation systems - Adding iterative improvement to agent outputs (code, reports, analysis) - Measuring and improving agent response quality"
+description: "用于评估与优化 AI Agent 输出质量的核心模式与技术方案。\n\n适用场景：\n- 实现自我批判与反思闭环机制\n- 为质量敏感型生成任务搭建“评估-优化”流水线\n- 构建测试驱动的代码迭代优化工作流\n- 设计基于评分准则或 LLM 裁判（LLM-as-judge）的评估系统\n- 为 Agent 输出成果（代码、报告、分析等）引入多轮迭代改进\n- 量化评估并持续提升 Agent 的响应质量"
 version: "1.0.0"
 license: "MIT"
 ---

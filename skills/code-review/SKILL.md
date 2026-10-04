@@ -1,6 +1,6 @@
 ---
 name: "code-review"
-description: "Review pull requests for repository fit, meaningful value, trustworthy provenance, differentiation, and maintainability in awesome-copilot."
+description: "审查 awesome-copilot 的 Pull Request，严格评估项目契合度、实用价值、来源可靠性、独特性及可维护性。"
 version: "1.0.0"
 license: "MIT"
 ---

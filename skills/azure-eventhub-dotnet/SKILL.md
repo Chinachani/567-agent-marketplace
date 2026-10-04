@@ -1,6 +1,6 @@
 ---
 name: "azure-eventhub-dotnet"
-description: "Azure Event Hubs SDK for .NET. Use for high-throughput event streaming: sending events (EventHubProducerClient, EventHubBufferedProducerClient), receiving events (EventProcessorClient with checkpointing), partition management, and real-time data ingestion. Triggers: \"Event Hubs\", \"event streaming\", \"EventHubProducerClient\", \"EventProcessorClient\", \"send events\", \"receive events\", \"checkpointing\", \"partition\"."
+description: "使用 Azure Event Hubs .NET SDK 实现高吞吐量事件流处理。支持通过 EventHubProducerClient 和 EventHubBufferedProducerClient 发送事件，利用具备检查点（checkpointing）机制的 EventProcessorClient 消费事件，以及执行分区管理与实时数据接入。触发词：Event Hubs、事件流处理（event streaming）、EventHubProducerClient、EventProcessorClient、发送事件、接收事件、检查点机制、分区管理。"
 version: "1.0.0"
 license: "MIT"
 metadata:

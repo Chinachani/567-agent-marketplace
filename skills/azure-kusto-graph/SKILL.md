@@ -1,6 +1,6 @@
 ---
 name: "azure-kusto-graph"
-description: "Build and query Kusto graphs from natural language. Covers transient graphs (make-graph), persistent graph models/snapshots, pattern matching (graph-match), shortest paths, connected components, and graph-to-table export. Generates the edges-first thinking: define edges, define node lookups, union, make-graph. WHEN: make-graph, graph-match, graph-shortest-paths, graph-to-table, graph-mark-components, persistent graph, graph model, graph snapshot, build a graph from data, find paths between nodes, pattern matching in graph, connected components, transient graph, Kusto graph, KQL graph."
+description: "基于自然语言构建和查询 Kusto 图。全面支持临时图 (make-graph)、持久化图模型/快照、模式匹配 (graph-match)、最短路径计算、连通分量分析以及图转表导出。遵循“边优先”构建逻辑：定义边、定义节点查找、合并（union）并生成图（make-graph）。适用于需要执行 make-graph、graph-match、graph-shortest-paths、graph-to-table、graph-mark-components，或进行 Kusto/KQL 图构建、节点路径查找、图模式匹配与连通分量分析等场景。"
 version: "1.2.1"
 license: "MIT"
 metadata:

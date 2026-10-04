@@ -1,6 +1,6 @@
 ---
 name: "azure-keyvault-certificates-rust"
-description: "Azure Key Vault Certificates library for Rust. Create, manage, and use X.509 certificates including self-signed and CA-issued. Triggers: \"keyvault certificates rust\", \"CertificateClient rust\", \"create certificate rust\", \"self-signed certificate rust\", \"X.509 rust\"."
+description: "使用 Rust 语言的 Azure Key Vault 证书库创建、管理和调用 X.509 证书（涵盖自签名与 CA 签发证书）。适用于 Key Vault 证书开发、CertificateClient 客户端调用、证书生成及 Rust 下的 X.509 证书管理场景。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "terraform-azurerm-set-diff-analyzer"
-description: "Analyze Terraform plan JSON output for AzureRM Provider to distinguish between false-positive diffs (order-only changes in Set-type attributes) and actual resource changes. Use when reviewing terraform plan output for Azure resources like Application Gateway, Load Balancer, Firewall, Front Door, NSG, and other resources with Set-type attributes that cause spurious diffs due to internal ordering changes."
+description: "分析 AzureRM Provider 的 Terraform plan JSON 输出，精准区分实际资源变更与假阳性差异（Set 类型属性仅因顺序调整导致的误报）。适用于审查 Application Gateway、Load Balancer、Firewall、Front Door、NSG 等包含 Set 类型属性的 Azure 资源，高效过滤因内部排序变动引起的虚假变更。"
 version: "1.0.0"
 license: "MIT"
 ---

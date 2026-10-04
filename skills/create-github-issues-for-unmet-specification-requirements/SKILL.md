@@ -1,6 +1,6 @@
 ---
 name: "create-github-issues-for-unmet-specification-requirements"
-description: "Create GitHub Issues for unimplemented requirements from specification files using feature_request.yml template."
+description: "基于规范文件中的未实现需求，使用 feature_request.yml 模板创建 GitHub Issue"
 version: "1.0.0"
 license: "MIT"
 ---

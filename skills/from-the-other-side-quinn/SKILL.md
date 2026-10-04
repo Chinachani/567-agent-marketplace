@@ -1,6 +1,6 @@
 ---
 name: "from-the-other-side-quinn"
-description: "Collaboration profile for Quinn: curious, energetic, and implementation-focused partnership patterns for Ember sessions with Alison."
+description: "Quinn 协作画像：针对与 Alison 的 Ember 研讨，提供富有探索欲、活力充沛且注重落地执行的协作模式。"
 version: "1.0.0"
 license: "MIT"
 ---

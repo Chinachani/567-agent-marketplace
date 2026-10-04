@@ -1,6 +1,6 @@
 ---
 name: "poka-yoke"
-description: "Mistake-proof code so misuse cannot be expressed, rather than warning against it. Use when designing an interface, schema, or state machine and the user wants it hard to get wrong (\"make invalid states unrepresentable\", \"so callers cannot screw it up\", \"type-safe API\", \"pit of success\"); when auditing existing code for footguns (\"what could bite us here\", \"what is easy to misuse\", \"poka-yoke this repo\", \"review this diff for ways to get it wrong\"); or when a bug has recurred and the fix must close the class rather than the case (\"make sure this never happens again\", \"this is the third time\"). Especially for money, auth, permissions, deletion, migrations, and pipelines where failure is silent. Classifies every finding by what happens when the mistake occurs and how the device notices, which is what keeps it from collapsing into generic code review."
+description: "构建防错（防呆）代码，从类型与设计层面彻底消除错误被表达的可能，而非仅依赖被动告警。适用于：设计接口、Schema 或状态机时追求“极难用错”（如消除非法状态、杜绝调用方误用、打造类型安全 API、构建顺理成章的“成功之坑”架构）；审查既有代码与变更中的潜在暗坑（如排查易误用逻辑、开展代码防呆审计）；以及应对复发性缺陷时彻底根除整类问题而非单点修补（如杜绝重蹈覆辙）。重点防护涉及资金、认证、权限、数据删除、数据迁移及存在静默失败风险的流水线。依据“出错后果”与“系统检测拦截机制”对每个隐患进行分类定级，提供远超常规代码审查的结构化防护。"
 version: "1.0"
 license: "MIT"
 compatibility: 'Cross-platform. The bundled scanner needs Python 3.9+ and no third-party packages. Everything else is language-agnostic guidance; worked examples are TypeScript, Python, Go, Rust and SQL.'

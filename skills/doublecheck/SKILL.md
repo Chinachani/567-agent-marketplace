@@ -1,6 +1,6 @@
 ---
 name: "doublecheck"
-description: "Three-layer verification pipeline for AI output. Extracts verifiable claims, finds supporting or contradicting sources via web search, runs adversarial review for hallucination patterns, and produces a structured verification report with source links for human review."
+description: "针对AI输出内容的三重核查机制：自动提取可验证事实，联网检索比对支持与反驳信源，针对幻觉特征开展对抗性审查，并生成附带溯源链接的结构化核查报告，便于人工高效复审。"
 version: "1.0.0"
 license: "MIT"
 ---

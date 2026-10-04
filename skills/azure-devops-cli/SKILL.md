@@ -1,6 +1,6 @@
 ---
 name: "azure-devops-cli"
-description: "Manage Azure DevOps resources via CLI including projects, repos, pipelines, builds, pull requests, work items, artifacts, and service endpoints. Use when working with Azure DevOps, az commands, devops automation, CI/CD, or when user mentions Azure DevOps CLI."
+description: "通过 CLI 全面管理 Azure DevOps 资源，涵盖项目、代码仓库、流水线、构建、拉取请求、工作项、制品及服务连接。适用于操作 Azure DevOps、执行 az 命令、实现 DevOps 自动化与 CI/CD 流程，或涉及 Azure DevOps CLI 的场景。"
 version: "1.0.0"
 license: "MIT"
 ---

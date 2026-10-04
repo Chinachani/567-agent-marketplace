@@ -1,6 +1,6 @@
 ---
 name: "java-mcp-server-generator"
-description: "Generate a complete Model Context Protocol server project in Java using the official MCP Java SDK with reactive streams and optional Spring Boot integration."
+description: "基于官方 MCP Java SDK 生成完整的 Java 版模型上下文协议 (MCP) 服务端项目，支持响应式流并可选集成 Spring Boot。"
 version: "1.0.0"
 license: "MIT"
 ---

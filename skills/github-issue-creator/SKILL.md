@@ -1,6 +1,6 @@
 ---
 name: "github-issue-creator"
-description: "Convert raw notes, error logs, voice dictation, or screenshots into crisp GitHub-flavored markdown issue reports. Use when the user pastes bug info, error messages, or informal descriptions and wants a structured GitHub issue. Supports images/GIFs for visual evidence."
+description: "将原始笔记、错误日志、语音转写或截图一键转化为规范利落的 GitHub 风格 Markdown Issue 报告。适用于需要将零散 Bug 信息、报错内容或口语化描述整理为结构化 Issue 的场景，支持添加图片或 GIF 作为视觉凭证。"
 version: "1.0.0"
 license: "MIT"
 ---

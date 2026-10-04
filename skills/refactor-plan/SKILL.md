@@ -1,6 +1,6 @@
 ---
 name: "refactor-plan"
-description: "Create a concrete plan before starting a multi-file refactor. Use when the user asks to plan, sequence, scope, or safely execute a refactor across multiple files; always investigate first, output the plan, and wait for confirmation before making code changes."
+description: "在启动多文件重构前制定具体方案。适用于规划、编排步骤、划定范围或安全执行跨多文件重构的场景；务必先调研排查并输出方案，获得确认后再修改代码。"
 version: "1.0.0"
 license: "MIT"
 ---

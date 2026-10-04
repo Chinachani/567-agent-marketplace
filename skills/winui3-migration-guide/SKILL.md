@@ -1,6 +1,6 @@
 ---
 name: "winui3-migration-guide"
-description: "UWP-to-WinUI 3 migration reference. Maps legacy UWP APIs to correct Windows App SDK equivalents with before/after code snippets. Covers namespace changes, threading (CoreDispatcher to DispatcherQueue), windowing (CoreWindow to AppWindow), dialogs, pickers, sharing, printing, background tasks, and the most common Copilot code generation mistakes."
+description: "UWP 到 WinUI 3 迁移参考指南。提供前后代码对比示例，将旧版 UWP API 精准映射至 Windows App SDK 等效项。涵盖命名空间变更、线程模型（CoreDispatcher 迁移至 DispatcherQueue）、窗口机制（CoreWindow 迁移至 AppWindow），以及对话框、选取器、共享、打印、后台任务，并包含 Copilot 最常见代码生成错误的修正与避坑指南。"
 version: "1.0.0"
 license: "MIT"
 ---

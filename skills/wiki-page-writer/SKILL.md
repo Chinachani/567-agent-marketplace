@@ -1,6 +1,6 @@
 ---
 name: "wiki-page-writer"
-description: "Generates rich technical documentation pages with dark-mode Mermaid diagrams, source code citations, and first-principles depth. Use when writing documentation, generating wiki pages, creating technical deep-dives, or documenting specific components or systems."
+description: "生成包含深色模式 Mermaid 架构图、源码引用及第一性原理深度解析的高质量技术文档。适用于撰写开发文档、构建 Wiki 知识库、开展技术深度剖析，或为特定组件与系统沉淀技术规格。"
 version: "1.0.0"
 license: "MIT"
 metadata:

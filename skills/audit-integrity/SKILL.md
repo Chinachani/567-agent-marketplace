@@ -1,6 +1,6 @@
 ---
 name: "audit-integrity"
-description: "Enforce output quality, evidence verification, and quality gates across security audits. Use this skill when you perform SAST, SCA, threat modeling, or security code reviews. Use this skill to verify code locations and taint traces for all findings. Use this skill to prevent the suppression of valid security findings. Use this skill to evaluate reports against quality thresholds (score ≥ 8/10) before delivery."
+description: "严把安全审计全流程的交付质量、证据验证与质量门禁。适用于执行静态代码分析（SAST）、软件成分分析（SCA）、威胁建模或安全代码审查等任务。使用该技能可核验所有漏洞的代码定位与污点传播路径，防止有效安全发现被遗漏或误抑制，并在交付前严格对照质量阈值标准（评分 ≥ 8/10）评估并把关报告质量。"
 version: "1.1"
 license: "MIT"
 metadata:

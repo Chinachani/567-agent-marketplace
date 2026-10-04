@@ -1,6 +1,6 @@
 ---
 name: "azure-web-pubsub-ts"
-description: "Build real-time messaging applications using Azure Web PubSub SDKs for JavaScript (@azure/web-pubsub, @azure/web-pubsub-client). Use when implementing WebSocket-based real-time features, pub/sub messaging, group chat, or live notifications."
+description: "使用 Azure Web PubSub JavaScript SDK（@azure/web-pubsub、@azure/web-pubsub-client）构建实时消息应用。适用于开发基于 WebSocket 的实时功能、发布/订阅消息、群组聊天或实时通知。"
 version: "1.0.0"
 license: "MIT"
 metadata:

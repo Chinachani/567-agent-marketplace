@@ -1,6 +1,6 @@
 ---
 name: "azure-monitor-query-java"
-description: "Azure Monitor Query SDK for Java. Execute Kusto queries against Log Analytics workspaces and query metrics from Azure resources. Triggers: \"LogsQueryClient java\", \"MetricsQueryClient java\", \"kusto query java\", \"log analytics java\", \"azure monitor query java\". Note: This package is deprecated. Migrate to azure-monitor-query-logs and azure-monitor-query-metrics."
+description: "面向 Java 的 Azure Monitor 查询 SDK。支持对 Log Analytics 工作区执行 Kusto 查询，以及检索 Azure 资源的监控指标数据。触发词：\"LogsQueryClient java\"、\"MetricsQueryClient java\"、\"kusto query java\"、\"log analytics java\"、\"azure monitor query java\"。注意：该软件包已弃用，建议迁移至 azure-monitor-query-logs 和 azure-monitor-query-metrics。"
 version: "1.0.0"
 license: "MIT"
 metadata:

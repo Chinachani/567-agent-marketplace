@@ -1,6 +1,6 @@
 ---
 name: "skill-creator"
-description: "Guide for creating effective skills for AI coding agents working with Azure SDKs and Microsoft Foundry services. Use when creating new skills or updating existing skills."
+description: "面向 Azure SDK 与 Microsoft Foundry 服务的 AI 编程 Agent 技能开发指南。适用于创建新技能或迭代现有技能。"
 version: "1.0.0"
 license: "MIT"
 ---

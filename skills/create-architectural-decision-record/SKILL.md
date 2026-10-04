@@ -1,6 +1,6 @@
 ---
 name: "create-architectural-decision-record"
-description: "Create an Architectural Decision Record (ADR) document for AI-optimized decision documentation."
+description: "创建面向 AI 优化的架构决策记录（ADR）文档。"
 version: "1.0.0"
 license: "MIT"
 ---

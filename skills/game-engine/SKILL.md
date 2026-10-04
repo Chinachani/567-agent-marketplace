@@ -1,6 +1,6 @@
 ---
 name: "game-engine"
-description: "Expert skill for building web-based game engines and games using HTML5, Canvas, WebGL, and JavaScript. Use when asked to create games, build game engines, implement game physics, handle collision detection, set up game loops, manage sprites, add game controls, or work with 2D/3D rendering. Covers techniques for platformers, breakout-style games, maze games, tilemaps, audio, multiplayer via WebRTC, and publishing games."
+description: "精通使用 HTML5、Canvas、WebGL 和 JavaScript 构建网页游戏与自研引擎。适用于开发完整游戏、搭建底层引擎、实现物理效果与碰撞检测、构建游戏主循环、管理精灵图、绑定交互控制以及进行 2D/3D 渲染。全面覆盖平台跳跃、打砖块、迷宫等玩法开发，以及瓦片地图、音频系统、WebRTC 多人联机和游戏发布等完整技术方案。"
 version: "1.0.0"
 license: "MIT"
 ---

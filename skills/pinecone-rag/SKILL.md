@@ -1,6 +1,6 @@
 ---
 name: "pinecone-rag"
-description: "Build production RAG pipelines and persistent agent memory using Pinecone as the vector database backend. ALWAYS USE THIS SKILL when the user mentions Pinecone, wants to index documents for semantic search, build a retrieval-augmented generation system, store agent memory across sessions, implement hybrid search, or connect an LLM to a searchable knowledge base — even if they don't say \"Pinecone\" explicitly. Also use when the user asks about vector databases for RAG, namespace isolation for multi-tenant agents, embedding pipelines, or scaling a knowledge base beyond what local storage can handle. DO NOT use for local-only vector stores (Chroma, FAISS, pgvector) or pure keyword search with no semantic component."
+description: "基于 Pinecone 向量数据库构建生产级 RAG 流水线与持久化智能体记忆。当用户提及 Pinecone，或需要为语义搜索建立文档索引、构建检索增强生成（RAG）系统、实现跨会话智能体记忆、落地混合检索，以及将大模型接入可检索知识库时——即使用户未明确提及“Pinecone”——均应触发此技能。同样适用于咨询 RAG 向量数据库、多租户智能体的命名空间隔离、向量嵌入处理流水线，或需要突破本地存储限制扩展知识库的场景。若仅涉及纯本地向量数据库（如 Chroma、FAISS、pgvector）或不含语义成分的纯关键词检索，请勿使用此技能。"
 version: "1.0.0"
 license: "Apache-2.0"
 compatibility: "pinecone>=6.0.0, Python 3.10+"

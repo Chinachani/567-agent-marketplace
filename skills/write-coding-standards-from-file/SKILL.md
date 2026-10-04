@@ -1,6 +1,6 @@
 ---
 name: "write-coding-standards-from-file"
-description: "Write a coding standards document for a project using the coding styles from the file(s) and/or folder(s) passed as arguments in the prompt."
+description: "基于提示词中指定的文件或文件夹的代码风格，为项目编写代码规范文档。"
 version: "1.0.0"
 license: "MIT"
 ---

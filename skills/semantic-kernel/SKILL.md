@@ -1,6 +1,6 @@
 ---
 name: "semantic-kernel"
-description: "Create, update, refactor, explain, or review Semantic Kernel solutions using shared guidance plus language-specific references for .NET and Python."
+description: "基于通用指南及面向 .NET 与 Python 的特定语言参考，创建、更新、重构、解析或审查 Semantic Kernel 解决方案。"
 version: "1.0.0"
 license: "MIT"
 ---

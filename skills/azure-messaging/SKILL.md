@@ -1,6 +1,6 @@
 ---
 name: "azure-messaging"
-description: "Troubleshoot and resolve issues with Azure Messaging SDKs for Event Hubs and Service Bus. Covers connection failures, authentication errors, message processing issues, and SDK configuration problems. WHEN: event hub SDK error, service bus SDK issue, messaging connection failure, AMQP error, event processor host issue, message lock lost, message lock expired, lock renewal, lock renewal batch, send timeout, receiver disconnected, SDK troubleshooting, azure messaging SDK, event hub consumer, service bus queue issue, topic subscription error, enable logging event hub, service bus logging, eventhub python, servicebus java, eventhub javascript, servicebus dotnet, event hub checkpoint, event hub not receiving messages, service bus dead letter, batch processing lock, session lock expired, idle timeout, connection inactive, link detach, slow reconnect, session error, duplicate events, offset reset, receive batch."
+description: "排查并解决 Azure Event Hubs 和 Service Bus 消息 SDK 的各类故障。涵盖连接失败、认证错误、消息处理异常及 SDK 配置问题。适用于处理 Event Hub/Service Bus SDK 报错、AMQP 通信异常、事件处理器主机故障、消息锁丢失或续期失败、发送与接收超时、死信队列堆积、检查点失效、会话锁过期、链路断开与重连缓慢、重复消费、偏移量重置，以及多语言（Python、Java、JavaScript、.NET）SDK 调试与日志启用等场景。"
 version: "1.2.1"
 license: "MIT"
 metadata:

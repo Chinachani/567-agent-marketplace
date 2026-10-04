@@ -1,6 +1,6 @@
 ---
 name: "breakdown-epic-arch"
-description: "Prompt for creating the high-level technical architecture for an Epic, based on a Product Requirements Document."
+description: "基于产品需求文档（PRD），为 Epic 规划并构建顶层技术架构方案。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "power-apps-code-app-scaffold"
-description: "Scaffold a complete Power Apps Code App project with PAC CLI setup, SDK integration, and connector configuration"
+description: "搭建完整的 Power Apps 代码应用项目，包含 PAC CLI 配置、SDK 集成与连接器配置"
 version: "1.0.0"
 license: "MIT"
 ---

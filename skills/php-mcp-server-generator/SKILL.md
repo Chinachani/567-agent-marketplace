@@ -1,6 +1,6 @@
 ---
 name: "php-mcp-server-generator"
-description: "Generate a complete PHP Model Context Protocol server project with tools, resources, prompts, and tests using the official PHP SDK"
+description: "基于官方 PHP SDK 构建完整的 PHP Model Context Protocol 服务端项目，集成工具、资源、提示词与测试"
 version: "1.0.0"
 license: "MIT"
 ---

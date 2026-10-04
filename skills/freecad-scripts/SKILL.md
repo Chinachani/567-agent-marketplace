@@ -1,6 +1,6 @@
 ---
 name: "freecad-scripts"
-description: "Expert skill for writing FreeCAD Python scripts, macros, and automation. Use when asked to create FreeCAD models, parametric objects, Part/Mesh/Sketcher scripts, workbench tools, GUI dialogs with PySide, Coin3D scenegraph manipulation, or any FreeCAD Python API task. Covers FreeCAD scripting basics, geometry creation, FeaturePython objects, interface tools, and macro development."
+description: "精通 FreeCAD Python 脚本、宏及自动化开发。适用于构建 FreeCAD 模型、参数化对象、Part/Mesh/Sketcher 脚本、自定义工作台、PySide GUI 交互界面及 Coin3D 场景图控制等各类 Python API 开发任务。全面覆盖脚本基础、几何造型、FeaturePython 对象扩展与宏工具落地。"
 version: "1.0.0"
 license: "MIT"
 ---

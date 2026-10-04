@@ -1,6 +1,6 @@
 ---
 name: "security-review"
-description: "AI-powered codebase security scanner that reasons about code like a security researcher — tracing data flows, understanding component interactions, and catching vulnerabilities that pattern-matching tools miss. Use this skill when asked to scan code for security vulnerabilities, find bugs, check for SQL injection, XSS, command injection, exposed API keys, hardcoded secrets, insecure dependencies, access control issues, or any request like \"is my code secure?\", \"review for security issues\", \"audit this codebase\", or \"check for vulnerabilities\". Covers injection flaws, authentication and access control bugs, secrets exposure, weak cryptography, insecure dependencies, and business logic issues across JavaScript, TypeScript, Python, Java, PHP, Go, Ruby, and Rust."
+description: "AI驱动的代码库安全扫描工具，像专业安全研究员一样深度推导代码逻辑——精准追踪数据流、剖析组件交互，捕获传统模式匹配工具遗漏的高危漏洞。\n\n适用于扫描代码安全漏洞、排查Bug，检测SQL注入、XSS、命令注入、API密钥及硬编码凭据泄露、不安全依赖项、访问控制缺陷；响应诸如“我的代码安全吗？”、“审查安全问题”、“审计代码库”或“检查漏洞”等请求。\n\n全面支持JavaScript、TypeScript、Python、Java、PHP、Go、Ruby和Rust，深度覆盖注入缺陷、身份认证与权限控制漏洞、敏感信息泄露、弱加密、依赖项风险及业务逻辑缺陷。"
 version: "1.0.0"
 license: "MIT"
 ---

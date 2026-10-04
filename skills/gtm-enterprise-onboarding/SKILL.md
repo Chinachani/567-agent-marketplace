@@ -1,6 +1,6 @@
 ---
 name: "gtm-enterprise-onboarding"
-description: "Four-phase framework for onboarding enterprise customers from contract to value realization. Use when implementing new enterprise customers, preventing churn during onboarding, or solving the adoption cliff that kills deals post-go-live. Includes the Week 4 ghosting pattern."
+description: "从签约到价值实现的企业级客户导入四阶段框架。适用于推进新客户落地实施、防范导入期流失，以及化解系统上线后扼杀续约的使用率断崖危机；内含“第四周失联”典型现象的应对策略。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "nuget-manager"
-description: "Manage NuGet packages in .NET projects/solutions. Use this skill when adding, removing, or updating NuGet package versions. It enforces using `dotnet` CLI for package management and provides strict procedures for direct file edits only when updating versions."
+description: "管理 .NET 项目或解决方案中的 NuGet 包。适用于添加、移除或更新 NuGet 包版本的场景。该技能规范采用 `dotnet` CLI 进行包管理，并严格限制仅在更新版本时方可直接编辑文件。"
 version: "1.0.0"
 license: "MIT"
 ---

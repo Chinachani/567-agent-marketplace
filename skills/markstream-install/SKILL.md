@@ -1,6 +1,6 @@
 ---
 name: "markstream-install"
-description: "Install and configure Markstream streaming Markdown renderers for Vue, React, Svelte, Angular, Nuxt, and Vue 2 applications. Use for package selection, minimal peer dependencies, CSS order, SSR boundaries, streaming mode, and renderer setup."
+description: "为 Vue、React、Svelte、Angular、Nuxt 及 Vue 2 应用安装并配置 Markstream 流式 Markdown 渲染器。适用于依赖包选型、精简 peer 依赖、CSS 顺序优化、SSR 边界处理、流式模式及渲染器初始化设置。"
 version: "1.0.0"
 license: "MIT"
 compatibility: 'JavaScript or TypeScript frontend project using Vue 3, Nuxt 3/4, Vue 2.6/2.7, React 18+, Next.js, Angular 20+, or Svelte 5.'

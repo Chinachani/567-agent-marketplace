@@ -1,6 +1,6 @@
 ---
 name: "gtm-developer-ecosystem"
-description: "Build and scale developer-led adoption through ecosystem programs. Use when deciding open vs curated ecosystems, building developer programs, scaling platform adoption, or designing student program pipelines."
+description: "通过生态项目构建并规模化拓展开发者驱动的平台采用。适用于权衡开放与精选生态策略、打造开发者计划、扩大平台使用规模，或设计校园开发者培养与输送链路。"
 version: "1.0.0"
 license: "MIT"
 metadata:

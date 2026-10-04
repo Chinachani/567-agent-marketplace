@@ -1,6 +1,6 @@
 ---
 name: "ui-widget-developer"
-description: "Build MCP servers for Copilot Chat using the OpenAI Apps SDK or MCP Apps SDK widget rendering support (any language). Use this skill when: - Creating MCP servers that integrate with M365 Copilot declarative agents - Building rich interactive widgets (React + Fluent UI) that render in Copilot Chat - Implementing tools that return structuredContent for widget rendering - Adapting an existing MCP server to support Copilot widget rendering - Setting up devtunnels for localhost MCP server exposure - Configuring mcpPlugin.json manifests with RemoteMCPServer runtime Do NOT use this skill for general agent development (scaffolding, manifests, deployment) — use declarative-agent-developer instead. This skill is ONLY for MCP server + widget development. Triggers: \"MCP server for Copilot\", \"OpenAI Apps SDK\", \"Copilot widget\", \"structuredContent\", \"MCP plugin\", \"devtunnels MCP\", \"OAI app\", \"widget rendering\", \"UI widget\""
+description: "使用 OpenAI Apps SDK 或 MCP Apps SDK 的小组件渲染支持，为 Copilot Chat 构建跨语言的 MCP 服务。\n\n适用场景：\n- 创建与 M365 Copilot 声明式 Agent 集成的 MCP 服务\n- 构建在 Copilot Chat 中渲染的富交互小组件（React + Fluent UI）\n- 实现返回用于小组件渲染的 structuredContent 数据结构的工具\n- 改造现有 MCP 服务以适配 Copilot 小组件渲染\n- 配置 devtunnels 穿透以暴露本地 MCP 服务\n- 配置基于 RemoteMCPServer 运行时的 mcpPlugin.json 清单\n\n注意：请勿用于通用 Agent 开发（脚手架搭建、清单编写、部署等，此类场景请使用 declarative-agent-developer）。本技能仅专注于 MCP 服务与小组件开发。\n\n触发词：面向 Copilot 的 MCP 服务、OpenAI Apps SDK、Copilot 小组件、structuredContent、MCP 插件、devtunnels MCP、OAI 应用、小组件渲染、UI 小组件"
 version: "1.0.0"
 license: "MIT"
 ---

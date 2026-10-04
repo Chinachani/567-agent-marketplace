@@ -1,6 +1,6 @@
 ---
 name: "containerize-aspnet-framework"
-description: "Containerize an ASP.NET .NET Framework project by creating Dockerfile and .dockerfile files customized for the project."
+description: "定制编写 Dockerfile 与 .dockerfile 文件，将 ASP.NET .NET Framework 项目容器化。"
 version: "1.0.0"
 license: "MIT"
 ---

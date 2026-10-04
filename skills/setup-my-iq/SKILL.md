@@ -1,6 +1,6 @@
 ---
 name: "setup-my-iq"
-description: "Create, set up, or update the personal context portfolio: structured markdown files describing who you are, how you work, your teams, and your tool/ADO configuration. Runs the interview workflow for first-time setup and targeted edits for updates. Trigger this skill when the user asks to: set up their context, create or update their context portfolio, \"create my IQ\", \"set up my IQ\", edit their profile, add/remove a stakeholder, update ADO config, change team info, update pillars, or set up any plugin configuration. Trigger when another skill fails to find context (missing files or TODO markers) and needs context populated. Also trigger when the user mentions a context change in passing (e.g., \"my manager changed\", \"we added someone to the team\") to offer a context file update. Do NOT trigger for read-only questions like \"who's on my team?\" or \"what's my ADO config?\". Those are answered directly from the context files referenced in the loaded custom instructions; no skill is needed."
+description: "创建、初始化或更新个人背景资料库（Personal Context Portfolio）：生成并维护记录个人画像、工作习惯、团队构成及工具/ADO配置的结构化Markdown文件。首次设置时运行访谈引导流程，后续更新时执行定向编辑。\n\n触发场景：\n1. 用户主动要求：配置背景信息、创建或更新背景资料库、“创建/配置我的IQ（create/set up my IQ）”、编辑个人档案、增删干系人、更新ADO配置、变更团队信息、更新核心业务支柱（pillars）或配置任意插件。\n2. 其他技能因缺少文件或存在TODO标记而无法读取背景、亟需补全信息时触发。\n3. 用户在闲聊或对话中顺带提及背景变动（如“我换主管了”、“团队新来了同事”）时触发，以主动提议更新背景文件。\n\n禁用场景：\n切勿在只读查询时触发（例如“团队成员有谁？”、“我的ADO配置是什么？”）。此类问题直接基于自定义指令中已引用的上下文文件回答即可，无需调用此技能。"
 version: "1.0.0"
 license: "MIT"
 ---

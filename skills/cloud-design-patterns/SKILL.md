@@ -1,6 +1,6 @@
 ---
 name: "cloud-design-patterns"
-description: "Cloud design patterns for distributed systems architecture covering 42 industry-standard patterns across reliability, performance, messaging, security, and deployment categories. Use when designing, reviewing, or implementing distributed system architectures."
+description: "涵盖可靠性、性能、消息传递、安全与部署等维度的 42 项行业标准云设计模式。适用于分布式系统架构的设计、评审与落地实施。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,6 +1,6 @@
 ---
 name: "azure-appconfiguration-py"
-description: "Azure App Configuration SDK for Python. Use for centralized configuration management, feature flags, and dynamic settings. Triggers: \"azure-appconfiguration\", \"AzureAppConfigurationClient\", \"feature flags\", \"configuration\", \"key-value settings\"."
+description: "Python 版 Azure App Configuration SDK。用于集中管理应用配置、控制功能开关（Feature Flags）及更新动态设置。触发词：\"azure-appconfiguration\"、\"AzureAppConfigurationClient\"、\"feature flags\"、\"configuration\"、\"key-value settings\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

@@ -1,6 +1,6 @@
 ---
 name: "test-driven-development"
-description: "Drives development with tests using the red-green-refactor loop. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing functionality."
+description: "基于“红-绿-重构”循环开展测试驱动开发。适用于实现任何业务逻辑、修复 Bug 或变更现有行为；在需要验证代码正确性、排查缺陷报告或准备修改既有功能时使用。"
 version: "1.0.0"
 license: "MIT"
 ---

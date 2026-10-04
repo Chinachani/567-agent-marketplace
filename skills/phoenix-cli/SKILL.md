@@ -1,6 +1,6 @@
 ---
 name: "phoenix-cli"
-description: "Debug LLM applications using the Phoenix CLI. Fetch traces, analyze errors, structure trace review with open coding and axial coding, inspect datasets, review experiments, query annotation configs, and use the GraphQL API. Use whenever the user is analyzing traces or spans, investigating LLM/agent failures, deciding what to do after instrumenting an app, building failure taxonomies, choosing what evals to write, or asking \"what's going wrong\", \"what kinds of mistakes\", or \"where do I focus\" — even without naming a technique."
+description: "使用 Phoenix CLI 调试 LLM 应用程序。支持抓取调用链路（Traces）、分析错误原因、运用开放式与主轴编码规范化复盘追踪日志、审查数据集与实验结果、查询标注配置，以及调用 GraphQL API。适用于分析 Trace 或 Span、排查 LLM/Agent 故障、制定埋点后的优化行动、构建错误分类体系、设计评测策略，或探究“哪里出了问题”、“存在哪些错误模式”、“该优先关注什么”等场景（即使用户未明确提及具体技术名词）。"
 version: "3.3.0"
 license: "Apache-2.0"
 compatibility: Requires Node.js (for npx) or global install of @arizeai/phoenix-cli. Optionally requires jq for JSON processing.

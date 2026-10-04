@@ -1,6 +1,6 @@
 ---
 name: "azure-deploy"
-description: "Execute Azure deployments for ALREADY-PREPARED applications that have existing .azure/deployment-plan.md and infrastructure files. DO NOT use this skill when the user asks to CREATE a new application — use azure-prepare instead. This skill runs azd up, azd deploy, terraform apply, and az deployment commands with built-in error recovery. Requires .azure/deployment-plan.md from azure-prepare and validated status from azure-validate. WHEN: \"run azd up\", \"run azd deploy\", \"execute deployment\", \"push to production\", \"push to cloud\", \"go live\", \"ship it\", \"bicep deploy\", \"terraform apply\", \"publish to Azure\", \"launch on Azure\". DO NOT USE WHEN: \"create and deploy\", \"build and deploy\", \"create a new app\", \"set up infrastructure\", \"create and deploy to Azure using Terraform\" — use azure-prepare for these."
+description: "为已准备就绪的应用程序执行 Azure 部署。适用于本地已有 `.azure/deployment-plan.md` 计划文件及基础设施代码的项目。支持运行 `azd up`、`azd deploy`、`terraform apply` 和 `az deployment` 等部署命令，并内置故障自愈机制。依赖 azure-prepare 的部署方案输出以及 azure-validate 的校验状态。\n\n适用场景：执行纯部署操作，如“运行 azd up/deploy”、“执行部署”、“推送到生产/云端”、“上线发布 (go live/ship it)”、“bicep deploy”、“terraform apply”或“发布到 Azure”。\n\n禁用场景：涉及“创建并部署”、“从零创建新应用”、“搭建基础设施”等需求时切勿使用，应改用 azure-prepare。"
 version: "1.2.2"
 license: "MIT"
 metadata:

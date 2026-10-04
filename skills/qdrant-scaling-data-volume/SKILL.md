@@ -1,6 +1,6 @@
 ---
 name: "qdrant-scaling-data-volume"
-description: "Guides Qdrant data volume scaling decisions. Use when someone asks 'data doesn't fit on one node', 'too much data', 'need more storage', 'vertical or horizontal scaling', 'tenant scaling', 'time window rotation', or 'data growth exceeds capacity'."
+description: "提供 Qdrant 数据容量扩容决策指导。适用于解决单节点存不下、数据量过大、存储不足、横向或纵向扩容选型、租户扩容、时间窗口轮转以及数据增长超出容量等场景。"
 version: "1.0.0"
 license: "MIT"
 allowed-tools:

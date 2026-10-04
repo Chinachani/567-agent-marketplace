@@ -1,6 +1,6 @@
 ---
 name: "azure-mgmt-fabric-py"
-description: "Azure Fabric Management SDK for Python. Use for managing Microsoft Fabric capacities and resources. Triggers: \"azure-mgmt-fabric\", \"FabricMgmtClient\", \"Fabric capacity\", \"Microsoft Fabric\", \"Power BI capacity\"."
+description: "适用于 Python 的 Azure Fabric 管理 SDK。用于管理 Microsoft Fabric 容量与相关资源。触发词：\"azure-mgmt-fabric\"、\"FabricMgmtClient\"、\"Fabric capacity\"、\"Microsoft Fabric\"、\"Power BI capacity\"。"
 version: "1.0.0"
 license: "MIT"
 metadata:

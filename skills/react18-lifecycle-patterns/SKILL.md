@@ -1,6 +1,6 @@
 ---
 name: "react18-lifecycle-patterns"
-description: "Provides exact before/after migration patterns for the three unsafe class component lifecycle methods - componentWillMount, componentWillReceiveProps, and componentWillUpdate - targeting React 18.3.1. Use this skill whenever a class component needs its lifecycle methods migrated, when deciding between getDerivedStateFromProps vs componentDidUpdate, when adding getSnapshotBeforeUpdate, or when fixing React 18 UNSAFE_ lifecycle warnings. Always use this skill before writing any lifecycle migration code - do not guess the pattern from memory, the decision trees here prevent the most common migration mistakes."
+description: "针对 React 18.3.1，提供三个不安全类组件生命周期方法（componentWillMount、componentWillReceiveProps 和 componentWillUpdate）的精确迁移前后对比模式。适用于类组件生命周期迁移、权衡使用 getDerivedStateFromProps 还是 componentDidUpdate、添加 getSnapshotBeforeUpdate，或修复 React 18 的 UNSAFE_ 生命周期警告等场景。编写任何生命周期迁移代码前务必使用此技能——切勿凭记忆盲猜，内置决策树可有效规避最常见的迁移错误。"
 version: "1.0.0"
 license: "MIT"
 ---

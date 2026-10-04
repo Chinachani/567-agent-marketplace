@@ -1,6 +1,6 @@
 ---
 name: "kotlin-springboot"
-description: "Get best practices for developing applications with Spring Boot and Kotlin."
+description: "获取 Spring Boot 与 Kotlin 应用开发最佳实践"
 version: "1.0.0"
 license: "MIT"
 ---

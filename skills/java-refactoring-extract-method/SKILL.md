@@ -1,6 +1,6 @@
 ---
 name: "java-refactoring-extract-method"
-description: "Refactoring using Extract Methods in Java Language"
+description: "运用提炼方法重构Java代码"
 version: "1.0.0"
 license: "MIT"
 ---

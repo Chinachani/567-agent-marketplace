@@ -1,6 +1,6 @@
 ---
 name: "python-mcp-server-generator"
-description: "Generate a complete MCP server project in Python with tools, resources, and proper configuration"
+description: "使用 Python 构建完整的 MCP 服务器项目，集成工具、资源与规范配置"
 version: "1.0.0"
 license: "MIT"
 ---

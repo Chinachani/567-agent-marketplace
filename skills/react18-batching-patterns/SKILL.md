@@ -1,6 +1,6 @@
 ---
 name: "react18-batching-patterns"
-description: "Provides exact patterns for diagnosing and fixing automatic batching regressions in React 18 class components. Use this skill whenever a class component has multiple setState calls in an async method, inside setTimeout, inside a Promise .then() or .catch(), or in a native event handler. Use it before writing any flushSync call - the decision tree here prevents unnecessary flushSync overuse. Also use this skill when fixing test failures caused by intermediate state assertions that break after React 18 upgrade."
+description: "提供诊断与修复 React 18 类组件自动批处理（automatic batching）回归问题的标准方案。适用于类组件在异步方法、setTimeout、Promise（.then()/.catch()）或原生事件处理函数中多次调用 setState 的场景。编写 flushSync 前请优先使用此技能，通过内置决策树避免滥用 flushSync。同时适用于修复升级 React 18 后因中间状态断言失败导致的测试用例报错。"
 version: "1.0.0"
 license: "MIT"
 ---
