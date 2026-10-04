@@ -23,6 +23,16 @@ import sync_marketplace
 
 
 class MarketplaceSyncTests(unittest.TestCase):
+    def test_translation_retry_respects_retry_after_header(self):
+        error = sync_marketplace.urllib.error.HTTPError(
+            "https://api.example.test/chat/completions",
+            503,
+            "Service Unavailable",
+            {"Retry-After": "7"},
+            None,
+        )
+        self.assertEqual(sync_marketplace._translation_retry_delay(error, 0), 7.0)
+
     def test_manifest_serializer_keeps_entries_compact_and_round_trips(self):
         manifest = {
             "schemaVersion": 3,

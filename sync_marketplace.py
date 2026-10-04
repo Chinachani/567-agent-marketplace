@@ -16,6 +16,8 @@ import urllib.error
 import urllib.parse
 import hashlib
 import time
+import random
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 from marketplace_contract import validate_ability, validate_manifest
@@ -46,9 +48,9 @@ RAW_BASE_URL = (os.environ.get("API_567_BASE_URL") or "https://api.567.wiki/v1")
 COMPLETIONS_URL = f"{RAW_BASE_URL}/chat/completions" if not RAW_BASE_URL.endswith("/chat/completions") else RAW_BASE_URL
 MODEL = os.environ.get("API_567_MODEL") or "gemini-3.8-flash-high"
 try:
-    TRANSLATION_WORKERS = min(64, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "6"))))
+    TRANSLATION_WORKERS = min(16, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "12"))))
 except ValueError:
-    TRANSLATION_WORKERS = 6
+    TRANSLATION_WORKERS = 12
 try:
     MAX_TRANSLATIONS_PER_SYNC = min(200_000, max(1, int(os.environ.get("API_567_MAX_TRANSLATIONS_PER_SYNC", "200000"))))
 except ValueError:
@@ -80,6 +82,22 @@ def safe_log(message, *, flush=False):
     builtins.print("[sync] " + text[:4000], flush=flush)
 
 
+def _translation_retry_delay(error, attempt: int) -> float:
+    """Use server guidance when available and jitter retries to avoid retry bursts."""
+    if isinstance(error, urllib.error.HTTPError):
+        retry_after = error.headers.get("Retry-After") if error.headers else None
+        if retry_after:
+            try:
+                return min(60.0, max(0.0, float(retry_after)))
+            except ValueError:
+                try:
+                    retry_at = parsedate_to_datetime(retry_after)
+                    return min(60.0, max(0.0, (retry_at - datetime.now(timezone.utc)).total_seconds()))
+                except (TypeError, ValueError, OverflowError):
+                    pass
+    return min(30.0, (2 ** attempt) + random.uniform(0.0, 1.0))
+
+
 def has_chinese(text: str) -> bool:
     return any('\u4e00' <= char <= '\u9fff' for char in text)
 
@@ -105,13 +123,13 @@ def _request_translation(messages: list[dict], max_tokens: int) -> str:
         except urllib.error.HTTPError as error:
             if error.code not in {408, 425, 429, 500, 502, 503, 504} or attempt == 2:
                 raise
-            wait = min(8, 2 ** attempt)
+            wait = _translation_retry_delay(error, attempt)
             safe_log(f"Translation API returned HTTP {error.code}; retrying in {wait}s", flush=True)
             time.sleep(wait)
         except (urllib.error.URLError, TimeoutError, OSError, json.JSONDecodeError, KeyError, IndexError, TypeError) as error:
             if attempt == 2:
                 raise
-            wait = min(8, 2 ** attempt)
+            wait = _translation_retry_delay(error, attempt)
             safe_log(f"Translation request failed; retrying in {wait}s: {error}", flush=True)
             time.sleep(wait)
     raise RuntimeError("Translation retries exhausted")
