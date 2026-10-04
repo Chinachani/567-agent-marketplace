@@ -52,16 +52,18 @@ SKILL_SOURCES = (
 )
 
 _CATEGORY_KEYWORDS = (
-    ("Security", ("security", "secure", "owasp", "compliance", "privacy", "安全", "合规")),
-    ("Documents", ("docx", "document", "documents", "documentation", "pdf", "pptx", "xlsx", "spreadsheet", "resume", "简历", "文档", "表格")),
-    ("Design", ("design", "designer", "ui", "ux", "visual", "brand", "wireframe", "prototype", "设计", "界面")),
+    ("Security", ("security", "secure", "threat-model", "supply-chain", "vulnerability", "owasp", "compliance", "privacy", "安全", "合规")),
+    ("Database", ("database", "postgres", "postgresql", "mysql", "sqlite", "redis", "qdrant", "snowflake", "vector-store", "datastore", "orm", "数据库")),
+    ("Documents", ("docx", "document", "documents", "documentation", "readme", "markdown", "pdf", "pptx", "xlsx", "spreadsheet", "resume", "specification", "bug-report", "issue-report", "简历", "文档", "表格")),
+    ("Design", ("design", "designer", "ui", "ux", "visual", "brand", "wireframe", "prototype", "canvas", "diagram", "设计", "界面")),
     ("Media", ("video", "audio", "image", "images", "photo", "music", "voice", "illustration", "animation", "视频", "音频", "图像", "绘图")),
-    ("Research", ("research", "paper", "literature", "scientific", "science", "academic", "分析研究", "论文", "科研")),
-    ("Data", ("data", "database", "sql", "analytics", "visualization", "数据", "数据库", "统计")),
-    ("Development", ("code", "coding", "developer", "development", "frontend", "backend", "api", "debug", "test", "git", "linux", "architecture", "sdk", "typescript", "javascript", "python", "java", "rust", "dotnet", "azure", "aws", "terraform", "kubernetes", "deployment", "devops", "mcp", "编程", "开发", "代码")),
-    ("Writing", ("write", "writer", "writing", "content", "copywriting", "blog", "article", "story", "文案", "写作", "文章", "内容创作")),
-    ("Business", ("business", "product", "marketing", "sales", "commerce", "ecommerce", "finance", "legal", "contract", "商业", "营销", "电商", "合同")),
-    ("Productivity", ("productivity", "planning", "workflow", "meeting", "project-management", "task", "organize", "效率", "计划", "协作", "会议")),
+    ("Research", ("research", "evaluator", "evaluation", "evaluations", "evals", "assessment", "benchmark", "verification", "verify", "fact-check", "evidence-backed", "paper", "literature", "scientific", "science", "academic", "分析研究", "论文", "科研")),
+    ("Data", ("data", "analytics", "visualization", "observability", "telemetry", "monitoring", "power-bi", "dax", "logs", "数据", "统计")),
+    ("Web", ("website", "web-site", "browser", "static-site", "vitepress", "web", "搜索", "联网", "网页", "网站")),
+    ("Development", ("code", "coding", "comments", "developer", "development", "deploy", "implementation", "bug", "ai-ready", "agentsmd", "mcp", "playwright", "connector", "automation", "codespaces", "microsoft-store", "apple-appstore", "structured-autonomy", "typespec", "spring-boot", "springboot", "csharp", "kotlin", "mvvm", "next-intl", "internationalization", "i18n", "pytest", "coverage", "react", "compatibility", "ruff", "editorconfig", "containerize", "debugging", "github-release", "frontend", "backend", "api", "debug", "test", "git", "linux", "architecture", "sdk", "typescript", "javascript", "python", "java", "rust", "dotnet", "azure", "aws", "terraform", "kubernetes", "container", "docker", "devops", "refactor", "framework", "migration", "configuration", "编程", "开发", "代码")),
+    ("Writing", ("write", "writer", "writing", "content", "copywriting", "wechat-hotspot", "blog", "article", "story", "narrative", "synthesis", "prompt", "写作", "文章", "文案", "内容创作")),
+    ("Business", ("business", "product", "marketing", "sales", "commerce", "ecommerce", "finance", "legal", "contract", "go-to-market", "gtm", "launch", "商业", "营销", "电商", "合同")),
+    ("Productivity", ("productivity", "planning", "workflow", "meeting", "project-management", "task", "organize", "memory", "workshop", "collaboration", "partnership", "personalize", "suggest-awesome", "efficiency", "context-engineering", "bench-read", "what-context-needed", "效率", "计划", "协作", "会议")),
 )
 
 

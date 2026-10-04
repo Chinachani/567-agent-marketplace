@@ -1,35 +1,48 @@
-# 567 Agent 官方能力市场 (567 Agent Marketplace)
+# 567 Agent 官方能力市场
 
-本仓库是 [567 Agent](https://github.com/Chinachani/567-agent) 的官方能力市场源，提供即开即用、自动同步更新的 **AI 技能 (Skills)** 与 **模型上下文协议服务 (MCP)**。
+本仓库为 567 Agent 提供可浏览和安装的 Skills 与 MCP 配置。根目录的 [`marketplace.json`](marketplace.json) 是能力清单；客户端兼容副本保存在 [`.567agent/marketplace.json`](.567agent/marketplace.json) 和 [`.vetta/marketplace.json`](.vetta/marketplace.json)。同步时三个文件保持一致。
 
-## 特色
+## Skills 来源
 
-- 🎯 **多源自动收录**：定时扫描 `microsoft/skills`、`github/awesome-copilot` 和 `addyosmani/agent-skills` 中的 `SKILL.md`，保留技能所需的嵌套参考文件，并记录上游仓库、路径、作者和许可证。已有的 `anbeime/skill` 条目继续展示并参与分类，但暂不自动更新，待上游授权信息核实后再恢复同步。
-- 🗂️ **按用途分类**：能力分为编程研发、设计创意、办公文档、音视频与图像、研究分析、数据分析、内容创作、商业运营、效率协作、安全合规和实用技能等类别。
-- 🔌 **精选 MCP**：收录 MCP 参考服务（本地文件系统、网页抓取、Brave 搜索、GitHub 协同、Postgres/SQLite 数据库等）。其中 Brave、GitHub、Postgres 和 SQLite 为已归档的参考实现，后续迁移应逐项验证维护中的替代服务。
-- 🚀 **自动化流**：GitHub Actions 每日同步上游目录，使用 567 API 翻译新描述；每次同步前运行本地校验。
+GitHub Actions 每天扫描以下仓库里的 `SKILL.md`，并镜像技能所需的参考文件、脚本和模板：
 
-自动抓取范围仅限列出的、仓库声明 MIT 许可且提供标准 `SKILL.md` 的来源；逐项保留技能的独立许可，当前识别 MIT 和 Apache-2.0，以及指向本地 `LICENSE.txt` 的这两种许可。未知许可会停止本次同步，等待审核。Apache-2.0 技能附带完整许可文本，原技能内的许可文件也一并保留。新增来源前应先确认其许可证允许再分发。
+| 上游 | 扫描目录 | 说明 |
+| --- | --- | --- |
+| [microsoft/skills](https://github.com/microsoft/skills) | `.github/plugins/`、`.github/skills/` | Azure、Foundry、SDK 和开发工具 |
+| [github/awesome-copilot](https://github.com/github/awesome-copilot) | `skills/`、`.github/skills/` | GitHub Copilot 社区技能 |
+| [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | `skills/` | 软件工程、测试、代码质量和性能 |
 
-同步器跳过隐藏路径、符号链接、超过 512 KiB 的说明、单文件超过 2 MiB 或总资源超过 10 MiB 的技能。被跳过的已收录技能保留此前镜像；上游成功扫描后消失的受管理技能才会清理。上游拉取失败、目录意外为空或仓库许可变更时，本次同步失败并保留现有目录。生成在临时目录完成，替换输出失败时回滚，三个清单副本保持一致。
+此外，清单中保留了仓库已有的 74 个 `anbeime/skill` 历史技能镜像。它们是随本市场仓库分发的文件，**不是 567 Agent 客户端内置能力**。该上游未声明许可证，因此目前只保留既有镜像，不自动抓取更新。
 
-镜像保留 `allowed-tools`、`compatibility` 和嵌套 `metadata` 等运行元数据，并读取嵌套的作者及版本信息。技能标识按上游仓库及文件路径复用；重名条目使用来源后缀。文件内容指纹覆盖 `SKILL.md` 和嵌套资源，内容变化会递增 `configVersion` 和市场版本；相同上游再次运行不会制造版本更新。分类优先依据技能名称，再读取描述，避免仓库路径和英文词片段误匹配。
+收录要求上游仓库声明 MIT 许可；若单个技能声明 Apache-2.0，或在本地 `LICENSE.txt` 中给出 MIT/Apache-2.0 条款，也会保留对应许可文本和来源署名。未知或无法核实的许可会让本次同步停止，等待处理。新增来源前请先确认再分发条款。
 
-只缓存成功的中文翻译。没有 API 密钥或翻译失败时保留原描述，后续运行可重新翻译。GitHub Secrets 中未填写 `API_567_BASE_URL` 和 `API_567_MODEL` 时使用脚本默认值。
+同步器跳过隐藏目录、符号链接、超过 512 KiB 的 `SKILL.md`，以及单文件超过 2 MiB 或总资源超过 10 MiB 的技能。若已收录技能因限制被跳过，会保留此前版本；上游拉取失败、目录意外为空或仓库许可变化时，不发布部分结果。技能标识按来源仓库和上游路径复用，内容指纹涵盖说明及附属文件，内容变化会更新 `configVersion` 和市场版本。
 
-## 客户端接入方式
+分类依据技能名称和描述自动判断，类别包括系统、网络、开发、设计、文档、媒体、研究、数据、数据库、写作、商业、效率、安全和实用技能。分类是便于浏览的规则标签，并非对技能质量或安全性的认证。
 
-在 567 Agent 桌面端中，本仓库已作为默认官方市场源预置。在“能力中心”中即可直接浏览、一键安装和使用！
+## MCP
 
-## 本地维护
+当前有 7 个手工维护的 MCP 配置：Filesystem、Fetch、Brave Search、GitHub、PostgreSQL、SQLite 和 Memory。它们由同步脚本中的精选列表生成，**目前没有自动抓取 MCP 上游**。
+
+需要发现更多服务时，可以查看 [官方 MCP Registry](https://registry.modelcontextprotocol.io/) 及其 [API 文档](https://github.com/modelcontextprotocol/registry/blob/main/docs/reference/api/official-registry-api.md)。官方 Registry 是可查询的服务目录；将条目加入本市场仍需审核维护状态、许可、安装方式和所需凭据，并映射为本仓库的 MCP 配置格式。
+
+Filesystem、Brave Search、GitHub、PostgreSQL、SQLite 和 Memory 等配置源自 MCP 参考实现。MCP 官方仓库将 Brave Search、GitHub、PostgreSQL 和 SQLite 列为已归档项目；参考实现不等同于生产质量或安全保证。集成状态请查看 [官方参考服务器说明](https://github.com/modelcontextprotocol/servers)。
+
+Fetch 和 SQLite 通过 `uvx` 启动，需要安装 `uv`；Fetch 上游见[项目说明](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch)，SQLite 参考实现在[归档仓库](https://github.com/modelcontextprotocol/servers-archived/tree/main/src/sqlite)。Node.js MCP 使用 `npx`。Brave Search、GitHub 和 PostgreSQL 还需要相应 API 密钥或数据库连接信息。
+
+## 自动同步和翻译
+
+工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 每天 **00:00 UTC（北京时间 08:00）**运行，也支持在 GitHub Actions 页面手动触发。工作流先运行测试，再抓取来源、生成清单和镜像文件，并将变更推送到 `main`。同一分支的同步任务会排队串行执行。
+
+要翻译新收录的英文说明，仓库 Actions Secrets 需要配置 `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时使用脚本默认值。没有密钥或调用失败时，说明保留原文，之后仍可重试；已成功生成的中文翻译会按原文缓存，避免重复请求。
+
+## 本地运行
+
+需要 Python 3.11 或更新版本；同步还需要 Git 和网络访问。
 
 ```bash
 python3 -m unittest discover -s tests -v
 python3 sync_marketplace.py
 ```
 
-第二条命令会联网拉取上游并更新 `skills/`、`mcps/`、根目录及 `.567agent/`、`.vetta/` 中的清单。有 `API_567_KEY` 时翻译新描述；不配置密钥也可同步，但新条目保留原语言。可选变量为 `API_567_BASE_URL`、`API_567_MODEL`。
-
-客户端运行 Node MCP 需要 Node.js/npm；Fetch 和 SQLite 使用 `uvx`（需安装 uv），SQLite 还使用 `--db-path` 指定数据库。对应启动配置见 [Fetch 上游说明](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) 和 [SQLite 上游说明](https://github.com/modelcontextprotocol/servers-archived/tree/main/src/sqlite)。GitHub/Brave 等服务仍需各自账号凭据，本同步器不验证这些外部服务的运行环境。
-
-GitHub Actions 每日北京时间 08:00（00:00 UTC）触发，也可在 Actions 页面手动运行；同一分支的同步任务串行执行。代码和来源配置修改推送到默认分支后才会影响远端工作流。
+第二条命令会下载三个 Skills 来源并更新 `skills/`、`mcps/` 和三份市场清单。配置 `API_567_KEY` 后，也会翻译尚无缓存的新英文说明。只改脚本或来源配置不会改变 GitHub 上的自动任务，需先推送代码到 `main`。

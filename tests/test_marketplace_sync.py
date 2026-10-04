@@ -45,6 +45,40 @@ class MarketplaceSyncTests(unittest.TestCase):
         self.assertEqual(classify_skill("figma-review", "Figma Review", "Review a UI design", "skills/figma"), "Design")
         self.assertEqual(classify_skill("meeting-notes", "Meeting Notes", "Summarize meetings", "skills/notes"), "Productivity")
 
+    def test_category_classification_covers_common_upstream_skill_titles(self):
+        samples = (
+            ("deploy", "Deploy", "IaC execution and health verification", "Development"),
+            ("wiki-vitepress", "Wiki Vitepress", "Build a static site", "Web"),
+            ("agent-supply-chain", "Agent Supply Chain", "Verify plugin integrity", "Security"),
+            ("qdrant-monitoring", "Qdrant Monitoring", "Tune query performance", "Database"),
+            ("arize-evaluator", "Arize Evaluator", "Run model evaluations", "Research"),
+            ("power-bi-dax-optimization", "Power BI DAX Optimization", "Improve formulas", "Data"),
+            ("create-readme", "Create Readme", "Generate a project overview", "Documents"),
+            ("memory-merger", "Memory Merger", "Merge lessons into instructions", "Productivity"),
+            ("wechat-hotspot-publisher", "Wechat Hotspot Publisher", "Publish selected content", "Writing"),
+            ("doublecheck", "Doublecheck", "Evidence-backed verification with web search", "Research"),
+            ("playwright-automation-fill-in-form", "Playwright Automation Fill In Form", "Automate a form using MCP", "Development"),
+            ("csharp-async", "Csharp Async", "Best practices for async code", "Development"),
+            ("spring-boot-testing", "Spring Boot Testing", "Testing techniques", "Development"),
+            ("phoenix-evals", "Phoenix Evals", "Build evaluators for LLM apps", "Research"),
+            ("context-engineering", "Context Engineering", "Improve agent context", "Productivity"),
+            ("apple-appstore-reviewer", "Apple Appstore Reviewer", "Review app code against store requirements", "Development"),
+            ("from-the-other-side-wiggins", "From The Other Side Wiggins", "Narrative and synthesis profile", "Writing"),
+            ("suggest-awesome-github-copilot-skills", "Suggest Awesome Github Copilot Skills", "Suggest relevant skills", "Productivity"),
+            ("vardoger-analyze", "Vardoger Analyze", "Personalize the Copilot assistant", "Productivity"),
+        )
+        for slug, name, description, expected in samples:
+            with self.subTest(slug=slug):
+                self.assertEqual(classify_skill(slug, name, description, "skills/example"), expected)
+
+    def test_category_classification_prefers_title_and_respects_word_boundaries(self):
+        self.assertEqual(
+            classify_skill("design-review", "Design Review", "Check security compliance", "skills/example"),
+            "Design",
+        )
+        self.assertEqual(classify_skill("metadata-cleanup", "Metadata Cleanup", "Clean metadata", "skills/example"), "Skills")
+        self.assertEqual(classify_skill("database-guide", "Database Guide", "Use a data store", "skills/example"), "Database")
+
     def test_slug_collision_gets_deterministic_source_suffix(self):
         used = {"code-review"}
         self.assertEqual(unique_slug("code-review", "microsoft/skills", used), "code-review-microsoft")
