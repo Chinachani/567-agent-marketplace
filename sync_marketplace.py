@@ -49,6 +49,10 @@ try:
 except ValueError:
     MAX_TRANSLATIONS_PER_SYNC = 1000
 
+# GitHub rejects individual files at 100 MB. Keep headroom for the checked-in
+# compatibility copies and fail before staging a manifest that cannot be pushed.
+MAX_MANIFEST_BYTES = 90 * 1024 * 1024
+
 REPO_ROOT = Path(__file__).resolve().parent
 SKILLS_DEST_DIR = REPO_ROOT / "skills"
 MCPS_DEST_DIR = REPO_ROOT / "mcps"
@@ -1099,6 +1103,29 @@ def generate_catalog(previous_manifest: dict, temp_root: Path) -> dict:
     return manifest
 
 
+def serialize_manifest(manifest: dict) -> str:
+    """Keep metadata readable while writing each ability as one compact JSON line."""
+    header = {key: value for key, value in manifest.items() if key != "abilities"}
+    serialized_header = json.dumps(header, indent=2, ensure_ascii=False)
+    if header:
+        serialized = serialized_header[:-2] + ',\n  "abilities": [\n'
+    else:
+        serialized = '{\n  "abilities": [\n'
+    serialized += ",\n".join(
+        "    " + json.dumps(ability, ensure_ascii=False, separators=(",", ":"))
+        for ability in manifest.get("abilities", [])
+    )
+    serialized += "\n  ]\n}\n"
+    size_bytes = len(serialized.encode("utf-8"))
+    if size_bytes > MAX_MANIFEST_BYTES:
+        raise ValueError(
+            f"Marketplace manifest is {size_bytes / (1024 * 1024):.2f} MiB; "
+            f"the safe limit is {MAX_MANIFEST_BYTES / (1024 * 1024):.0f} MiB. "
+            "Shard the discovery catalog before publishing more entries."
+        )
+    return serialized
+
+
 def main():
     global SKILLS_DEST_DIR, MCPS_DEST_DIR
     previous_path = REPO_ROOT / "marketplace.json"
@@ -1133,7 +1160,7 @@ def main():
                     elif path.is_dir():
                         shutil.rmtree(path)
             replacements = [(SKILLS_DEST_DIR, skills_destination), (MCPS_DEST_DIR, mcps_destination)]
-            serialized = json.dumps(manifest, indent=2, ensure_ascii=False)
+            serialized = serialize_manifest(manifest)
             for index, relative_path in enumerate(("marketplace.json", ".567agent/marketplace.json", ".vetta/marketplace.json")):
                 staged = temp_root / f"manifest-{index}.json"
                 staged.write_text(serialized, encoding="utf-8")

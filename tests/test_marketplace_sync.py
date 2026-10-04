@@ -22,6 +22,25 @@ import sync_marketplace
 
 
 class MarketplaceSyncTests(unittest.TestCase):
+    def test_manifest_serializer_keeps_entries_compact_and_round_trips(self):
+        manifest = {
+            "schemaVersion": 3,
+            "name": "test",
+            "abilities": [
+                {"type": "mcp", "slug": "first", "detail": {"i18n": {"en": {"name": "First"}}}},
+                {"type": "skill", "slug": "second"},
+            ],
+        }
+        serialized = sync_marketplace.serialize_manifest(manifest)
+        self.assertEqual(json.loads(serialized), manifest)
+        self.assertIn('    {"type":"mcp","slug":"first"', serialized)
+        self.assertLess(len(serialized.encode()), len(json.dumps(manifest, indent=2, ensure_ascii=False).encode()))
+
+    def test_manifest_serializer_rejects_files_over_safe_push_limit(self):
+        with patch.object(sync_marketplace, "MAX_MANIFEST_BYTES", 10):
+            with self.assertRaisesRegex(ValueError, "Shard the discovery catalog"):
+                sync_marketplace.serialize_manifest({"schemaVersion": 3, "abilities": [{"slug": "too-large"}]})
+
     def test_frontmatter_reads_folded_description(self):
         fields, body = parse_frontmatter(
             "---\nname: example\ndescription: >-\n  A useful first line\n  with a continuation.\nversion: 2.0\n---\n# Body\n"
