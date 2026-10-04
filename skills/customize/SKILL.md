@@ -1,6 +1,6 @@
 ---
 name: "customize"
-description: "Interactive guided deployment flow for Azure OpenAI models with full customization control. Step-by-step selection of model version, SKU (GlobalStandard/Standard/ProvisionedManaged), capacity, RAI policy (content filter), and advanced options (dynamic quota, priority processing, spillover). USE FOR: custom deployment, customize model deployment, choose version, select SKU, set capacity, configure content filter, RAI policy, deployment options, detailed deployment, advanced deployment, PTU deployment, provisioned throughput. DO NOT USE FOR: quick deployment to optimal region (use preset)."
+description: "提供支持完全自定义控制的 Azure OpenAI 模型交互式引导部署流程。支持逐步配置模型版本、SKU（GlobalStandard/Standard/ProvisionedManaged）、容量、负责任 AI (RAI) 内容筛选策略以及高级选项（动态配额、优先处理、溢出流量）。\n\n适用场景：自定义模型部署、指定模型版本与 SKU、容量配额设置、配置内容筛选器/RAI 策略、高级部署选项、细粒度自定义部署、PTU/预置吞吐量部署。\n不适用场景：快速部署至最佳区域（此类需求请使用预设模板）。"
 version: "1.0.1"
 license: "MIT"
 metadata:

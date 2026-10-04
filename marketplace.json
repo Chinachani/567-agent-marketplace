@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "name": "567-official",
   "displayName": "567 Agent 官方能力市场",
-  "marketplaceVersion": "2026.10.04.2",
+  "marketplaceVersion": "2026.10.04.3",
   "repository": "https://github.com/Chinachani/567-agent-marketplace",
   "minAppVersion": "1.0.0",
   "abilities": [
@@ -10521,9 +10521,9 @@
       "type": "skill",
       "slug": "customize",
       "name": "Customize",
-      "description": "Interactive guided deployment flow for Azure OpenAI models with full customization control. Step-by-step selection of model version, SKU (GlobalStandard/Standard/ProvisionedManaged), capacity, RAI policy (content filter), and advanced options (dynamic quota, priority processing, spillover). USE FOR: custom deployment, customize model deployment, choose version, select SKU, set capacity, configure content filter, RAI policy, deployment options, detailed deployment, advanced deployment, PTU deployment, provisioned throughput. DO NOT USE FOR: quick deployment to optimal region (use preset).",
+      "description": "提供支持完全自定义控制的 Azure OpenAI 模型交互式引导部署流程。支持逐步配置模型版本、SKU（GlobalStandard/Standard/ProvisionedManaged）、容量、负责任 AI (RAI) 内容筛选策略以及高级选项（动态配额、优先处理、溢出流量）。\n\n适用场景：自定义模型部署、指定模型版本与 SKU、容量配额设置、配置内容筛选器/RAI 策略、高级部署选项、细粒度自定义部署、PTU/预置吞吐量部署。\n不适用场景：快速部署至最佳区域（此类需求请使用预设模板）。",
       "version": "1.0.1",
-      "configVersion": 1,
+      "configVersion": 2,
       "license": "MIT",
       "author": "Microsoft",
       "category": "Development",
@@ -10539,7 +10539,7 @@
         "i18n": {
           "zh": {
             "name": "Customize",
-            "description": "Interactive guided deployment flow for Azure OpenAI models with full customization control. Step-by-step selection of model version, SKU (GlobalStandard/Standard/ProvisionedManaged), capacity, RAI policy (content filter), and advanced options (dynamic quota, priority processing, spillover). USE FOR: custom deployment, customize model deployment, choose version, select SKU, set capacity, configure content filter, RAI policy, deployment options, detailed deployment, advanced deployment, PTU deployment, provisioned throughput. DO NOT USE FOR: quick deployment to optimal region (use preset).",
+            "description": "提供支持完全自定义控制的 Azure OpenAI 模型交互式引导部署流程。支持逐步配置模型版本、SKU（GlobalStandard/Standard/ProvisionedManaged）、容量、负责任 AI (RAI) 内容筛选策略以及高级选项（动态配额、优先处理、溢出流量）。\n\n适用场景：自定义模型部署、指定模型版本与 SKU、容量配额设置、配置内容筛选器/RAI 策略、高级部署选项、细粒度自定义部署、PTU/预置吞吐量部署。\n不适用场景：快速部署至最佳区域（此类需求请使用预设模板）。",
             "tags": [
               "customize",
               "Development"
@@ -10559,7 +10559,7 @@
         "path": "skills/customize",
         "repository": "microsoft/skills",
         "upstreamPath": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/customize/SKILL.md",
-        "contentSha256": "6b29b2e7a533ab422353fa5bb4d490f9d57fc85b09d170c45556145c51284cfc"
+        "contentSha256": "28646ce50fc1d9701be4a1c8bd7382644e0e323c16419ac1e784ae2bf2b2dd78"
       }
     },
     {
@@ -11376,9 +11376,9 @@
       "type": "skill",
       "slug": "teams-app-developer",
       "name": "Teams App Developer",
-      "description": "Builds, tests, and deploys Microsoft 365 apps and agents for Teams and Copilot. Includes sub-skills for project creation, local testing, cloud deployment, troubleshooting, and Slack-to-Teams migration. USE FOR: Teams agent, bot, tab, message extension, Declarative Agents, Custom Engine Agents, local testing, Agents Playground, Azure resource provision, remote deployment, Slack to Teams migration, cross-platform bot development, Block Kit to Adaptive Cards conversion. DO NOT USE FOR: general web development, non-bot/non-Teams projects.",
+      "description": "构建、测试并部署面向 Teams 和 Copilot 的 Microsoft 365 应用与智能体。支持项目创建、本地测试、云端部署、故障排查及 Slack 向 Teams 迁移。适用于：Teams 智能体、Bot 机器人、Tab 选项卡、消息扩展、声明式智能体、自定义引擎智能体、本地测试、Agents Playground、Azure 资源预配、远程部署、Slack 迁移至 Teams、跨平台机器人开发、Block Kit 转换为自适应卡片。不适用于：通用 Web 开发、非 Bot 或非 Teams 专属项目。",
       "version": "1.0.0",
-      "configVersion": 1,
+      "configVersion": 2,
       "license": "MIT",
       "author": "Microsoft",
       "category": "Development",
@@ -11394,7 +11394,7 @@
         "i18n": {
           "zh": {
             "name": "Teams App Developer",
-            "description": "Builds, tests, and deploys Microsoft 365 apps and agents for Teams and Copilot. Includes sub-skills for project creation, local testing, cloud deployment, troubleshooting, and Slack-to-Teams migration. USE FOR: Teams agent, bot, tab, message extension, Declarative Agents, Custom Engine Agents, local testing, Agents Playground, Azure resource provision, remote deployment, Slack to Teams migration, cross-platform bot development, Block Kit to Adaptive Cards conversion. DO NOT USE FOR: general web development, non-bot/non-Teams projects.",
+            "description": "构建、测试并部署面向 Teams 和 Copilot 的 Microsoft 365 应用与智能体。支持项目创建、本地测试、云端部署、故障排查及 Slack 向 Teams 迁移。适用于：Teams 智能体、Bot 机器人、Tab 选项卡、消息扩展、声明式智能体、自定义引擎智能体、本地测试、Agents Playground、Azure 资源预配、远程部署、Slack 迁移至 Teams、跨平台机器人开发、Block Kit 转换为自适应卡片。不适用于：通用 Web 开发、非 Bot 或非 Teams 专属项目。",
             "tags": [
               "teams-app-developer",
               "Development"
@@ -11414,7 +11414,7 @@
         "path": "skills/teams-app-developer",
         "repository": "microsoft/skills",
         "upstreamPath": ".github/plugins/microsoft-365-agents-toolkit/skills/teams-app-developer/SKILL.md",
-        "contentSha256": "d566a2df97487077b37460be80c67c18aad5afee5d30fe6c87db47daef2e63ce"
+        "contentSha256": "c69bf249f642e2e1047f70db6bb15ca337b4e261d038af65d8e12681f4bf3439"
       }
     },
     {
@@ -12996,9 +12996,9 @@
       "type": "skill",
       "slug": "api-breaking-change-detector",
       "name": "Api Breaking Change Detector",
-      "description": "Cross-references C# Web API controllers/DTOs against their TypeScript/JavaScript consumers (React, Angular, Vue, Svelte, Node.js, or hand-written/auto-generated HTTP clients like Fetch, Axios, NSwag) to catch contract drift in both directions: backend changes that break client applications (renamed/removed JSON keys, new required parameters, status code shifts) and frontend code sending fields the backend no longer reads. Works directly against source code, not exported OpenAPI spec files. Use when the user asks to check for breaking API changes, verify frontend/backend contract sync, or audit a DTO/controller change against its TypeScript/JS consumers before merging. Not for generating new API code from a spec (see openapi-to-application-code) or scaffolding new endpoints (see aspnet-minimal-api-openapi).",
+      "description": "直接基于源代码（无需导出 OpenAPI 规范文件），交叉比对 C# Web API 控制器/DTO 与其 TypeScript/JavaScript 消费端（如 React、Angular、Vue、Svelte、Node.js，以及 Fetch、Axios、NSwag 等客户端），双向捕获接口契约漂移：既能拦截导致前端报错的后端破坏性变更（字段重命名/删除、新增必填参数、状态码变更），也能识别前端发送但后端已废弃的冗余字段。适用于排查 API 破坏性变更、验证前后端契约同步状态，或在合并前审查 DTO/控制器变更对前端的影响。不适用于根据规范生成新 API 代码或搭建新接口脚手架。",
       "version": "1.0.0",
-      "configVersion": 1,
+      "configVersion": 2,
       "license": "MIT",
       "author": "GitHub Community",
       "category": "Development",
@@ -13014,7 +13014,7 @@
         "i18n": {
           "zh": {
             "name": "Api Breaking Change Detector",
-            "description": "Cross-references C# Web API controllers/DTOs against their TypeScript/JavaScript consumers (React, Angular, Vue, Svelte, Node.js, or hand-written/auto-generated HTTP clients like Fetch, Axios, NSwag) to catch contract drift in both directions: backend changes that break client applications (renamed/removed JSON keys, new required parameters, status code shifts) and frontend code sending fields the backend no longer reads. Works directly against source code, not exported OpenAPI spec files. Use when the user asks to check for breaking API changes, verify frontend/backend contract sync, or audit a DTO/controller change against its TypeScript/JS consumers before merging. Not for generating new API code from a spec (see openapi-to-application-code) or scaffolding new endpoints (see aspnet-minimal-api-openapi).",
+            "description": "直接基于源代码（无需导出 OpenAPI 规范文件），交叉比对 C# Web API 控制器/DTO 与其 TypeScript/JavaScript 消费端（如 React、Angular、Vue、Svelte、Node.js，以及 Fetch、Axios、NSwag 等客户端），双向捕获接口契约漂移：既能拦截导致前端报错的后端破坏性变更（字段重命名/删除、新增必填参数、状态码变更），也能识别前端发送但后端已废弃的冗余字段。适用于排查 API 破坏性变更、验证前后端契约同步状态，或在合并前审查 DTO/控制器变更对前端的影响。不适用于根据规范生成新 API 代码或搭建新接口脚手架。",
             "tags": [
               "api-breaking-change-detector",
               "Development"
@@ -13034,7 +13034,7 @@
         "path": "skills/api-breaking-change-detector",
         "repository": "github/awesome-copilot",
         "upstreamPath": "skills/api-breaking-change-detector/SKILL.md",
-        "contentSha256": "b6d9841850a9a15e5939d5b90490738bbf654c94fcdfade6b724c8ef4e4508c6"
+        "contentSha256": "c9dc08b7377fa9936d48f62ba357a503e99392bf97cff916d74a4a45fc98664b"
       }
     },
     {
@@ -16371,9 +16371,9 @@
       "type": "skill",
       "slug": "copilot-pr-autopilot",
       "name": "Copilot Pr Autopilot",
-      "description": "Copilot left 14 review comments on your PR — half are nits. Hours of fix → reply → resolve → re-request, and each round lands MORE comments. This skill runs loop engineering: auto-triggers Copilot Code Review via GraphQL (no @copilot mention), triages every open thread (Copilot, humans, advanced-security) with a fix / decline / escalate rubric, dispatches parallel fix sub-agents that obey the repo build/test/lint conventions, commits per iteration, replies+resolves citing the pushed SHA, then re-triggers until HEAD is reviewed with zero threads awaiting the agent's reply (remaining open threads are explicit hand-offs to the human — escalated declines, design tradeoffs). You merge a clean PR; the bot runs it. Trigger phrases: \"address copilot comments\", \"run a copilot review loop\", \"fix this PR\", \"iterate on copilot feedback\". Repo-agnostic, gh CLI + PowerShell. Full autopilot needs repo Triage/Write; external PR authors get single-iteration mode plus manual re-trigger (UI 🔄 or substantive-commit push).",
+      "description": "Copilot 在 PR 中留下了十几条评审意见，一半还是细枝末节的小问题？告别“修改→回复→解决→重新请求”的耗时拉锯战。本技能实现全自动闭环处理：通过 GraphQL 自动触发 Copilot 代码审查（无需 @copilot）；按“修复/拒绝/上报”规则自动分流 Copilot、人工和安全扫描的所有未决对话；遵循仓库的 build/test/lint 规范并行调度子智能体执行修复；按轮次提交代码，并引用对应 Commit SHA 回复且关闭对话；持续循环迭代，直至最新 HEAD 代码审查完毕且无待办机器任务（仅保留需人工裁决的设计权衡或争议项）。机器人全权代劳，助你直接合并干净的 PR。\n\n触发短语：“处理 copilot 意见”、“运行 copilot 审查循环”、“修复此 PR”、“迭代 copilot 反馈”。\n\n通用支持任意仓库，基于 gh CLI 与 PowerShell 运行。完全自动驾驶模式需具备仓库 Triage/Write 权限；外部 PR 作者支持单次迭代模式，可通过 UI 刷新或推送提交手动再次触发。",
       "version": "1.0.0",
-      "configVersion": 1,
+      "configVersion": 2,
       "license": "MIT",
       "author": "GitHub Community",
       "category": "Security",
@@ -16389,7 +16389,7 @@
         "i18n": {
           "zh": {
             "name": "Copilot Pr Autopilot",
-            "description": "Copilot left 14 review comments on your PR — half are nits. Hours of fix → reply → resolve → re-request, and each round lands MORE comments. This skill runs loop engineering: auto-triggers Copilot Code Review via GraphQL (no @copilot mention), triages every open thread (Copilot, humans, advanced-security) with a fix / decline / escalate rubric, dispatches parallel fix sub-agents that obey the repo build/test/lint conventions, commits per iteration, replies+resolves citing the pushed SHA, then re-triggers until HEAD is reviewed with zero threads awaiting the agent's reply (remaining open threads are explicit hand-offs to the human — escalated declines, design tradeoffs). You merge a clean PR; the bot runs it. Trigger phrases: \"address copilot comments\", \"run a copilot review loop\", \"fix this PR\", \"iterate on copilot feedback\". Repo-agnostic, gh CLI + PowerShell. Full autopilot needs repo Triage/Write; external PR authors get single-iteration mode plus manual re-trigger (UI 🔄 or substantive-commit push).",
+            "description": "Copilot 在 PR 中留下了十几条评审意见，一半还是细枝末节的小问题？告别“修改→回复→解决→重新请求”的耗时拉锯战。本技能实现全自动闭环处理：通过 GraphQL 自动触发 Copilot 代码审查（无需 @copilot）；按“修复/拒绝/上报”规则自动分流 Copilot、人工和安全扫描的所有未决对话；遵循仓库的 build/test/lint 规范并行调度子智能体执行修复；按轮次提交代码，并引用对应 Commit SHA 回复且关闭对话；持续循环迭代，直至最新 HEAD 代码审查完毕且无待办机器任务（仅保留需人工裁决的设计权衡或争议项）。机器人全权代劳，助你直接合并干净的 PR。\n\n触发短语：“处理 copilot 意见”、“运行 copilot 审查循环”、“修复此 PR”、“迭代 copilot 反馈”。\n\n通用支持任意仓库，基于 gh CLI 与 PowerShell 运行。完全自动驾驶模式需具备仓库 Triage/Write 权限；外部 PR 作者支持单次迭代模式，可通过 UI 刷新或推送提交手动再次触发。",
             "tags": [
               "copilot-pr-autopilot",
               "Security"
@@ -16409,7 +16409,7 @@
         "path": "skills/copilot-pr-autopilot",
         "repository": "github/awesome-copilot",
         "upstreamPath": "skills/copilot-pr-autopilot/SKILL.md",
-        "contentSha256": "485d812d28fee4e8b9a360ee2e7a8f5cb635b56f77c4b6aa653fdfc3cd066b68"
+        "contentSha256": "0cd53a00c8f62b4af031055ddd7e63e4042e4c9ba328d3970ddc7e77f6ebcff3"
       }
     },
     {

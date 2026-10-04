@@ -1,6 +1,6 @@
 ---
 name: "api-breaking-change-detector"
-description: "Cross-references C# Web API controllers/DTOs against their TypeScript/JavaScript consumers (React, Angular, Vue, Svelte, Node.js, or hand-written/auto-generated HTTP clients like Fetch, Axios, NSwag) to catch contract drift in both directions: backend changes that break client applications (renamed/removed JSON keys, new required parameters, status code shifts) and frontend code sending fields the backend no longer reads. Works directly against source code, not exported OpenAPI spec files. Use when the user asks to check for breaking API changes, verify frontend/backend contract sync, or audit a DTO/controller change against its TypeScript/JS consumers before merging. Not for generating new API code from a spec (see openapi-to-application-code) or scaffolding new endpoints (see aspnet-minimal-api-openapi)."
+description: "直接基于源代码（无需导出 OpenAPI 规范文件），交叉比对 C# Web API 控制器/DTO 与其 TypeScript/JavaScript 消费端（如 React、Angular、Vue、Svelte、Node.js，以及 Fetch、Axios、NSwag 等客户端），双向捕获接口契约漂移：既能拦截导致前端报错的后端破坏性变更（字段重命名/删除、新增必填参数、状态码变更），也能识别前端发送但后端已废弃的冗余字段。适用于排查 API 破坏性变更、验证前后端契约同步状态，或在合并前审查 DTO/控制器变更对前端的影响。不适用于根据规范生成新 API 代码或搭建新接口脚手架。"
 version: "1.0.0"
 license: "MIT"
 ---

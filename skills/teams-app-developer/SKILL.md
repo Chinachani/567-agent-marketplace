@@ -1,6 +1,6 @@
 ---
 name: "teams-app-developer"
-description: "Builds, tests, and deploys Microsoft 365 apps and agents for Teams and Copilot. Includes sub-skills for project creation, local testing, cloud deployment, troubleshooting, and Slack-to-Teams migration. USE FOR: Teams agent, bot, tab, message extension, Declarative Agents, Custom Engine Agents, local testing, Agents Playground, Azure resource provision, remote deployment, Slack to Teams migration, cross-platform bot development, Block Kit to Adaptive Cards conversion. DO NOT USE FOR: general web development, non-bot/non-Teams projects."
+description: "构建、测试并部署面向 Teams 和 Copilot 的 Microsoft 365 应用与智能体。支持项目创建、本地测试、云端部署、故障排查及 Slack 向 Teams 迁移。适用于：Teams 智能体、Bot 机器人、Tab 选项卡、消息扩展、声明式智能体、自定义引擎智能体、本地测试、Agents Playground、Azure 资源预配、远程部署、Slack 迁移至 Teams、跨平台机器人开发、Block Kit 转换为自适应卡片。不适用于：通用 Web 开发、非 Bot 或非 Teams 专属项目。"
 version: "1.0.0"
 license: "MIT"
 ---
