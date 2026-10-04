@@ -50,9 +50,13 @@ try:
 except ValueError:
     TRANSLATION_WORKERS = 6
 try:
-    MAX_TRANSLATIONS_PER_SYNC = min(5000, max(1, int(os.environ.get("API_567_MAX_TRANSLATIONS_PER_SYNC", "1000"))))
+    MAX_TRANSLATIONS_PER_SYNC = min(200_000, max(1, int(os.environ.get("API_567_MAX_TRANSLATIONS_PER_SYNC", "200000"))))
 except ValueError:
-    MAX_TRANSLATIONS_PER_SYNC = 1000
+    MAX_TRANSLATIONS_PER_SYNC = 200_000
+try:
+    TRANSLATION_BATCH_ITEMS = min(32, max(1, int(os.environ.get("API_567_TRANSLATION_BATCH_ITEMS", "24"))))
+except ValueError:
+    TRANSLATION_BATCH_ITEMS = 24
 
 # The installed catalog stays small enough for the desktop client's legacy
 # GitHub Contents path. Discovery candidates are published as bounded shards.
@@ -79,19 +83,11 @@ def safe_log(message, *, flush=False):
 def has_chinese(text: str) -> bool:
     return any('\u4e00' <= char <= '\u9fff' for char in text)
 
-def translate_to_chinese(text: str) -> str:
-    if not text or has_chinese(text) or not API_KEY:
-        return text
+def _request_translation(messages: list[dict], max_tokens: int) -> str:
     payload = {
         "model": MODEL,
-        "messages": [
-            {
-                "role": "system",
-                "content": "你是一个专业的AI技能描述翻译专家。将以下技能描述翻译为地道、简明、富有行动力的中文说明，不要带有任何额外引语或标点包裹，直接输出中文文本即可。"
-            },
-            {"role": "user", "content": text}
-        ],
-        "max_tokens": 150
+        "messages": messages,
+        "max_tokens": max_tokens,
     }
     req = urllib.request.Request(
         COMPLETIONS_URL,
@@ -101,14 +97,125 @@ def translate_to_chinese(text: str) -> str:
         },
         data=json.dumps(payload).encode("utf-8")
     )
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            translated = data["choices"][0]["message"]["content"].strip()
-            return translated if has_chinese(translated) else text
-    except Exception as e:
-        safe_log(f"Translation warning for {text[:30]}: {e}")
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            return data["choices"][0]["message"]["content"].strip()
+        except urllib.error.HTTPError as error:
+            if error.code not in {408, 425, 429, 500, 502, 503, 504} or attempt == 2:
+                raise
+            wait = min(8, 2 ** attempt)
+            safe_log(f"Translation API returned HTTP {error.code}; retrying in {wait}s", flush=True)
+            time.sleep(wait)
+        except (urllib.error.URLError, TimeoutError, OSError, json.JSONDecodeError, KeyError, IndexError, TypeError) as error:
+            if attempt == 2:
+                raise
+            wait = min(8, 2 ** attempt)
+            safe_log(f"Translation request failed; retrying in {wait}s: {error}", flush=True)
+            time.sleep(wait)
+    raise RuntimeError("Translation retries exhausted")
+
+
+def translate_to_chinese(text: str) -> str:
+    if not text or has_chinese(text) or not API_KEY:
         return text
+    for attempt in range(2):
+        try:
+            translated = _request_translation(
+                [
+                    {"role": "system", "content": "将用户提供的 AI 能力名称或说明翻译成自然、简洁的简体中文。保留常见产品名、专有名词和缩写；只输出译文。"},
+                    {"role": "user", "content": text},
+                ],
+                512,
+            )
+            if has_chinese(translated):
+                return translated
+            if attempt == 0:
+                safe_log("Translation response contained no Chinese; retrying once", flush=True)
+        except Exception as error:
+            safe_log(f"Translation fallback after retries: {error}")
+            return text
+    return text
+
+
+def _translation_groups(texts: list[str]) -> list[list[str]]:
+    groups = []
+    current = []
+    current_chars = 0
+    for text in texts:
+        if current and (len(current) >= TRANSLATION_BATCH_ITEMS or current_chars + len(text) > 8000):
+            groups.append(current)
+            current = []
+            current_chars = 0
+        current.append(text)
+        current_chars += len(text)
+    if current:
+        groups.append(current)
+    return groups
+
+
+def _translate_batch(texts: list[str]) -> list[str]:
+    if len(texts) == 1:
+        return [translate_to_chinese(texts[0])]
+    prompt = json.dumps([{"id": index, "text": text} for index, text in enumerate(texts)], ensure_ascii=False)
+    try:
+        content = _request_translation(
+            [
+                {"role": "system", "content": "把输入数组中每个 AI 能力名称或说明翻译成自然、简洁的简体中文。保留常见产品名、专有名词和缩写。必须按原顺序返回只包含译文字符串的 JSON 数组，条数必须与输入完全一致；不要输出 Markdown 或解释。"},
+                {"role": "user", "content": prompt},
+            ],
+            min(6000, max(512, len(texts) * 240)),
+        )
+        candidate = content.strip()
+        if candidate.startswith("```"):
+            candidate = re.sub(r"^```(?:json)?\s*|\s*```$", "", candidate, flags=re.IGNORECASE)
+        parsed = json.loads(candidate)
+        if isinstance(parsed, dict):
+            parsed = parsed.get("translations")
+        if not isinstance(parsed, list) or len(parsed) != len(texts):
+            raise ValueError("translation batch returned an invalid item count")
+        results = []
+        for original, translated in zip(texts, parsed):
+            if not isinstance(translated, str) or not has_chinese(translated.strip()):
+                results.append(translate_to_chinese(original))
+            else:
+                results.append(translated.strip())
+        return results
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError) as error:
+        safe_log(f"Translation batch deferred after request failure: {error}")
+        return texts
+    except Exception as error:
+        safe_log(f"Translation batch fallback for {len(texts)} items: {error}")
+        return [translate_to_chinese(text) for text in texts]
+
+
+def translate_texts(texts: list[str], label: str) -> list[str]:
+    """Translate all distinct pending strings in bounded parallel batches."""
+    if not API_KEY:
+        safe_log(f"API_567_KEY is unavailable; {len(texts)} {label} stay in their source language")
+        return texts
+    unique = list(dict.fromkeys(text for text in texts if text and not has_chinese(text)))
+    if not unique:
+        return texts
+    current = unique[:MAX_TRANSLATIONS_PER_SYNC]
+    groups = _translation_groups(current)
+    safe_log(
+        f"Translating {len(current)} of {len(unique)} {label} in {len(groups)} batches with {TRANSLATION_WORKERS} workers",
+        flush=True,
+    )
+    translated_by_text = {}
+    with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="translation") as executor:
+        for group, results in zip(groups, executor.map(_translate_batch, groups)):
+            translated_by_text.update(zip(group, results))
+    unresolved = sum(1 for text in current if not has_chinese(translated_by_text.get(text, text)))
+    skipped = len(unique) - len(current)
+    if unresolved or skipped:
+        safe_log(f"Translation incomplete: {unresolved} failed after retries, {skipped} deferred")
+    else:
+        safe_log(f"Translation complete: {len(current)} of {len(unique)} {label}")
+    current_set = set(current)
+    return [translated_by_text.get(text, text) if text in current_set else text for text in texts]
 
 
 def translate_skill_descriptions(source, repository_root: Path, skill_files: list[Path], previous_abilities: dict[str, dict]):
@@ -152,10 +259,8 @@ def translate_skill_descriptions(source, repository_root: Path, skill_files: lis
             pending_texts.append(raw_description)
 
     if pending_texts:
-        safe_log(f"Translating {len(pending_texts)} descriptions with {TRANSLATION_WORKERS} workers")
-        with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="skill-translation") as executor:
-            for key, translated in zip(pending_keys, executor.map(translate_to_chinese, pending_texts)):
-                translations[key] = translated
+        for key, translated in zip(pending_keys, translate_texts(pending_texts, "skill descriptions")):
+            translations[key] = translated
     return translations
 
 def checkout_source(source, temp_root: Path) -> Path:
@@ -529,46 +634,59 @@ def suggest_mcp_classification(name: str, description: str) -> dict:
     return {"category": "uncategorized", "tags": []}
 
 
-def translate_mcp_descriptions(servers: dict[str, dict], previous_abilities: dict[str, dict]) -> dict[str, str]:
-    """Translate changed upstream MCP descriptions, reusing exact-match successes."""
+def translate_mcp_fields(servers: dict[str, dict], previous_abilities: dict[str, dict]) -> dict[str, dict[str, str]]:
+    """Translate MCP names/descriptions and reuse only verified Chinese cache entries."""
     if not API_KEY:
+        safe_log("API_567_KEY is unavailable; MCP names and descriptions remain in their source language")
         return {}
-    translations = {}
-    pending = []
+    translations: dict[str, dict[str, str]] = {}
+    pending_keys = []
+    pending_texts = []
     for slug, server in servers.items():
-        source_text = server["description_en"]
-        if has_chinese(source_text):
-            translations[slug] = source_text
-            continue
         previous = previous_abilities.get(slug, {})
         i18n = previous.get("detail", {}).get("i18n", {})
-        old_english = i18n.get("en", {}).get("description")
-        old_chinese = i18n.get("zh", {}).get("description") or previous.get("description")
-        if old_english == source_text and old_chinese and has_chinese(old_chinese):
-            translations[slug] = old_chinese
-        else:
-            pending.append((slug, source_text))
-    if pending:
-        current_batch = pending[:MAX_TRANSLATIONS_PER_SYNC]
-        safe_log(
-            f"Translating {len(current_batch)} of {len(pending)} new MCP descriptions with {TRANSLATION_WORKERS} workers",
-            flush=True,
-        )
-        with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="mcp-translation") as executor:
-            for (slug, _), translated in zip(current_batch, executor.map(translate_to_chinese, (text for _, text in current_batch))):
-                translations[slug] = translated
+        fields = {
+            "description": server.get("description_en", ""),
+            "name": server.get("name_en") or server.get("name") or "",
+        }
+        for field, source_text in fields.items():
+            if not source_text:
+                continue
+            translations.setdefault(slug, {})
+            if has_chinese(source_text):
+                translations[slug][field] = source_text
+                continue
+            old_english = i18n.get("en", {}).get(field)
+            old_chinese = i18n.get("zh", {}).get(field)
+            if old_english == source_text and old_chinese and has_chinese(old_chinese):
+                translations[slug][field] = old_chinese
+            else:
+                pending_keys.append((slug, field))
+                pending_texts.append(source_text)
+    if pending_texts:
+        translated = translate_texts(pending_texts, "MCP names/descriptions")
+        for (slug, field), text in zip(pending_keys, translated):
+            translations.setdefault(slug, {})[field] = text
     return translations
 
 
-def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_descriptions: dict[str, str], reviewed_metadata: dict | None = None) -> dict:
+def translate_mcp_descriptions(servers: dict[str, dict], previous_abilities: dict[str, dict]) -> dict[str, str]:
+    """Compatibility helper retained for callers that only need description fields."""
+    fields = translate_mcp_fields(servers, previous_abilities)
+    return {slug: value["description"] for slug, value in fields.items() if "description" in value}
+
+
+def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_fields: dict[str, dict[str, str]], reviewed_metadata: dict | None = None) -> dict:
     slug = mcp["slug"]
     upstream = mcp.get("upstream")
     discovery = mcp.get("discovery")
     previous = previous_abilities.get(slug, {})
-    description = translated_descriptions.get(
-        slug,
-        (upstream or discovery or {}).get("description_en") or mcp["description"],
-    )
+    localized_fields = translated_fields.get(slug, {})
+    if isinstance(localized_fields, str):
+        localized_fields = {"description": localized_fields}
+    description = localized_fields.get("description", (upstream or discovery or {}).get("description_en") or mcp["description"])
+    source_name = discovery["name_en"] if discovery else mcp["name"]
+    localized_name = localized_fields.get("name", mcp["name"])
     version = upstream["package_version"] if upstream else mcp.get("version", "1.0.0")
     reviewed = reviewed_metadata if reviewed_metadata is not None else json.loads((REPO_ROOT / "mcp-curation.json").read_text(encoding="utf-8"))
     metadata = reviewed.get(slug)
@@ -623,10 +741,10 @@ def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_
     }
     localized = category_labels[category]
     details = {
-        "zh": {"name": mcp["name"], "description": description, "tags": tags},
+        "zh": {"name": localized_name, "description": description, "tags": tags},
     }
     if upstream or discovery:
-        details["en"] = {"name": discovery["name_en"] if discovery else mcp["name"], "description": (upstream or discovery)["description_en"], "tags": tags}
+        details["en"] = {"name": source_name, "description": (upstream or discovery)["description_en"], "tags": tags}
     source = {"path": source_path, "contentSha256": digest}
     if upstream:
         source.update({"repository": MCP_UPSTREAM["repository"], "upstreamPath": upstream["path"]})
@@ -676,7 +794,7 @@ def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_
     record = {
         "type": "mcp",
         "slug": slug,
-        "name": mcp["name"],
+        "name": localized_name,
         "description": description,
         "version": version,
         "configVersion": config_version,
@@ -999,7 +1117,7 @@ def generate_catalog(
     curated_metadata = json.loads((REPO_ROOT / "mcp-curation.json").read_text(encoding="utf-8"))
     safe_log("=== Processing Curated and Official Upstream MCPs ===")
     upstream_mcps = load_mcp_upstream(temp_root)
-    translated_mcp_descriptions = translate_mcp_descriptions(upstream_mcps, previous_abilities)
+    translated_mcp_descriptions = translate_mcp_fields(upstream_mcps, previous_abilities)
     curated_by_slug = {item["slug"]: item for item in CURATED_MCPS}
     mcp_records = []
     for slug, upstream in upstream_mcps.items():
@@ -1053,7 +1171,7 @@ def generate_catalog(
         }
         discovery_by_slug[slug] = discovery
     safe_log(f"Merged discovery feeds into {len(discovery_by_slug)} candidate MCP entries")
-    translated_discoveries = translate_mcp_descriptions(discovery_by_slug, previous_abilities)
+    translated_discoveries = translate_mcp_fields(discovery_by_slug, previous_abilities)
     for slug, discovery in discovery_by_slug.items():
         try:
             record = write_mcp_record({

@@ -446,6 +446,84 @@ class MarketplaceSyncTests(unittest.TestCase):
         })
         translate.assert_called_once_with("Read and search Git repositories")
 
+    def test_translation_batches_translate_all_pending_items_past_old_limit(self):
+        texts = [f"English description {index}" for index in range(1005)]
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), \
+             patch.object(sync_marketplace, "MAX_TRANSLATIONS_PER_SYNC", 200_000), \
+             patch.object(sync_marketplace, "TRANSLATION_BATCH_ITEMS", 24), \
+             patch.object(sync_marketplace, "_translate_batch", side_effect=lambda group: [f"中文 {text}" for text in group]) as batch:
+            translated = sync_marketplace.translate_texts(texts, "test descriptions")
+        self.assertEqual(len(translated), len(texts))
+        self.assertTrue(all(value.startswith("中文 ") for value in translated))
+        self.assertEqual(sum(len(call.args[0]) for call in batch.call_args_list), len(texts))
+
+    def test_translation_batch_parses_json_array_without_reordering(self):
+        content = json.dumps(["第一条中文", "第二条中文"], ensure_ascii=False)
+        with patch.object(sync_marketplace, "_request_translation", return_value=content):
+            self.assertEqual(
+                sync_marketplace._translate_batch(["First description", "Second description"]),
+                ["第一条中文", "第二条中文"],
+            )
+
+    def test_mcp_translation_includes_localized_name_and_description(self):
+        servers = {
+            "academic-research": {
+                "name_en": "Academic Research Intelligence MCP",
+                "description_en": "Academic paper search and citation analysis.",
+            }
+        }
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+            sync_marketplace,
+            "translate_texts",
+            return_value=["学术论文搜索与引文分析。", "学术研究智能 MCP"],
+        ) as translate:
+            localized = sync_marketplace.translate_mcp_fields(servers, {})
+        self.assertEqual(localized["academic-research"], {
+            "name": "学术研究智能 MCP",
+            "description": "学术论文搜索与引文分析。",
+        })
+        translate.assert_called_once_with(
+            ["Academic paper search and citation analysis.", "Academic Research Intelligence MCP"],
+            "MCP names/descriptions",
+        )
+
+    def test_mcp_record_uses_chinese_name_and_description_for_default_display(self):
+        discovery = {
+            "name_en": "Academic Research Intelligence MCP",
+            "description_en": "Academic paper search and citation analysis.",
+            "version": "1.0.0",
+            "identity": "registry:academic-research",
+            "aliasIdentity": "academic-research",
+            "repository": "https://github.com/example/academic-research",
+            "sources": ["official-mcp-registry"],
+            "registryName": "io.github.example/academic-research",
+            "registry": {},
+        }
+        mcp = {
+            "slug": "academic-research",
+            "name": discovery["name_en"],
+            "description": discovery["description_en"],
+            "discovery": discovery,
+        }
+        with patch.object(sync_marketplace, "REPO_ROOT", Path(__file__).resolve().parents[1]):
+            record = sync_marketplace.write_mcp_record(mcp, {}, {
+                "academic-research": {
+                    "name": "学术研究智能 MCP",
+                    "description": "学术论文搜索与引文分析。",
+                }
+            }, {})
+        self.assertEqual(record["name"], "学术研究智能 MCP")
+        self.assertEqual(record["description"], "学术论文搜索与引文分析。")
+        self.assertEqual(record["detail"]["i18n"]["en"]["name"], "Academic Research Intelligence MCP")
+
+    def test_translation_batch_falls_back_to_single_item_requests_when_json_is_invalid(self):
+        with patch.object(sync_marketplace, "_request_translation", return_value="not json"), patch.object(
+            sync_marketplace, "translate_to_chinese", side_effect=["第一条译文", "第二条译文"]
+        ) as translate:
+            result = sync_marketplace._translate_batch(["First description", "Second description"])
+        self.assertEqual(result, ["第一条译文", "第二条译文"])
+        self.assertEqual(translate.call_count, 2)
+
     def test_mcp_package_update_pins_runtime_and_bumps_config_version(self):
         with tempfile.TemporaryDirectory() as temp:
             destination = Path(temp) / "mcps"
