@@ -22,19 +22,19 @@ GitHub Actions 每天扫描以下仓库里的 `SKILL.md`，并镜像技能所需
 
 ## MCP
 
-当前有 10 个 MCP 配置。其中 6 个自动同步自 [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) 当前维护的参考服务器：Filesystem、Fetch、Memory、Git、Sequential Thinking 和 Time。同步器读取各服务的 `package.json` 或 `pyproject.toml`，把它们映射为 567 Agent 支持的本地 `stdio` 配置，并锁定上游包版本；上游版本更新后，日常同步会更新清单和安装配置。协议演示用的 Everything 服务没有加入市场。
+MCP 目录全量发现以下上游的条目：官方 [MCP Registry](https://registry.modelcontextprotocol.io/)（只取每个服务的 latest 版本）、[mcpHQ](https://landscape.mcphq.org/)、[punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) 和 [TensorBlock/awesome-mcp-servers](https://github.com/TensorBlock/awesome-mcp-servers)。同步器按上游 GitHub 仓库或 Registry 名称去重，并保留来源链接。聚合仓库只作为发现索引；本仓库不因此重新分发其收录项目的代码。
 
-Brave Search、GitHub、PostgreSQL 和 SQLite 是此前手工维护的配置，目前仍保留以兼容已有条目；它们来自已归档的 MCP 参考实现，不会从归档源自动更新。新服务采用自动收录前，需要先确认其维护状态、许可、安装方式和凭据要求。
+发现不等于可安装。只有在 `mcp-curation.json` 中经维护者确认分类、功能标签、运行方式、平台、权限范围、认证要求和安装配置的条目，才会有 `mcp.json` 并标记为可安装。其它候选仍以 `type: "mcp"` 出现在目录中，分类固定为 `uncategorized`、功能标签为空、`installable: false`，客户端展示上游信息而不提供安装动作。官方 Registry 的登记也不代表项目质量、安全性或供应方背书。
 
-官方 [MCP Registry](https://registry.modelcontextprotocol.io/) 是社区服务发现目录，当前没有把其中所有第三方条目自动变成可安装项。Registry 上架不代表维护质量或安全审查；本市场只自动同步官方维护仓库中明确支持的服务。
+主分类是受控枚举：`ai-agents`、`automation`、`cad-3d`、`communication`、`creative-media`、`data-databases`、`developer-tools`、`knowledge-memory`、`productivity`、`system-tools`、`web-search` 和 `uncategorized`。功能标签从 `MCP_FUNCTION_TAGS` 受控集合中选择，每项最多三个。`.567agent/mcp-classification-suggestions.json` 根据名称和描述生成建议，仅供审核，绝不会覆盖已发布分类；确认后由维护者把值写入 `mcp-curation.json`。没有确定分类时保留 `uncategorized`。
 
-Python MCP 使用 `uvx`，Node.js MCP 使用 `npx`；运行相应服务需要本机安装这些工具。Filesystem 默认只开放当前目录。Fetch 上游提示它可以访问本机和内网地址；Git MCP 支持暂存、提交和切换分支，上游仍将其标为早期开发。启用前请按需限制它们可访问的目录和仓库。现有 Brave Search、GitHub、PostgreSQL 配置可能需要 API 密钥或数据库连接信息；安装前请检查 `mcps/<slug>/mcp.json` 中的参数。
+MCP 元数据固定写入独立的 `mcpMetadata` 字段：`runtimeMode`、`platforms`、`permissionScopes`、`authentication`、`publisherType` 和 `installable`。信息不足时使用 `unknown`，尤其权限范围不会仅凭项目名称推断。CAD、Blender、FreeCAD、SolidWorks 等候选会由分类建议帮助定位，但在审核安装配置前不会显示为可直接安装。
 
 ## 自动同步和翻译
 
-工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 每天 **00:00 UTC（北京时间 08:00）**运行，也支持在 GitHub Actions 页面手动触发；推送 `marketplace-v*` tag 也会触发同步。工作流先运行测试，再抓取 Skills 与官方 MCP 来源、生成清单和镜像文件，并将变更推送到 `main`。同一分支的同步任务会排队串行执行。
+工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 每天 **00:00 UTC（北京时间 08:00）**运行，也支持在 GitHub Actions 页面手动触发；推送 `marketplace-v*` tag 也会触发同步。工作流先运行测试，再抓取 Skills 与四个 MCP 发现源、生成清单、分类建议和已审核安装文件，并将变更推送到 `main`。同一分支的同步任务会排队串行执行。
 
-要翻译新收录的英文说明，仓库 Actions Secrets 需要配置 `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时使用脚本默认值。翻译默认使用 6 个并发线程，可通过 `API_567_TRANSLATION_WORKERS` 调整为 1–16 个。没有密钥或调用失败时，说明保留原文，之后仍可重试；已成功生成的中文翻译会按原文缓存，避免重复请求。
+要翻译新收录的英文说明，仓库 Actions Secrets 需要配置 `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时使用脚本默认值。翻译默认使用 6 个并发线程，可通过 `API_567_TRANSLATION_WORKERS` 调整为 1–16 个。每次同步最多处理 1,000 条新的 MCP 说明（可用 `API_567_MAX_TRANSLATIONS_PER_SYNC` 在 1–5,000 间调整），避免首次导入海量候选时压满翻译服务；后续同步按原文缓存继续补齐。没有密钥或调用失败时，说明保留原文，之后仍可重试；已成功生成的中文翻译会按原文缓存，避免重复请求。
 
 ## 本地运行
 
@@ -45,4 +45,4 @@ python3 -m unittest discover -s tests -v
 python3 sync_marketplace.py
 ```
 
-第二条命令会下载三个 Skills 来源和官方 MCP 参考仓库，并更新 `skills/`、`mcps/` 和三份市场清单。配置 `API_567_KEY` 后，也会并发翻译新增或英文说明有变化的条目；未变化且已有成功译文的条目会复用缓存。只改脚本或来源配置不会改变 GitHub 上的自动任务，需先推送代码到 `main`。
+第二条命令会下载三个 Skills 来源、读取四个 MCP 发现源和官方 MCP 参考仓库，并更新 `skills/`、`mcps/`、`.567agent/mcp-classification-suggestions.json` 和三份市场清单。配置 `API_567_KEY` 后，也会并发翻译新增或英文说明有变化的条目；未变化且已有成功译文的条目会复用缓存。只改脚本或来源配置不会改变 GitHub 上的自动任务，需先推送代码到 `main`。

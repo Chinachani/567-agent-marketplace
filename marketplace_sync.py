@@ -78,6 +78,26 @@ MCP_UPSTREAM_SERVERS = (
     {"slug": "time", "path": "src/time", "name": "时间与时区", "category": "System", "tags": ["时间", "时区", "MCP"]},
 )
 
+# MCP catalogue taxonomy. Final category/tags are populated only by the checked-in
+# maintainer overlay; automated classifiers write suggestions to a separate file.
+MCP_MAIN_CATEGORIES = (
+    "ai-agents", "automation", "cad-3d", "communication", "creative-media",
+    "data-databases", "developer-tools", "knowledge-memory", "productivity",
+    "system-tools", "web-search", "uncategorized",
+)
+MCP_FUNCTION_TAGS = (
+    "3d-modeling", "ai", "automation", "browser", "cad", "cloud", "communication",
+    "data-analysis", "database", "documents", "email", "filesystem", "finance",
+    "image-generation", "issue-tracking", "memory", "maps", "search", "security",
+    "developer-tools", "video-generation", "blender", "freecad", "solidworks", "git",
+)
+MCP_COLLECTION_SOURCES = {
+    "registry": "https://registry.modelcontextprotocol.io/v0.1/servers",
+    "mcphq": "https://landscape.mcphq.org/api/servers.json",
+    "punkpeye": "https://raw.githubusercontent.com/punkpeye/awesome-mcp-servers/main/README.md",
+    "tensorblock": "https://raw.githubusercontent.com/TensorBlock/awesome-mcp-servers/main/data/catalog.json",
+}
+
 _CATEGORY_KEYWORDS = (
     ("Security", ("security", "secure", "threat-model", "supply-chain", "vulnerability", "owasp", "compliance", "privacy", "安全", "合规")),
     ("Database", ("database", "postgres", "postgresql", "mysql", "sqlite", "redis", "qdrant", "snowflake", "vector-store", "datastore", "orm", "数据库")),
