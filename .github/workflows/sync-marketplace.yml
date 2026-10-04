@@ -13,7 +13,9 @@ permissions:
   contents: write
 
 concurrency:
-  group: marketplace-sync-${{ github.ref }}
+  # Scheduled, manual, and tag-triggered runs all mutate main and catalog.
+  # Use one shared lock so two trigger types cannot publish stale catalog state.
+  group: marketplace-sync
   cancel-in-progress: false
 
 jobs:
@@ -31,6 +33,18 @@ jobs:
 
       - name: Test marketplace collector
         run: python3 -m unittest discover -s tests -v
+
+      - name: Restore previous discovery catalog state
+        run: |
+          if git fetch origin refs/heads/catalog:refs/remotes/origin/catalog; then
+            if git cat-file -e origin/catalog:catalog-state.json.gz 2>/dev/null; then
+              git show origin/catalog:catalog-state.json.gz > .marketplace-state.json.gz
+            else
+              echo "Catalog branch has no state file; the current main manifest seeds migration state"
+            fi
+          else
+            echo "No previous catalog branch; the current main manifest seeds migration state"
+          fi
 
       - name: Run sync and generate catalog
         env:
@@ -50,4 +64,25 @@ jobs:
           else
             git commit -m "chore(marketplace): 定时同步最新技能与 MCP 清单 [skip ci]"
             git push origin main
+          fi
+
+      - name: Publish sharded MCP discovery catalog
+        run: |
+          test -f catalog-dist/index.json
+          if git ls-remote --exit-code --heads origin catalog >/dev/null 2>&1; then
+            git fetch origin refs/heads/catalog:refs/remotes/origin/catalog
+            git worktree add --detach "$RUNNER_TEMP/marketplace-catalog" refs/remotes/origin/catalog
+          else
+            git worktree add --orphan -b catalog "$RUNNER_TEMP/marketplace-catalog"
+          fi
+          find "$RUNNER_TEMP/marketplace-catalog" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf -- {} +
+          cp -a catalog-dist/. "$RUNNER_TEMP/marketplace-catalog/"
+          git -C "$RUNNER_TEMP/marketplace-catalog" config user.name "github-actions[bot]"
+          git -C "$RUNNER_TEMP/marketplace-catalog" config user.email "github-actions[bot]@users.noreply.github.com"
+          git -C "$RUNNER_TEMP/marketplace-catalog" add --all
+          if git -C "$RUNNER_TEMP/marketplace-catalog" diff --cached --quiet; then
+            echo "Discovery catalog did not change"
+          else
+            git -C "$RUNNER_TEMP/marketplace-catalog" commit -m "chore: publish sharded MCP discovery catalog [skip ci]"
+            git -C "$RUNNER_TEMP/marketplace-catalog" push origin HEAD:refs/heads/catalog
           fi

@@ -2,6 +2,7 @@
 import os
 import json
 import copy
+import gzip
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 import re
@@ -49,9 +50,11 @@ try:
 except ValueError:
     MAX_TRANSLATIONS_PER_SYNC = 1000
 
-# GitHub rejects individual files at 100 MB. Keep headroom for the checked-in
-# compatibility copies and fail before staging a manifest that cannot be pushed.
-MAX_MANIFEST_BYTES = 90 * 1024 * 1024
+# The installed catalog stays small enough for the desktop client's legacy
+# GitHub Contents path. Discovery candidates are published as bounded shards.
+MAX_MANIFEST_BYTES = 2 * 1024 * 1024
+DISCOVERY_SHARD_ITEMS = 500
+DISCOVERY_SHARD_BYTES = 1024 * 1024
 
 REPO_ROOT = Path(__file__).resolve().parent
 SKILLS_DEST_DIR = REPO_ROOT / "skills"
@@ -944,7 +947,12 @@ CURATED_MCPS = [
     }
 ]
 
-def generate_catalog(previous_manifest: dict, temp_root: Path) -> dict:
+def generate_catalog(
+    previous_manifest: dict,
+    temp_root: Path,
+    previous_discovery: dict | None = None,
+    previous_package_manifest: dict | None = None,
+) -> dict:
     global MCP_CLASSIFICATION_SUGGESTIONS
     abilities = []
     previous_abilities = {
@@ -1090,14 +1098,27 @@ def generate_catalog(previous_manifest: dict, temp_root: Path) -> dict:
                         break
 
     # 3. Write marketplace.json
+    installable_abilities = [
+        item for item in abilities
+        if item.get("type") != "mcp" or item.get("mcpMetadata", {}).get("installable") is True
+    ]
+    discovery_abilities = sorted(
+        (
+            item for item in abilities
+            if item.get("type") == "mcp" and item.get("mcpMetadata", {}).get("installable") is not True
+        ),
+        key=lambda item: item["slug"],
+    )
     manifest = {
         "schemaVersion": 3,
         "name": "567-official",
         "displayName": "567 Agent 官方能力市场",
-        "marketplaceVersion": next_marketplace_version(abilities, previous_manifest),
+        "marketplaceVersion": next_marketplace_version(installable_abilities, previous_package_manifest or previous_manifest),
+        "discoveryVersion": next_marketplace_version(discovery_abilities, previous_discovery),
         "repository": "https://github.com/Chinachani/567-agent-marketplace",
         "minAppVersion": "1.0.0",
-        "abilities": abilities
+        "abilities": installable_abilities,
+        "discoveryAbilities": discovery_abilities,
     }
 
     return manifest
@@ -1126,11 +1147,90 @@ def serialize_manifest(manifest: dict) -> str:
     return serialized
 
 
+def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
+    """Write a small index and independently verifiable MCP discovery shards."""
+    abilities = sorted(manifest.get("discoveryAbilities", []), key=lambda item: item["slug"])
+    shards_dir = output_dir / "shards"
+    shards_dir.mkdir(parents=True, exist_ok=True)
+    shards = []
+    grouped = {}
+    for ability in abilities:
+        category = ability.get("category") or "uncategorized"
+        grouped.setdefault(category, []).append(ability)
+    for category, category_abilities in sorted(grouped.items()):
+        chunks = []
+        current = []
+        for ability in category_abilities:
+            candidate = current + [ability]
+            candidate_payload = json.dumps({
+                "schemaVersion": 1,
+                "catalogVersion": manifest["discoveryVersion"],
+                "category": category,
+                "abilities": candidate,
+            }, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+            if current and (len(candidate) > DISCOVERY_SHARD_ITEMS or len(candidate_payload) > DISCOVERY_SHARD_BYTES):
+                chunks.append(current)
+                current = [ability]
+            else:
+                current = candidate
+            if len(current) == 1 and len(json.dumps({
+                "schemaVersion": 1,
+                "catalogVersion": manifest["discoveryVersion"],
+                "category": category,
+                "abilities": current,
+            }, ensure_ascii=False, separators=(",", ":")).encode("utf-8")) > DISCOVERY_SHARD_BYTES:
+                raise ValueError(f"MCP discovery record is too large to publish: {ability['slug']}")
+        if current:
+            chunks.append(current)
+        for shard_index, chunk in enumerate(chunks):
+            shard_name = f"mcp-{category}-{shard_index:04d}.json"
+            payload = json.dumps({
+                "schemaVersion": 1,
+                "catalogVersion": manifest["discoveryVersion"],
+                "category": category,
+                "abilities": chunk,
+            }, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+            (shards_dir / shard_name).write_bytes(payload)
+            shards.append({
+                "path": f"shards/{shard_name}",
+                "category": category,
+                "sha256": hashlib.sha256(payload).hexdigest(),
+                "sizeBytes": len(payload),
+                "count": len(chunk),
+            })
+    category_counts = {}
+    for ability in abilities:
+        category = ability.get("category") or "uncategorized"
+        category_counts[category] = category_counts.get(category, 0) + 1
+    index = {
+        "schemaVersion": 1,
+        "catalogVersion": manifest["discoveryVersion"],
+        "marketplaceVersion": manifest["marketplaceVersion"],
+        "recordCount": len(abilities),
+        "categories": category_counts,
+        "shards": shards,
+    }
+    (output_dir / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "classification-suggestions.json").write_text(
+        json.dumps({"items": MCP_CLASSIFICATION_SUGGESTIONS}, ensure_ascii=False, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+    return index
+
+
 def main():
     global SKILLS_DEST_DIR, MCPS_DEST_DIR
     previous_path = REPO_ROOT / "marketplace.json"
     # A malformed existing manifest needs repair, not replacement by an empty one.
     previous_manifest = json.loads(previous_path.read_text(encoding="utf-8")) if previous_path.is_file() else {}
+    previous_discovery_path = REPO_ROOT / ".marketplace-state.json.gz"
+    if previous_discovery_path.is_file():
+        with gzip.open(previous_discovery_path, "rt", encoding="utf-8") as handle:
+            previous_discovery = json.load(handle)
+    else:
+        # First migration run: the current checked-in manifest still contains
+        # the full discovery catalog and can seed stable IDs/translations.
+        previous_discovery = previous_manifest
     skills_destination, mcps_destination = SKILLS_DEST_DIR, MCPS_DEST_DIR
     with tempfile.TemporaryDirectory(prefix=".marketplace-sync-", dir=REPO_ROOT) as temp_dir:
         temp_root = Path(temp_dir)
@@ -1144,7 +1244,12 @@ def main():
                 else:
                     staged_dir.mkdir()
             repositories = {source["repository"] for source in SKILL_SOURCES}
-            manifest = generate_catalog(previous_manifest, temp_root)
+            combined_previous = dict(previous_manifest)
+            combined_previous["abilities"] = [
+                *previous_manifest.get("abilities", []),
+                *previous_discovery.get("abilities", []),
+            ]
+            manifest = generate_catalog(combined_previous, temp_root, previous_discovery, previous_manifest)
             current_slugs = {item["slug"] for item in manifest["abilities"] if item["type"] == "skill"}
             # Only remove previously managed upstream directories. Preserve legacy
             # mirrors and unrelated local packages when pruning removed upstream skills.
@@ -1160,21 +1265,29 @@ def main():
                     elif path.is_dir():
                         shutil.rmtree(path)
             replacements = [(SKILLS_DEST_DIR, skills_destination), (MCPS_DEST_DIR, mcps_destination)]
-            serialized = serialize_manifest(manifest)
+            discovery_abilities = manifest.pop("discoveryAbilities")
+            package_manifest = dict(manifest)
+            package_manifest["abilities"] = manifest["abilities"]
+            serialized = serialize_manifest(package_manifest)
             for index, relative_path in enumerate(("marketplace.json", ".567agent/marketplace.json", ".vetta/marketplace.json")):
                 staged = temp_root / f"manifest-{index}.json"
                 staged.write_text(serialized, encoding="utf-8")
                 replacements.append((staged, REPO_ROOT / relative_path))
-            suggestion_file = temp_root / "mcp-classification-suggestions.json"
-            suggestion_file.write_text(
-                json.dumps({"items": MCP_CLASSIFICATION_SUGGESTIONS}, ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
-            replacements.append((suggestion_file, REPO_ROOT / ".567agent" / "mcp-classification-suggestions.json"))
+            discovery_root = temp_root / "catalog-dist"
+            discovery_root.mkdir()
+            distribution_manifest = {**manifest, "discoveryAbilities": discovery_abilities}
+            build_discovery_distribution(distribution_manifest, discovery_root)
+            state_path = discovery_root / "catalog-state.json.gz"
+            with gzip.open(state_path, "wt", encoding="utf-8", compresslevel=9) as handle:
+                json.dump({"abilities": discovery_abilities, "marketplaceVersion": manifest["discoveryVersion"]}, handle, ensure_ascii=False, separators=(",", ":"))
+            replacements.append((discovery_root, REPO_ROOT / "catalog-dist"))
             publish_staged_paths(replacements, temp_root / "backups")
+            legacy_suggestions = REPO_ROOT / ".567agent" / "mcp-classification-suggestions.json"
+            if legacy_suggestions.exists():
+                legacy_suggestions.unlink()
         finally:
             SKILLS_DEST_DIR, MCPS_DEST_DIR = skills_destination, mcps_destination
-    print(f"\nSuccessfully generated marketplace with {len(manifest['abilities'])} abilities!")
+    print(f"\nSuccessfully generated installable marketplace with {len(manifest['abilities'])} abilities and {len(discovery_abilities)} MCP discovery records!")
 
 
 if __name__ == "__main__":

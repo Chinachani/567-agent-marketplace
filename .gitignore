@@ -1,3 +1,5 @@
 __pycache__/
 *.py[cod]
 .marketplace-sync-*/
+catalog-dist/
+.marketplace-state.json.gz
