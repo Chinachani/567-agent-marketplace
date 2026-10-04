@@ -17,6 +17,7 @@ import urllib.parse
 import hashlib
 import time
 import random
+import threading
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
@@ -48,9 +49,9 @@ RAW_BASE_URL = (os.environ.get("API_567_BASE_URL") or "https://api.567.wiki/v1")
 COMPLETIONS_URL = f"{RAW_BASE_URL}/chat/completions" if not RAW_BASE_URL.endswith("/chat/completions") else RAW_BASE_URL
 MODEL = os.environ.get("API_567_MODEL") or "gemini-3.8-flash-high"
 try:
-    TRANSLATION_WORKERS = min(24, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "20"))))
+    TRANSLATION_WORKERS = min(16, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "8"))))
 except ValueError:
-    TRANSLATION_WORKERS = 20
+    TRANSLATION_WORKERS = 8
 try:
     MAX_TRANSLATIONS_PER_SYNC = min(200_000, max(1, int(os.environ.get("API_567_MAX_TRANSLATIONS_PER_SYNC", "200000"))))
 except ValueError:
@@ -59,6 +60,10 @@ try:
     TRANSLATION_BATCH_ITEMS = min(32, max(1, int(os.environ.get("API_567_TRANSLATION_BATCH_ITEMS", "24"))))
 except ValueError:
     TRANSLATION_BATCH_ITEMS = 24
+
+TRANSLATION_NO_CHINESE_RETRIES = 0
+TRANSLATION_DIAGNOSTIC_LOGGED = False
+TRANSLATION_DIAGNOSTIC_LOCK = threading.Lock()
 
 # The installed catalog stays small enough for the desktop client's legacy
 # GitHub Contents path. Discovery candidates are published as bounded shards.
@@ -140,17 +145,33 @@ def translate_to_chinese(text: str) -> str:
         return text
     for attempt in range(2):
         try:
-            translated = _request_translation(
-                [
+            if attempt == 0:
+                messages = [
                     {"role": "system", "content": "将用户提供的 AI 能力名称或说明翻译成自然、简洁的简体中文。保留常见产品名、专有名词和缩写；只输出译文。"},
                     {"role": "user", "content": text},
-                ],
+                ]
+            else:
+                messages = [
+                    {"role": "system", "content": "Translate the input into Simplified Chinese (简体中文). You must translate ordinary English words into Chinese. Preserve only proper names and acronyms. Return only the Chinese translation, with no explanation."},
+                    {"role": "user", "content": text},
+                ]
+            translated = _request_translation(
+                messages,
                 512,
             )
             if has_chinese(translated):
                 return translated
             if attempt == 0:
-                safe_log("Translation response contained no Chinese; retrying once", flush=True)
+                global TRANSLATION_NO_CHINESE_RETRIES, TRANSLATION_DIAGNOSTIC_LOGGED
+                with TRANSLATION_DIAGNOSTIC_LOCK:
+                    TRANSLATION_NO_CHINESE_RETRIES += 1
+                    if not TRANSLATION_DIAGNOSTIC_LOGGED:
+                        sample = re.sub(r"\s+", " ", translated)[:240]
+                        safe_log(
+                            f"Translation response contained no Chinese; retrying once. First response sample: {sample!r}",
+                            flush=True,
+                        )
+                        TRANSLATION_DIAGNOSTIC_LOGGED = True
         except Exception as error:
             safe_log(f"Translation fallback after retries: {error}")
             return text
@@ -216,6 +237,8 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
     unique = list(dict.fromkeys(text for text in texts if text and not has_chinese(text)))
     if not unique:
         return texts
+    with TRANSLATION_DIAGNOSTIC_LOCK:
+        no_chinese_retries_before = TRANSLATION_NO_CHINESE_RETRIES
     current = unique[:MAX_TRANSLATIONS_PER_SYNC]
     groups = _translation_groups(current)
     safe_log(
@@ -227,6 +250,10 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
         for group, results in zip(groups, executor.map(_translate_batch, groups)):
             translated_by_text.update(zip(group, results))
     unresolved = sum(1 for text in current if not has_chinese(translated_by_text.get(text, text)))
+    with TRANSLATION_DIAGNOSTIC_LOCK:
+        no_chinese_retries = TRANSLATION_NO_CHINESE_RETRIES - no_chinese_retries_before
+    if no_chinese_retries:
+        safe_log(f"{no_chinese_retries} translation requests needed a non-Chinese response retry")
     skipped = len(unique) - len(current)
     if unresolved or skipped:
         safe_log(f"Translation incomplete: {unresolved} failed after retries, {skipped} deferred")

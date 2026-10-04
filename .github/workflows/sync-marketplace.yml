@@ -51,7 +51,7 @@ jobs:
           API_567_KEY: ${{ secrets.API_567_KEY }}
           API_567_BASE_URL: ${{ secrets.API_567_BASE_URL }}
           API_567_MODEL: ${{ secrets.API_567_MODEL }}
-          API_567_TRANSLATION_WORKERS: '20'
+          API_567_TRANSLATION_WORKERS: '8'
         run: |
           python3 sync_marketplace.py
 
