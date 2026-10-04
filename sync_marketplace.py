@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import builtins
 import json
 import copy
 import gzip
@@ -16,6 +17,9 @@ import urllib.parse
 import hashlib
 import time
 from pathlib import Path
+
+from marketplace_contract import validate_ability, validate_manifest
+from skill_content_policy import KEY_PATTERN, redistribution_allowed, scan_skill_tree
 
 from marketplace_sync import (
     CATEGORIES,
@@ -55,11 +59,22 @@ except ValueError:
 MAX_MANIFEST_BYTES = 2 * 1024 * 1024
 DISCOVERY_SHARD_ITEMS = 500
 DISCOVERY_SHARD_BYTES = 1024 * 1024
+DISCOVERY_MAX_RECORDS = 100_000
+DISCOVERY_MAX_SHARDS = 250
+DISCOVERY_MAX_BYTES = 100 * 1024 * 1024
 
 REPO_ROOT = Path(__file__).resolve().parent
 SKILLS_DEST_DIR = REPO_ROOT / "skills"
 MCPS_DEST_DIR = REPO_ROOT / "mcps"
 MCP_CLASSIFICATION_SUGGESTIONS = []
+
+def safe_log(message, *, flush=False):
+    text = re.sub(r"[\x00-\x1f\x7f-\x9f]", " ", str(message))
+    text = KEY_PATTERN.sub("[REDACTED]", text)
+    if API_KEY:
+        text = text.replace(API_KEY, "[REDACTED]")
+    builtins.print("[sync] " + text[:4000], flush=flush)
+
 
 def has_chinese(text: str) -> bool:
     return any('\u4e00' <= char <= '\u9fff' for char in text)
@@ -92,7 +107,7 @@ def translate_to_chinese(text: str) -> str:
             translated = data["choices"][0]["message"]["content"].strip()
             return translated if has_chinese(translated) else text
     except Exception as e:
-        print(f"Translation warning for {text[:30]}: {e}")
+        safe_log(f"Translation warning for {text[:30]}: {e}")
         return text
 
 
@@ -137,7 +152,7 @@ def translate_skill_descriptions(source, repository_root: Path, skill_files: lis
             pending_texts.append(raw_description)
 
     if pending_texts:
-        print(f"Translating {len(pending_texts)} descriptions with {TRANSLATION_WORKERS} workers")
+        safe_log(f"Translating {len(pending_texts)} descriptions with {TRANSLATION_WORKERS} workers")
         with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="skill-translation") as executor:
             for key, translated in zip(pending_keys, executor.map(translate_to_chinese, pending_texts)):
                 translations[key] = translated
@@ -147,12 +162,20 @@ def checkout_source(source, temp_root: Path) -> Path:
     repository_path = source["repository"]
     checkout = temp_root / repository_path.replace("/", "--")
     url = f"https://github.com/{repository_path}.git"
-    subprocess.run(
-        ["git", "clone", "--depth", "1", "--filter=blob:none", "--sparse", url, str(checkout)],
-        check=True,
-        stdout=subprocess.DEVNULL,
-        timeout=300,
-    )
+    # Resolve once and fetch exactly that commit. A branch changing mid-run cannot
+    # change the reviewed license/resources while files are being copied.
+    revision = source.get("commit")
+    if revision is None:
+        output = subprocess.check_output(["git", "ls-remote", url, "HEAD"], timeout=60, text=True)
+        revision = output.split()[0] if output.split() else ""
+    if not re.fullmatch(r"[a-f0-9]{40}", revision):
+        raise ValueError("Invalid upstream revision")
+    checkout.mkdir(parents=True)
+    for args in (("init",), ("remote", "add", "origin", url), ("config", "core.sparseCheckout", "true"),
+                 ("fetch", "--depth", "1", "--filter=blob:none", "origin", revision),
+                 ("checkout", "--detach", "FETCH_HEAD")):
+        subprocess.run(["git", "-C", str(checkout), *args], check=True, stdout=subprocess.DEVNULL, timeout=300)
+    source["resolved_commit"] = revision
     sparse_paths = [f"/{root}/" for root in source["roots"]]
     sparse_paths.append(f"/{source.get('license_file', 'LICENSE')}")
     subprocess.run(
@@ -232,7 +255,7 @@ def fetch_json(url: str):
             if attempt == 4:
                 raise
             wait = min(30, 2 ** attempt)
-            print(f"Transient upstream error; retrying in {wait}s: {error}", flush=True)
+            safe_log(f"Transient upstream error; retrying in {wait}s: {error}", flush=True)
             time.sleep(wait)
 
 
@@ -248,7 +271,7 @@ def fetch_text(url: str) -> str:
             if attempt == 4:
                 raise
             wait = min(30, 2 ** attempt)
-            print(f"Transient upstream error; retrying in {wait}s: {error}", flush=True)
+            safe_log(f"Transient upstream error; retrying in {wait}s: {error}", flush=True)
             time.sleep(wait)
 
 
@@ -265,11 +288,11 @@ def registry_servers(previous_abilities: dict[str, dict]) -> list[dict]:
         try:
             watermark = datetime.fromisoformat(latest_updated.replace("Z", "+00:00")) - timedelta(minutes=5)
             params["updated_since"] = watermark.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
-            print(f"Fetching MCP Registry updates since {params['updated_since']}", flush=True)
+            safe_log(f"Fetching MCP Registry updates since {params['updated_since']}", flush=True)
         except ValueError:
-            print("Invalid MCP Registry watermark; falling back to a full sync", flush=True)
+            safe_log("Invalid MCP Registry watermark; falling back to a full sync", flush=True)
     else:
-        print("Bootstrapping full latest-version MCP Registry catalog", flush=True)
+        safe_log("Bootstrapping full latest-version MCP Registry catalog", flush=True)
     url = MCP_COLLECTION_SOURCES["registry"] + "?" + urllib.parse.urlencode(params)
     records = {}
     seen_cursors = set()
@@ -285,7 +308,7 @@ def registry_servers(previous_abilities: dict[str, dict]) -> list[dict]:
                 continue
             records[name] = {**server, "_registryMeta": meta}
         if page_number % 25 == 0:
-            print(f"Registry pages: {page_number} ({len(records)} distinct names)", flush=True)
+            safe_log(f"Registry pages: {page_number} ({len(records)} distinct names)", flush=True)
         cursor = payload.get("metadata", {}).get("nextCursor")
         if not cursor:
             break
@@ -453,7 +476,7 @@ def collect_mcp_candidates(previous_abilities: dict[str, dict] | None = None) ->
             if not candidate["sources"]:
                 del merged[identity]
 
-    print("Fetching mcpHQ and TensorBlock indexes…")
+    safe_log("Fetching mcpHQ and TensorBlock indexes…")
     for row in fetch_json(MCP_COLLECTION_SOURCES["mcphq"]):
         add("mcphq:" + row.get("name", ""), row.get("name"), row.get("description"), row.get("url", ""), "mcpHQ", row)
     for row in fetch_json(MCP_COLLECTION_SOURCES["tensorblock"]):
@@ -461,7 +484,7 @@ def collect_mcp_candidates(previous_abilities: dict[str, dict] | None = None) ->
         url = links.get("repo") or links.get("primary") or links.get("homepage") or ""
         add("tensorblock:" + row.get("id", row.get("name", "")), row.get("name"), row.get("description"), url, "TensorBlock", row)
 
-    print("Fetching punkpeye directory…")
+    safe_log("Fetching punkpeye directory…")
     readme = fetch_text(MCP_COLLECTION_SOURCES["punkpeye"])
     for line in readme.splitlines():
         if not re.match(r"\s*[-*+]\s+", line):
@@ -478,26 +501,31 @@ def collect_mcp_candidates(previous_abilities: dict[str, dict] | None = None) ->
 
 
 def suggest_mcp_classification(name: str, description: str) -> dict:
-    """Suggest a controlled category and at most three controlled tags; never publish it directly."""
-    text = (name + " " + description).lower()
+    """Automatic browsing hints only: no permission or installability inference."""
     rules = (
-        ("cad-3d", ("cad", "blender", "freecad", "solidworks", "3d", "mesh", "modeling"), ("cad", "3d-modeling")),
-        ("data-databases", ("database", "postgres", "mysql", "sqlite", "sql", "warehouse"), ("database", "data-analysis")),
-        ("developer-tools", ("github", "gitlab", "git", "code", "repository", "issue", "pull request"), ("developer-tools", "git", "issue-tracking")),
-        ("web-search", ("search", "browser", "web", "fetch", "crawl", "internet"), ("search", "browser")),
-        ("knowledge-memory", ("memory", "knowledge", "notion", "wiki", "document"), ("memory", "documents")),
-        ("communication", ("slack", "discord", "email", "telegram", "teams", "messaging"), ("communication", "email")),
-        ("creative-media", ("image", "video", "audio", "music", "design", "media"), ("image-generation", "video-generation")),
-        ("automation", ("automation", "workflow", "orchestration"), ("automation",)),
-        ("ai-agents", ("llm", "model", "agent", "prompt", "inference"), ("ai",)),
+        ("cad-3d", ("cad", "blender", "freecad", "solidworks", "3d", "mesh", "modeling"), "3d-modeling"),
+        ("data-databases", ("database", "postgres", "postgresql", "mysql", "sqlite", "sql", "warehouse"), "database"),
+        ("developer-tools", ("github", "gitlab", "git", "code", "repository", "issue", "pull request", "debug", "compiler"), "developer-tools"),
+        ("web-search", ("search", "browser", "web", "fetch", "crawl", "internet"), "search"),
+        ("knowledge-memory", ("memory", "knowledge", "notion", "wiki", "document"), "documents"),
+        ("communication", ("slack", "discord", "email", "telegram", "teams", "messaging"), "communication"),
+        ("creative-media", ("image", "video", "audio", "music", "design", "media"), None),
+        ("automation", ("automation", "workflow", "orchestration"), "automation"),
+        ("productivity", ("calendar", "tasks", "todo", "schedule"), None),
+        ("system-tools", ("filesystem", "shell", "terminal", "process", "system"), "filesystem"),
+        ("ai-agents", ("llm", "model", "agent", "prompt", "inference"), "ai"),
     )
-    for category, keywords, tags in rules:
-        if any(word in text for word in keywords):
-            tags = list(tags)
-            for app_tag in ("blender", "freecad", "solidworks"):
-                if app_tag in text:
-                    tags.append(app_tag)
-            return {"category": category, "tags": [tag for tag in dict.fromkeys(tags) if tag in MCP_FUNCTION_TAGS][:3]}
+    def contains(text, word):
+        return re.search(r"(?<![a-z0-9])" + re.escape(word) + r"(?![a-z0-9])", text.lower()) is not None
+    # The project name is stronger evidence than a passing mention in its description.
+    for text in (name, description):
+        for category, keywords, primary_tag in rules:
+            if any(contains(text, word) for word in keywords):
+                tags = [primary_tag] if primary_tag else []
+                for word, tag in (("blender", "blender"), ("freecad", "freecad"), ("solidworks", "solidworks"), ("cad", "cad"), ("git", "git"), ("github", "git"), ("issue", "issue-tracking"), ("browser", "browser"), ("memory", "memory"), ("email", "email")):
+                    if contains(name + " " + description, word):
+                        tags.append(tag)
+                return {"category": category, "tags": [tag for tag in dict.fromkeys(tags) if tag in MCP_FUNCTION_TAGS][:3]}
     return {"category": "uncategorized", "tags": []}
 
 
@@ -522,7 +550,7 @@ def translate_mcp_descriptions(servers: dict[str, dict], previous_abilities: dic
             pending.append((slug, source_text))
     if pending:
         current_batch = pending[:MAX_TRANSLATIONS_PER_SYNC]
-        print(
+        safe_log(
             f"Translating {len(current_batch)} of {len(pending)} new MCP descriptions with {TRANSLATION_WORKERS} workers",
             flush=True,
         )
@@ -532,7 +560,7 @@ def translate_mcp_descriptions(servers: dict[str, dict], previous_abilities: dic
     return translations
 
 
-def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_descriptions: dict[str, str]) -> dict:
+def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_descriptions: dict[str, str], reviewed_metadata: dict | None = None) -> dict:
     slug = mcp["slug"]
     upstream = mcp.get("upstream")
     discovery = mcp.get("discovery")
@@ -542,36 +570,34 @@ def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_
         (upstream or discovery or {}).get("description_en") or mcp["description"],
     )
     version = upstream["package_version"] if upstream else mcp.get("version", "1.0.0")
-    reviewed = json.loads((REPO_ROOT / "mcp-curation.json").read_text(encoding="utf-8"))
+    reviewed = reviewed_metadata if reviewed_metadata is not None else json.loads((REPO_ROOT / "mcp-curation.json").read_text(encoding="utf-8"))
     metadata = reviewed.get(slug)
     installable = metadata is not None and bool(metadata.get("installable"))
     if discovery:
         installable = False
         version = discovery.get("version", version)
+    validate_ability({"type": "mcp", "slug": slug, "name": mcp["name"], "description": description, "version": version, "source": {"path": "mcps/discovery"}})
     if installable:
         mcp_dir = MCPS_DEST_DIR / slug
         if mcp_dir.is_symlink() or (mcp_dir / "mcp.json").is_symlink():
             raise ValueError(f"Refusing to write through local symlink: {mcp_dir}")
-        mcp_dir.mkdir(parents=True, exist_ok=True)
-        (mcp_dir / "mcp.json").write_text(json.dumps({
-            "schemaVersion": 1,
-            "slug": slug,
-            "version": version,
-            "server": upstream["server"] if upstream else mcp["server"],
-            "parameters": [],
-        }, indent=2, ensure_ascii=False), encoding="utf-8")
-        digest = package_digest(mcp_dir)
+        pending_mcp = json.dumps({
+            "schemaVersion": 1, "slug": slug, "version": version,
+            "server": upstream["server"] if upstream else mcp["server"], "parameters": [],
+        }, indent=2, ensure_ascii=False)
+        digest = package_digest(mcp_dir, {"mcp.json": pending_mcp.encode("utf-8")})
         source_path = f"mcps/{slug}"
     else:
-        digest = hashlib.sha256(json.dumps(discovery, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+        digest = hashlib.sha256(json.dumps({key: value for key, value in (discovery or {}).items() if key != "registryUpdatedAt"}, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
         source_path = "mcps/discovery"
     config_version = previous.get("configVersion", 1)
     if previous and previous.get("source", {}).get("contentSha256") != digest:
         config_version += 1
-    category = metadata.get("category", "uncategorized") if metadata else "uncategorized"
+    automatic = suggest_mcp_classification(discovery["name_en"] if discovery else mcp["name"], (upstream or discovery or {}).get("description_en", mcp["description"]))
+    category = metadata.get("category", automatic["category"]) if metadata else automatic["category"]
     if category not in MCP_MAIN_CATEGORIES:
         raise ValueError(f"Uncontrolled MCP category for {slug}: {category}")
-    tags = metadata.get("tags", []) if metadata else []
+    tags = metadata.get("tags", automatic["tags"]) if metadata else automatic["tags"]
     if len(tags) > 3 or any(tag not in MCP_FUNCTION_TAGS for tag in tags):
         raise ValueError(f"Invalid MCP feature tags for {slug}: {tags}")
     metadata = metadata or {}
@@ -647,7 +673,7 @@ def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_
             item for item in preserved_meta
             if (item.get("label"), item.get("key"), item.get("value")) not in known_links
         )
-    return {
+    record = {
         "type": "mcp",
         "slug": slug,
         "name": mcp["name"],
@@ -656,6 +682,8 @@ def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_
         "configVersion": config_version,
         "license": mcp.get("license", "MIT" if upstream else ""),
         "author": mcp.get("author", "Model Context Protocol" if upstream else ""),
+        "icon": "",
+        "classificationSource": "maintainer" if metadata.get("category") else "automatic",
         "category": category,
         "categoryI18n": {"zh": localized, "en": category_labels_en[category]},
         "tags": tags,
@@ -663,6 +691,17 @@ def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_
         "detail": {"i18n": details, "meta": links},
         "source": source,
     }
+
+    validate_ability(record)
+    if installable:
+        mcp_dir.mkdir(parents=True, exist_ok=True)
+        temporary = mcp_dir / ".mcp.json.tmp"
+        try:
+            temporary.write_text(pending_mcp, encoding="utf-8")
+            temporary.replace(mcp_dir / "mcp.json")
+        finally:
+            temporary.unlink(missing_ok=True)
+    return record
 
 
 def resolve_skill_license(skill_dir: Path, declared: str) -> str:
@@ -688,10 +727,10 @@ def write_skill(
     try:
         content = skill_file.read_text(encoding="utf-8")
     except (OSError, UnicodeError) as error:
-        print(f"Skipping unreadable skill {skill_file}: {error}")
+        safe_log(f"Skipping unreadable skill {skill_file}: {error}")
         return None
     if len(content.encode("utf-8")) > 512 * 1024:
-        print(f"Skipping oversized SKILL.md: {skill_file}")
+        safe_log(f"Skipping oversized SKILL.md: {skill_file}")
         return None
 
     frontmatter, body = parse_frontmatter(content)
@@ -732,17 +771,30 @@ def write_skill(
             description = previous_chinese if previous_english == raw_desc and previous_chinese and has_chinese(previous_chinese) else translate_to_chinese(raw_desc)
     display_name = raw_name if raw_name != base_slug else raw_name.replace("-", " ").title()
     category = classify_skill(base_slug, display_name, raw_desc, upstream_path)
-    license_name = resolve_skill_license(skill_file.parent, frontmatter.get("license") or source["license"])
+    try:
+        license_name = resolve_skill_license(skill_file.parent, frontmatter.get("license") or source["license"])
+    except (ValueError, OSError):
+        safe_log(f"Skipped skill with unreviewed license: {slug}")
+        return None
     author = frontmatter.get("author") or frontmatter.get("metadata.author") or source["display_name"]
     version = frontmatter.get("version") or frontmatter.get("metadata.version") or "1.0.0"
 
+    try:
+        validate_ability({"type": "skill", "slug": slug, "name": display_name, "description": description, "version": version, "author": author, "license": license_name, "source": {"path": f"skills/{slug}"}})
+    except ValueError as error:
+        safe_log(f"Skipped skill {slug}: {error}")
+        return None
+
+    if scan_skill_tree(skill_file.parent):
+        safe_log(f"Quarantined skill content: {slug}")
+        return None
     SKILLS_DEST_DIR.mkdir(parents=True, exist_ok=True)
     destination = Path(tempfile.mkdtemp(prefix=".skill-", dir=SKILLS_DEST_DIR))
     try:
         copy_skill_resources(skill_file.parent, destination)
     except (OSError, ValueError) as error:
         shutil.rmtree(destination)
-        print(f"Skipping skill with invalid or oversized resources {skill_file}: {error}")
+        safe_log(f"Skipping skill with invalid or oversized resources {skill_file}: {error}")
         return None
 
     clean_skill_md = render_skill_document(content, {
@@ -770,11 +822,8 @@ def write_skill(
     config_version = previous.get("configVersion", 1)
     if previous and previous.get("source", {}).get("contentSha256") != digest:
         config_version += 1
-    with tempfile.TemporaryDirectory(prefix=".skill-backup-", dir=SKILLS_DEST_DIR) as backup:
-        publish_staged_paths([(destination, SKILLS_DEST_DIR / slug)], Path(backup))
-    used_slugs.add(slug)
     tags = [slug, category]
-    return {
+    record = {
         "type": "skill",
         "slug": slug,
         "name": display_name,
@@ -792,38 +841,23 @@ def write_skill(
                 "en": {"name": display_name, "description": raw_desc, "tags": tags},
             }
         },
-        "source": {"path": f"skills/{slug}", "repository": source["repository"], "upstreamPath": upstream_path, "contentSha256": digest},
+        "source": {"path": f"skills/{slug}", "repository": source["repository"], "upstreamPath": upstream_path, "upstreamCommit": source.get("resolved_commit", ""), "contentSha256": digest},
     }
+
+    try:
+        validate_ability(record)
+    except ValueError:
+        shutil.rmtree(destination)
+        return None
+    with tempfile.TemporaryDirectory(prefix=".skill-backup-", dir=SKILLS_DEST_DIR) as backup:
+        publish_staged_paths([(destination, SKILLS_DEST_DIR / slug)], Path(backup))
+    used_slugs.add(slug)
+    return record
 
 
 def preserve_legacy_anbeime_abilities(previous_manifest: dict, used_slugs: set[str]) -> list[dict]:
-    """Keep already mirrored entries visible without automatically recrawling an unlicensed source."""
-    preserved = []
-    for item in previous_manifest.get("abilities", []):
-        if not isinstance(item, dict) or item.get("type") != "skill":
-            continue
-        if item.get("author") != "anbeime / 567 Agent":
-            continue
-        slug = item.get("slug")
-        source_path = item.get("source", {}).get("path", "")
-        if (
-            not isinstance(slug, str)
-            or not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", slug)
-            or slug in used_slugs
-            or not isinstance(source_path, str)
-            or not source_path.startswith("skills/")
-        ):
-            continue
-        if not (SKILLS_DEST_DIR / slug / "SKILL.md").is_file():
-            continue
-        legacy = copy.deepcopy(item)
-        category = classify_skill(slug, legacy.get("name", slug), legacy.get("description", ""), source_path)
-        legacy["category"] = category
-        legacy["categoryI18n"] = {"zh": CATEGORIES[category], "en": category}
-        legacy["source"] = {**legacy.get("source", {}), "repository": "anbeime/skill"}
-        used_slugs.add(slug)
-        preserved.append(legacy)
-    return preserved
+    """Unlicensed legacy mirrors stay quarantined until redistribution is reviewed."""
+    return []
 
 # 1. Standard Curated MCPs
 CURATED_MCPS = [
@@ -962,7 +996,8 @@ def generate_catalog(
     }
 
     # 1. Sync supported first-party MCPs from the maintained upstream repository.
-    print("=== Processing Curated and Official Upstream MCPs ===")
+    curated_metadata = json.loads((REPO_ROOT / "mcp-curation.json").read_text(encoding="utf-8"))
+    safe_log("=== Processing Curated and Official Upstream MCPs ===")
     upstream_mcps = load_mcp_upstream(temp_root)
     translated_mcp_descriptions = translate_mcp_descriptions(upstream_mcps, previous_abilities)
     curated_by_slug = {item["slug"]: item for item in CURATED_MCPS}
@@ -974,11 +1009,18 @@ def generate_catalog(
         mcp_records.append({**curated, "upstream": upstream})
     mcp_records.extend(item for item in CURATED_MCPS if item["slug"] not in upstream_mcps)
     for mcp in mcp_records:
-        record = write_mcp_record(mcp, previous_abilities, translated_mcp_descriptions)
+        try:
+            record = write_mcp_record(mcp, previous_abilities, translated_mcp_descriptions, curated_metadata)
+        except ValueError:
+            record = previous_abilities.get(mcp["slug"])
+            if not record:
+                safe_log(f"Skipped invalid MCP: {mcp['slug']}")
+                continue
+            validate_ability(record)
         abilities.append(record)
-        print(f"Processed MCP: {record['slug']} ({record['version']})")
+        safe_log(f"Processed MCP: {record['slug']} ({record['version']})")
 
-    print("\n=== Discovering community and Registry MCP candidates ===")
+    safe_log("\n=== Discovering community and Registry MCP candidates ===")
     candidates = collect_mcp_candidates(previous_abilities)
     curated_slugs = set(curated_by_slug)
     used_slugs = {item.get("slug", "") for item in abilities} | set(previous_abilities)
@@ -1010,21 +1052,30 @@ def generate_catalog(
             "description_en": candidate["description_en"] or f"MCP server listed by {', '.join(candidate['sources'])}.",
         }
         discovery_by_slug[slug] = discovery
-    print(f"Merged discovery feeds into {len(discovery_by_slug)} candidate MCP entries")
+    safe_log(f"Merged discovery feeds into {len(discovery_by_slug)} candidate MCP entries")
     translated_discoveries = translate_mcp_descriptions(discovery_by_slug, previous_abilities)
     for slug, discovery in discovery_by_slug.items():
-        record = write_mcp_record({
+        try:
+            record = write_mcp_record({
             "slug": slug,
             "name": discovery["name_en"],
             "description": discovery["description_en"],
             "license": discovery.get("license", ""),
             "author": discovery.get("author", ""),
             "discovery": discovery,
-        }, previous_abilities, translated_discoveries)
+            }, previous_abilities, translated_discoveries, curated_metadata)
+        except ValueError:
+            record = previous_abilities.get(slug)
+            if not record:
+                safe_log(f"Skipped invalid discovery record: {slug}")
+                continue
+            try:
+                validate_ability(record)
+            except ValueError:
+                continue
         abilities.append(record)
 
     suggestions = []
-    curated_metadata = json.loads((REPO_ROOT / "mcp-curation.json").read_text(encoding="utf-8"))
     for item in abilities:
         classification = curated_metadata.get(item.get("slug", ""), {})
         category_confirmed = classification.get("category") in MCP_MAIN_CATEGORIES
@@ -1049,15 +1100,15 @@ def generate_catalog(
             "tagsRequireMaintainerApproval": not tags_confirmed,
         })
     MCP_CLASSIFICATION_SUGGESTIONS = suggestions
-    print(f"Wrote {len(suggestions)} classification suggestions for maintainer review")
+    safe_log(f"Wrote {len(suggestions)} classification suggestions for maintainer review")
 
     # 2. Collect portable skills from curated, license-declared upstreams.
-    print("\n=== Processing Skills from curated upstream repositories ===")
+    safe_log("\n=== Processing Skills from curated upstream repositories ===")
     seen_slugs = {ability["slug"] for ability in abilities}
     legacy_abilities = preserve_legacy_anbeime_abilities(previous_manifest, seen_slugs)
     abilities.extend(legacy_abilities)
     if legacy_abilities:
-        print(f"Preserved {len(legacy_abilities)} existing anbeime/skill entries pending license review")
+        safe_log(f"Preserved {len(legacy_abilities)} existing anbeime/skill entries pending license review")
     seen_slugs.update(path.name for path in SKILLS_DEST_DIR.iterdir())
     # Reserve existing identities before new skills claim colliding names.
     repositories = {source["repository"] for source in SKILL_SOURCES}
@@ -1068,7 +1119,7 @@ def generate_catalog(
         and re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", slug)
     )
     for source in SKILL_SOURCES:
-        print(f"Cloning {source['repository']}...")
+        safe_log(f"Cloning {source['repository']}...")
         # An unavailable/empty upstream must fail the whole staged generation;
         # publishing a partial catalog would silently remove installed entries.
         checkout = checkout_source(source, temp_root)
@@ -1079,24 +1130,35 @@ def generate_catalog(
         discovered = skill_files(checkout, source["roots"])
         if not discovered:
             raise ValueError(f"No skills discovered in {source['repository']}; check upstream roots")
-        print(f"Found {len(discovered)} SKILL.md files in {source['repository']}")
+        safe_log(f"Found {len(discovered)} SKILL.md files in {source['repository']}")
         translations = translate_skill_descriptions(source, checkout, discovered, previous_abilities)
         for skill_file in discovered:
             ability = write_skill(source, checkout, skill_file, seen_slugs, previous_abilities, translations)
             if ability is not None:
                 abilities.append(ability)
-                print(f"Processed Skill: {ability['slug']} [{ability['category']}]")
+                safe_log(f"Processed Skill: {ability['slug']} [{ability['category']}]")
             else:
                 upstream_path = skill_file.relative_to(checkout).as_posix()
                 for previous in previous_abilities.values():
                     if (previous.get("type") == "skill"
                         and previous.get("source", {}).get("repository") == source["repository"]
                         and previous.get("source", {}).get("upstreamPath") == upstream_path
-                        and (SKILLS_DEST_DIR / previous["slug"] / "SKILL.md").is_file()):
+                        and (SKILLS_DEST_DIR / previous["slug"] / "SKILL.md").is_file()
+                        and redistribution_allowed(previous, SKILLS_DEST_DIR / previous["slug"])):
                         abilities.append(copy.deepcopy(previous))
-                        print(f"Retained previous mirror for skipped skill: {previous['slug']}")
+                        safe_log(f"Retained previous mirror for skipped skill: {previous['slug']}")
                         break
 
+    valid_abilities = []
+    for item in abilities:
+        try:
+            validate_ability(item)
+            if item["type"] == "skill" and not redistribution_allowed(item, SKILLS_DEST_DIR / item["slug"]):
+                continue
+            valid_abilities.append(item)
+        except ValueError:
+            safe_log("Skipped invalid generated ability")
+    abilities = valid_abilities
     # 3. Write marketplace.json
     installable_abilities = [
         item for item in abilities
@@ -1149,7 +1211,14 @@ def serialize_manifest(manifest: dict) -> str:
 
 def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
     """Write a small index and independently verifiable MCP discovery shards."""
-    abilities = sorted(manifest.get("discoveryAbilities", []), key=lambda item: item["slug"])
+    abilities = copy.deepcopy(sorted(manifest.get("discoveryAbilities", []), key=lambda item: item["slug"]))
+    if len(abilities) > DISCOVERY_MAX_RECORDS:
+        raise ValueError("Discovery record capacity exceeded; keep the previous published catalog")
+    for ability in abilities:
+        ability.get("source", {}).pop("registryUpdatedAt", None)
+    search_dir = output_dir / "search"
+    search_dir.mkdir(parents=True, exist_ok=True)
+    search_shards = []
     shards_dir = output_dir / "shards"
     shards_dir.mkdir(parents=True, exist_ok=True)
     shards = []
@@ -1160,26 +1229,22 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
     for category, category_abilities in sorted(grouped.items()):
         chunks = []
         current = []
+        # Serialize each record once, instead of repeatedly serializing a growing 500-item array.
+        envelope = {"schemaVersion": 1, "catalogVersion": manifest["discoveryVersion"], "category": category, "abilities": []}
+        envelope_bytes = len(json.dumps(envelope, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+        current_bytes = envelope_bytes
         for ability in category_abilities:
-            candidate = current + [ability]
-            candidate_payload = json.dumps({
-                "schemaVersion": 1,
-                "catalogVersion": manifest["discoveryVersion"],
-                "category": category,
-                "abilities": candidate,
-            }, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
-            if current and (len(candidate) > DISCOVERY_SHARD_ITEMS or len(candidate_payload) > DISCOVERY_SHARD_BYTES):
-                chunks.append(current)
-                current = [ability]
-            else:
-                current = candidate
-            if len(current) == 1 and len(json.dumps({
-                "schemaVersion": 1,
-                "catalogVersion": manifest["discoveryVersion"],
-                "category": category,
-                "abilities": current,
-            }, ensure_ascii=False, separators=(",", ":")).encode("utf-8")) > DISCOVERY_SHARD_BYTES:
+            encoded_size = len(json.dumps(ability, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+            if envelope_bytes + encoded_size > DISCOVERY_SHARD_BYTES:
                 raise ValueError(f"MCP discovery record is too large to publish: {ability['slug']}")
+            addition = encoded_size + (1 if current else 0)
+            if current and (len(current) >= DISCOVERY_SHARD_ITEMS or current_bytes + addition > DISCOVERY_SHARD_BYTES):
+                chunks.append(current)
+                current = []
+                current_bytes = envelope_bytes
+                addition = encoded_size
+            current.append(ability)
+            current_bytes += addition
         if current:
             chunks.append(current)
         for shard_index, chunk in enumerate(chunks):
@@ -1198,10 +1263,37 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
                 "sizeBytes": len(payload),
                 "count": len(chunk),
             })
+            # Search rows contain only searchable presentation and a checked detail locator.
+            summaries = []
+            for item in chunk:
+                summary = {key: item.get(key, "") for key in (
+                    "type", "slug", "name", "version", "configVersion", "category", "tags", "classificationSource"
+                )}
+                if summary.get("classificationSource") not in {"automatic", "maintainer"}:
+                    summary.pop("classificationSource", None)
+                summary.update({"description": item.get("description", "")[:320], "license": "", "author": "", "icon": "", "detail": {},
+                    "mcpMetadata": {"installable": False}, "detailShard": f"shards/{shard_name}"})
+                localized = item.get("detail", {}).get("i18n", {})
+                summary["detail"] = {"i18n": {locale: {key: value for key, value in {
+                    "name": data.get("name", item["name"]), "description": data.get("description", "")[:320]
+                }.items() if value != summary.get(key)} for locale, data in localized.items() if locale in {"en", "zh"}}}
+                summaries.append(summary)
+            search_payload = json.dumps({"schemaVersion": 1, "catalogVersion": manifest["discoveryVersion"],
+                "category": category, "abilities": summaries}, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+            if len(search_payload) > DISCOVERY_SHARD_BYTES:
+                raise ValueError("Search shard exceeds byte capacity")
+            (search_dir / shard_name).write_bytes(search_payload)
+            search_shards.append({"path": f"search/{shard_name}", "category": category,
+                "sha256": hashlib.sha256(search_payload).hexdigest(), "sizeBytes": len(search_payload), "count": len(chunk)})
     category_counts = {}
     for ability in abilities:
         category = ability.get("category") or "uncategorized"
         category_counts[category] = category_counts.get(category, 0) + 1
+    total_bytes = sum(shard["sizeBytes"] for shard in shards)
+    if len(shards) > DISCOVERY_MAX_SHARDS or total_bytes > DISCOVERY_MAX_BYTES:
+        raise ValueError("Discovery shard/byte capacity exceeded; keep the previous published catalog")
+    if max(len(abilities) / DISCOVERY_MAX_RECORDS, len(shards) / DISCOVERY_MAX_SHARDS, total_bytes / DISCOVERY_MAX_BYTES) >= 0.8:
+        safe_log("Discovery capacity warning: extend the versioned client/publisher contract before the next limit")
     index = {
         "schemaVersion": 1,
         "catalogVersion": manifest["discoveryVersion"],
@@ -1209,6 +1301,7 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
         "recordCount": len(abilities),
         "categories": category_counts,
         "shards": shards,
+        "searchShards": search_shards,
     }
     (output_dir / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (output_dir / "classification-suggestions.json").write_text(
@@ -1256,7 +1349,7 @@ def main():
             for item in previous_manifest.get("abilities", []):
                 slug = item.get("slug", "")
                 if (item.get("type") == "skill"
-                    and item.get("source", {}).get("repository") in repositories
+                    and (item.get("source", {}).get("repository") in repositories or item.get("author") == "anbeime / 567 Agent" or item.get("source", {}).get("repository") == "anbeime/skill")
                     and slug not in current_slugs
                     and re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", slug)):
                     path = SKILLS_DEST_DIR / slug
@@ -1268,6 +1361,7 @@ def main():
             discovery_abilities = manifest.pop("discoveryAbilities")
             package_manifest = dict(manifest)
             package_manifest["abilities"] = manifest["abilities"]
+            validate_manifest(package_manifest)
             serialized = serialize_manifest(package_manifest)
             for index, relative_path in enumerate(("marketplace.json", ".567agent/marketplace.json", ".vetta/marketplace.json")):
                 staged = temp_root / f"manifest-{index}.json"
@@ -1287,7 +1381,7 @@ def main():
                 legacy_suggestions.unlink()
         finally:
             SKILLS_DEST_DIR, MCPS_DEST_DIR = skills_destination, mcps_destination
-    print(f"\nSuccessfully generated installable marketplace with {len(manifest['abilities'])} abilities and {len(discovery_abilities)} MCP discovery records!")
+    safe_log(f"\nSuccessfully generated installable marketplace with {len(manifest['abilities'])} abilities and {len(discovery_abilities)} MCP discovery records!")
 
 
 if __name__ == "__main__":

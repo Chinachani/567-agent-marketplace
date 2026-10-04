@@ -1,3 +1,4 @@
+import hashlib
 import tempfile
 import unittest
 import subprocess
@@ -211,7 +212,7 @@ class MarketplaceSyncTests(unittest.TestCase):
 
             self.assertEqual(ability["description"], "复核界面设计")
 
-    def test_existing_anbeime_entries_are_preserved_but_classified(self):
+    def test_unlicensed_anbeime_entries_are_quarantined(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             skill_dir = root / "security-review"
@@ -237,8 +238,7 @@ class MarketplaceSyncTests(unittest.TestCase):
                 )
             finally:
                 sync_marketplace.SKILLS_DEST_DIR = original_destination
-            self.assertEqual(preserved[0]["category"], "Security")
-            self.assertEqual(preserved[0]["source"]["repository"], "anbeime/skill")
+            self.assertEqual(preserved, [])
 
 
     def test_frontmatter_handles_bom_crlf_quotes_and_delimiter(self):
@@ -341,6 +341,7 @@ class MarketplaceSyncTests(unittest.TestCase):
             (root / "skills" / "legacy" / "SKILL.md").write_text("old skill")
             (root / "mcps").mkdir()
             (root / "marketplace.json").write_text('{"marketplaceVersion":"1","abilities":[]}')
+            (root / "mcp-curation.json").write_text("{}")
             before = package_digest(root)
             with patch.object(sync_marketplace, "REPO_ROOT", root), patch.object(sync_marketplace, "SKILLS_DEST_DIR", root / "skills"), patch.object(sync_marketplace, "MCPS_DEST_DIR", root / "mcps"), patch.object(sync_marketplace, "checkout_source", side_effect=subprocess.CalledProcessError(1, "git clone")):
                 with self.assertRaises(subprocess.CalledProcessError):
@@ -471,7 +472,7 @@ class MarketplaceSyncTests(unittest.TestCase):
             self.assertEqual(second["version"], "0.6.3")
             self.assertEqual(second["source"]["repository"], "modelcontextprotocol/servers")
 
-    def test_unreviewed_mcp_keeps_uncategorized_metadata_and_is_not_installable(self):
+    def test_unreviewed_mcp_has_automatic_browsing_hints_but_is_not_installable(self):
         with tempfile.TemporaryDirectory() as temp:
             destination = Path(temp) / "mcps"
             candidate = {
@@ -493,13 +494,15 @@ class MarketplaceSyncTests(unittest.TestCase):
                     "discovery": candidate,
                 }, {}, {})
             self.assertEqual(record["type"], "mcp")
-            self.assertEqual(record["category"], "uncategorized")
-            self.assertEqual(record["tags"], [])
+            self.assertEqual(record["category"], "cad-3d")
+            self.assertEqual(record["tags"], ["3d-modeling", "blender"])
             self.assertEqual(record["mcpMetadata"], {
                 "runtimeMode": "stdio", "platforms": ["unknown"],
                 "permissionScopes": ["unknown"], "authentication": "unknown",
                 "publisherType": "unknown", "installable": False,
             })
+            self.assertEqual(record["icon"], "")
+            self.assertEqual(record["classificationSource"], "automatic")
             self.assertEqual(record["source"]["path"], "mcps/discovery")
             self.assertFalse(destination.exists())
             self.assertEqual(
@@ -558,6 +561,45 @@ class MarketplaceSyncTests(unittest.TestCase):
             sync_marketplace, "fetch_text", return_value=""
         ):
             self.assertEqual(sync_marketplace.collect_mcp_candidates(previous), [])
+
+    def test_automatic_mcp_classification_prefers_title_and_respects_word_boundaries(self):
+        classify = sync_marketplace.suggest_mcp_classification
+        self.assertEqual(classify("GitHub MCP", "Search for Blender images")["category"], "developer-tools")
+        self.assertEqual(classify("Digital bridge", "Connect ordinary services"), {"category": "uncategorized", "tags": []})
+        self.assertNotIn("git", classify("Code assistant", "Help with code")["tags"])
+
+    def test_reviewed_category_overrides_automatic_hints_without_approving_installation(self):
+        item = {"slug": "blender-sample", "name": "Blender MCP", "description": "Control Blender"}
+        record = sync_marketplace.write_mcp_record(item, {}, {}, {"blender-sample": {"category": "developer-tools", "tags": ["developer-tools"], "installable": False}})
+        self.assertEqual(record["category"], "developer-tools")
+        self.assertEqual(record["classificationSource"], "maintainer")
+        self.assertFalse(record["mcpMetadata"]["installable"])
+
+    def test_discovery_distribution_is_independently_verifiable_and_respects_utf8_byte_limits(self):
+        with tempfile.TemporaryDirectory() as temp:
+            records = [sync_marketplace.write_mcp_record({"slug": f"blender-{i}", "name": "Blender", "description": "中文建模" * 30}, {}, {}, {}) for i in range(5)]
+            manifest = {"marketplaceVersion": "1", "discoveryVersion": "2026.10.4", "discoveryAbilities": records}
+            with patch.object(sync_marketplace, "DISCOVERY_SHARD_ITEMS", 2), patch.object(sync_marketplace, "DISCOVERY_SHARD_BYTES", 3000):
+                index = sync_marketplace.build_discovery_distribution(manifest, Path(temp))
+            loaded = []
+            for shard in index["shards"]:
+                body = (Path(temp) / shard["path"]).read_bytes()
+                self.assertEqual(hashlib.sha256(body).hexdigest(), shard["sha256"])
+                self.assertEqual(len(body), shard["sizeBytes"])
+                self.assertLessEqual(len(body), 3000)
+                payload = json.loads(body)
+                self.assertEqual(payload["catalogVersion"], index["catalogVersion"])
+                self.assertEqual(len(payload["abilities"]), shard["count"])
+                self.assertLessEqual(shard["count"], 2)
+                loaded.extend(payload["abilities"])
+            self.assertEqual(index["recordCount"], 5)
+            self.assertEqual(loaded, records)
+            self.assertTrue(all(item["icon"] == "" and not item["mcpMetadata"]["installable"] for item in loaded))
+
+    def test_discovery_distribution_rejects_one_record_larger_than_a_shard(self):
+        with tempfile.TemporaryDirectory() as temp, patch.object(sync_marketplace, "DISCOVERY_SHARD_BYTES", 150):
+            with self.assertRaisesRegex(ValueError, "too large"):
+                sync_marketplace.build_discovery_distribution({"marketplaceVersion": "1", "discoveryVersion": "1", "discoveryAbilities": [{"slug": "huge", "category": "uncategorized", "description": "中" * 100}]}, Path(temp))
 
 
 if __name__ == "__main__":

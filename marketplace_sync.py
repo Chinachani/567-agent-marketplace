@@ -235,14 +235,15 @@ def classify_skill(slug: str, name: str, description: str, source_path: str) -> 
     return "Skills"
 
 
-def package_digest(directory: Path) -> str:
-    """Hash file paths and content, ignoring filesystem timestamps."""
+def package_digest(directory: Path, replacements: dict[str, bytes] | None = None) -> str:
+    """Hash file paths/content, optionally validating planned writes before publication."""
+    contents = {path.relative_to(directory).as_posix(): path.read_bytes()
+                for path in directory.rglob("*") if path.is_file() and not path.is_symlink()}
+    contents.update(replacements or {})
     digest = hashlib.sha256()
-    for path in sorted(directory.rglob("*")):
-        if path.is_file() and not path.is_symlink():
-            digest.update(path.relative_to(directory).as_posix().encode("utf-8") + b"\0")
-            content = path.read_bytes()
-            digest.update(str(len(content)).encode("ascii") + b"\0" + content)
+    for relative, content in sorted(contents.items()):
+        digest.update(relative.encode("utf-8") + b"\0")
+        digest.update(str(len(content)).encode("ascii") + b"\0" + content)
     return digest.hexdigest()
 
 
@@ -299,7 +300,9 @@ def next_marketplace_version(abilities: list[dict], previous_manifest: dict | No
     previous_manifest = previous_manifest or {}
     previous_abilities = previous_manifest.get("abilities")
     previous_version = previous_manifest.get("marketplaceVersion")
-    if previous_abilities == abilities and isinstance(previous_version, str) and previous_version:
+    def stable(items):
+        return [{**item, "source": {key: value for key, value in item.get("source", {}).items() if key not in {"registryUpdatedAt", "upstreamCommit"}}} for item in (items or [])]
+    if stable(previous_abilities) == stable(abilities) and isinstance(previous_version, str) and previous_version:
         return previous_version
 
     day = (today or date.today()).strftime("%Y.%m.%d")

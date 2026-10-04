@@ -1,0 +1,527 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "slug": "archify",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "poetry-music-visual",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "ontoly-software-graph",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "web-design-analyzer",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "paper-analysis-assistant",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "video-creation-suite",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "xiaohongshu-makeup",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "pptx-generator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "media-processor",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "antinet-doc-parse",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "wechatsync-publisher",
+      "source": "anbeime/skill",
+      "reasons": [
+        "plaintext-ip-endpoint",
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "product-marketing-copywriter",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "remotion-video-enhancer",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "video-frame-extractor",
+      "source": "anbeime/skill",
+      "reasons": [
+        "credential-literal",
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "pdf-processing-pro",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "atutun-xhs-cover",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "tts-voice-synthesis",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "digital-avatar-shopping-video",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "video-recreation",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "agent-team",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "x-article-publisher",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "video-creation-collaborator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "agentkit-multimedia-shopping",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "law-to-markdown",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "contract-review",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "chrome-automation",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "data-storytelling",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "infinitetalk",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "article-illustrator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "obsidian-skills-integrated",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "obsidian-bases",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "json-canvas",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "obsidian-markdown",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "wechat-hotspot-publisher",
+      "source": "anbeime/skill",
+      "reasons": [
+        "plaintext-ip-endpoint",
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "content-research-writer",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "viral-video-copywriting",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "qwen3-tts-local",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "infinitetalk-shopping-avatar",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "frontend-design",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "three-body-video-creator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "web-to-app",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "product-video-creator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "antinet-four-color-cards",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "stock-analysis",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "content-creation-publisher",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "baoyu-format-markdown",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "baoyu-post-to-wechat",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "baoyu-post-to-x",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "baoyu-url-to-markdown",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "pop-up-book-illustration",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "tailored-resume-generator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "ppt-generator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "nanobanana-ppt-visualizer",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "product-manager-toolkit",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "bedtime-story",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "moltbook",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified",
+        "remote-heartbeat-instructions"
+      ]
+    },
+    {
+      "slug": "intelligent-content-system",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "historical-interview-scripts",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "multi-agent-meeting",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "pet-commerce-creator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "antinet-provenance",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "historical-science-video-prod",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "skill-template",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "dream-video-prompt-generator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "video-creation-pro",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "video-transcript-downloader",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "ecommerce-copywriter",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "ecommerce-video-marketing",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "gpt-image-2-prompt-engine",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "icon-generator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "ecommerce-full-pipeline",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "antinet-security-scan",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "qwen3-asr-assistant",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    },
+    {
+      "slug": "ppt-roadshow-generator",
+      "source": "anbeime/skill",
+      "reasons": [
+        "redistribution-license-unverified"
+      ]
+    }
+  ]
+}

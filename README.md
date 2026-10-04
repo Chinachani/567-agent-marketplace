@@ -24,11 +24,11 @@ GitHub Actions 每天扫描以下仓库里的 `SKILL.md`，并镜像技能所需
 | [github/awesome-copilot](https://github.com/github/awesome-copilot) | `skills/`、`.github/skills/` | GitHub Copilot 社区技能 |
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | `skills/` | 软件工程、测试、代码质量和性能 |
 
-此外，清单中保留了仓库已有的 74 个 `anbeime/skill` 历史技能镜像。它们是随本市场仓库分发的文件，**不是 567 Agent 客户端内置能力**。该上游未声明许可证，因此目前只保留既有镜像，不自动抓取更新。
+仓库原先保留的 74 个 `anbeime/skill` 历史镜像已隔离，不再出现在当前清单或分发目录中。该来源缺少可核实的再分发许可，部分内容还触发凭据与外联检查；原因记录在 `quarantined-skills.json`，不会自动重新采集。
 
-收录要求上游仓库声明 MIT 许可；若单个技能声明 Apache-2.0，或在本地 `LICENSE.txt` 中给出 MIT/Apache-2.0 条款，也会保留对应许可文本和来源署名。未知或无法核实的许可会让本次同步停止，等待处理。新增来源前请先确认再分发条款。
+收录要求上游仓库声明 MIT 许可；若单个技能声明 Apache-2.0，或在本地 `LICENSE.txt` 中给出 MIT/Apache-2.0 条款，也会保留对应许可文本和来源署名。单技能许可无法核实时跳过该技能，并只保留此前通过校验的合法镜像；仓库整体许可发生变化时中止同步，等待处理。新增来源前请先确认再分发条款。
 
-同步器跳过隐藏目录、符号链接、超过 512 KiB 的 `SKILL.md`，以及单文件超过 2 MiB 或总资源超过 10 MiB 的技能。若已收录技能因限制被跳过，会保留此前版本；上游拉取失败、目录意外为空或仓库许可变化时，不发布部分结果。技能标识按来源仓库和上游路径复用，内容指纹涵盖说明及附属文件，内容变化会更新 `configVersion` 和市场版本。
+同步器跳过隐藏目录、符号链接、超过 512 KiB 的 `SKILL.md`，以及单文件超过 2 MiB 或总资源超过 10 MiB 的技能。若已收录技能因限制被跳过，仅在此前版本通过合同与内容检查时保留；上游拉取失败、目录意外为空或仓库许可变化时，不发布部分结果。技能标识按来源仓库和上游路径复用，内容指纹涵盖说明及附属文件，内容变化会更新 `configVersion` 和市场版本。
 
 分类依据技能名称和描述自动判断，类别包括系统、网络、开发、设计、文档、媒体、研究、数据、数据库、写作、商业、效率、安全和实用技能。分类是便于浏览的规则标签，并非对技能质量或安全性的认证。
 
@@ -36,11 +36,11 @@ GitHub Actions 每天扫描以下仓库里的 `SKILL.md`，并镜像技能所需
 
 MCP 目录全量发现以下上游的条目：官方 [MCP Registry](https://registry.modelcontextprotocol.io/)（只取每个服务的 latest 版本）、[mcpHQ](https://landscape.mcphq.org/)、[punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) 和 [TensorBlock/awesome-mcp-servers](https://github.com/TensorBlock/awesome-mcp-servers)。同步器按上游 GitHub 仓库或 Registry 名称去重，并保留来源链接。聚合仓库只作为发现索引；本仓库不因此重新分发其收录项目的代码。
 
-发现不等于可安装。只有在 `mcp-curation.json` 中经维护者确认分类、功能标签、运行方式、平台、权限范围、认证要求和安装配置的条目，才会有 `mcp.json` 并标记为可安装。其它候选仍以 `type: "mcp"` 出现在目录中，分类固定为 `uncategorized`、功能标签为空、`installable: false`，客户端展示上游信息而不提供安装动作。官方 Registry 的登记也不代表项目质量、安全性或供应方背书。
+发现不等于可安装。只有在 `mcp-curation.json` 中经维护者确认分类、功能标签、运行方式、平台、权限范围、认证要求和安装配置的条目，才会有 `mcp.json` 并标记为可安装。其它候选仍以 `type: "mcp"` 出现在目录中，采用名称优先、描述其次的受控规则自动分类并添加最多三个标签，明确标注 `classificationSource: "automatic"`、`installable: false`，客户端展示上游信息而不提供安装动作。官方 Registry 的登记也不代表项目质量、安全性或供应方背书。
 
-主分类是受控枚举：`ai-agents`、`automation`、`cad-3d`、`communication`、`creative-media`、`data-databases`、`developer-tools`、`knowledge-memory`、`productivity`、`system-tools`、`web-search` 和 `uncategorized`。功能标签从 `MCP_FUNCTION_TAGS` 受控集合中选择，每项最多三个。`catalog-dist/classification-suggestions.json` 根据名称和描述生成建议，仅供审核，绝不会覆盖已发布分类；确认后由维护者把值写入 `mcp-curation.json`。没有确定分类时保留 `uncategorized`。
+主分类是受控枚举：`ai-agents`、`automation`、`cad-3d`、`communication`、`creative-media`、`data-databases`、`developer-tools`、`knowledge-memory`、`productivity`、`system-tools`、`web-search` 和 `uncategorized`。功能标签从 `MCP_FUNCTION_TAGS` 受控集合中选择，每项最多三个。`catalog-dist/classification-suggestions.json` 根据名称和描述生成建议，供维护者审核纠正；维护者在 `mcp-curation.json` 中确认的分类和标签优先于自动规则。自动分类只用于检索，不表示通过安全审核；匹配不到时保留 `uncategorized`。
 
-MCP 元数据固定写入独立的 `mcpMetadata` 字段：`runtimeMode`、`platforms`、`permissionScopes`、`authentication`、`publisherType` 和 `installable`。信息不足时使用 `unknown`，尤其权限范围不会仅凭项目名称推断。CAD、Blender、FreeCAD、SolidWorks 等候选会由分类建议帮助定位，但在审核安装配置前不会显示为可直接安装。
+MCP 元数据固定写入独立的 `mcpMetadata` 字段：`runtimeMode`、`platforms`、`permissionScopes`、`authentication`、`publisherType` 和 `installable`。另用 `classificationSource` 表明分类来自自动规则还是维护者。信息不足时使用 `unknown`，尤其权限范围不会仅凭项目名称推断。CAD、Blender、FreeCAD、SolidWorks 等候选会由分类建议帮助定位，但在审核安装配置前不会显示为可直接安装。
 
 ## 自动同步和翻译
 
@@ -58,3 +58,21 @@ python3 sync_marketplace.py
 ```
 
 第二条命令会下载三个 Skills 来源、读取四个 MCP 发现源和官方 MCP 参考仓库，并更新 `skills/`、`mcps/`、三份可安装清单以及被忽略的 `catalog-dist/` 生成目录。同步工作流额外把 `catalog-dist/` 发布到 `catalog` 分支；本地运行只生成文件，不会推送任何分支。配置 `API_567_KEY` 后，也会并发翻译新增或英文说明有变化的条目；未变化且已有成功译文的条目会复用缓存。只改脚本或来源配置不会改变 GitHub 上的自动任务，需先推送代码到 `main`。
+
+客户端应先固定 `catalog` 分支的 commit SHA，再从该 SHA 下载索引及分片；不要混用可变分支 URL。分片包含完整摘要和字节长度，可独立缓存、校验及重试。可安装清单与发现目录分别加载，单片失败不应隐藏已成功加载的条目。可选图标字段 `icon` 默认空字符串；所有发现项保持不可一键安装，安全性未知。
+
+## 搜索索引与详情按需加载
+
+`catalog/index.json` 保留旧 `shards`，同时提供 `searchShards`。搜索分片只包含可搜索摘要、受控分类/标签和 `detailShard` 定位，不包含执行配置；客户端首次浏览下载搜索分片，打开详情时按固定 Git commit 下载对应完整分片。两类分片均校验 SHA-256、字节数、条目数和分类。旧客户端继续读取 `shards`。
+
+安装主清单在发布前经过出口校验；非法版本等条目跳过，旧镜像只有合同有效且通过内容检查才可保留。客户端带 Token 读取 GitHub Contents 时必须使用 `application/vnd.github.raw+json`，不能依赖大于 1MB 文件的 base64 JSON 响应。
+
+容量合同仍为最多 100,000 条、250 个完整分片、100MiB 完整内容；超过 80% 时输出告警，越界时中止整个暂存发布、保留上一版。扩容必须同步升级客户端和生成端合同，不能单独放宽生成端。Registry 更新时间仅保存在采集状态中，不计入发布摘要与内容版本，避免只有时间戳变化时重复下载。
+
+## 隔离与来源追溯
+
+`quarantined-skills.json` 只记录 slug、来源和原因，绝不保存匹配到的凭据。旧 `anbeime/skill` 镜像缺少可核实的再分发许可，已从当前清单和资源目录移除；恢复需要先确认许可，再审核内容。所有自动镜像经过凭据字面量、远程 heartbeat 指令、公开裸 IP 明文端点等检查。检查是已知风险拦截，不代表第三方技能安全，也不代替人工审核。
+
+上游技能与参考 MCP 每次采集先解析 commit，然后仅取该 SHA；可在来源配置的 `commit` 字段固定经审核的版本。技能来源记录 `upstreamCommit`。默认仍会自动跟进最新版本，固定单次采集版本保证可追溯性，不保证上游未经投毒。
+
+本次只清理当前分发内容，**Git 历史中的大文件和历史凭据仍存在**。删除文件不会吊销 Token；凭据持有人必须吊销或轮换。历史瘦身需要协调使用者并重写分支，不由日常同步工作流自动执行。
