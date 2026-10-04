@@ -1,6 +1,9 @@
 name: Sync & Update 567 Agent Marketplace
 
 on:
+  push:
+    tags:
+      - 'marketplace-v*'
   schedule:
     # Run every day at midnight UTC (08:00 AM Beijing Time)
     - cron: '0 0 * * *'

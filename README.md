@@ -32,7 +32,7 @@ Fetch 和 SQLite 通过 `uvx` 启动，需要安装 `uv`；Fetch 上游见[项�
 
 ## 自动同步和翻译
 
-工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 每天 **00:00 UTC（北京时间 08:00）**运行，也支持在 GitHub Actions 页面手动触发。工作流先运行测试，再抓取来源、生成清单和镜像文件，并将变更推送到 `main`。同一分支的同步任务会排队串行执行。
+工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 每天 **00:00 UTC（北京时间 08:00）**运行，也支持在 GitHub Actions 页面手动触发；推送 `marketplace-v*` tag 也会触发同步。工作流先运行测试，再抓取来源、生成清单和镜像文件，并将变更推送到 `main`。同一分支的同步任务会排队串行执行。
 
 要翻译新收录的英文说明，仓库 Actions Secrets 需要配置 `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时使用脚本默认值。没有密钥或调用失败时，说明保留原文，之后仍可重试；已成功生成的中文翻译会按原文缓存，避免重复请求。
 
