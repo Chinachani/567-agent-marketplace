@@ -1,6 +1,13 @@
 # 567 Agent 官方能力市场
 
-本仓库为 567 Agent 提供可浏览和安装的 Skills 与 MCP 配置。根目录的 [`marketplace.json`](marketplace.json) 是能力清单；客户端兼容副本保存在 [`.567agent/marketplace.json`](.567agent/marketplace.json) 和 [`.vetta/marketplace.json`](.vetta/marketplace.json)。同步时三个文件保持一致。
+本仓库是 567 Agent 能力市场的**目录与内容分发源**，不是桌面客户端，也不会在这里运行 MCP 服务。客户端读取市场清单来浏览能力，并安装有完整内容和配置的条目。
+
+仓库维护两类能力：
+
+- **Skills**：镜像 `SKILL.md` 及其必要的参考资料、脚本和模板。
+- **MCP**：收集上游项目的发现信息；只有维护者审核过安装配置的 MCP 才提供安装。尚未审核的候选仍可用于发现和查看上游信息，但不会触发安装。
+
+根目录的 [`marketplace.json`](marketplace.json) 是能力清单；客户端兼容副本保存在 [`.567agent/marketplace.json`](.567agent/marketplace.json) 和 [`.vetta/marketplace.json`](.vetta/marketplace.json)。同步时三个文件保持一致。当前维护者确认的 MCP 安装元数据记录在 [`mcp-curation.json`](mcp-curation.json) 中；新增上游候选须经审核后才会进入可安装范围。
 
 ## Skills 来源
 
@@ -34,7 +41,7 @@ MCP 元数据固定写入独立的 `mcpMetadata` 字段：`runtimeMode`、`platf
 
 工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 每天 **00:00 UTC（北京时间 08:00）**运行，也支持在 GitHub Actions 页面手动触发；推送 `marketplace-v*` tag 也会触发同步。工作流先运行测试，再抓取 Skills 与四个 MCP 发现源、生成清单、分类建议和已审核安装文件，并将变更推送到 `main`。同一分支的同步任务会排队串行执行。
 
-要翻译新收录的英文说明，仓库 Actions Secrets 需要配置 `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时使用脚本默认值。翻译默认使用 6 个并发线程，可通过 `API_567_TRANSLATION_WORKERS` 调整为 1–16 个。每次同步最多处理 1,000 条新的 MCP 说明（可用 `API_567_MAX_TRANSLATIONS_PER_SYNC` 在 1–5,000 间调整），避免首次导入海量候选时压满翻译服务；后续同步按原文缓存继续补齐。没有密钥或调用失败时，说明保留原文，之后仍可重试；已成功生成的中文翻译会按原文缓存，避免重复请求。
+要翻译新收录的英文说明，仓库 Actions Secrets 需要配置 `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时使用脚本默认值。自动工作流默认使用 6 个并发线程，每次同步最多处理 1,000 条新的 MCP 说明，避免首次导入海量候选时压满翻译服务；脚本在手动运行时可分别用 `API_567_TRANSLATION_WORKERS`（1–16）和 `API_567_MAX_TRANSLATIONS_PER_SYNC`（1–5,000）调整这两个限制。后续同步按原文缓存继续补齐。没有密钥或调用失败时，说明保留原文，之后仍可重试；已成功生成的中文翻译会按原文缓存，避免重复请求。
 
 ## 本地运行
 
