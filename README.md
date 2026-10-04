@@ -22,17 +22,17 @@ GitHub Actions 每天扫描以下仓库里的 `SKILL.md`，并镜像技能所需
 
 ## MCP
 
-当前有 7 个手工维护的 MCP 配置：Filesystem、Fetch、Brave Search、GitHub、PostgreSQL、SQLite 和 Memory。它们由同步脚本中的精选列表生成，**目前没有自动抓取 MCP 上游**。
+当前有 10 个 MCP 配置。其中 6 个自动同步自 [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) 当前维护的参考服务器：Filesystem、Fetch、Memory、Git、Sequential Thinking 和 Time。同步器读取各服务的 `package.json` 或 `pyproject.toml`，把它们映射为 567 Agent 支持的本地 `stdio` 配置，并锁定上游包版本；上游版本更新后，日常同步会更新清单和安装配置。协议演示用的 Everything 服务没有加入市场。
 
-需要发现更多服务时，可以查看 [官方 MCP Registry](https://registry.modelcontextprotocol.io/) 及其 [API 文档](https://github.com/modelcontextprotocol/registry/blob/main/docs/reference/api/official-registry-api.md)。官方 Registry 是可查询的服务目录；将条目加入本市场仍需审核维护状态、许可、安装方式和所需凭据，并映射为本仓库的 MCP 配置格式。
+Brave Search、GitHub、PostgreSQL 和 SQLite 是此前手工维护的配置，目前仍保留以兼容已有条目；它们来自已归档的 MCP 参考实现，不会从归档源自动更新。新服务采用自动收录前，需要先确认其维护状态、许可、安装方式和凭据要求。
 
-Filesystem、Brave Search、GitHub、PostgreSQL、SQLite 和 Memory 等配置源自 MCP 参考实现。MCP 官方仓库将 Brave Search、GitHub、PostgreSQL 和 SQLite 列为已归档项目；参考实现不等同于生产质量或安全保证。集成状态请查看 [官方参考服务器说明](https://github.com/modelcontextprotocol/servers)。
+官方 [MCP Registry](https://registry.modelcontextprotocol.io/) 是社区服务发现目录，当前没有把其中所有第三方条目自动变成可安装项。Registry 上架不代表维护质量或安全审查；本市场只自动同步官方维护仓库中明确支持的服务。
 
-Fetch 和 SQLite 通过 `uvx` 启动，需要安装 `uv`；Fetch 上游见[项目说明](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch)，SQLite 参考实现在[归档仓库](https://github.com/modelcontextprotocol/servers-archived/tree/main/src/sqlite)。Node.js MCP 使用 `npx`。Brave Search、GitHub 和 PostgreSQL 还需要相应 API 密钥或数据库连接信息。
+Python MCP 使用 `uvx`，Node.js MCP 使用 `npx`；运行相应服务需要本机安装这些工具。Filesystem 默认只开放当前目录。Fetch 上游提示它可以访问本机和内网地址；Git MCP 支持暂存、提交和切换分支，上游仍将其标为早期开发。启用前请按需限制它们可访问的目录和仓库。现有 Brave Search、GitHub、PostgreSQL 配置可能需要 API 密钥或数据库连接信息；安装前请检查 `mcps/<slug>/mcp.json` 中的参数。
 
 ## 自动同步和翻译
 
-工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 每天 **00:00 UTC（北京时间 08:00）**运行，也支持在 GitHub Actions 页面手动触发；推送 `marketplace-v*` tag 也会触发同步。工作流先运行测试，再抓取来源、生成清单和镜像文件，并将变更推送到 `main`。同一分支的同步任务会排队串行执行。
+工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 每天 **00:00 UTC（北京时间 08:00）**运行，也支持在 GitHub Actions 页面手动触发；推送 `marketplace-v*` tag 也会触发同步。工作流先运行测试，再抓取 Skills 与官方 MCP 来源、生成清单和镜像文件，并将变更推送到 `main`。同一分支的同步任务会排队串行执行。
 
 要翻译新收录的英文说明，仓库 Actions Secrets 需要配置 `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时使用脚本默认值。翻译默认使用 6 个并发线程，可通过 `API_567_TRANSLATION_WORKERS` 调整为 1–16 个。没有密钥或调用失败时，说明保留原文，之后仍可重试；已成功生成的中文翻译会按原文缓存，避免重复请求。
 
@@ -45,4 +45,4 @@ python3 -m unittest discover -s tests -v
 python3 sync_marketplace.py
 ```
 
-第二条命令会下载三个 Skills 来源并更新 `skills/`、`mcps/` 和三份市场清单。配置 `API_567_KEY` 后，也会并发翻译尚无缓存的新英文说明。只改脚本或来源配置不会改变 GitHub 上的自动任务，需先推送代码到 `main`。
+第二条命令会下载三个 Skills 来源和官方 MCP 参考仓库，并更新 `skills/`、`mcps/` 和三份市场清单。配置 `API_567_KEY` 后，也会并发翻译新增或英文说明有变化的条目；未变化且已有成功译文的条目会复用缓存。只改脚本或来源配置不会改变 GitHub 上的自动任务，需先推送代码到 `main`。

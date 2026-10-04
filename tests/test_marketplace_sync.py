@@ -1,6 +1,7 @@
 import tempfile
 import unittest
 import subprocess
+import json
 from unittest.mock import patch
 from datetime import date
 from pathlib import Path
@@ -359,6 +360,97 @@ class MarketplaceSyncTests(unittest.TestCase):
         mcps = {item["slug"]: item for item in sync_marketplace.CURATED_MCPS}
         self.assertEqual(mcps["fetch"]["server"], {"type": "stdio", "command": "uvx", "args": ["mcp-server-fetch"]})
         self.assertIn("--db-path", mcps["sqlite"]["server"]["args"])
+
+    def test_official_mcp_upstreams_are_explicit_and_supported(self):
+        upstreams = {item["slug"]: item for item in sync_marketplace.MCP_UPSTREAM_SERVERS}
+        self.assertEqual(set(upstreams), {"filesystem", "fetch", "memory", "git", "sequential-thinking", "time"})
+        curated = {item["slug"] for item in sync_marketplace.CURATED_MCPS}
+        self.assertTrue(set(upstreams).issubset(curated))
+
+    def test_mcp_upstream_package_metadata_maps_to_pinned_commands(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            npm_dir = root / "src" / "memory"
+            npm_dir.mkdir(parents=True)
+            (npm_dir / "package.json").write_text(json.dumps({
+                "name": "@modelcontextprotocol/server-memory",
+                "version": "1.2.3",
+                "description": "A memory MCP server",
+                "license": "SEE LICENSE IN LICENSE",
+            }), encoding="utf-8")
+            npm = sync_marketplace.read_mcp_upstream_server(root, {
+                "slug": "memory", "path": "src/memory", "name": "Memory",
+                "category": "System", "tags": ["memory"],
+            })
+            self.assertEqual(npm["server"], {
+                "type": "stdio", "command": "npx",
+                "args": ["-y", "@modelcontextprotocol/server-memory@1.2.3"],
+            })
+
+            python_dir = root / "src" / "git"
+            python_dir.mkdir(parents=True)
+            (python_dir / "pyproject.toml").write_text(
+                '[project]\nname = "mcp-server-git"\nversion = "2.3.4"\n'
+                'description = "A Git MCP server"\nlicense = { text = "MIT" }\n',
+                encoding="utf-8",
+            )
+            python_server = sync_marketplace.read_mcp_upstream_server(root, {
+                "slug": "git", "path": "src/git", "name": "Git",
+                "category": "Development", "tags": ["git"],
+            })
+            self.assertEqual(python_server["server"], {
+                "type": "stdio", "command": "uvx", "args": ["mcp-server-git==2.3.4"],
+            })
+
+    def test_mcp_translations_reuse_unchanged_cache_and_refresh_changed_text(self):
+        previous = {
+            "filesystem": {
+                "description": "本地文件操作服务",
+                "detail": {"i18n": {
+                    "en": {"description": "Filesystem operations"},
+                    "zh": {"description": "本地文件操作服务"},
+                }},
+            }
+        }
+        servers = {
+            "filesystem": {"description_en": "Filesystem operations"},
+            "git": {"description_en": "Read and search Git repositories"},
+        }
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+            sync_marketplace, "translate_to_chinese", return_value="读取并搜索 Git 仓库"
+        ) as translate:
+            translated = sync_marketplace.translate_mcp_descriptions(servers, previous)
+        self.assertEqual(translated, {
+            "filesystem": "本地文件操作服务",
+            "git": "读取并搜索 Git 仓库",
+        })
+        translate.assert_called_once_with("Read and search Git repositories")
+
+    def test_mcp_package_update_pins_runtime_and_bumps_config_version(self):
+        with tempfile.TemporaryDirectory() as temp:
+            destination = Path(temp) / "mcps"
+            mcp = {
+                "slug": "git", "name": "Git 仓库工具", "category": "Development",
+                "tags": ["Git", "MCP"], "description": "Git 服务",
+                "upstream": {
+                    "path": "src/git", "package": "mcp-server-git",
+                    "package_version": "0.6.2", "description_en": "A Git MCP server",
+                    "server": {"type": "stdio", "command": "uvx", "args": ["mcp-server-git==0.6.2"]},
+                },
+            }
+            with patch.object(sync_marketplace, "MCPS_DEST_DIR", destination):
+                first = sync_marketplace.write_mcp_record(mcp, {}, {"git": "Git 服务"})
+                config = json.loads((destination / "git" / "mcp.json").read_text(encoding="utf-8"))
+                self.assertEqual(config["server"]["args"], ["mcp-server-git==0.6.2"])
+
+                updated = dict(mcp)
+                updated["upstream"] = {**mcp["upstream"], "package_version": "0.6.3",
+                    "server": {"type": "stdio", "command": "uvx", "args": ["mcp-server-git==0.6.3"]}}
+                second = sync_marketplace.write_mcp_record(updated, {"git": first}, {"git": "Git 服务"})
+            self.assertEqual(first["configVersion"], 1)
+            self.assertEqual(second["configVersion"], 2)
+            self.assertEqual(second["version"], "0.6.3")
+            self.assertEqual(second["source"]["repository"], "modelcontextprotocol/servers")
 
 
 if __name__ == "__main__":

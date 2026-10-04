@@ -51,6 +51,33 @@ SKILL_SOURCES = (
     },
 )
 
+# Mirror only the maintained first-party reference servers. The broader official
+# Registry is a discovery directory containing third-party services, not a trust
+# or compatibility guarantee; its entries need review before becoming installable.
+MCP_UPSTREAM = {
+    "repository": "modelcontextprotocol/servers",
+    "display_name": "Model Context Protocol",
+    "license": "MIT",
+    "license_file": "LICENSE",
+    "roots": (
+        "src/filesystem",
+        "src/fetch",
+        "src/memory",
+        "src/git",
+        "src/sequentialthinking",
+        "src/time",
+    ),
+}
+
+MCP_UPSTREAM_SERVERS = (
+    {"slug": "filesystem", "path": "src/filesystem", "name": "本地受控文件系统", "category": "System", "tags": ["文件", "本地", "MCP"], "args": ["./"]},
+    {"slug": "fetch", "path": "src/fetch", "name": "网页数据抓取 (Fetch)", "category": "Web", "tags": ["网页", "抓取", "MCP"]},
+    {"slug": "memory", "path": "src/memory", "name": "知识图谱长期记忆", "category": "System", "tags": ["记忆", "知识图谱", "MCP"]},
+    {"slug": "git", "path": "src/git", "name": "Git 仓库工具", "category": "Development", "tags": ["Git", "代码仓库", "MCP"]},
+    {"slug": "sequential-thinking", "path": "src/sequentialthinking", "name": "顺序思考", "category": "Development", "tags": ["推理", "规划", "MCP"]},
+    {"slug": "time", "path": "src/time", "name": "时间与时区", "category": "System", "tags": ["时间", "时区", "MCP"]},
+)
+
 _CATEGORY_KEYWORDS = (
     ("Security", ("security", "secure", "threat-model", "supply-chain", "vulnerability", "owasp", "compliance", "privacy", "安全", "合规")),
     ("Database", ("database", "postgres", "postgresql", "mysql", "sqlite", "redis", "qdrant", "snowflake", "vector-store", "datastore", "orm", "数据库")),

@@ -7,11 +7,14 @@ import re
 import shutil
 import subprocess
 import tempfile
+import tomllib
 import urllib.request
 from pathlib import Path
 
 from marketplace_sync import (
     CATEGORIES,
+    MCP_UPSTREAM,
+    MCP_UPSTREAM_SERVERS,
     SKILL_SOURCES,
     classify_skill,
     copy_skill_resources,
@@ -139,6 +142,141 @@ def checkout_source(source, temp_root: Path) -> Path:
         timeout=300,
     )
     return checkout
+
+
+def read_mcp_upstream_server(repository_root: Path, definition: dict) -> dict:
+    """Read a supported upstream package manifest and map it to a pinned runtime."""
+    server_dir = repository_root / definition["path"]
+    package_json = server_dir / "package.json"
+    pyproject_toml = server_dir / "pyproject.toml"
+    if package_json.is_file():
+        package = json.loads(package_json.read_text(encoding="utf-8"))
+        package_name = package.get("name")
+        version = package.get("version")
+        description = package.get("description")
+        declared_license = package.get("license")
+        runtime = "npm"
+        command = "npx"
+        args = ["-y", f"{package_name}@{version}"]
+    elif pyproject_toml.is_file():
+        package = tomllib.loads(pyproject_toml.read_text(encoding="utf-8")).get("project", {})
+        package_name = package.get("name")
+        version = package.get("version")
+        description = package.get("description")
+        license_value = package.get("license")
+        declared_license = license_value.get("text") if isinstance(license_value, dict) else license_value
+        runtime = "pypi"
+        command = "uvx"
+        args = [f"{package_name}=={version}"]
+    else:
+        raise ValueError(f"No supported package manifest for upstream MCP {definition['slug']}")
+
+    if not all(isinstance(value, str) and value.strip() for value in (package_name, version, description)):
+        raise ValueError(f"Incomplete package metadata for upstream MCP {definition['slug']}")
+    if declared_license not in {"MIT", "SEE LICENSE IN LICENSE", "MIT License"}:
+        raise ValueError(f"Unreviewed license for upstream MCP {definition['slug']}: {declared_license!r}")
+
+    args.extend(definition.get("args", []))
+    return {
+        **definition,
+        "description_en": description.strip(),
+        "license": "MIT",
+        "package": package_name,
+        "package_version": version,
+        "runtime": runtime,
+        "server": {"type": "stdio", "command": command, "args": args},
+    }
+
+
+def load_mcp_upstream(temp_root: Path) -> dict[str, dict]:
+    checkout = checkout_source(MCP_UPSTREAM, temp_root)
+    license_path = checkout / MCP_UPSTREAM["license_file"]
+    license_text = license_path.read_text(encoding="utf-8")
+    if "MIT License" not in license_text or "Permission is hereby granted" not in license_text:
+        raise ValueError(f"Repository license changed: {MCP_UPSTREAM['repository']}")
+    return {
+        item["slug"]: read_mcp_upstream_server(checkout, item)
+        for item in MCP_UPSTREAM_SERVERS
+    }
+
+
+def translate_mcp_descriptions(servers: dict[str, dict], previous_abilities: dict[str, dict]) -> dict[str, str]:
+    """Translate changed upstream MCP descriptions, reusing exact-match successes."""
+    if not API_KEY:
+        return {}
+    translations = {}
+    pending = []
+    for slug, server in servers.items():
+        source_text = server["description_en"]
+        if has_chinese(source_text):
+            translations[slug] = source_text
+            continue
+        previous = previous_abilities.get(slug, {})
+        i18n = previous.get("detail", {}).get("i18n", {})
+        old_english = i18n.get("en", {}).get("description")
+        old_chinese = i18n.get("zh", {}).get("description") or previous.get("description")
+        if old_english == source_text and old_chinese and has_chinese(old_chinese):
+            translations[slug] = old_chinese
+        else:
+            pending.append((slug, source_text))
+    if pending:
+        print(f"Translating {len(pending)} MCP descriptions with {TRANSLATION_WORKERS} workers")
+        with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="mcp-translation") as executor:
+            for (slug, _), translated in zip(pending, executor.map(translate_to_chinese, (text for _, text in pending))):
+                translations[slug] = translated
+    return translations
+
+
+def write_mcp_record(mcp: dict, previous_abilities: dict[str, dict], translated_descriptions: dict[str, str]) -> dict:
+    slug = mcp["slug"]
+    upstream = mcp.get("upstream")
+    previous = previous_abilities.get(slug, {})
+    description = translated_descriptions.get(
+        slug,
+        upstream["description_en"] if upstream else mcp["description"],
+    )
+    version = upstream["package_version"] if upstream else mcp.get("version", "1.0.0")
+    mcp_dir = MCPS_DEST_DIR / slug
+    if mcp_dir.is_symlink() or (mcp_dir / "mcp.json").is_symlink():
+        raise ValueError(f"Refusing to write through local symlink: {mcp_dir}")
+    mcp_dir.mkdir(parents=True, exist_ok=True)
+    mcp_json_path = mcp_dir / "mcp.json"
+    mcp_json_path.write_text(json.dumps({
+        "schemaVersion": 1,
+        "slug": slug,
+        "version": version,
+        "server": upstream["server"] if upstream else mcp["server"],
+        "parameters": [],
+    }, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    digest = package_digest(mcp_dir)
+    config_version = previous.get("configVersion", 1)
+    if previous and previous.get("source", {}).get("contentSha256") != digest:
+        config_version += 1
+    localized = CATEGORIES[mcp["category"]]
+    details = {
+        "zh": {"name": mcp["name"], "description": description, "tags": mcp["tags"]},
+    }
+    if upstream:
+        details["en"] = {"name": mcp["name"], "description": upstream["description_en"], "tags": mcp["tags"]}
+    source = {"path": f"mcps/{slug}", "contentSha256": digest}
+    if upstream:
+        source.update({"repository": MCP_UPSTREAM["repository"], "upstreamPath": upstream["path"]})
+    return {
+        "type": "mcp",
+        "slug": slug,
+        "name": mcp["name"],
+        "description": description,
+        "version": version,
+        "configVersion": config_version,
+        "license": "MIT",
+        "author": "Model Context Protocol",
+        "category": mcp["category"],
+        "categoryI18n": {"zh": localized, "en": mcp["category"]},
+        "tags": mcp["tags"],
+        "detail": {"i18n": details},
+        "source": source,
+    }
 
 
 def resolve_skill_license(skill_dir: Path, declared: str) -> str:
@@ -393,6 +531,33 @@ CURATED_MCPS = [
             "command": "npx",
             "args": ["-y", "@modelcontextprotocol/server-memory"]
         }
+    },
+    {
+        "slug": "git",
+        "name": "Git 仓库工具",
+        "description": "读取、搜索和修改 Git 仓库中的文件与版本历史。",
+        "category": "Development",
+        "category_zh": "编程研发",
+        "tags": ["Git", "代码仓库", "MCP"],
+        "server": {"type": "stdio", "command": "uvx", "args": ["mcp-server-git"]}
+    },
+    {
+        "slug": "sequential-thinking",
+        "name": "顺序思考",
+        "description": "将复杂问题拆解为可逐步展开和修订的思考过程。",
+        "category": "Development",
+        "category_zh": "编程研发",
+        "tags": ["推理", "规划", "MCP"],
+        "server": {"type": "stdio", "command": "npx", "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]}
+    },
+    {
+        "slug": "time",
+        "name": "时间与时区",
+        "description": "查询当前时间并在不同时区之间转换。",
+        "category": "System",
+        "category_zh": "系统工具",
+        "tags": ["时间", "时区", "MCP"],
+        "server": {"type": "stdio", "command": "uvx", "args": ["mcp-server-time"]}
     }
 ]
 
@@ -404,59 +569,22 @@ def generate_catalog(previous_manifest: dict, temp_root: Path) -> dict:
         if isinstance(ability, dict) and isinstance(ability.get("slug"), str)
     }
 
-    # 1. Process Curated MCPs
-    print("=== Processing Curated MCPs ===")
-    for m in CURATED_MCPS:
-        slug = m["slug"]
-        mcp_dir = MCPS_DEST_DIR / slug
-        if mcp_dir.is_symlink() or (mcp_dir / "mcp.json").is_symlink():
-            raise ValueError(f"Refusing to write through local symlink: {mcp_dir}")
-        mcp_dir.mkdir(parents=True, exist_ok=True)
-        mcp_json_path = mcp_dir / "mcp.json"
-        with open(mcp_json_path, "w", encoding="utf-8") as f:
-            json.dump({
-                "schemaVersion": 1,
-                "slug": slug,
-                "version": "1.0.0",
-                "server": m["server"],
-                "parameters": []
-            }, f, indent=2, ensure_ascii=False)
-
-        digest = package_digest(mcp_dir)
-        previous = previous_abilities.get(slug, {})
-        config_version = previous.get("configVersion", 1)
-        if previous and previous.get("source", {}).get("contentSha256") != digest:
-            config_version += 1
-        abilities.append({
-            "type": "mcp",
-            "slug": slug,
-            "name": m["name"],
-            "description": m["description"],
-            "version": "1.0.0",
-            "configVersion": config_version,
-            "license": "MIT",
-            "author": "Model Context Protocol",
-            "category": m["category"],
-            "categoryI18n": {
-                "zh": m["category_zh"],
-                "en": m["category"]
-            },
-            "tags": m["tags"],
-            "detail": {
-                "i18n": {
-                    "zh": {
-                        "name": m["name"],
-                        "description": m["description"],
-                        "tags": m["tags"]
-                    }
-                }
-            },
-            "source": {
-                "path": f"mcps/{slug}",
-                "contentSha256": digest,
-            }
-        })
-        print(f"Processed MCP: {slug}")
+    # 1. Sync supported first-party MCPs from the maintained upstream repository.
+    print("=== Processing Curated and Official Upstream MCPs ===")
+    upstream_mcps = load_mcp_upstream(temp_root)
+    translated_mcp_descriptions = translate_mcp_descriptions(upstream_mcps, previous_abilities)
+    curated_by_slug = {item["slug"]: item for item in CURATED_MCPS}
+    mcp_records = []
+    for slug, upstream in upstream_mcps.items():
+        curated = curated_by_slug.get(slug)
+        if curated is None:
+            raise ValueError(f"Upstream MCP has no reviewed marketplace metadata: {slug}")
+        mcp_records.append({**curated, "upstream": upstream})
+    mcp_records.extend(item for item in CURATED_MCPS if item["slug"] not in upstream_mcps)
+    for mcp in mcp_records:
+        record = write_mcp_record(mcp, previous_abilities, translated_mcp_descriptions)
+        abilities.append(record)
+        print(f"Processed MCP: {record['slug']} ({record['version']})")
 
     # 2. Collect portable skills from curated, license-declared upstreams.
     print("\n=== Processing Skills from curated upstream repositories ===")
