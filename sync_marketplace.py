@@ -2,6 +2,7 @@
 import os
 import json
 import copy
+from concurrent.futures import ThreadPoolExecutor
 import re
 import shutil
 import subprocess
@@ -28,6 +29,10 @@ API_KEY = os.environ.get("API_567_KEY", "")
 RAW_BASE_URL = (os.environ.get("API_567_BASE_URL") or "https://api.567.wiki/v1").rstrip("/")
 COMPLETIONS_URL = f"{RAW_BASE_URL}/chat/completions" if not RAW_BASE_URL.endswith("/chat/completions") else RAW_BASE_URL
 MODEL = os.environ.get("API_567_MODEL") or "gemini-3.8-flash-high"
+try:
+    TRANSLATION_WORKERS = min(16, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "6"))))
+except ValueError:
+    TRANSLATION_WORKERS = 6
 
 REPO_ROOT = Path(__file__).resolve().parent
 SKILLS_DEST_DIR = REPO_ROOT / "skills"
@@ -66,6 +71,54 @@ def translate_to_chinese(text: str) -> str:
     except Exception as e:
         print(f"Translation warning for {text[:30]}: {e}")
         return text
+
+
+def translate_skill_descriptions(source, repository_root: Path, skill_files: list[Path], previous_abilities: dict[str, dict]):
+    """Translate missing descriptions concurrently while keeping catalog order stable."""
+    if not API_KEY:
+        return {}
+
+    translations = {}
+    pending_keys = []
+    pending_texts = []
+    for skill_file in skill_files:
+        try:
+            content = skill_file.read_text(encoding="utf-8")
+        except (OSError, UnicodeError):
+            continue
+        if len(content.encode("utf-8")) > 512 * 1024:
+            continue
+        frontmatter, body = parse_frontmatter(content)
+        raw_description = frontmatter.get("description", "").strip()
+        if not raw_description:
+            first_line = next((line.lstrip("# ").strip() for line in body.splitlines() if line.strip()), "")
+            raw_name = frontmatter.get("name") or skill_file.parent.name
+            raw_description = first_line or f"{slugify(raw_name)} AI Agent Skill"
+        if has_chinese(raw_description):
+            continue
+
+        key = (source["repository"], skill_file.relative_to(repository_root).as_posix())
+        previous = next((
+            item for item in previous_abilities.values()
+            if item.get("type") == "skill"
+            and item.get("source", {}).get("repository") == key[0]
+            and item.get("source", {}).get("upstreamPath") == key[1]
+        ), {})
+        i18n = previous.get("detail", {}).get("i18n", {})
+        previous_english = i18n.get("en", {}).get("description")
+        previous_chinese = i18n.get("zh", {}).get("description") or previous.get("description")
+        if previous_english == raw_description and previous_chinese and has_chinese(previous_chinese):
+            translations[key] = previous_chinese
+        else:
+            pending_keys.append(key)
+            pending_texts.append(raw_description)
+
+    if pending_texts:
+        print(f"Translating {len(pending_texts)} descriptions with {TRANSLATION_WORKERS} workers")
+        with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="skill-translation") as executor:
+            for key, translated in zip(pending_keys, executor.map(translate_to_chinese, pending_texts)):
+                translations[key] = translated
+    return translations
 
 def checkout_source(source, temp_root: Path) -> Path:
     repository_path = source["repository"]
@@ -106,6 +159,7 @@ def write_skill(
     skill_file: Path,
     used_slugs: set[str],
     previous_abilities: dict[str, dict] | None = None,
+    translations: dict[tuple[str, str], str] | None = None,
 ):
     try:
         content = skill_file.read_text(encoding="utf-8")
@@ -139,15 +193,19 @@ def write_skill(
         raw_desc = first_line or f"{slug} AI Agent Skill"
     description = raw_desc
     if not has_chinese(raw_desc):
+        pretranslated = (translations or {}).get((source["repository"], upstream_path))
+        if pretranslated is not None:
+            description = pretranslated
         # Older catalogs did not include origin metadata. Keep their cache usable.
-        if not previous and slug not in used_slugs:
+        elif not previous and slug not in used_slugs:
             candidate = previous_abilities.get(slug, {})
             if not candidate.get("source", {}).get("repository"):
                 previous = candidate
-        previous_i18n = previous.get("detail", {}).get("i18n", {})
-        previous_english = previous_i18n.get("en", {}).get("description")
-        previous_chinese = previous_i18n.get("zh", {}).get("description") or previous.get("description")
-        description = previous_chinese if previous_english == raw_desc and previous_chinese and has_chinese(previous_chinese) else translate_to_chinese(raw_desc)
+        if pretranslated is None:
+            previous_i18n = previous.get("detail", {}).get("i18n", {})
+            previous_english = previous_i18n.get("en", {}).get("description")
+            previous_chinese = previous_i18n.get("zh", {}).get("description") or previous.get("description")
+            description = previous_chinese if previous_english == raw_desc and previous_chinese and has_chinese(previous_chinese) else translate_to_chinese(raw_desc)
     display_name = raw_name if raw_name != base_slug else raw_name.replace("-", " ").title()
     category = classify_skill(base_slug, display_name, raw_desc, upstream_path)
     license_name = resolve_skill_license(skill_file.parent, frontmatter.get("license") or source["license"])
@@ -429,8 +487,9 @@ def generate_catalog(previous_manifest: dict, temp_root: Path) -> dict:
         if not discovered:
             raise ValueError(f"No skills discovered in {source['repository']}; check upstream roots")
         print(f"Found {len(discovered)} SKILL.md files in {source['repository']}")
+        translations = translate_skill_descriptions(source, checkout, discovered, previous_abilities)
         for skill_file in discovered:
-            ability = write_skill(source, checkout, skill_file, seen_slugs, previous_abilities)
+            ability = write_skill(source, checkout, skill_file, seen_slugs, previous_abilities, translations)
             if ability is not None:
                 abilities.append(ability)
                 print(f"Processed Skill: {ability['slug']} [{ability['category']}]")
