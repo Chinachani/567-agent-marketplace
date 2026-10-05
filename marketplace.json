@@ -3,7 +3,7 @@
   "name": "567-official",
   "displayName": "567 Agent 官方能力市场",
   "marketplaceVersion": "2026.10.04.1",
-  "discoveryVersion": "2026.10.04.7",
+  "discoveryVersion": "2026.10.05.1",
   "repository": "https://github.com/Chinachani/567-agent-marketplace",
   "minAppVersion": "1.0.0",
   "abilities": [
