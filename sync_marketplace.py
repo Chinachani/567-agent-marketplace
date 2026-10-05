@@ -77,6 +77,7 @@ except ValueError:
 TRANSLATION_NO_CHINESE_RETRIES = 0
 TRANSLATION_DIAGNOSTIC_LOGGED = False
 TRANSLATION_DIAGNOSTIC_LOCK = threading.Lock()
+TRANSLATION_OUTCOME = threading.local()
 TRANSLATION_CACHE: dict[str, str] = {}
 TRANSLATION_SINGLE_FALLBACK_USED = 0
 TRANSLATION_FALLBACK_BUDGET_LOGGED = False
@@ -147,6 +148,14 @@ class TranslationCircuitOpen(RuntimeError):
     """Raised when upstream translation failures opened the per-run circuit."""
 
 
+class TranslationBatchResult(list):
+    """List-compatible batch output with the number of items skipped by safeguards."""
+
+    def __init__(self, values, deferred_count: int = 0):
+        super().__init__(values)
+        self.deferred_count = deferred_count
+
+
 def _record_translation_failure() -> None:
     global TRANSLATION_CIRCUIT_FAILURES, TRANSLATION_CIRCUIT_OPEN, TRANSLATION_CIRCUIT_LOGGED
     with TRANSLATION_CIRCUIT_LOCK:
@@ -207,6 +216,7 @@ def _request_translation(messages: list[dict], max_tokens: int) -> str:
 
 
 def translate_to_chinese(text: str) -> str:
+    TRANSLATION_OUTCOME.deferred = False
     if not text or has_chinese(text) or not API_KEY:
         return text
     for attempt in range(2):
@@ -239,11 +249,18 @@ def translate_to_chinese(text: str) -> str:
                         )
                         TRANSLATION_DIAGNOSTIC_LOGGED = True
         except TranslationCircuitOpen:
+            TRANSLATION_OUTCOME.deferred = True
             return text
         except Exception as error:
             safe_log(f"Translation fallback after retries: {error}")
             return text
     return text
+
+
+def _translate_to_chinese_with_status(text: str) -> tuple[str, bool]:
+    TRANSLATION_OUTCOME.deferred = False
+    translated = translate_to_chinese(text)
+    return translated, getattr(TRANSLATION_OUTCOME, "deferred", False)
 
 
 def _translation_groups(texts: list[str]) -> list[list[str]]:
@@ -264,7 +281,8 @@ def _translation_groups(texts: list[str]) -> list[list[str]]:
 
 def _translate_batch(texts: list[str]) -> list[str]:
     if len(texts) == 1:
-        return [translate_to_chinese(texts[0])]
+        translated, deferred = _translate_to_chinese_with_status(texts[0])
+        return TranslationBatchResult([translated], int(deferred))
     prompt = json.dumps([{"id": index, "text": text} for index, text in enumerate(texts)], ensure_ascii=False)
     try:
         content = _request_translation(
@@ -299,23 +317,35 @@ def _translate_batch(texts: list[str]) -> list[str]:
         needs_fallback = [index for index, value in translations_by_id.items() if not has_chinese(value)]
         fallback_allowed = _reserve_single_fallback(len(needs_fallback)) if needs_fallback else True
         results = []
+        deferred_count = 0 if fallback_allowed else len(needs_fallback)
         for index, original in enumerate(texts):
             translated = translations_by_id[index]
             if not has_chinese(translated):
-                results.append(translate_to_chinese(original) if fallback_allowed else original)
+                if fallback_allowed:
+                    translated, deferred = _translate_to_chinese_with_status(original)
+                    deferred_count += int(deferred)
+                    results.append(translated)
+                else:
+                    results.append(original)
             else:
                 results.append(translated)
-        return results
+        return TranslationBatchResult(results, deferred_count)
     except TranslationCircuitOpen:
-        return texts
+        return TranslationBatchResult(texts, len(texts))
     except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError) as error:
         safe_log(f"Translation batch deferred after request failure: {error}")
         return texts
     except Exception as error:
         safe_log(f"Translation batch fallback for {len(texts)} items: {error}")
         if not _reserve_single_fallback(len(texts)):
-            return texts
-        return [translate_to_chinese(text) for text in texts]
+            return TranslationBatchResult(texts, len(texts))
+        results = []
+        deferred_count = 0
+        for text in texts:
+            translated, deferred = _translate_to_chinese_with_status(text)
+            results.append(translated)
+            deferred_count += int(deferred)
+        return TranslationBatchResult(results, deferred_count)
 
 
 def translate_texts(texts: list[str], label: str) -> list[str]:
@@ -343,11 +373,13 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
         flush=True,
     )
     translated_by_text = {}
+    circuit_deferred = 0
     with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="translation") as executor:
         futures = {executor.submit(_translate_batch, group): group for group in groups}
         for index, future in enumerate(as_completed(futures), start=1):
             group = futures[future]
             results = future.result()
+            circuit_deferred += getattr(results, "deferred_count", 0)
             translated_by_text.update(zip(group, results))
             for source, translated in zip(group, results):
                 if has_chinese(translated):
@@ -362,7 +394,11 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
         safe_log(f"{no_chinese_retries} translation requests needed a non-Chinese response retry")
     skipped = len(unique) - len(current)
     if unresolved or skipped:
-        safe_log(f"Translation incomplete: {unresolved} failed after retries, {skipped} deferred")
+        failed = max(0, unresolved - circuit_deferred)
+        safe_log(
+            f"Translation incomplete: {failed} failed after retries, "
+            f"{circuit_deferred} deferred by circuit/fallback budget, {skipped} deferred by per-run limit"
+        )
     else:
         safe_log(f"Translation complete: {len(current)} of {len(unique)} {label}")
     current_set = set(current)
@@ -390,8 +426,8 @@ def load_translation_checkpoint(path: Path | None = None) -> None:
 
 def write_translation_checkpoint(path: Path) -> None:
     """Write the translation cache atomically enough for final catalog publication."""
-    with gzip.open(path, "wt", encoding="utf-8", compresslevel=6) as handle:
-        json.dump(TRANSLATION_CACHE, handle, ensure_ascii=False, separators=(",", ":"))
+    payload = json.dumps(TRANSLATION_CACHE, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    path.write_bytes(gzip.compress(payload, compresslevel=6, mtime=0))
 
 
 def _persist_translation_checkpoint() -> None:
@@ -412,8 +448,8 @@ def _persist_translation_checkpoint() -> None:
             cwd=REPO_ROOT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True,
         )
         checkpoint = worktree / "translation-cache.json.gz"
-        with gzip.open(checkpoint, "wt", encoding="utf-8", compresslevel=6) as handle:
-            json.dump(TRANSLATION_CACHE, handle, ensure_ascii=False, separators=(",", ":"))
+        payload = json.dumps(TRANSLATION_CACHE, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        checkpoint.write_bytes(gzip.compress(payload, compresslevel=6, mtime=0))
         subprocess.run(["git", "-C", str(worktree), "add", "translation-cache.json.gz"], check=True,
                        stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
         changed = subprocess.run(["git", "-C", str(worktree), "diff", "--cached", "--quiet"], check=False).returncode != 0

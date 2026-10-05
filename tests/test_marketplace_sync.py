@@ -608,8 +608,13 @@ class MarketplaceSyncTests(unittest.TestCase):
                 sync_marketplace.TRANSLATION_CACHE, {"source-hash": "可恢复译文"}, clear=True
             ):
                 sync_marketplace._persist_translation_checkpoint()
+                sync_marketplace._persist_translation_checkpoint()
             payload = subprocess.check_output(["git", f"--git-dir={bare}", "show", "catalog:translation-cache.json.gz"])
             self.assertEqual(json.loads(gzip.decompress(payload)), {"source-hash": "可恢复译文"})
+            commit_count = subprocess.check_output(
+                ["git", f"--git-dir={bare}", "rev-list", "--count", "catalog"], text=True
+            ).strip()
+            self.assertEqual(commit_count, "2")
 
     def test_final_catalog_checkpoint_writer_preserves_cache_contents(self):
         sync_marketplace.TRANSLATION_CACHE["source-hash"] = "可恢复译文"
@@ -618,6 +623,27 @@ class MarketplaceSyncTests(unittest.TestCase):
             sync_marketplace.write_translation_checkpoint(path)
             with gzip.open(path, "rt", encoding="utf-8") as handle:
                 self.assertEqual(json.load(handle), {"source-hash": "可恢复译文"})
+
+    def test_translation_checkpoint_compression_is_deterministic(self):
+        sync_marketplace.TRANSLATION_CACHE["source-hash"] = "可恢复译文"
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "translation-cache.json.gz"
+            sync_marketplace.write_translation_checkpoint(path)
+            first = path.read_bytes()
+            sync_marketplace.write_translation_checkpoint(path)
+            self.assertEqual(path.read_bytes(), first)
+
+    def test_translation_summary_separates_circuit_deferred_from_failed(self):
+        result = sync_marketplace.TranslationBatchResult(["English source"], deferred_count=1)
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), \
+             patch.object(sync_marketplace, "TRANSLATION_WORKERS", 1), \
+             patch.object(sync_marketplace, "_translate_batch", return_value=result), \
+             patch.object(sync_marketplace, "safe_log") as safe_log:
+            self.assertEqual(sync_marketplace.translate_texts(["English source"], "test descriptions"), ["English source"])
+        self.assertIn(
+            "Translation incomplete: 0 failed after retries, 1 deferred by circuit/fallback budget, 0 deferred by per-run limit",
+            [call.args[0] for call in safe_log.call_args_list],
+        )
 
     def test_mcp_translation_includes_localized_name_and_description(self):
         servers = {
