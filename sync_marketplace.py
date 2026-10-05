@@ -4,7 +4,7 @@ import builtins
 import json
 import copy
 import gzip
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 import re
 import shutil
@@ -18,6 +18,7 @@ import hashlib
 import time
 import random
 import threading
+import zlib
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
@@ -64,11 +65,26 @@ try:
     TRANSLATION_CHECKPOINT_BATCHES = max(1, int(os.environ.get("API_567_TRANSLATION_CHECKPOINT_BATCHES", "250")))
 except ValueError:
     TRANSLATION_CHECKPOINT_BATCHES = 250
+try:
+    TRANSLATION_SINGLE_FALLBACK_BUDGET = max(0, int(os.environ.get("API_567_TRANSLATION_SINGLE_FALLBACK_ITEMS", "500")))
+except ValueError:
+    TRANSLATION_SINGLE_FALLBACK_BUDGET = 500
+try:
+    TRANSLATION_CIRCUIT_FAILURE_LIMIT = max(1, int(os.environ.get("API_567_TRANSLATION_CIRCUIT_FAILURE_LIMIT", "8")))
+except ValueError:
+    TRANSLATION_CIRCUIT_FAILURE_LIMIT = 8
 
 TRANSLATION_NO_CHINESE_RETRIES = 0
 TRANSLATION_DIAGNOSTIC_LOGGED = False
 TRANSLATION_DIAGNOSTIC_LOCK = threading.Lock()
 TRANSLATION_CACHE: dict[str, str] = {}
+TRANSLATION_SINGLE_FALLBACK_USED = 0
+TRANSLATION_FALLBACK_BUDGET_LOGGED = False
+TRANSLATION_FALLBACK_LOCK = threading.Lock()
+TRANSLATION_CIRCUIT_FAILURES = 0
+TRANSLATION_CIRCUIT_OPEN = False
+TRANSLATION_CIRCUIT_LOCK = threading.Lock()
+TRANSLATION_CIRCUIT_LOGGED = False
 
 # The installed catalog stays small enough for the desktop client's legacy
 # GitHub Contents path. Discovery candidates are published as bounded shards.
@@ -105,11 +121,51 @@ def _translation_retry_delay(error, attempt: int) -> float:
                     return min(60.0, max(0.0, (retry_at - datetime.now(timezone.utc)).total_seconds()))
                 except (TypeError, ValueError, OverflowError):
                     pass
+    if isinstance(error, (urllib.error.URLError, TimeoutError, OSError)):
+        return min(60.0, (5 * (2 ** attempt)) + random.uniform(0.0, 3.0))
     return min(30.0, (2 ** attempt) + random.uniform(0.0, 1.0))
 
 
 def has_chinese(text: str) -> bool:
     return any('\u4e00' <= char <= '\u9fff' for char in text)
+
+
+def _reserve_single_fallback(items: int) -> bool:
+    """Bound extra single-item calls after batch responses need repair."""
+    global TRANSLATION_SINGLE_FALLBACK_USED, TRANSLATION_FALLBACK_BUDGET_LOGGED
+    with TRANSLATION_FALLBACK_LOCK:
+        if TRANSLATION_SINGLE_FALLBACK_USED + items <= TRANSLATION_SINGLE_FALLBACK_BUDGET:
+            TRANSLATION_SINGLE_FALLBACK_USED += items
+            return True
+        if not TRANSLATION_FALLBACK_BUDGET_LOGGED:
+            safe_log("Single-item translation fallback budget exhausted; remaining items deferred")
+            TRANSLATION_FALLBACK_BUDGET_LOGGED = True
+        return False
+
+
+class TranslationCircuitOpen(RuntimeError):
+    """Raised when upstream translation failures opened the per-run circuit."""
+
+
+def _record_translation_failure() -> None:
+    global TRANSLATION_CIRCUIT_FAILURES, TRANSLATION_CIRCUIT_OPEN, TRANSLATION_CIRCUIT_LOGGED
+    with TRANSLATION_CIRCUIT_LOCK:
+        TRANSLATION_CIRCUIT_FAILURES += 1
+        if TRANSLATION_CIRCUIT_FAILURES >= TRANSLATION_CIRCUIT_FAILURE_LIMIT:
+            TRANSLATION_CIRCUIT_OPEN = True
+            if not TRANSLATION_CIRCUIT_LOGGED:
+                safe_log(
+                    f"Translation circuit opened after {TRANSLATION_CIRCUIT_FAILURES} upstream failures; deferring remaining batches",
+                    flush=True,
+                )
+                TRANSLATION_CIRCUIT_LOGGED = True
+
+
+def _record_translation_success() -> None:
+    global TRANSLATION_CIRCUIT_FAILURES
+    with TRANSLATION_CIRCUIT_LOCK:
+        if not TRANSLATION_CIRCUIT_OPEN:
+            TRANSLATION_CIRCUIT_FAILURES = 0
 
 def _request_translation(messages: list[dict], max_tokens: int) -> str:
     payload = {
@@ -126,17 +182,22 @@ def _request_translation(messages: list[dict], max_tokens: int) -> str:
         data=json.dumps(payload).encode("utf-8")
     )
     for attempt in range(3):
+        if TRANSLATION_CIRCUIT_OPEN:
+            raise TranslationCircuitOpen("upstream circuit is open")
         try:
             with urllib.request.urlopen(req, timeout=45) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
+            _record_translation_success()
             return data["choices"][0]["message"]["content"].strip()
         except urllib.error.HTTPError as error:
+            _record_translation_failure()
             if error.code not in {408, 425, 429, 500, 502, 503, 504} or attempt == 2:
                 raise
             wait = _translation_retry_delay(error, attempt)
             safe_log(f"Translation API returned HTTP {error.code}; retrying in {wait}s", flush=True)
             time.sleep(wait)
         except (urllib.error.URLError, TimeoutError, OSError, json.JSONDecodeError, KeyError, IndexError, TypeError) as error:
+            _record_translation_failure()
             if attempt == 2:
                 raise
             wait = _translation_retry_delay(error, attempt)
@@ -162,7 +223,7 @@ def translate_to_chinese(text: str) -> str:
                 ]
             translated = _request_translation(
                 messages,
-                512,
+                min(2048, max(512, len(text) * 2)),
             )
             if has_chinese(translated):
                 return translated
@@ -177,6 +238,8 @@ def translate_to_chinese(text: str) -> str:
                             flush=True,
                         )
                         TRANSLATION_DIAGNOSTIC_LOGGED = True
+        except TranslationCircuitOpen:
+            return text
         except Exception as error:
             safe_log(f"Translation fallback after retries: {error}")
             return text
@@ -233,19 +296,25 @@ def _translate_batch(texts: list[str]) -> list[str]:
         expected_ids = set(range(len(texts)))
         if set(translations_by_id) != expected_ids:
             raise ValueError("translation batch omitted or changed an id")
+        needs_fallback = [index for index, value in translations_by_id.items() if not has_chinese(value)]
+        fallback_allowed = _reserve_single_fallback(len(needs_fallback)) if needs_fallback else True
         results = []
         for index, original in enumerate(texts):
             translated = translations_by_id[index]
             if not has_chinese(translated):
-                results.append(translate_to_chinese(original))
+                results.append(translate_to_chinese(original) if fallback_allowed else original)
             else:
                 results.append(translated)
         return results
+    except TranslationCircuitOpen:
+        return texts
     except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError) as error:
         safe_log(f"Translation batch deferred after request failure: {error}")
         return texts
     except Exception as error:
         safe_log(f"Translation batch fallback for {len(texts)} items: {error}")
+        if not _reserve_single_fallback(len(texts)):
+            return texts
         return [translate_to_chinese(text) for text in texts]
 
 
@@ -275,7 +344,10 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
     )
     translated_by_text = {}
     with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="translation") as executor:
-        for index, (group, results) in enumerate(zip(groups, executor.map(_translate_batch, groups)), start=1):
+        futures = {executor.submit(_translate_batch, group): group for group in groups}
+        for index, future in enumerate(as_completed(futures), start=1):
+            group = futures[future]
+            results = future.result()
             translated_by_text.update(zip(group, results))
             for source, translated in zip(group, results):
                 if has_chinese(translated):
@@ -312,8 +384,14 @@ def load_translation_checkpoint(path: Path | None = None) -> None:
             TRANSLATION_CACHE.update({key: value for key, value in cached.items()
                                       if isinstance(key, str) and isinstance(value, str) and has_chinese(value)})
             safe_log(f"Restored {len(TRANSLATION_CACHE)} resumable translation checkpoints")
-    except (OSError, EOFError, json.JSONDecodeError) as error:
+    except (OSError, EOFError, zlib.error, UnicodeError, json.JSONDecodeError) as error:
         safe_log(f"Ignoring invalid translation checkpoint: {error}")
+
+
+def write_translation_checkpoint(path: Path) -> None:
+    """Write the translation cache atomically enough for final catalog publication."""
+    with gzip.open(path, "wt", encoding="utf-8", compresslevel=6) as handle:
+        json.dump(TRANSLATION_CACHE, handle, ensure_ascii=False, separators=(",", ":"))
 
 
 def _persist_translation_checkpoint() -> None:
@@ -793,6 +871,10 @@ def translate_mcp_fields(servers: dict[str, dict], previous_abilities: dict[str,
                 continue
             translations.setdefault(slug, {})
             if has_chinese(source_text):
+                translations[slug][field] = source_text
+                continue
+            if field == "name" and re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", source_text.strip()):
+                # Registry names that are just owner/repository identifiers are labels, not prose.
                 translations[slug][field] = source_text
                 continue
             old_english = i18n.get("en", {}).get(field)
@@ -1632,6 +1714,8 @@ def main():
             state_path = discovery_root / "catalog-state.json.gz"
             with gzip.open(state_path, "wt", encoding="utf-8", compresslevel=9) as handle:
                 json.dump({"abilities": discovery_abilities, "marketplaceVersion": manifest["discoveryVersion"]}, handle, ensure_ascii=False, separators=(",", ":"))
+            if TRANSLATION_CACHE:
+                write_translation_checkpoint(discovery_root / "translation-cache.json.gz")
             replacements.append((discovery_root, REPO_ROOT / "catalog-dist"))
             publish_staged_paths(replacements, temp_root / "backups")
             legacy_suggestions = REPO_ROOT / ".567agent" / "mcp-classification-suggestions.json"

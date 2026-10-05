@@ -3,3 +3,5 @@ __pycache__/
 .marketplace-sync-*/
 catalog-dist/
 .marketplace-state.json.gz
+.translation-cache.json.gz
+.translation-checkpoint-*/

@@ -4,6 +4,8 @@ import tempfile
 import unittest
 import subprocess
 import json
+import threading
+import time
 from unittest.mock import patch
 from datetime import date
 from pathlib import Path
@@ -26,6 +28,11 @@ import sync_marketplace
 class MarketplaceSyncTests(unittest.TestCase):
     def setUp(self):
         sync_marketplace.TRANSLATION_CACHE.clear()
+        sync_marketplace.TRANSLATION_SINGLE_FALLBACK_USED = 0
+        sync_marketplace.TRANSLATION_FALLBACK_BUDGET_LOGGED = False
+        sync_marketplace.TRANSLATION_CIRCUIT_FAILURES = 0
+        sync_marketplace.TRANSLATION_CIRCUIT_OPEN = False
+        sync_marketplace.TRANSLATION_CIRCUIT_LOGGED = False
 
     def test_translation_retry_respects_retry_after_header(self):
         error = sync_marketplace.urllib.error.HTTPError(
@@ -36,6 +43,21 @@ class MarketplaceSyncTests(unittest.TestCase):
             None,
         )
         self.assertEqual(sync_marketplace._translation_retry_delay(error, 0), 7.0)
+
+    def test_translation_timeouts_use_longer_exponential_backoff(self):
+        with patch.object(sync_marketplace.random, "uniform", return_value=0.5):
+            self.assertEqual(sync_marketplace._translation_retry_delay(TimeoutError("timed out"), 0), 5.5)
+            self.assertEqual(sync_marketplace._translation_retry_delay(TimeoutError("timed out"), 1), 10.5)
+
+    def test_repeated_translation_timeouts_open_circuit_and_stop_new_requests(self):
+        with patch.object(sync_marketplace, "TRANSLATION_CIRCUIT_FAILURE_LIMIT", 1), \
+             patch.object(sync_marketplace.urllib.request, "urlopen", side_effect=TimeoutError("timed out")) as urlopen, \
+             patch.object(sync_marketplace.time, "sleep"):
+            with self.assertRaises(sync_marketplace.TranslationCircuitOpen):
+                sync_marketplace._request_translation([], 512)
+            with self.assertRaises(sync_marketplace.TranslationCircuitOpen):
+                sync_marketplace._request_translation([], 512)
+        urlopen.assert_called_once()
 
     def test_manifest_serializer_keeps_entries_compact_and_round_trips(self):
         manifest = {
@@ -471,6 +493,26 @@ class MarketplaceSyncTests(unittest.TestCase):
         self.assertTrue(all(value.startswith("中文 ") for value in translated))
         self.assertEqual(sum(len(call.args[0]) for call in batch.call_args_list), len(texts))
 
+    def test_translation_checkpoint_is_not_blocked_by_an_earlier_slow_batch(self):
+        slow_finished = threading.Event()
+        checkpoint_states = []
+
+        def translate(group):
+            if group == ["slow"]:
+                time.sleep(0.2)
+                slow_finished.set()
+            return ["中文译文"]
+
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), \
+             patch.object(sync_marketplace, "TRANSLATION_WORKERS", 2), \
+             patch.object(sync_marketplace, "TRANSLATION_BATCH_ITEMS", 1), \
+             patch.object(sync_marketplace, "TRANSLATION_CHECKPOINT_BATCHES", 1), \
+             patch.object(sync_marketplace, "_translate_batch", side_effect=translate), \
+             patch.object(sync_marketplace, "_persist_translation_checkpoint", side_effect=lambda: checkpoint_states.append(slow_finished.is_set())):
+            translated = sync_marketplace.translate_texts(["slow", "fast"], "test descriptions")
+        self.assertEqual(translated, ["中文译文", "中文译文"])
+        self.assertEqual(checkpoint_states[0], False)
+
     def test_translation_batch_parses_json_array_without_reordering(self):
         content = json.dumps([
             {"id": 1, "translation": "第二条中文"},
@@ -496,6 +538,22 @@ class MarketplaceSyncTests(unittest.TestCase):
                     ["第一条中文", "第二条中文"],
                 )
                 self.assertEqual(translate.call_count, 2)
+
+    def test_translation_batch_caps_single_item_recovery_calls(self):
+        response = "not valid JSON"
+        with patch.object(sync_marketplace, "TRANSLATION_SINGLE_FALLBACK_BUDGET", 1), \
+             patch.object(sync_marketplace, "_request_translation", return_value=response), \
+             patch.object(sync_marketplace, "translate_to_chinese", return_value="单条译文") as translate:
+            self.assertEqual(sync_marketplace._translate_batch(["First", "Second"]), ["First", "Second"])
+        translate.assert_not_called()
+        self.assertEqual(sync_marketplace.TRANSLATION_SINGLE_FALLBACK_USED, 0)
+
+    def test_single_translation_token_limit_scales_with_source_length(self):
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+            sync_marketplace, "_request_translation", return_value="中文译文"
+        ) as request:
+            self.assertEqual(sync_marketplace.translate_to_chinese("A" * 837), "中文译文")
+        self.assertEqual(request.call_args.args[1], 1674)
 
     def test_translation_cache_reuses_only_exact_source_hash(self):
         source = "A stable source description"
@@ -524,6 +582,43 @@ class MarketplaceSyncTests(unittest.TestCase):
             sync_marketplace.load_translation_checkpoint(path)
         self.assertEqual(sync_marketplace.TRANSLATION_CACHE, {key: "可恢复的译文"})
 
+    def test_translation_checkpoint_ignores_corrupt_compressed_data(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "translation-cache.json.gz"
+            path.write_bytes(b"\x1f\x8b\x08\x00\x00\x00\x00\x00\x02\xff\x06" + b"\x00" * 8)
+            sync_marketplace.TRANSLATION_CACHE.clear()
+            sync_marketplace.load_translation_checkpoint(path)
+        self.assertEqual(sync_marketplace.TRANSLATION_CACHE, {})
+
+    def test_translation_checkpoint_is_published_to_catalog_worktree(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            bare = root / "origin.git"
+            checkout = root / "checkout"
+            subprocess.run(["git", "init", "--bare", str(bare)], check=True, capture_output=True)
+            subprocess.run(["git", "clone", str(bare), str(checkout)], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(checkout), "config", "user.name", "Test"], check=True)
+            subprocess.run(["git", "-C", str(checkout), "config", "user.email", "test@example.test"], check=True)
+            (checkout / "seed.txt").write_text("catalog", encoding="utf-8")
+            subprocess.run(["git", "-C", str(checkout), "add", "seed.txt"], check=True)
+            subprocess.run(["git", "-C", str(checkout), "commit", "-m", "seed"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(checkout), "branch", "-M", "catalog"], check=True)
+            subprocess.run(["git", "-C", str(checkout), "push", "origin", "catalog"], check=True, capture_output=True)
+            with patch.object(sync_marketplace, "REPO_ROOT", checkout), patch.dict(
+                sync_marketplace.TRANSLATION_CACHE, {"source-hash": "可恢复译文"}, clear=True
+            ):
+                sync_marketplace._persist_translation_checkpoint()
+            payload = subprocess.check_output(["git", f"--git-dir={bare}", "show", "catalog:translation-cache.json.gz"])
+            self.assertEqual(json.loads(gzip.decompress(payload)), {"source-hash": "可恢复译文"})
+
+    def test_final_catalog_checkpoint_writer_preserves_cache_contents(self):
+        sync_marketplace.TRANSLATION_CACHE["source-hash"] = "可恢复译文"
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "translation-cache.json.gz"
+            sync_marketplace.write_translation_checkpoint(path)
+            with gzip.open(path, "rt", encoding="utf-8") as handle:
+                self.assertEqual(json.load(handle), {"source-hash": "可恢复译文"})
+
     def test_mcp_translation_includes_localized_name_and_description(self):
         servers = {
             "academic-research": {
@@ -545,6 +640,15 @@ class MarketplaceSyncTests(unittest.TestCase):
             ["Academic paper search and citation analysis.", "Academic Research Intelligence MCP"],
             "MCP names/descriptions",
         )
+
+    def test_mcp_repository_identifier_name_is_not_retried_as_prose(self):
+        servers = {"origin": {"name_en": "7xuanlu/origin", "description_en": "A useful MCP server."}}
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+            sync_marketplace, "translate_texts", return_value=["一个有用的 MCP 服务。"]
+        ) as translate:
+            localized = sync_marketplace.translate_mcp_fields(servers, {})
+        self.assertEqual(localized["origin"], {"name": "7xuanlu/origin", "description": "一个有用的 MCP 服务。"})
+        translate.assert_called_once_with(["A useful MCP server."], "MCP names/descriptions")
 
     def test_mcp_record_uses_chinese_name_and_description_for_default_display(self):
         discovery = {

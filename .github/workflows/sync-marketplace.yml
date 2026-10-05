@@ -56,6 +56,8 @@ jobs:
           API_567_MODEL: ${{ secrets.API_567_MODEL }}
           API_567_TRANSLATION_WORKERS: '8'
           API_567_TRANSLATION_CHECKPOINT_BATCHES: '250'
+          API_567_TRANSLATION_SINGLE_FALLBACK_ITEMS: '500'
+          API_567_TRANSLATION_CIRCUIT_FAILURE_LIMIT: '8'
         run: |
           python3 sync_marketplace.py
 
