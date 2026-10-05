@@ -42,6 +42,9 @@ jobs:
             else
               echo "Catalog branch has no state file; the current main manifest seeds migration state"
             fi
+            if git cat-file -e origin/catalog:translation-cache.json.gz 2>/dev/null; then
+              git show origin/catalog:translation-cache.json.gz > .translation-cache.json.gz
+            fi
           else
             echo "No previous catalog branch; the current main manifest seeds migration state"
           fi
@@ -52,6 +55,7 @@ jobs:
           API_567_BASE_URL: ${{ secrets.API_567_BASE_URL }}
           API_567_MODEL: ${{ secrets.API_567_MODEL }}
           API_567_TRANSLATION_WORKERS: '8'
+          API_567_TRANSLATION_CHECKPOINT_BATCHES: '250'
         run: |
           python3 sync_marketplace.py
 

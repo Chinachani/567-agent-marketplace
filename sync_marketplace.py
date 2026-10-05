@@ -60,10 +60,15 @@ try:
     TRANSLATION_BATCH_ITEMS = min(32, max(1, int(os.environ.get("API_567_TRANSLATION_BATCH_ITEMS", "24"))))
 except ValueError:
     TRANSLATION_BATCH_ITEMS = 24
+try:
+    TRANSLATION_CHECKPOINT_BATCHES = max(1, int(os.environ.get("API_567_TRANSLATION_CHECKPOINT_BATCHES", "250")))
+except ValueError:
+    TRANSLATION_CHECKPOINT_BATCHES = 250
 
 TRANSLATION_NO_CHINESE_RETRIES = 0
 TRANSLATION_DIAGNOSTIC_LOGGED = False
 TRANSLATION_DIAGNOSTIC_LOCK = threading.Lock()
+TRANSLATION_CACHE: dict[str, str] = {}
 
 # The installed catalog stays small enough for the desktop client's legacy
 # GitHub Contents path. Discovery candidates are published as bounded shards.
@@ -201,7 +206,7 @@ def _translate_batch(texts: list[str]) -> list[str]:
     try:
         content = _request_translation(
             [
-                {"role": "system", "content": "把输入数组中每个 AI 能力名称或说明翻译成自然、简洁的简体中文。保留常见产品名、专有名词和缩写。必须按原顺序返回只包含译文字符串的 JSON 数组，条数必须与输入完全一致；不要输出 Markdown 或解释。"},
+                {"role": "system", "content": "把输入数组中每个 AI 能力名称或说明翻译成自然、简洁的简体中文。保留常见产品名、专有名词和缩写。必须返回 JSON 对象数组，每项包含原样的 id 和 translation 字段；每个输入 id 必须且只能出现一次，不要输出 Markdown 或解释。"},
                 {"role": "user", "content": prompt},
             ],
             min(6000, max(512, len(texts) * 240)),
@@ -214,12 +219,27 @@ def _translate_batch(texts: list[str]) -> list[str]:
             parsed = parsed.get("translations")
         if not isinstance(parsed, list) or len(parsed) != len(texts):
             raise ValueError("translation batch returned an invalid item count")
+        translations_by_id = {}
+        for item in parsed:
+            if not isinstance(item, dict):
+                raise ValueError("translation batch item is not an object")
+            item_id = item.get("id")
+            translated = item.get("translation")
+            if isinstance(item_id, bool) or not isinstance(item_id, int) or not isinstance(translated, str):
+                raise ValueError("translation batch item has an invalid id or translation")
+            if item_id in translations_by_id:
+                raise ValueError("translation batch returned a duplicate id")
+            translations_by_id[item_id] = translated.strip()
+        expected_ids = set(range(len(texts)))
+        if set(translations_by_id) != expected_ids:
+            raise ValueError("translation batch omitted or changed an id")
         results = []
-        for original, translated in zip(texts, parsed):
-            if not isinstance(translated, str) or not has_chinese(translated.strip()):
+        for index, original in enumerate(texts):
+            translated = translations_by_id[index]
+            if not has_chinese(translated):
                 results.append(translate_to_chinese(original))
             else:
-                results.append(translated.strip())
+                results.append(translated)
         return results
     except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError) as error:
         safe_log(f"Translation batch deferred after request failure: {error}")
@@ -237,6 +257,14 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
     unique = list(dict.fromkeys(text for text in texts if text and not has_chinese(text)))
     if not unique:
         return texts
+    cached_by_text = {
+        text: TRANSLATION_CACHE[hashlib.sha256(text.encode("utf-8")).hexdigest()]
+        for text in unique
+        if has_chinese(TRANSLATION_CACHE.get(hashlib.sha256(text.encode("utf-8")).hexdigest(), ""))
+    }
+    unique = [text for text in unique if text not in cached_by_text]
+    if not unique:
+        return [cached_by_text.get(text, text) for text in texts]
     with TRANSLATION_DIAGNOSTIC_LOCK:
         no_chinese_retries_before = TRANSLATION_NO_CHINESE_RETRIES
     current = unique[:MAX_TRANSLATIONS_PER_SYNC]
@@ -247,8 +275,14 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
     )
     translated_by_text = {}
     with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="translation") as executor:
-        for group, results in zip(groups, executor.map(_translate_batch, groups)):
+        for index, (group, results) in enumerate(zip(groups, executor.map(_translate_batch, groups)), start=1):
             translated_by_text.update(zip(group, results))
+            for source, translated in zip(group, results):
+                if has_chinese(translated):
+                    key = hashlib.sha256(source.encode("utf-8")).hexdigest()
+                    TRANSLATION_CACHE[key] = translated
+            if index % TRANSLATION_CHECKPOINT_BATCHES == 0:
+                _persist_translation_checkpoint()
     unresolved = sum(1 for text in current if not has_chinese(translated_by_text.get(text, text)))
     with TRANSLATION_DIAGNOSTIC_LOCK:
         no_chinese_retries = TRANSLATION_NO_CHINESE_RETRIES - no_chinese_retries_before
@@ -260,7 +294,67 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
     else:
         safe_log(f"Translation complete: {len(current)} of {len(unique)} {label}")
     current_set = set(current)
-    return [translated_by_text.get(text, text) if text in current_set else text for text in texts]
+    return [
+        cached_by_text.get(text, translated_by_text.get(text, text)) if text in cached_by_text or text in current_set else text
+        for text in texts
+    ]
+
+
+def load_translation_checkpoint(path: Path | None = None) -> None:
+    """Load resumable translations keyed by a hash of the exact source text."""
+    checkpoint_path = path or (REPO_ROOT / ".translation-cache.json.gz")
+    if not checkpoint_path.is_file():
+        return
+    try:
+        with gzip.open(checkpoint_path, "rt", encoding="utf-8") as handle:
+            cached = json.load(handle)
+        if isinstance(cached, dict):
+            TRANSLATION_CACHE.update({key: value for key, value in cached.items()
+                                      if isinstance(key, str) and isinstance(value, str) and has_chinese(value)})
+            safe_log(f"Restored {len(TRANSLATION_CACHE)} resumable translation checkpoints")
+    except (OSError, EOFError, json.JSONDecodeError) as error:
+        safe_log(f"Ignoring invalid translation checkpoint: {error}")
+
+
+def _persist_translation_checkpoint() -> None:
+    """Publish a bounded-resume cache to the catalog branch during long runs."""
+    if not TRANSLATION_CACHE:
+        return
+    worktree_root = None
+    worktree = None
+    try:
+        worktree_root = Path(tempfile.mkdtemp(prefix=".translation-checkpoint-", dir=REPO_ROOT))
+        worktree = worktree_root / "catalog"
+        subprocess.run(
+            ["git", "fetch", "origin", "refs/heads/catalog:refs/remotes/origin/catalog"],
+            cwd=REPO_ROOT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True,
+        )
+        subprocess.run(
+            ["git", "worktree", "add", "--detach", str(worktree), "refs/remotes/origin/catalog"],
+            cwd=REPO_ROOT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True,
+        )
+        checkpoint = worktree / "translation-cache.json.gz"
+        with gzip.open(checkpoint, "wt", encoding="utf-8", compresslevel=6) as handle:
+            json.dump(TRANSLATION_CACHE, handle, ensure_ascii=False, separators=(",", ":"))
+        subprocess.run(["git", "-C", str(worktree), "add", "translation-cache.json.gz"], check=True,
+                       stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+        changed = subprocess.run(["git", "-C", str(worktree), "diff", "--cached", "--quiet"], check=False).returncode != 0
+        if changed:
+            subprocess.run(["git", "-C", str(worktree), "config", "user.name", "github-actions[bot]"], check=True)
+            subprocess.run(["git", "-C", str(worktree), "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
+            subprocess.run(["git", "-C", str(worktree), "commit", "-m", "chore: checkpoint marketplace translations [skip ci]"],
+                           check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+            subprocess.run(["git", "-C", str(worktree), "push", "origin", "HEAD:refs/heads/catalog"],
+                           check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+            safe_log(f"Persisted {len(TRANSLATION_CACHE)} translation checkpoints")
+    except (OSError, subprocess.CalledProcessError) as error:
+        safe_log(f"Translation checkpoint publish failed; continuing current run: {error}")
+    finally:
+        if worktree is not None:
+            subprocess.run(["git", "worktree", "remove", "--force", str(worktree)], cwd=REPO_ROOT,
+                           check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if worktree_root is not None:
+            shutil.rmtree(worktree_root, ignore_errors=True)
 
 
 def translate_skill_descriptions(source, repository_root: Path, skill_files: list[Path], previous_abilities: dict[str, dict]):
@@ -1476,6 +1570,7 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
 
 def main():
     global SKILLS_DEST_DIR, MCPS_DEST_DIR
+    load_translation_checkpoint()
     previous_path = REPO_ROOT / "marketplace.json"
     # A malformed existing manifest needs repair, not replacement by an empty one.
     previous_manifest = json.loads(previous_path.read_text(encoding="utf-8")) if previous_path.is_file() else {}

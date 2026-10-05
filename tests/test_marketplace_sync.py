@@ -1,4 +1,5 @@
 import hashlib
+import gzip
 import tempfile
 import unittest
 import subprocess
@@ -23,6 +24,9 @@ import sync_marketplace
 
 
 class MarketplaceSyncTests(unittest.TestCase):
+    def setUp(self):
+        sync_marketplace.TRANSLATION_CACHE.clear()
+
     def test_translation_retry_respects_retry_after_header(self):
         error = sync_marketplace.urllib.error.HTTPError(
             "https://api.example.test/chat/completions",
@@ -468,12 +472,57 @@ class MarketplaceSyncTests(unittest.TestCase):
         self.assertEqual(sum(len(call.args[0]) for call in batch.call_args_list), len(texts))
 
     def test_translation_batch_parses_json_array_without_reordering(self):
-        content = json.dumps(["第一条中文", "第二条中文"], ensure_ascii=False)
+        content = json.dumps([
+            {"id": 1, "translation": "第二条中文"},
+            {"id": 0, "translation": "第一条中文"},
+        ], ensure_ascii=False)
         with patch.object(sync_marketplace, "_request_translation", return_value=content):
             self.assertEqual(
                 sync_marketplace._translate_batch(["First description", "Second description"]),
                 ["第一条中文", "第二条中文"],
             )
+
+    def test_translation_batch_falls_back_when_ids_are_missing_or_duplicated(self):
+        invalid_responses = (
+            json.dumps([{"id": 0, "translation": "第一条中文"}, {"id": 0, "translation": "错位中文"}], ensure_ascii=False),
+            json.dumps([{"id": 0, "translation": "第一条中文"}], ensure_ascii=False),
+        )
+        for response in invalid_responses:
+            with self.subTest(response=response), \
+                 patch.object(sync_marketplace, "_request_translation", return_value=response), \
+                 patch.object(sync_marketplace, "translate_to_chinese", side_effect=["第一条中文", "第二条中文"]) as translate:
+                self.assertEqual(
+                    sync_marketplace._translate_batch(["First description", "Second description"]),
+                    ["第一条中文", "第二条中文"],
+                )
+                self.assertEqual(translate.call_count, 2)
+
+    def test_translation_cache_reuses_only_exact_source_hash(self):
+        source = "A stable source description"
+        changed = "A changed source description"
+        key = hashlib.sha256(source.encode("utf-8")).hexdigest()
+        sync_marketplace.TRANSLATION_CACHE[key] = "稳定的源描述"
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+            sync_marketplace, "TRANSLATION_CHECKPOINT_BATCHES", 1
+        ), patch.object(sync_marketplace, "_translate_batch", return_value=["已翻译的新描述"]) as batch, patch.object(
+            sync_marketplace, "_persist_translation_checkpoint"
+        ) as persist:
+            self.assertEqual(
+                sync_marketplace.translate_texts([source, changed], "test descriptions"),
+                ["稳定的源描述", "已翻译的新描述"],
+            )
+        batch.assert_called_once_with([changed])
+        persist.assert_called_once_with()
+
+    def test_translation_checkpoint_loads_only_valid_chinese_values(self):
+        source = "A resumable source"
+        key = hashlib.sha256(source.encode("utf-8")).hexdigest()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "translation-cache.json.gz"
+            with gzip.open(path, "wt", encoding="utf-8") as handle:
+                json.dump({key: "可恢复的译文", "bad": "English only"}, handle)
+            sync_marketplace.load_translation_checkpoint(path)
+        self.assertEqual(sync_marketplace.TRANSLATION_CACHE, {key: "可恢复的译文"})
 
     def test_mcp_translation_includes_localized_name_and_description(self):
         servers = {
