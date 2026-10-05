@@ -5,7 +5,6 @@ import unittest
 import subprocess
 import json
 import threading
-import time
 from unittest.mock import patch
 from datetime import date
 from pathlib import Path
@@ -494,24 +493,63 @@ class MarketplaceSyncTests(unittest.TestCase):
         self.assertEqual(sum(len(call.args[0]) for call in batch.call_args_list), len(texts))
 
     def test_translation_checkpoint_is_not_blocked_by_an_earlier_slow_batch(self):
+        slow_started = threading.Event()
+        release_slow = threading.Event()
         slow_finished = threading.Event()
         checkpoint_states = []
 
         def translate(group):
             if group == ["slow"]:
-                time.sleep(0.2)
+                slow_started.set()
+                self.assertTrue(release_slow.wait(timeout=2))
                 slow_finished.set()
+            else:
+                self.assertTrue(slow_started.wait(timeout=2))
             return ["中文译文"]
+
+        def checkpoint():
+            checkpoint_states.append(slow_finished.is_set())
+            release_slow.set()
 
         with patch.object(sync_marketplace, "API_KEY", "test-key"), \
              patch.object(sync_marketplace, "TRANSLATION_WORKERS", 2), \
              patch.object(sync_marketplace, "TRANSLATION_BATCH_ITEMS", 1), \
              patch.object(sync_marketplace, "TRANSLATION_CHECKPOINT_BATCHES", 1), \
              patch.object(sync_marketplace, "_translate_batch", side_effect=translate), \
-             patch.object(sync_marketplace, "_persist_translation_checkpoint", side_effect=lambda: checkpoint_states.append(slow_finished.is_set())):
+             patch.object(sync_marketplace, "_persist_translation_checkpoint", side_effect=checkpoint):
             translated = sync_marketplace.translate_texts(["slow", "fast"], "test descriptions")
         self.assertEqual(translated, ["中文译文", "中文译文"])
         self.assertEqual(checkpoint_states[0], False)
+
+    def test_translation_cache_is_bounded_and_evicts_least_recently_used_first(self):
+        sync_marketplace.TRANSLATION_CACHE.update({
+            "oldest": "最旧译文",
+            "recent": "最近使用译文",
+            "newest": "最新译文",
+        })
+        with patch.object(sync_marketplace, "TRANSLATION_CACHE_MAX_ENTRIES", 2), \
+             patch.object(sync_marketplace, "TRANSLATION_CACHE_MAX_BYTES", 10_000):
+            self.assertEqual(sync_marketplace._prune_translation_cache(), 1)
+        self.assertEqual(list(sync_marketplace.TRANSLATION_CACHE), ["recent", "newest"])
+
+    def test_translation_cache_hits_refresh_recency(self):
+        source = "Frequently reused source"
+        key = hashlib.sha256(source.encode("utf-8")).hexdigest()
+        sync_marketplace.TRANSLATION_CACHE.update({"older": "旧译文", key: "常用译文"})
+        with patch.object(sync_marketplace, "API_KEY", "test-key"):
+            self.assertEqual(sync_marketplace.translate_texts([source], "test descriptions"), ["常用译文"])
+        self.assertEqual(list(sync_marketplace.TRANSLATION_CACHE)[-1], key)
+
+    def test_translation_cache_obeys_serialized_byte_limit(self):
+        large_value = "较长译文" * 20
+        sync_marketplace.TRANSLATION_CACHE.update({"small": "短译文", "large": large_value})
+        max_bytes = len(json.dumps({"large": large_value}, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+        with patch.object(sync_marketplace, "TRANSLATION_CACHE_MAX_ENTRIES", 100), \
+             patch.object(sync_marketplace, "TRANSLATION_CACHE_MAX_BYTES", max_bytes):
+            sync_marketplace._prune_translation_cache()
+        payload = json.dumps(sync_marketplace.TRANSLATION_CACHE, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        self.assertLessEqual(len(payload), max_bytes)
+        self.assertEqual(list(sync_marketplace.TRANSLATION_CACHE), ["large"])
 
     def test_translation_batch_parses_json_array_without_reordering(self):
         content = json.dumps([

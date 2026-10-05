@@ -19,6 +19,7 @@ import time
 import random
 import threading
 import zlib
+from collections import OrderedDict
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
@@ -78,7 +79,9 @@ TRANSLATION_NO_CHINESE_RETRIES = 0
 TRANSLATION_DIAGNOSTIC_LOGGED = False
 TRANSLATION_DIAGNOSTIC_LOCK = threading.Lock()
 TRANSLATION_OUTCOME = threading.local()
-TRANSLATION_CACHE: dict[str, str] = {}
+TRANSLATION_CACHE: OrderedDict[str, str] = OrderedDict()
+TRANSLATION_CACHE_MAX_ENTRIES = 100_000
+TRANSLATION_CACHE_MAX_BYTES = 16 * 1024 * 1024
 TRANSLATION_SINGLE_FALLBACK_USED = 0
 TRANSLATION_FALLBACK_BUDGET_LOGGED = False
 TRANSLATION_FALLBACK_LOCK = threading.Lock()
@@ -142,6 +145,31 @@ def _reserve_single_fallback(items: int) -> bool:
             safe_log("Single-item translation fallback budget exhausted; remaining items deferred")
             TRANSLATION_FALLBACK_BUDGET_LOGGED = True
         return False
+
+
+def _prune_translation_cache() -> int:
+    """Evict least-recently-used entries until the persisted cache is bounded."""
+    entries = list(TRANSLATION_CACHE.items())
+    entry_sizes = [
+        len(json.dumps(key, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+        + 1
+        + len(json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+        for key, value in entries
+    ]
+    payload_bytes = 2 + sum(entry_sizes) + max(0, len(entries) - 1)
+    removed = 0
+    while TRANSLATION_CACHE and (
+        len(TRANSLATION_CACHE) > TRANSLATION_CACHE_MAX_ENTRIES
+        or payload_bytes > TRANSLATION_CACHE_MAX_BYTES
+    ):
+        _, _ = TRANSLATION_CACHE.popitem(last=False)
+        removed += 1
+        payload_bytes -= entry_sizes[removed - 1]
+        if TRANSLATION_CACHE:
+            payload_bytes -= 1  # The removed first entry's separating comma.
+    if removed:
+        safe_log(f"Pruned {removed} least-recently-used translation cache entries to stay within limits")
+    return removed
 
 
 class TranslationCircuitOpen(RuntimeError):
@@ -361,6 +389,8 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
         for text in unique
         if has_chinese(TRANSLATION_CACHE.get(hashlib.sha256(text.encode("utf-8")).hexdigest(), ""))
     }
+    for text in cached_by_text:
+        TRANSLATION_CACHE.move_to_end(hashlib.sha256(text.encode("utf-8")).hexdigest())
     unique = [text for text in unique if text not in cached_by_text]
     if not unique:
         return [cached_by_text.get(text, text) for text in texts]
@@ -385,8 +415,12 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
                 if has_chinese(translated):
                     key = hashlib.sha256(source.encode("utf-8")).hexdigest()
                     TRANSLATION_CACHE[key] = translated
+                    TRANSLATION_CACHE.move_to_end(key)
+            if len(TRANSLATION_CACHE) > TRANSLATION_CACHE_MAX_ENTRIES:
+                _prune_translation_cache()
             if index % TRANSLATION_CHECKPOINT_BATCHES == 0:
                 _persist_translation_checkpoint()
+    _prune_translation_cache()
     unresolved = sum(1 for text in current if not has_chinese(translated_by_text.get(text, text)))
     with TRANSLATION_DIAGNOSTIC_LOCK:
         no_chinese_retries = TRANSLATION_NO_CHINESE_RETRIES - no_chinese_retries_before
@@ -419,6 +453,7 @@ def load_translation_checkpoint(path: Path | None = None) -> None:
         if isinstance(cached, dict):
             TRANSLATION_CACHE.update({key: value for key, value in cached.items()
                                       if isinstance(key, str) and isinstance(value, str) and has_chinese(value)})
+            _prune_translation_cache()
             safe_log(f"Restored {len(TRANSLATION_CACHE)} resumable translation checkpoints")
     except (OSError, EOFError, zlib.error, UnicodeError, json.JSONDecodeError) as error:
         safe_log(f"Ignoring invalid translation checkpoint: {error}")
@@ -426,6 +461,7 @@ def load_translation_checkpoint(path: Path | None = None) -> None:
 
 def write_translation_checkpoint(path: Path) -> None:
     """Write the translation cache atomically enough for final catalog publication."""
+    _prune_translation_cache()
     payload = json.dumps(TRANSLATION_CACHE, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
     path.write_bytes(gzip.compress(payload, compresslevel=6, mtime=0))
 
@@ -448,6 +484,7 @@ def _persist_translation_checkpoint() -> None:
             cwd=REPO_ROOT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True,
         )
         checkpoint = worktree / "translation-cache.json.gz"
+        _prune_translation_cache()
         payload = json.dumps(TRANSLATION_CACHE, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
         checkpoint.write_bytes(gzip.compress(payload, compresslevel=6, mtime=0))
         subprocess.run(["git", "-C", str(worktree), "add", "translation-cache.json.gz"], check=True,
