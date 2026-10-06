@@ -1,11 +1,11 @@
 ---
 name: "azure-storage"
 description: "全面支持 Azure 存储服务，涵盖 Blob 存储、文件共享、队列存储、表存储及 Data Lake 数据湖。提供对象存储、SMB 文件共享、异步消息、NoSQL 键值存储及大数据分析指导，解答存储访问层（热、冷、极冷、存档）对比与选型问题，并支持生命周期管理配置。\n\n适用于：Blob 存储、文件共享、队列与表存储、数据湖、文件上传与下载、存储账户管理、访问层级选型与对比、生命周期管理及 Azure 存储核心概念。\n不适用于：SQL 数据库与 Cosmos DB（请使用 azure-prepare），或 Event Hubs、Service Bus 消息服务（请使用 azure-messaging）。"
-version: "1.2.1"
+version: "1.2.2"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.1"
+  version: "1.2.2"
 ---
 # Azure Storage Services
 
@@ -29,7 +29,7 @@ When Azure MCP is enabled:
 - `azure__storage` with command `storage_blob_get` - Download blob content
 - `azure__storage` with command `storage_blob_put` - Upload blob content
 
-**If Azure MCP is not enabled:** Run `/azure:setup` or enable via `/mcp`.
+**If Azure MCP is not enabled:** In Copilot CLI or Claude Code, ask the user to run `/mcp` and enable Azure MCP; in other hosts, ask the user to enable Azure MCP through the host's MCP configuration.
 
 ## CLI Fallback
 

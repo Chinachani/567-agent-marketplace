@@ -1,11 +1,11 @@
 ---
 name: "azure-diagnostics"
 description: "借助 AppLens、Azure Monitor、资源运行状况（Resource Health）及安全分流机制，高效诊断与排查 Azure 生产环境故障。适用于：定位 App Service、Container Apps、Functions 的运行异常（高 CPU、部署失败、冷启动）；排查 AKS 容器集群故障（kubectl 连接中断、CoreDNS 异常、Pod 挂起或 CrashLoop、节点未就绪、升级失败、镜像拉取及探针失败）；解决虚拟机无法连接问题（RDP/SSH 失败、黑屏、密码重置、NSG 与防火墙拦截）；编写 KQL 进行日志深度分析与根因定位；解决 Event Hubs 及 Service Bus 等消息服务异常（AMQP 连接失败、SDK 报错、消息锁丢失与死信队列堆积）。"
-version: "1.2.7"
+version: "1.2.8"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.7"
+  version: "1.2.8"
 ---
 # Azure Diagnostics
 
