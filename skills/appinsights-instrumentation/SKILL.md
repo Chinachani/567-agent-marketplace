@@ -1,11 +1,11 @@
 ---
 name: "appinsights-instrumentation"
 description: "指导使用 Azure Application Insights 为 Web 应用配置遥测监控。提供 SDK 集成、配置参考与遥测设计模式。适用场景：应用埋点配置、App Insights SDK 集成、遥测模式设计、了解 App Insights 概念、获取埋点示例及 APM 最佳实践。"
-version: "1.2.1"
+version: "1.2.2"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.1"
+  version: "1.2.2"
 ---
 # AppInsights Instrumentation Guide
 
@@ -35,7 +35,9 @@ This skill provides **guidance and reference material** for instrumenting webapp
 The app in the workspace must be one of these kinds
 
 - An ASP.NET Core app hosted in Azure
+- An Azure Container App
 - A Node.js app hosted in Azure
+- A Python app hosted in Azure
 
 ## Guidelines
 
