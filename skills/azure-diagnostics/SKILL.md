@@ -1,11 +1,11 @@
 ---
 name: "azure-diagnostics"
-description: "借助 AppLens、Azure Monitor、资源运行状况（Resource Health）及安全分流机制，高效诊断与排查 Azure 生产环境故障。适用于：定位 App Service、Container Apps、Functions 的运行异常（高 CPU、部署失败、冷启动）；排查 AKS 容器集群故障（kubectl 连接中断、CoreDNS 异常、Pod 挂起或 CrashLoop、节点未就绪、升级失败、镜像拉取及探针失败）；解决虚拟机无法连接问题（RDP/SSH 失败、黑屏、密码重置、NSG 与防火墙拦截）；编写 KQL 进行日志深度分析与根因定位；解决 Event Hubs 及 Service Bus 等消息服务异常（AMQP 连接失败、SDK 报错、消息锁丢失与死信队列堆积）。"
-version: "1.2.8"
+description: "利用 AppLens、Azure Monitor、Resource Health 和安全分流排查流程诊断 Azure 生产环境故障。\n\n适用场景：排查生产故障；解决 App Service 故障（CPU 飙高、部署失败）；排查 Container Apps 故障（503 错误或目标端口不匹配）；排查 Azure Functions 故障（修改配置/连接字符串后遥测丢失或中断）；排查 AKS 故障；VM 诊断（RDP、Linux SSH、VM 黑屏、无法连接、重置 VM 密码）；NSG 或防火墙拦截；kubectl 无法连接；kube-system/CoreDNS 故障；Pod Pending、CrashLoop、节点 NotReady、升级失败；日志分析（KQL、Insights）；镜像拉取失败；冷启动问题；健康探测失败；Resource Health 诊断；错误根因分析；排查 Event Hubs 和 Service Bus 故障（消息 SDK 报错、AMQP 连接失败、消息锁丢失、长任务锁续订、Service Bus 死信）。"
+version: "1.2.9"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.8"
+  version: "1.2.9"
 ---
 # Azure Diagnostics
 
@@ -29,15 +29,18 @@ Activate this skill when user wants to:
 - Troubleshoot AKS clusters, nodes, pods, ingress, or Kubernetes networking issues
 - Troubleshoot Azure VM connectivity issues (RDP/SSH failures, port 3389/22 timeouts, NSG or firewall blocking, credential resets)
 - Troubleshoot Azure Messaging SDK issues (Event Hubs, Service Bus connection failures, AMQP errors, message lock issues)
+- Root-cause a symptom that looks like a healthy-runtime-but-wrong-destination problem (e.g., telemetry/messages stop flowing to the expected resource after a config change) — invoke this skill for the matrix even when MCP tools could answer the surface question alone
 
 ## Rules
 
 1. Start with systematic diagnosis flow
-2. Use AppLens (MCP) for AI-powered diagnostics when available
-3. Check resource health before deep-diving into logs
-4. Select appropriate troubleshooting guide based on service type
-5. Document findings and attempted remediation steps
-6. Route AKS incidents to the dedicated AKS troubleshooting document
+2. Use supplied evidence first. If the user requests evidence-only analysis or prohibits live Azure access, do not query or modify Azure. Diagnose from the supplied logs, metrics, and timeline; identify assumptions and provide optional verification steps.
+3. Use AppLens (MCP) for AI-powered diagnostics when available
+4. Check resource health before deep-diving into logs
+5. Select appropriate troubleshooting guide based on service type
+6. Document findings and attempted remediation steps
+7. Prefer bundled diagnostic scripts over ad hoc calls for permitted live collection when identifiers are known. If supplied evidence suffices or live access is prohibited, don't run them; otherwise run the applicable script first.
+8. Route AKS incidents to the dedicated AKS troubleshooting document
 
 ---
 
