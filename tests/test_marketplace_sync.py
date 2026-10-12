@@ -833,6 +833,44 @@ class MarketplaceSyncTests(unittest.TestCase):
         self.assertEqual(set(demo["sources"]), {"official-mcp-registry", "mcpHQ", "TensorBlock", "punkpeye"})
         self.assertEqual(len(candidates), 2)
 
+    def test_unavailable_community_feed_preserves_previous_entries_and_continues(self):
+        registry = {"servers": [], "metadata": {}}
+        tensor = [{"id": "new-server", "name": "Tensor Server", "description": "New entry", "links": {"repo": "https://github.com/tensor/server"}}]
+        previous = {
+            "old-server": {
+                "type": "mcp",
+                "slug": "old-server",
+                "name": "Old Server",
+                "description": "旧条目",
+                "version": "1.2.0",
+                "license": "MIT",
+                "author": "Old Publisher",
+                "mcpMetadata": {"runtimeMode": "stdio", "authentication": "api-key"},
+                "detail": {"i18n": {"en": {"name": "Old Server", "description": "Previous description"}}},
+                "source": {
+                    "repository": "https://github.com/old/server",
+                    "catalogIdentity": "old/server::old-server",
+                    "upstreamSources": ["mcpHQ"],
+                },
+            },
+        }
+        with patch.object(
+            sync_marketplace,
+            "fetch_json",
+            side_effect=[registry, sync_marketplace.urllib.error.URLError("DNS unavailable"), tensor],
+        ), patch.object(
+            sync_marketplace,
+            "fetch_text",
+            return_value="- [Punk Server](https://github.com/punk/server) - Another entry",
+        ):
+            candidates = sync_marketplace.collect_mcp_candidates(previous)
+
+        by_name = {candidate["name_en"]: candidate for candidate in candidates}
+        self.assertIn("Old Server", by_name)
+        self.assertEqual(by_name["Old Server"]["sources"], ["mcpHQ"])
+        self.assertIn("Tensor Server", by_name)
+        self.assertIn("Punk Server", by_name)
+
     def test_registry_sync_uses_updated_since_watermark_after_bootstrap(self):
         response = {"servers": [], "metadata": {}}
         previous = {"mcp-one": {"type": "mcp", "source": {"registryUpdatedAt": "2026-10-01T12:00:00Z"}}}

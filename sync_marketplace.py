@@ -824,6 +824,69 @@ def collect_mcp_candidates(previous_abilities: dict[str, dict] | None = None) ->
         if meta.get("status"):
             entry["registryStatus"] = meta["status"]
 
+    def preserve_previous_feed_entries(source_name: str) -> int:
+        preserved = 0
+        for previous in previous_abilities.values():
+            source = previous.get("source", {})
+            upstream_sources = source.get("upstreamSources", [])
+            if (
+                previous.get("type") != "mcp"
+                or not isinstance(upstream_sources, list)
+                or source_name not in upstream_sources
+            ):
+                continue
+            english = previous.get("detail", {}).get("i18n", {}).get("en", {})
+            repository = source.get("repository", "")
+            identity = source.get("catalogIdentity") or source.get("catalogAliasIdentity") or previous.get("slug", "")
+            metadata = previous.get("mcpMetadata", {})
+            add(
+                identity,
+                english.get("name") or previous.get("name", ""),
+                english.get("description") or previous.get("description", ""),
+                repository,
+                source_name,
+                {
+                    "transport": [metadata.get("runtimeMode", "unknown")],
+                    "auth": {"type": metadata.get("authentication", "unknown")},
+                    "license": previous.get("license", ""),
+                    "provider": previous.get("author", ""),
+                },
+                previous.get("version", "1.0.0"),
+            )
+            preserved += 1
+        if preserved:
+            safe_log(f"Preserved {preserved} previous MCP entries from unavailable {source_name} feed")
+        return preserved
+
+    source_labels = {"mcphq": "mcpHQ", "tensorblock": "TensorBlock", "punkpeye": "punkpeye"}
+
+    def fetch_optional_json(source_key: str) -> list[dict] | None:
+        source_name = source_labels[source_key]
+        try:
+            rows = fetch_json(MCP_COLLECTION_SOURCES[source_key])
+            if not isinstance(rows, list):
+                raise ValueError("feed response is not a JSON array")
+            valid_rows = [row for row in rows if isinstance(row, dict)]
+            if len(valid_rows) != len(rows):
+                safe_log(f"Ignored {len(rows) - len(valid_rows)} malformed entries in {source_name} feed")
+            return valid_rows
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError, UnicodeError) as error:
+            safe_log(f"Skipping unavailable MCP feed {source_name}: {error}")
+            preserve_previous_feed_entries(source_name)
+            return None
+
+    def fetch_optional_text(source_key: str) -> str | None:
+        source_name = source_labels[source_key]
+        try:
+            content = fetch_text(MCP_COLLECTION_SOURCES[source_key])
+            if not content.strip():
+                raise ValueError("feed response is empty")
+            return content
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError, UnicodeError) as error:
+            safe_log(f"Skipping unavailable MCP feed {source_name}: {error}")
+            preserve_previous_feed_entries(source_name)
+            return None
+
     for previous in previous_abilities.values():
         source = previous.get("source", {})
         registry_name = source.get("registryName")
@@ -872,25 +935,31 @@ def collect_mcp_candidates(previous_abilities: dict[str, dict] | None = None) ->
                 del merged[identity]
 
     safe_log("Fetching mcpHQ and TensorBlock indexes…")
-    for row in fetch_json(MCP_COLLECTION_SOURCES["mcphq"]):
-        add("mcphq:" + row.get("name", ""), row.get("name"), row.get("description"), row.get("url", ""), "mcpHQ", row)
-    for row in fetch_json(MCP_COLLECTION_SOURCES["tensorblock"]):
-        links = row.get("links", {})
-        url = links.get("repo") or links.get("primary") or links.get("homepage") or ""
-        add("tensorblock:" + row.get("id", row.get("name", "")), row.get("name"), row.get("description"), url, "TensorBlock", row)
+    mcphq_rows = fetch_optional_json("mcphq")
+    tensorblock_rows = fetch_optional_json("tensorblock")
+    if mcphq_rows is not None:
+        for row in mcphq_rows:
+            add("mcphq:" + row.get("name", ""), row.get("name"), row.get("description"), row.get("url", ""), "mcpHQ", row)
+    if tensorblock_rows is not None:
+        for row in tensorblock_rows:
+            links = row.get("links", {})
+            links = links if isinstance(links, dict) else {}
+            url = links.get("repo") or links.get("primary") or links.get("homepage") or ""
+            add("tensorblock:" + row.get("id", row.get("name", "")), row.get("name"), row.get("description"), url, "TensorBlock", row)
 
     safe_log("Fetching punkpeye directory…")
-    readme = fetch_text(MCP_COLLECTION_SOURCES["punkpeye"])
-    for line in readme.splitlines():
-        if not re.match(r"\s*[-*+]\s+", line):
-            continue
-        urls = re.findall(r"https?://github\.com/[^\s)\]>]+", line)
-        if not urls:
-            continue
-        name_match = re.match(r"\s*[-*+]\s+\[([^]]+)\]", line)
-        name = name_match.group(1) if name_match else github_repository(urls[0]).split("/")[-1]
-        description = re.sub(r"\[[^]]+\]\([^)]*\)", "", line).lstrip("-*+ ").strip()
-        add("punkpeye:" + github_repository(urls[0]), name, description, urls[0], "punkpeye", {})
+    readme = fetch_optional_text("punkpeye")
+    if readme is not None:
+        for line in readme.splitlines():
+            if not re.match(r"\s*[-*+]\s+", line):
+                continue
+            urls = re.findall(r"https?://github\.com/[^\s)\]>]+", line)
+            if not urls:
+                continue
+            name_match = re.match(r"\s*[-*+]\s+\[([^]]+)\]", line)
+            name = name_match.group(1) if name_match else github_repository(urls[0]).split("/")[-1]
+            description = re.sub(r"\[[^]]+\]\([^)]*\)", "", line).lstrip("-*+ ").strip()
+            add("punkpeye:" + github_repository(urls[0]), name, description, urls[0], "punkpeye", {})
 
     return sorted(merged.values(), key=lambda item: item["identity"])
 
