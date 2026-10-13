@@ -1,11 +1,11 @@
 ---
 name: "azure-kubernetes"
 description: "规划、创建并配置生产级 Azure Kubernetes Service (AKS) 集群。涵盖 Day-0 准备清单、SKU 选型（Automatic 与 Standard 对比）、网络方案设计（专用 API 服务器、Azure CNI Overlay、出站流量配置）、安全加固以及日常运维策略（自动伸缩、平滑升级、成本优化）。\n\n适用场景：创建或置备 AKS 环境、启用集群可观测性、设计网络架构、评估集群 SKU、加固集群安全、实施集群与成本优化、配置竞价 (Spot) 节点、启用集群自动伸缩 (Cluster Autoscaler)、治理 Pod 资源超配与规格调优 (Rightsizing)、设置 Pod 资源请求与限制 (Requests/Limits) 以及应用垂直自动伸缩 (VPA) 建议。"
-version: "1.2.2"
+version: "1.2.3"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.2"
+  version: "1.2.3"
 ---
 # Azure Kubernetes Service
 
@@ -19,7 +19,7 @@ metadata:
 | Best for | AKS cluster planning and Day-0 decisions |
 | MCP Tools | `mcp_azure_mcp_aks` |
 | CLI | `az aks create`, `az aks show`, `kubectl get`, `kubectl describe` |
-| Related skills | azure-kubernetes-app-deploy (deploy an app to an existing cluster), azure-diagnostics (troubleshooting AKS), azure-validate (readiness checks), azure-kubernetes-automatic-readiness (migrate existing cluster to AKS Automatic) |
+| Related skills | azure-kubernetes-app-deploy (deploy an app to an existing cluster), azure-diagnostics (baseline AKS troubleshooting), azure-validate (readiness checks), azure-kubernetes-automatic-readiness (migrate existing cluster to AKS Automatic), optional `aks-skills` operations add-on (focused incident, exact-signature, packet-capture, and GPU Day-2 workflows) |
 
 ## When to Use This Skill
 Activate this skill when user wants to:
@@ -37,6 +37,11 @@ Activate this skill when user wants to:
 > configures the *cluster*. To containerize an app and deploy it to a cluster
 > that already exists (Dockerfile + manifests + Deployment Safeguards), use the
 > `azure-kubernetes-app-deploy` sub-skill instead.
+
+> **Deeper operational task?** Keep Day-0 planning and basic operations in this
+> base skill. Load [optional-aks-operations.md](./references/optional-aks-operations.md)
+> only when a focused optional AKS operational skill could improve the current
+> task.
 
 ## Rules
 1. Start with the user's requirements for provisioning compute, networking, security, and other settings.

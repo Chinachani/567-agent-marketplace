@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "slug": "filesystem",
-  "version": "0.6.3",
+  "version": "1.0.0",
   "server": {
     "type": "stdio",
     "command": "npx",
     "args": [
       "-y",
-      "@modelcontextprotocol/server-filesystem@0.6.3",
+      "@modelcontextprotocol/server-filesystem@1.0.0",
       "./"
     ]
   },

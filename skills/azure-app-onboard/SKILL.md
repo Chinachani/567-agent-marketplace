@@ -1,11 +1,11 @@
 ---
 name: "azure-app-onboard"
 description: "端到端云端编排专家：支持从业务构想、应用创意或现有项目，直接落地为包含成本预估与部署前审批的运行中 Azure 服务。智能分析代码架构，自动匹配最适用的 Azure 服务，量身生成专属基础设施代码并执行部署（拒绝僵化模板）；支持现有应用零改造或极简改动迁移上云。\n\n适用场景：将应用迁移至 Azure、云架构规划与服务选型、运行成本估算、检查代码是否满足部署条件、全套服务一键/自动化上云、从零起步构建新项目。\n不适用于：仅使用 azd 工具部署（请使用 azure-deploy）、优化现有资源成本（请使用 cost-optimization）、仅做代码上线就绪检查（请使用 azure-app-onboard-prereq）。"
-version: "1.2.5"
+version: "1.2.6"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.5"
+  version: "1.2.6"
 ---
 # Azure App Onboard
 

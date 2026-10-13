@@ -1,11 +1,11 @@
 ---
 name: "airunway-aks-setup"
 description: "在 AKS 上配置 AI Runway，实现从空白集群到模型运行的全流程搭建。涵盖集群验证、控制器安装、GPU 评估、提供商配置及首次部署。适用场景：\"setup AI Runway\", \"onboard AKS cluster\", \"install AI Runway\", \"airunway setup\", \"deploy model to AKS\", \"GPU inference on AKS\", \"KAITO setup on AKS\", \"run LLM on AKS\", \"vLLM on AKS\", \"set up model serving on AKS\", \"AI Runway controller\"。"
-version: "1.1.1"
+version: "1.1.2"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.1.1"
+  version: "1.1.2"
 argument-hint: "[skip-to-step N]"
 ---
 # AI Runway AKS Setup
@@ -25,7 +25,7 @@ This skill assumes an AKS cluster already exists. If the user does not have a cl
 | Best for | End-to-end AI Runway onboarding on AKS |
 | CLI tools | `kubectl`, `make`, `curl` |
 | MCP tools | None |
-| Related skills | `azure-kubernetes` (cluster setup), `azure-diagnostics` (troubleshooting) |
+| Related skills | `azure-kubernetes` (cluster setup), `azure-diagnostics` (baseline troubleshooting), optional `aks-gpu-inference` (existing GPU/inference Day-2 incidents only) |
 
 ## When to Use This Skill
 
@@ -36,6 +36,13 @@ Use this skill when the user wants to:
 - Choose and install an inference provider (KAITO, Dynamo, KubeRay)
 - Deploy their first AI model to AKS via AI Runway
 - Resume a partially-complete AI Runway setup from a specific step
+
+## GPU setup versus Day-2 incidents
+
+Keep initial GPU node-pool, provider, controller, and model setup in this skill.
+For an incident affecting an existing GPU or inference deployment, load
+[optional-gpu-day2.md](references/optional-gpu-day2.md) before deciding whether
+to offer the focused optional add-on.
 
 ## MCP Tools
 

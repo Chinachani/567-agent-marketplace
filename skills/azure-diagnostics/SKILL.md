@@ -1,11 +1,11 @@
 ---
 name: "azure-diagnostics"
 description: "利用 AppLens、Azure Monitor、Resource Health 和安全分流排查流程诊断 Azure 生产环境故障。\n\n适用场景：排查生产故障；解决 App Service 故障（CPU 飙高、部署失败）；排查 Container Apps 故障（503 错误或目标端口不匹配）；排查 Azure Functions 故障（修改配置/连接字符串后遥测丢失或中断）；排查 AKS 故障；VM 诊断（RDP、Linux SSH、VM 黑屏、无法连接、重置 VM 密码）；NSG 或防火墙拦截；kubectl 无法连接；kube-system/CoreDNS 故障；Pod Pending、CrashLoop、节点 NotReady、升级失败；日志分析（KQL、Insights）；镜像拉取失败；冷启动问题；健康探测失败；Resource Health 诊断；错误根因分析；排查 Event Hubs 和 Service Bus 故障（消息 SDK 报错、AMQP 连接失败、消息锁丢失、长任务锁续订、Service Bus 死信）。"
-version: "1.2.9"
+version: "1.2.10"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.9"
+  version: "1.2.10"
 ---
 # Azure Diagnostics
 
@@ -41,6 +41,8 @@ Activate this skill when user wants to:
 6. Document findings and attempted remediation steps
 7. Prefer bundled diagnostic scripts over ad hoc calls for permitted live collection when identifiers are known. If supplied evidence suffices or live access is prohibited, don't run them; otherwise run the applicable script first.
 8. Route AKS incidents to the dedicated AKS troubleshooting document
+9. Keep baseline AKS diagnostics available even when the optional `aks-skills`
+   add-on is absent, declined, or unsupported by the host
 
 ---
 
