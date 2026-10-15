@@ -1,11 +1,11 @@
 ---
 name: "azure-quotas"
 description: "查询并管理 Azure 各资源提供商的配额与使用量，用于部署规划、容量验证和区域选择。适用于以下场景：查询配额与当前用量、检查服务或置备上限、排查配额超限、申请提高配额、验证容量与区域可用性，以及核对订阅中的 vCPU 剩余可用额度。"
-version: "1.2.1"
+version: "1.2.2"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.1"
+  version: "1.2.2"
 ---
 # Azure Quotas - Service Limits & Capacity Management
 

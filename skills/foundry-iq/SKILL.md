@@ -1,12 +1,12 @@
 ---
 name: "foundry-iq"
-description: "管理与检索 Foundry IQ 知识库。适用场景：使本地或 Blob 文档支持检索；创建或诊断知识库；排查不支持的连接器问题或处理多源知识库的创建与重新配置；将现有知识库（含多源知识库）连接至智能体；创建或复用 Search 服务；从现有知识库中检索带引用的内容（无需包含品牌词）。在执行查询或处理目标问题前，请先阅读其操作规程。不适用于：其他知识库提供商、代码仓库文件搜索、传统 Azure AI Search 索引/查询/应用开发，以及通用智能体创建。"
-version: "0.1.4"
+description: "Foundry IQ 知识库。适用场景：使本地或 Blob 文档可检索；创建/诊断知识库；排查不支持的连接器或多源知识库创建/重新配置问题（即使包含传统搜索术语）；将现有知识库连接至 Agent（包括多源知识库）；创建/复用 Search 服务；从现有知识库中检索并附带引用；无需品牌词。在针对查询/目标提问前请阅读其操作流程。不适用场景：其他知识库提供商、代码库文件检索、无 Foundry IQ 知识库或连接器需求的传统 Azure AI Search 索引/查询/应用工作、通用 Agent 创建。"
+version: "0.2.1"
 license: "MIT"
 compatibility: Azure
 metadata:
   author: Microsoft
-  version: "0.1.4"
+  version: "0.2.1"
 ---
 # Foundry IQ
 Read one procedure before questions/actions; invocation is not a read.
@@ -37,6 +37,8 @@ Read-only operations use their owning procedure and actual helper constraints;
 this does not add retrieval modes or supported source kinds.
 Explicit unsupported provisioning or multi-source KB creation/reconfiguration uses Diagnose
 and stops before discovery, even when connecting an agent is also requested.
+This routing takes precedence over classic-search terms (e.g. hybrid search) in compound requests.
+Never end in a plain refusal: Diagnose gives the boundary, docs pointer and agent handoff; writes still need an approved concrete plan.
 Do not silently execute only the supported part of a compound request.
 If existing-KB connection versus KB creation/reconfiguration is unclear, read
 intent-routing and clarify that scope before Azure discovery. Never infer KB mutation.
