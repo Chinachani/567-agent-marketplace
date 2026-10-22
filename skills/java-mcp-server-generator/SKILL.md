@@ -1,6 +1,6 @@
 ---
 name: "java-mcp-server-generator"
-description: "当用户希望在 Java 或 Spring Boot 应用中创建 Model Context Protocol (MCP) 服务器，或者希望让 GitHub Copilot、Claude 等 AI Agent 调用 Java 代码、API 或数据库时，使用此技能（即使用户未明确提及“MCP”）。该技能可生成基于 MCP Java SDK 2.x 的 Maven 或 Gradle 项目，并包含工具实现、JUnit 测试和客户端配置。请勿用于构建 MCP 客户端或其他语言的服务器。"
+description: "当用户想要在 Java 或 Spring Boot 应用中创建 Model Context Protocol (MCP) 服务端时使用此技能。当用户希望让 GitHub Copilot、Claude 等 AI Agent 调用 Java 代码、API 或数据库时也可使用（即使用户未提及“MCP”）。该技能会基于 MCP Java SDK 2.x 创建包含工具、JUnit 测试及客户端配置的 Maven 或 Gradle 项目。请勿用于 Quarkus/Quarkiverse MCP 服务端（请使用 `quarkus-mcp-server-sse` 指令）、MCP 客户端或其他语言的服务端。"
 version: "1.0.0"
 license: "MIT"
 compatibility: 'JDK 17 or later, Maven 3.9 or later or Gradle 9 or later, and network access to download dependencies. The MCP Inspector also uses Node.js.'

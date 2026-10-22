@@ -1,6 +1,6 @@
 ---
 name: "commit-message-storyteller"
-description: "分析 Git diff 或暂存区改动，严格遵循 Conventional Commits 规范生成高质量提交信息，深入阐释改动原因而非仅罗列修改内容。适用于写 commit 信息、生成提交说明、总结 diff 或协助提交等场景。支持输入 Git diff 结果、暂存区文件或改动描述文本。"
+description: "分析 git diff 或暂存区的更改，并按照 Conventional Commits 规范生成叙述性提交信息，不仅说明修改了什么，更阐明“为什么修改”。适用于要求“写一条提交信息”、“描述我的更改”、“这段改动应该怎么提交”或“总结 diff”的场景。支持 git diff 输出、暂存文件或纯文本改动描述。本技能不执行 git commit；如需暂存文件并完成提交，请使用 git-commit 技能。"
 version: "1.0.0"
 license: "MIT"
 ---
@@ -10,7 +10,7 @@ Transforms raw git diffs and change descriptions into clear, story-driven commit
 
 ## When to Use This Skill
 
-- User says "write a commit message", "help me commit", or "generate a commit"
+- User says "write a commit message"
 - User pastes a git diff or describes code changes
 - User says "what should I commit this as?" or "summarize my diff"
 - User wants better commit history for their team or open-source project
@@ -19,6 +19,7 @@ Transforms raw git diffs and change descriptions into clear, story-driven commit
 ## Prerequisites
 
 Have at least one of the following ready:
+
 - Output from `git diff` or `git diff --staged`
 - A description of what you changed and why
 - A list of modified files
@@ -40,7 +41,7 @@ If the user provides a raw `git diff`, extract this context automatically from t
 Map the change to a Conventional Commits type using this guide:
 
 | Type | Use When |
-|------|----------|
+| ------ | ---------- |
 | `feat` | A new feature or capability is added |
 | `fix` | A bug or incorrect behavior is corrected |
 | `refactor` | Code restructured without changing behavior |
@@ -48,7 +49,8 @@ Map the change to a Conventional Commits type using this guide:
 | `docs` | Documentation only changes |
 | `style` | Formatting, whitespace, missing semicolons (no logic change) |
 | `test` | Adding or updating tests |
-| `chore` | Build process, dependency updates, config changes |
+| `build` | Build system or dependency changes |
+| `chore` | Other maintenance that does not change source or tests |
 | `ci` | CI/CD pipeline changes |
 | `revert` | Reverting a previous commit |
 
@@ -58,7 +60,7 @@ See `references/conventional-commits-guide.md` for detailed examples.
 
 Follow this structure:
 
-```
+```text
 <type>(<optional scope>): <short imperative summary>
 
 <body — the story: why this change was made, what problem it solves>
@@ -69,12 +71,14 @@ Follow this structure:
 #### Rules for Each Part
 
 **Subject line (first line):**
+
 - Use imperative mood: "add", "fix", "remove" — not "added" or "fixes"
 - Max 72 characters
 - No period at the end
 - Lowercase after the colon
 
 **Body (the story):**
+
 - Explain the *why*, not the *what* (the diff already shows the what)
 - Describe the problem that existed before this change
 - Mention any alternatives considered if relevant
@@ -82,6 +86,7 @@ Follow this structure:
 - Separate from subject with a blank line
 
 **Footer:**
+
 - Reference issues: `Closes #123`, `Fixes #456`, `Refs #789`
 - Mark breaking changes: `BREAKING CHANGE: <description>`
 
@@ -91,7 +96,7 @@ Produce the commit message in a copyable code block, followed by a one-line plai
 
 **Example output:**
 
-```
+```text
 fix(auth): prevent token refresh loop on expired sessions
 
 When a user's session expired mid-request, the auth middleware was
@@ -121,7 +126,7 @@ If the diff contains **logically separate changes**, split them into multiple co
 ## Edge Cases
 
 | Situation | How to Handle |
-|-----------|---------------|
+| ----------- | --------------- |
 | User provides no context beyond a diff | Infer type and scope from file names and changed symbols |
 | Changes span many files with no clear theme | Ask: "Is this one logical change, or multiple?" |
 | Breaking change detected | Add `BREAKING CHANGE:` footer automatically |
