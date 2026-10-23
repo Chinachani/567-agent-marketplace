@@ -1,11 +1,11 @@
 ---
 name: "microsoft-foundry"
-description: "端到端构建、部署、评估、优化、微调和管理 Microsoft Foundry Agent、模型与资源。适用场景：foundry、azd ai agent、azd provision/deploy、托管 agent 脚手架/开发/运行/部署/排错、创建 prompt agent、创建托管 harness agent、GitHub Copilot harness agent、创建 agent、更新 agent、为 agent 添加工具、调用 agent、agent 洞察、评估 agent、批量评估、持续评估、持续监控、agent CI/CD、优化 prompt、改进 prompt、优化 agent 指令、Agent Optimizer 脚手架、基于追踪数据整理数据集、部署模型、模型微调（SFT/DPO/RFT）、Foundry 项目、RBAC、角色分配、权限、配额、容量、区域、部署失败、AI Services、创建 Foundry 资源、知识索引、自定义部署、入职引导、可用性、训练数据、评分器、蒸馏、大文件上传。不适用场景：Azure Functions、App Service、常规 Azure 部署（请使用 azure-deploy）、常规 Azure 准备工作（请使用 azure-prepare）。"
-version: "1.2.29"
+description: "端到端构建、部署、评估、优化、微调和管理 Microsoft Foundry 智能体（Agent）、模型及资源。\n\n**适用于：** Foundry、azd ai agent、azd 预配/部署、托管 Agent 的脚手架生成/开发/运行/部署/排错、Prompt Agent、托管 Harness Agent、Copilot Harness、语音 Agent、创建/更新/调用/评估 Agent、为 Agent 添加工具、Agent 洞察、批量/持续评估、持续监控、Agent CI/CD、优化/改进 Prompt、优化 Agent 指令、Agent Optimizer、基于跟踪（Traces）整理数据集、模型部署、模型微调（SFT/DPO/RFT）、Foundry 项目、RBAC、角色分配、权限、配额、容量、区域、部署失败排查、AI Services、创建 Foundry 资源、知识索引、自定义部署、入门接入（Onboard）、可用性、训练数据、评分器（Grader）、模型蒸馏、大文件上传。\n\n**不适用于：** Azure Functions、App Service、通用 Azure 部署（请使用 azure-deploy）、通用 Azure 准备工作（请使用 azure-prepare）。"
+version: "1.2.30"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.29"
+  version: "1.2.30"
 ---
 # Microsoft Foundry Skill
 
@@ -50,7 +50,7 @@ This skill includes specialized sub-skills for specific workflows. **When a sub-
 | **cicd** | Set up a CI/CD deployment pipeline for a Foundry agent. | [cicd](foundry-agent/cicd/cicd.md) |
 | **invoke** | Send messages to an agent, single or multi-turn conversations | [invoke](foundry-agent/invoke/invoke.md) |
 | **routine** | Schedule or event-trigger Foundry agents with routines; use `azd` for CRUD, enable/disable, manual dispatch, and viewing past runs, or define routines in `azure.yaml`. | [routine](foundry-agent/routine/routine.md) |
-| **invocations-ws** | Build, deploy, and connect to hosted agents that speak the `invocations_ws` duplex WebSocket protocol — voice agents, real-time streams, and signaling for out-of-band media transports. | [invocations-ws](foundry-agent/invocations-ws/invocations-ws.md) |
+| **invocations-ws** | Build, deploy, and connect to custom Hosted agents that use developer-defined duplex real-time or media streams over `invocations_ws`. | [invocations-ws](foundry-agent/invocations-ws/invocations-ws.md) |
 | **observe** | Evaluate agent quality, run batch evals, analyze failures, optimize prompts, improve agent instructions, compare versions, set up CI/CD monitoring, and enable continuous production evaluation | [observe](foundry-agent/observe/observe.md) |
 | **insights** | Pull generated agent insights, evidence, and recommendations from an existing monitor; read-only retrieval, not a new analysis run | [insights](foundry-agent/insights/insights.md) |
 | **trace** | Query traces, analyze latency/failures, correlate eval results to specific responses via App Insights `customEvents` | [trace](foundry-agent/trace/trace.md) |
@@ -59,6 +59,7 @@ This skill includes specialized sub-skills for specific workflows. **When a sub-
 | **create (quick start)** | Create a new hosted Foundry agent from scratch end-to-end — scaffold, provision or use an existing Foundry project, deploy, and smoke-test. Do not use for any work on existing code. For anything not covered by the quickstart, use **create**. | [create/quick-start-hosted.md](foundry-agent/create/quick-start-hosted.md) |
 | **create** | Use when the standard end-to-end happy path (quick start) doesn't fit. Create a new Foundry agent, update code of an existing agent, continue development of an existing agent, wire connections at scaffold time, use advanced setup or A2A (Agent2Agent), or recover from a failed quickstart run. | [create](foundry-agent/create/create-hosted.md) |
 | **create managed harness** | Create or continue developing a Prompt Agent that explicitly uses the Foundry-managed GitHub Copilot harness. Uses `azd` and `azure.yaml`, not the ordinary Prompt Agent MCP workflow. | [create-managed-harness](foundry-agent/create/create-managed-harness.md) |
+| **create voice** | Create, configure, or extend a Foundry Voice Agent, defaulting generic requests to managed Prompt Voice and supporting self-deployed Prompt Voice or two-agent Hosted Voice. | [create-voice](foundry-agent/create/create-voice.md) |
 | **agent-optimizer** | Make existing Python hosted-agent code optimization-ready, configure eval.yaml, run Agent Optimizer jobs, apply candidates locally, and deploy through azd after review. | [agent-optimizer](foundry-agent/agent-optimizer/agent-optimizer.md) |
 | **eval-datasets** | Harvest production traces into evaluation datasets, manage dataset versions and splits, track evaluation metrics over time, detect regressions, and maintain full lineage from trace to deployment. Use for: create dataset from traces, dataset versioning, evaluation trending, regression detection, dataset comparison, eval lineage. | [eval-datasets](foundry-agent/eval-datasets/eval-datasets.md) |
 | **project/create** | Creating a new Microsoft Foundry project for hosting agents and models. Use when onboarding to Foundry or setting up new infrastructure. | [project/create/create-foundry-project.md](project/create/create-foundry-project.md) |
@@ -95,6 +96,7 @@ Match user intent to the correct agent workflow. Read each sub-skill in order be
 
 | User Intent | Workflow (read in order) |
 |-------------|------------------------|
+| Create or develop a Voice Agent (Prompt Voice or Hosted Voice) | [dependency check and setup](#dependency-check-and-setup) → [azd-guidance](foundry-agent/azd-guidance/azd-guidance.md) → [create-voice](foundry-agent/create/create-voice.md) → [deploy](foundry-agent/deploy/deploy.md) → [invoke](foundry-agent/invoke/invoke.md) |
 | Create or develop an explicitly requested Managed Harness Agent / GitHub Copilot harness agent | [dependency check and setup](#dependency-check-and-setup) → [azd-guidance](foundry-agent/azd-guidance/azd-guidance.md) → [create-managed-harness](foundry-agent/create/create-managed-harness.md) → [deploy](foundry-agent/deploy/deploy.md) → [invoke](foundry-agent/invoke/invoke.md) |
 | Create a new hosted agent end-to-end (scaffold + deploy + test) | [dependency check and setup](#dependency-check-and-setup) → [azd-guidance](foundry-agent/azd-guidance/azd-guidance.md) → [quick-start-hosted](foundry-agent/create/quick-start-hosted.md) (self-contained end-to-end) |
 | Anything beyond the standard quickstart (existing code, migration, re-hosting, deployment customization, scaffold-time connections, A2A (Agent2Agent), recovery) | [dependency check and setup](#dependency-check-and-setup) → [azd-guidance](foundry-agent/azd-guidance/azd-guidance.md) → [create](foundry-agent/create/create-hosted.md) → [deploy](foundry-agent/deploy/deploy.md) → [invoke](foundry-agent/invoke/invoke.md) |
@@ -143,8 +145,11 @@ Agent skills should run this step **only when they need configuration values the
 
 First check whether the workspace has `azure.yaml` with services using `host: azure.ai.agent`.
 
-- **One azd agent service** -> classify it from `kind` and `harness`, then use that service's `project` folder or the `azure.yaml` directory as the agent root.
-- **Multiple azd agent services** -> require the user to choose the target service/folder.
+- **One azd agent service** -> classify it from `kind`, `harness`, `modelType`, and `conversationEngine`, then use that service's `project` folder or the `azure.yaml` directory as the agent root.
+- **Multiple azd agent services** -> check whether a Voice wrapper references a `kind: hosted` service via `conversationEngine.name`:
+  - **Selecting the Hosted Voice wrapper** implies its named `kind: hosted` target as an upstream dependency (`uses: [<target>]`, `conversationEngine.name: <target>`); deploy and verification must report both services separately.
+  - **Selecting the `kind: hosted` target alone** scopes changes/debugging to the target container and does not automatically modify the wrapper.
+  - **Otherwise** -> require the user to choose the target service/folder.
 - **No azd agent service** -> search the workspace for `.foundry/` folders that contain `agent-metadata.yaml` or `agent-metadata.<env>.yaml`.
   - **One match** -> use that agent root.
   - **Multiple matches** -> require the user to choose the target agent folder.
@@ -249,27 +254,32 @@ Use the `ask_user` or `askQuestions` tool **only for values not resolved** from 
 
 ## Agent: Agent Types
 
-Agent workflows distinguish three development paths:
+Agent workflows distinguish four first-class agent types:
 
 | Type | Kind | Description |
 |------|------|-------------|
-| **Prompt** | `"prompt"` | LLM-based agents backed by a model deployment |
-| **Hosted** | `"hosted"` | Container-based agents running custom code |
-| **Managed Harness Agent** | `"prompt"` with `harness.type: "github_copilot_preview"` | Prompt Agent running on the Foundry-managed GitHub Copilot harness; this skill uses azd for development and deployment |
+| **Prompt** | `"prompt"` | LLM-based agents backed by a model deployment; managed via Foundry MCP or SDK |
+| **Hosted** | `"hosted"` | Container-based agents running custom code; developed and deployed via `azd` |
+| **Managed Harness Agent** | `"prompt"` with `harness.type: "github_copilot_preview"` | Prompt Agent running on the Foundry-managed GitHub Copilot harness; developed and deployed via `azd` |
+| **Voice** | `"voice"` | Managed real-time Voice Agent — either **Prompt Voice** (1 agent, `modelType: managed` or `self_deployed`) or **Hosted Voice** (2 agents: `kind: voice` wrapper with `conversationEngine.type: hosted_agent` + `kind: hosted` target over `invocations_ws` `1.0.0` and Voice Live Bridge `1.0`); developed and deployed via `azd` and verified over the `voice` WebSocket endpoint |
 
-Classify an `azure.yaml` service by its definition, not by `host` alone:
+Classify an `azure.yaml` service by its definition in this exact order, not by `host` alone:
 
-- `kind: hosted` -> Hosted.
-- `kind: prompt` plus `harness.type: github_copilot_preview` -> Managed Harness Agent.
-- `kind: prompt` without that harness -> ordinary Prompt Agent.
+1. `kind: voice` -> **Voice**. For compatibility, silently classify an existing `kind: prompt-voice` service as Voice, then normalize it when editing its YAML. Classify the subtype:
+   - `conversationEngine.type: hosted_agent` -> **Hosted Voice wrapper** (paired with a named `kind: hosted` target service).
+   - `modelType: managed` or `modelType: self_deployed` -> **Prompt Voice** (Foundry infers native speech-to-speech vs cascaded STT -> LLM -> TTS from `model.id`).
+   - Having **both** `modelType`/`model` and `conversationEngine` is invalid (stop and fix `azure.yaml`); having **neither** is incomplete (do not guess). Never use obsolete `modelType: hosted_agent`, `targetAgent`, or a nested `config:` block.
+2. `kind: hosted` -> **Hosted**. When it declares `protocols: [{ protocol: invocations_ws, version: 1.0.0 }]` and `metadata.voiceLiveCompatible: "true"` alongside a `kind: voice` wrapper, it is a **Hosted Voice target**; otherwise treat a standalone `invocations_ws` service as a **custom Hosted real-time/audio agent**.
+3. `kind: prompt` plus `harness.type: github_copilot_preview` -> **Managed Harness Agent**.
+4. `kind: prompt` without that harness -> ordinary **Prompt Agent**.
 
-Use `agent_get` only when the type cannot be resolved from project context. Do not convert an existing Agent between Prompt, Hosted, and Managed Harness Agent types; create a new Agent instead.
+Use `agent_get` only when the type cannot be resolved from project context. Do not convert an existing Agent between Prompt, Hosted, Managed Harness Agent, and Voice types; create a new Agent instead. Before creating any **Voice Agent**, determine the model strategy first per [create-voice](foundry-agent/create/create-voice.md).
 
 ## Tool Usage Conventions
 
 - Use the `ask_user` or `askQuestions` tool whenever collecting information from the user
 - Use the `task` or `runSubagent` tool to delegate long-running or independent sub-tasks (e.g., env var scanning, status polling, Dockerfile generation)
-- Prefer azd for Hosted Agents and Managed Harness Agents; prefer Foundry MCP for ordinary Prompt Agents.
+- Prefer azd for Hosted Agents, Managed Harness Agents, and Voice Agents; prefer Foundry MCP for ordinary Prompt Agents.
 - Reference official Microsoft documentation URLs instead of embedding CLI command syntax
 
 ## Azure Authentication
