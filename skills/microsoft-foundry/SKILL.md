@@ -1,11 +1,11 @@
 ---
 name: "microsoft-foundry"
 description: "端到端构建、部署、评估、优化、微调和管理 Microsoft Foundry 智能体（Agent）、模型及资源。\n\n**适用于：** Foundry、azd ai agent、azd 预配/部署、托管 Agent 的脚手架生成/开发/运行/部署/排错、Prompt Agent、托管 Harness Agent、Copilot Harness、语音 Agent、创建/更新/调用/评估 Agent、为 Agent 添加工具、Agent 洞察、批量/持续评估、持续监控、Agent CI/CD、优化/改进 Prompt、优化 Agent 指令、Agent Optimizer、基于跟踪（Traces）整理数据集、模型部署、模型微调（SFT/DPO/RFT）、Foundry 项目、RBAC、角色分配、权限、配额、容量、区域、部署失败排查、AI Services、创建 Foundry 资源、知识索引、自定义部署、入门接入（Onboard）、可用性、训练数据、评分器（Grader）、模型蒸馏、大文件上传。\n\n**不适用于：** Azure Functions、App Service、通用 Azure 部署（请使用 azure-deploy）、通用 Azure 准备工作（请使用 azure-prepare）。"
-version: "1.2.30"
+version: "1.2.31"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.30"
+  version: "1.2.31"
 ---
 # Microsoft Foundry Skill
 
