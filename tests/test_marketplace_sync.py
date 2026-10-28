@@ -939,6 +939,34 @@ class MarketplaceSyncTests(unittest.TestCase):
             self.assertEqual(loaded, records)
             self.assertTrue(all(item["icon"] == "" and not item["mcpMetadata"]["installable"] for item in loaded))
 
+    def test_discovery_capacity_pressure_omits_only_duplicate_chinese_detail_fields(self):
+        record = sync_marketplace.write_mcp_record(
+            {"slug": "capacity-sample", "name": "本地文件工具", "description": "管理本地文件。" * 80}, {}, {}, {}
+        )
+        record["detail"]["i18n"]["zh"]["content"] = "额外中文详情"
+        record["detail"]["i18n"]["en"] = {"description": "English description"}
+        raw = json.dumps({"schemaVersion": 1, "catalogVersion": "1", "category": record["category"], "abilities": [record]},
+                         ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        compact = json.loads(json.dumps(record, ensure_ascii=False))
+        for field in ("name", "description", "tags"):
+            if compact["detail"]["i18n"]["zh"].get(field) == compact.get(field):
+                compact["detail"]["i18n"]["zh"].pop(field, None)
+        compact_size = len(json.dumps({"schemaVersion": 1, "catalogVersion": "1", "category": record["category"], "abilities": [compact]},
+                                      ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+        self.assertLess(compact_size, len(raw))
+        with tempfile.TemporaryDirectory() as temp, patch.object(sync_marketplace, "DISCOVERY_MAX_BYTES", compact_size):
+            index = sync_marketplace.build_discovery_distribution(
+                {"marketplaceVersion": "1", "discoveryVersion": "1", "discoveryAbilities": [record]}, Path(temp)
+            )
+            payload = json.loads((Path(temp) / index["shards"][0]["path"]).read_text())
+        published = payload["abilities"][0]
+        self.assertEqual(published["name"], record["name"])
+        self.assertEqual(published["description"], record["description"])
+        self.assertNotIn("name", published["detail"]["i18n"]["zh"])
+        self.assertNotIn("description", published["detail"]["i18n"]["zh"])
+        self.assertEqual(published["detail"]["i18n"]["zh"]["content"], "额外中文详情")
+        self.assertEqual(published["detail"]["i18n"]["en"]["description"], "English description")
+
     def test_discovery_distribution_rejects_one_record_larger_than_a_shard(self):
         with tempfile.TemporaryDirectory() as temp, patch.object(sync_marketplace, "DISCOVERY_SHARD_BYTES", 150):
             with self.assertRaisesRegex(ValueError, "too large"):

@@ -1697,38 +1697,70 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
         raise ValueError("Discovery record capacity exceeded; keep the previous published catalog")
     for ability in abilities:
         ability.get("source", {}).pop("registryUpdatedAt", None)
+
+    def make_chunks(records):
+        grouped_records = {}
+        for record in records:
+            category = record.get("category") or "uncategorized"
+            grouped_records.setdefault(category, []).append(record)
+        result = []
+        for category, category_records in sorted(grouped_records.items()):
+            envelope = {"schemaVersion": 1, "catalogVersion": manifest["discoveryVersion"], "category": category, "abilities": []}
+            envelope_bytes = len(json.dumps(envelope, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+            current = []
+            current_bytes = envelope_bytes
+            for record in category_records:
+                encoded_size = len(json.dumps(record, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+                if envelope_bytes + encoded_size > DISCOVERY_SHARD_BYTES:
+                    raise ValueError(f"MCP discovery record is too large to publish: {record['slug']}")
+                addition = encoded_size + (1 if current else 0)
+                if current and (len(current) >= DISCOVERY_SHARD_ITEMS or current_bytes + addition > DISCOVERY_SHARD_BYTES):
+                    result.append((category, current))
+                    current = []
+                    current_bytes = envelope_bytes
+                    addition = encoded_size
+                current.append(record)
+                current_bytes += addition
+            if current:
+                result.append((category, current))
+        return result
+
+    def chunks_size_bytes(shard_chunks):
+        return sum(len(json.dumps({
+            "schemaVersion": 1,
+            "catalogVersion": manifest["discoveryVersion"],
+            "category": category,
+            "abilities": chunk,
+        }, ensure_ascii=False, separators=(",", ":")).encode("utf-8")) for category, chunk in shard_chunks)
+
+    chunks = make_chunks(abilities)
+    total_bytes = chunks_size_bytes(chunks)
+    if total_bytes > DISCOVERY_MAX_BYTES:
+        uncompacted_total_bytes = total_bytes
+        # The top-level MCP presentation fields are Chinese. Avoid storing the same
+        # value again in detail.i18n.zh when capacity pressure requires compaction.
+        for ability in abilities:
+            localized = ability.get("detail", {}).get("i18n", {}).get("zh", {})
+            for field in ("name", "description", "tags"):
+                if localized.get(field) == ability.get(field):
+                    localized.pop(field, None)
+        chunks = make_chunks(abilities)
+        total_bytes = chunks_size_bytes(chunks)
+        safe_log(
+            "Compacted duplicate Chinese detail fields for capacity: "
+            f"{uncompacted_total_bytes / (1024 * 1024):.2f} MiB -> "
+            f"{total_bytes / (1024 * 1024):.2f} MiB"
+        )
+
     search_dir = output_dir / "search"
     search_dir.mkdir(parents=True, exist_ok=True)
     search_shards = []
     shards_dir = output_dir / "shards"
     shards_dir.mkdir(parents=True, exist_ok=True)
     shards = []
-    grouped = {}
-    for ability in abilities:
-        category = ability.get("category") or "uncategorized"
-        grouped.setdefault(category, []).append(ability)
-    for category, category_abilities in sorted(grouped.items()):
-        chunks = []
-        current = []
-        # Serialize each record once, instead of repeatedly serializing a growing 500-item array.
-        envelope = {"schemaVersion": 1, "catalogVersion": manifest["discoveryVersion"], "category": category, "abilities": []}
-        envelope_bytes = len(json.dumps(envelope, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
-        current_bytes = envelope_bytes
-        for ability in category_abilities:
-            encoded_size = len(json.dumps(ability, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
-            if envelope_bytes + encoded_size > DISCOVERY_SHARD_BYTES:
-                raise ValueError(f"MCP discovery record is too large to publish: {ability['slug']}")
-            addition = encoded_size + (1 if current else 0)
-            if current and (len(current) >= DISCOVERY_SHARD_ITEMS or current_bytes + addition > DISCOVERY_SHARD_BYTES):
-                chunks.append(current)
-                current = []
-                current_bytes = envelope_bytes
-                addition = encoded_size
-            current.append(ability)
-            current_bytes += addition
-        if current:
-            chunks.append(current)
-        for shard_index, chunk in enumerate(chunks):
+    for category in sorted({chunk_category for chunk_category, _ in chunks}):
+        category_chunks = [chunk for chunk_category, chunk in chunks if chunk_category == category]
+        for shard_index, chunk in enumerate(category_chunks):
             shard_name = f"mcp-{category}-{shard_index:04d}.json"
             payload = json.dumps({
                 "schemaVersion": 1,
@@ -1772,7 +1804,13 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
         category_counts[category] = category_counts.get(category, 0) + 1
     total_bytes = sum(shard["sizeBytes"] for shard in shards)
     if len(shards) > DISCOVERY_MAX_SHARDS or total_bytes > DISCOVERY_MAX_BYTES:
-        raise ValueError("Discovery shard/byte capacity exceeded; keep the previous published catalog")
+        raise ValueError(
+            "Discovery capacity exceeded "
+            f"(records={len(abilities)}/{DISCOVERY_MAX_RECORDS}, "
+            f"shards={len(shards)}/{DISCOVERY_MAX_SHARDS}, "
+            f"bytes={total_bytes}/{DISCOVERY_MAX_BYTES}); "
+            "keep the previous published catalog"
+        )
     if max(len(abilities) / DISCOVERY_MAX_RECORDS, len(shards) / DISCOVERY_MAX_SHARDS, total_bytes / DISCOVERY_MAX_BYTES) >= 0.8:
         safe_log("Discovery capacity warning: extend the versioned client/publisher contract before the next limit")
     index = {
