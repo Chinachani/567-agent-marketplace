@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "slug": "memory",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "server": {
     "type": "stdio",
     "command": "npx",
     "args": [
       "-y",
-      "@modelcontextprotocol/server-memory@2.0.0"
+      "@modelcontextprotocol/server-memory@2.0.1"
     ]
   },
   "parameters": []

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "slug": "git",
-  "version": "2026.10.19",
+  "version": "2026.10.28",
   "server": {
     "type": "stdio",
     "command": "uvx",
     "args": [
-      "mcp-server-git==2026.10.19"
+      "mcp-server-git==2026.10.28"
     ]
   },
   "parameters": []

@@ -1,11 +1,11 @@
 ---
 name: "cost-optimization"
 description: "优化现有 Azure 资源配置并深度分析预留实例（Reservations）与节省计划（Savings Plans）。适用于：优化 Azure 成本、缩减云支出、调整资源规格、排查闲置资源或孤立磁盘、分析已删除虚拟机或公网 IP 仍在扣费的原因，以及评估预留实例利用率、节省计划覆盖率和承诺折扣推荐。请勿用于：成本突增分析、费用预测、价格估算、预算管理或云治理。"
-version: "1.0.1"
+version: "1.0.2"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.0.1"
+  version: "1.0.2"
 ---
 # Azure Cost Optimization
 

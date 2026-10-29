@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "slug": "fetch",
-  "version": "2026.10.24",
+  "version": "2026.10.28",
   "server": {
     "type": "stdio",
     "command": "uvx",
     "args": [
-      "mcp-server-fetch==2026.10.24"
+      "mcp-server-fetch==2026.10.28"
     ]
   },
   "parameters": []
