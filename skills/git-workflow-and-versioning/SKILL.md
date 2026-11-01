@@ -1,6 +1,6 @@
 ---
 name: "git-workflow-and-versioning"
-description: "规范 Git 工作流实践。适用于进行任何代码变更时，涵盖代码提交、分支管理、冲突解决、将杂乱的工作区改动拆分为清晰的原子提交、创建或审查 PR、推送到远程仓库，以及管理多分支并行开发；同时适用于发布版本、确定语义化版本升级、打标签和编写更新日志。"
+description: "规范 Git 工作流实践。适用于进行任何代码变更时，包括提交、创建分支、解决冲突、将混乱工作区中未提交的内容拆分为清晰的原子提交、发起或审查 PR、推送到远端，或组织多条并行开发流。适用于发布新版本、选择语义化版本升级、打标签或编写变更日志（Changelog）。也适用于编写 commit message 或变更日志条目、拆分提交等场景，即使已直接贴出 diff 且内容看似简单也同样适用。"
 version: "1.0.0"
 license: "MIT"
 ---
@@ -217,8 +217,8 @@ Before every commit:
 # 1. Check what you're about to commit
 git diff --staged
 
-# 2. Ensure no secrets
-git diff --staged | grep -i "password\|secret\|api_key\|token"
+# 2. Ensure no secrets (lists matching file names only — any output means review them)
+git diff --staged -i -G'password|secret|api_key|token' --name-only
 
 # 3. Run tests
 npm test
