@@ -1,16 +1,20 @@
 ---
 name: "copilot-sdk-github"
-description: "使用 GitHub Copilot SDK 构建智能体应用。适用于在应用中集成 AI Agent、创建自定义工具、实现流式响应、管理会话、连接 MCP 服务器或打造专属智能体。触发词包括 Copilot SDK、GitHub SDK、agentic app、embed Copilot、programmable agent、MCP server、custom agent。"
+description: "使用 Microsoft Copilot SDK（从 GitHub Copilot SDK 迁移）构建智能体应用。适用于在应用中嵌入 AI 智能体、创建自定义工具、实现流式响应、管理会话、连接 MCP 服务器或创建自定义智能体。触发关键词：Copilot SDK、Microsoft Copilot SDK、GitHub Copilot SDK、agentic app、embed Copilot、programmable agent、MCP server、custom agent。"
 version: "1.0.0"
 license: "MIT"
 ---
-# GitHub Copilot SDK
+# Microsoft Copilot SDK
 
 Embed Copilot's agentic workflows in any application using Python, TypeScript, Go, or .NET.
 
 ## Overview
 
-The GitHub Copilot SDK exposes the same engine behind Copilot CLI: a production-tested agent runtime you can invoke programmatically. No need to build your own orchestration - you define agent behavior, Copilot handles planning, tool invocation, file edits, and more.
+The Microsoft Copilot SDK is transitioning from the GitHub Copilot SDK. It is becoming the programmable interface for the Microsoft Copilot harness, the shared agent foundation used across Microsoft and GitHub products. This transition is happening in phases, and no immediate changes are required for existing users. Package names, namespaces, and some documentation may continue to use GitHub branding during the transition.
+
+This guide keeps the currently published package names and imports in its examples. Follow the [official transition announcement](https://github.blog/changelog/2026-10-28-github-copilot-sdk-is-becoming-microsoft-copilot-sdk/) for migration updates.
+
+The SDK provides a production-tested agent runtime you can invoke programmatically. You define agent behavior, while Copilot handles planning, tool invocation, file edits, and more.
 
 ## Prerequisites
 

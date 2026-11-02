@@ -1,6 +1,6 @@
 ---
 name: "mcp-security-audit"
-description: "审计 MCP（Model Context Protocol）服务器配置的安全隐患。适用于以下场景：- 审查 .mcp.json 文件的安全风险；- 检查 MCP 服务器启动参数中是否存在硬编码凭据或 Shell 注入模式；- 校验 MCP 包运行器依赖是否使用了经审核的明确版本，而非裸包名、@latest 或版本区间；- 检测 MCP 配置中可变 npm/npx、bunx、pnpm dlx、yarn dlx 和 npm exec 引用；- 审计项目注册的 MCP 服务器是否在白名单中；- 检查 MCP 配置是否使用环境变量而非硬编码凭证；- 处理类似“我的 MCP 配置安全吗？”、“审计我的 MCP 服务器”或“检查 .mcp.json”等请求。关键词：[mcp, security, audit, secrets, shell-injection, supply-chain, governance]"
+description: "审计 MCP（Model Context Protocol）服务器配置中的安全问题。适用场景：- 审查 .mcp.json 文件的安全风险；- 检查 MCP 服务器参数中的硬编码凭据或 shell 注入模式；- 校验 MCP 包运行器依赖是否使用精确的已审查版本，而非纯包名、@latest 或版本范围；- 检测 MCP 配置中动态的 npm/npx、bunx、pnpm dlx、yarn dlx、npm exec、uvx、uv tool run 和 pipx run 引用；- 审计项目注册了哪些 MCP 服务器以及它们是否在白名单中；- 检查 MCP 配置中环境变量的使用与硬编码凭据情况；- 处理类似“我的 MCP 配置安全吗？”、“审计我的 MCP 服务器”或“检查 .mcp.json”的请求。关键词：[mcp, security, audit, secrets, shell-injection, supply-chain, governance]。"
 version: "1.0.0"
 license: "MIT"
 ---
@@ -148,9 +148,21 @@ Review package-runner MCP entries for selectors that can resolve to different pa
 ```python
 import re
 EXACT_SEMVER = re.compile(r"^v?\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$")
-def split_package_spec(spec: str):
-    """Split npm-style package selectors, including scoped packages."""
+EXACT_PYTHON = re.compile(r"^===?\s*\d+(?:\.\d+)*(?:(?:a|b|rc)\d+)?(?:\.post\d+)?(?:\.dev\d+)?$")
+PYTHON_SPEC = re.compile(r"([A-Za-z0-9][A-Za-z0-9._-]*(?:\[[^\]]*\])?)\s*((?:===?|~=|!=|<=?|>=?)\s*.+)")
+PYTHON_RUNNERS = {"uvx", "uvx.exe", "uv", "uv.exe", "pipx", "pipx.exe"}
+
+
+def launcher_name(server_config: dict) -> str:
+    return str(server_config.get("command", "")).replace("\\", "/").rsplit("/", 1)[-1].lower()
+
+
+def split_package_spec(spec: str, python: bool = False):
+    """Split npm-style selectors (including scoped packages) or Python requirements."""
     spec = spec.strip()
+    requirement = PYTHON_SPEC.fullmatch(spec) if python else None
+    if requirement:
+        return requirement.group(1), requirement.group(2)  # e.g. ("pkg", "==1.2.0")
     if spec.startswith("@"):
         slash = spec.find("/")
         at = spec.rfind("@")
@@ -165,11 +177,25 @@ def split_package_spec(spec: str):
 
 def package_specs_from_runner(server_config: dict):
     """Return selectors without running commands; None means manual review."""
-    command = str(server_config.get("command", "")).replace("\\", "/").rsplit("/", 1)[-1].lower()
+    command = launcher_name(server_config)
     args = server_config.get("args", [])
     if not isinstance(args, list) or not all(isinstance(arg, str) for arg in args):
         return None
-    if command in {"npm", "npm.cmd"}:
+    package_flags = {"-p", "--package"}
+    ignored_flags = {"-y", "--yes", "--no", "--quiet"}
+    if command in PYTHON_RUNNERS:
+        if command in {"uv", "uv.exe"}:
+            if args[:2] != ["tool", "run"]:
+                return None
+            args = args[2:]
+        elif command in {"pipx", "pipx.exe"}:
+            if not args or args[0] != "run":
+                return None
+            args = args[1:]
+        # uvx -p means --python, so only the requirement flags name packages.
+        package_flags = {"--spec"} if command.startswith("pipx") else {"--from"}
+        ignored_flags = set()
+    elif command in {"npm", "npm.cmd"}:
         if not args or args[0] not in {"exec", "x"}:
             return None
         args = args[1:]
@@ -184,16 +210,16 @@ def package_specs_from_runner(server_config: dict):
     i = 0
     while i < len(args):
         arg = args[i]
-        if arg in {"-p", "--package"}:
+        if arg in package_flags:
             i += 1
             if i >= len(args) or not args[i] or args[i].startswith("-"):
                 return None
             selectors.append(args[i])
-        elif arg.startswith("--package="):
+        elif arg.startswith("--") and arg.split("=", 1)[0] in package_flags:
             if not arg.split("=", 1)[1]:
                 return None
             selectors.append(arg.split("=", 1)[1])
-        elif arg in {"-y", "--yes", "--no", "--quiet"}:
+        elif arg in ignored_flags:
             pass
         elif arg == "--":
             if selectors:
@@ -210,6 +236,9 @@ def package_specs_from_runner(server_config: dict):
 def check_pinned_versions(server_config: dict) -> list[dict]:
     """Flag mutable selectors; report unsupported forms for manual review."""
     specs = package_specs_from_runner(server_config)
+    python = launcher_name(server_config) in PYTHON_RUNNERS
+    if specs and python and any("://" in s or " @ " in s or s.startswith(("git+", ".", "/", "~", "file:")) for s in specs):
+        specs = None  # Git, URL, and path sources: a tag or file can change; review by hand.
     if specs is None:
         return [{
             "severity": "INFO",
@@ -219,8 +248,8 @@ def check_pinned_versions(server_config: dict) -> list[dict]:
         }]
     findings = []
     for spec in specs:
-        package, version = split_package_spec(spec)
-        if version and EXACT_SEMVER.fullmatch(version):
+        package, version = split_package_spec(spec, python)
+        if version and (EXACT_SEMVER.fullmatch(version) or EXACT_PYTHON.fullmatch(version)):
             continue
         mutable_tag = version and re.fullmatch(r"[A-Za-z][A-Za-z0-9._-]*", version)
         findings.append({
@@ -236,6 +265,8 @@ def check_pinned_versions(server_config: dict) -> list[dict]:
 **Good — exact reviewed version:**
 ```json
 { "command": "npx", "args": ["-y", "my-mcp-server@2.1.0"] }
+{ "command": "uvx", "args": ["my-mcp-server@2.1.0"] }
+{ "command": "uvx", "args": ["--from", "my-mcp-server==2.1.0", "my-mcp-server"] }
 ```
 
 **Review — mutable references:**
@@ -243,9 +274,11 @@ def check_pinned_versions(server_config: dict) -> list[dict]:
 { "command": "npx", "args": ["-y", "my-mcp-server@latest"] }
 { "command": "npx", "args": ["-y", "my-mcp-server"] }
 { "command": "npx", "args": ["-y", "@scope/server@^2.1.0"] }
+{ "command": "uvx", "args": ["my-mcp-server"] }
+{ "command": "pipx", "args": ["run", "--spec", "my-mcp-server>=2.1", "my-mcp-server"] }
 ```
 
-The extractor reviews every explicit `--package` / `-p` selector. Unknown launchers or flags require manual review rather than a clean result. An exact direct selector does not prove package integrity, benign behavior, or reproducibility of transitive dependencies without a lockfile.
+The extractor reviews every explicit `--package` / `-p` selector for JavaScript runners, and every `--from` (`uvx`, `uv tool run`) or `--spec` (`pipx run`) requirement for Python runners. For `uvx`, `-p` selects the Python interpreter, not a package. Git, URL, and local path sources for Python runners (for example `git+https://...@v1.0.0`) go to manual review, because a tag or file can change behind an exact-looking reference. Unknown launchers or flags require manual review rather than a clean result. An exact direct selector does not prove package integrity, benign behavior, or reproducibility of transitive dependencies without a lockfile.
 
 Do **not** invent a remediation pin by substituting today's registry version. Pin a version that was actually reviewed; if that evidence is unknown, record the uncertainty. `-y` / `--yes` suppresses an interactive prompt and may matter for CI ergonomics, but it is not a vulnerability by itself.
 
