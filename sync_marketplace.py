@@ -24,6 +24,9 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 from marketplace_contract import validate_ability, validate_manifest
+from discovery_catalog import (
+    DiscoveryCapacityExceeded, build_paged_discovery, preserve_legacy_snapshot, validate_discovery_manifest,
+)
 from skill_content_policy import KEY_PATTERN, redistribution_allowed, scan_skill_tree
 
 from marketplace_sync import (
@@ -1729,9 +1732,10 @@ def serialize_manifest(manifest: dict) -> str:
 
 def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
     """Write a small index and independently verifiable MCP discovery shards."""
-    abilities = copy.deepcopy(sorted(manifest.get("discoveryAbilities", []), key=lambda item: item["slug"]))
+    abilities = manifest.get("discoveryAbilities", [])
     if len(abilities) > DISCOVERY_MAX_RECORDS:
-        raise ValueError("Discovery record capacity exceeded; keep the previous published catalog")
+        raise DiscoveryCapacityExceeded(f"Discovery record capacity exceeded: {len(abilities)}/{DISCOVERY_MAX_RECORDS}")
+    abilities = copy.deepcopy(sorted(abilities, key=lambda item: item["slug"]))
     for ability in abilities:
         ability.get("source", {}).pop("registryUpdatedAt", None)
 
@@ -1831,7 +1835,7 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
             search_payload = json.dumps({"schemaVersion": 1, "catalogVersion": manifest["discoveryVersion"],
                 "category": category, "abilities": summaries}, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
             if len(search_payload) > DISCOVERY_SHARD_BYTES:
-                raise ValueError("Search shard exceeds byte capacity")
+                raise DiscoveryCapacityExceeded("Search shard exceeds byte capacity")
             (search_dir / shard_name).write_bytes(search_payload)
             search_shards.append({"path": f"search/{shard_name}", "category": category,
                 "sha256": hashlib.sha256(search_payload).hexdigest(), "sizeBytes": len(search_payload), "count": len(chunk)})
@@ -1840,12 +1844,13 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
         category = ability.get("category") or "uncategorized"
         category_counts[category] = category_counts.get(category, 0) + 1
     total_bytes = sum(shard["sizeBytes"] for shard in shards)
-    if len(shards) > DISCOVERY_MAX_SHARDS or total_bytes > DISCOVERY_MAX_BYTES:
-        raise ValueError(
+    search_bytes = sum(shard["sizeBytes"] for shard in search_shards)
+    if len(shards) > DISCOVERY_MAX_SHARDS or max(total_bytes, search_bytes) > DISCOVERY_MAX_BYTES:
+        raise DiscoveryCapacityExceeded(
             "Discovery capacity exceeded "
             f"(records={len(abilities)}/{DISCOVERY_MAX_RECORDS}, "
             f"shards={len(shards)}/{DISCOVERY_MAX_SHARDS}, "
-            f"bytes={total_bytes}/{DISCOVERY_MAX_BYTES}); "
+            f"detailBytes={total_bytes}/{DISCOVERY_MAX_BYTES}, searchBytes={search_bytes}/{DISCOVERY_MAX_BYTES}); "
             "keep the previous published catalog"
         )
     if max(len(abilities) / DISCOVERY_MAX_RECORDS, len(shards) / DISCOVERY_MAX_SHARDS, total_bytes / DISCOVERY_MAX_BYTES) >= 0.8:
@@ -1859,12 +1864,74 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
         "shards": shards,
         "searchShards": search_shards,
     }
-    (output_dir / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    index_payload = (json.dumps(index, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    if len(index_payload) > 256 * 1024:
+        raise DiscoveryCapacityExceeded("Discovery index exceeds byte capacity")
+    (output_dir / "index.json").write_bytes(index_payload)
     (output_dir / "classification-suggestions.json").write_text(
         json.dumps({"items": MCP_CLASSIFICATION_SUGGESTIONS}, ensure_ascii=False, separators=(",", ":")) + "\n",
         encoding="utf-8",
     )
     return index
+
+
+def previous_catalog_reader():
+    """Pin the previous catalog once; checkpoint commits cannot mix its files."""
+    revision = subprocess.check_output(
+        ["git", "rev-parse", "--verify", "refs/remotes/origin/catalog^{commit}"],
+        cwd=REPO_ROOT, stderr=subprocess.DEVNULL, text=True,
+    ).strip()
+
+    def read_file(path):
+        return subprocess.check_output(
+            ["git", "show", f"{revision}:{path}"], cwd=REPO_ROOT, stderr=subprocess.DEVNULL,
+        )
+
+    return read_file
+
+
+def build_catalog_distribution(manifest: dict, output_dir: Path, previous_reader=None) -> dict:
+    """Stage the complete v2 catalog plus a current or verified frozen v1 view.
+
+    output_dir must be empty. Only legacy capacity failures select the previous
+    snapshot; malformed current records still fail publication.
+    """
+    if output_dir.exists() and any(output_dir.iterdir()):
+        raise ValueError("Catalog distribution requires an empty output directory")
+    validate_discovery_manifest(manifest)
+    with tempfile.TemporaryDirectory(prefix=".catalog-build-", dir=output_dir.parent) as temp:
+        staged = Path(temp)
+        legacy_root = staged / "legacy"
+        legacy_root.mkdir()
+        try:
+            legacy_index = build_discovery_distribution(manifest, legacy_root)
+            legacy = {"status": "current"}
+        except DiscoveryCapacityExceeded as exc:
+            safe_log(f"Legacy discovery capacity reached: {exc}; publishing all records through v2")
+            shutil.rmtree(legacy_root)
+            legacy_root.mkdir()
+            try:
+                reader = previous_reader if previous_reader is not None else previous_catalog_reader()
+                legacy_index = preserve_legacy_snapshot(reader, legacy_root)
+                legacy = {"status": "frozen", "reason": "capacity-exceeded"}
+            except (OSError, ValueError, subprocess.SubprocessError) as restore_error:
+                safe_log(f"No verified legacy snapshot available ({type(restore_error).__name__}); v2 remains complete")
+                shutil.rmtree(legacy_root)
+                legacy_root.mkdir()
+                legacy_index = None
+                legacy = {"status": "unavailable", "reason": "previous-snapshot-unavailable"}
+        if legacy_index is not None:
+            legacy.update({"path": "index.json", "catalogVersion": legacy_index["catalogVersion"],
+                           "recordCount": legacy_index["recordCount"]})
+        result = build_paged_discovery(manifest, legacy_root, legacy)
+        (legacy_root / "classification-suggestions.json").write_text(
+            json.dumps({"items": MCP_CLASSIFICATION_SUGGESTIONS}, ensure_ascii=False, separators=(",", ":")) + "\n",
+            encoding="utf-8",
+        )
+        shutil.copytree(legacy_root, output_dir, dirs_exist_ok=True)
+    safe_log(f"Paged discovery ready: {result['recordCount']} records, legacy={legacy['status']}, "
+             f"detailBytes={result['totalBytes']['detail']}, searchBytes={result['totalBytes']['search']}")
+    return result
 
 
 def main():
@@ -1927,7 +1994,7 @@ def main():
             discovery_root = temp_root / "catalog-dist"
             discovery_root.mkdir()
             distribution_manifest = {**manifest, "discoveryAbilities": discovery_abilities}
-            build_discovery_distribution(distribution_manifest, discovery_root)
+            build_catalog_distribution(distribution_manifest, discovery_root)
             state_path = discovery_root / "catalog-state.json.gz"
             with gzip.open(state_path, "wt", encoding="utf-8", compresslevel=9) as handle:
                 json.dump({"abilities": discovery_abilities, "marketplaceVersion": manifest["discoveryVersion"]}, handle, ensure_ascii=False, separators=(",", ":"))

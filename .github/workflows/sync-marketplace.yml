@@ -75,7 +75,7 @@ jobs:
 
       - name: Publish sharded MCP discovery catalog
         run: |
-          test -f catalog-dist/index.json
+          test -f catalog-dist/v2/index.json
           if git ls-remote --exit-code --heads origin catalog >/dev/null 2>&1; then
             git fetch origin refs/heads/catalog:refs/remotes/origin/catalog
             git worktree add --detach "$RUNNER_TEMP/marketplace-catalog" refs/remotes/origin/catalog

@@ -1,0 +1,160 @@
+{
+  "marketplaceVersion": "1",
+  "discoveryVersion": "2026.11.03.1",
+  "discoveryAbilities": [
+    {
+      "type": "mcp",
+      "slug": "blender-example",
+      "name": "Blender",
+      "description": "Blender 三维建模与场景编辑",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "",
+      "author": "",
+      "icon": "",
+      "classificationSource": "automatic",
+      "category": "cad-3d",
+      "categoryI18n": {
+        "zh": "CAD 与 3D",
+        "en": "CAD and 3D"
+      },
+      "tags": [
+        "3d-modeling",
+        "blender"
+      ],
+      "mcpMetadata": {
+        "runtimeMode": "stdio",
+        "platforms": [
+          "unknown"
+        ],
+        "permissionScopes": [
+          "unknown"
+        ],
+        "authentication": "unknown",
+        "publisherType": "unknown",
+        "installable": false
+      },
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "Blender",
+            "description": "Blender 三维建模与场景编辑",
+            "tags": [
+              "3d-modeling",
+              "blender"
+            ]
+          }
+        },
+        "meta": []
+      },
+      "source": {
+        "path": "mcps/discovery",
+        "contentSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "freecad-example",
+      "name": "FreeCAD",
+      "description": "参数化 CAD 建模",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "",
+      "author": "",
+      "icon": "",
+      "classificationSource": "automatic",
+      "category": "cad-3d",
+      "categoryI18n": {
+        "zh": "CAD 与 3D",
+        "en": "CAD and 3D"
+      },
+      "tags": [
+        "3d-modeling",
+        "freecad",
+        "cad"
+      ],
+      "mcpMetadata": {
+        "runtimeMode": "stdio",
+        "platforms": [
+          "unknown"
+        ],
+        "permissionScopes": [
+          "unknown"
+        ],
+        "authentication": "unknown",
+        "publisherType": "unknown",
+        "installable": false
+      },
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "FreeCAD",
+            "description": "参数化 CAD 建模",
+            "tags": [
+              "3d-modeling",
+              "freecad",
+              "cad"
+            ]
+          }
+        },
+        "meta": []
+      },
+      "source": {
+        "path": "mcps/discovery",
+        "contentSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      }
+    },
+    {
+      "type": "mcp",
+      "slug": "search-example",
+      "name": "学术搜索",
+      "description": "搜索论文与引用信息",
+      "version": "1.0.0",
+      "configVersion": 1,
+      "license": "",
+      "author": "",
+      "icon": "",
+      "classificationSource": "automatic",
+      "category": "web-search",
+      "categoryI18n": {
+        "zh": "网页与搜索",
+        "en": "Web and search"
+      },
+      "tags": [
+        "search"
+      ],
+      "mcpMetadata": {
+        "runtimeMode": "streamable-http",
+        "platforms": [
+          "unknown"
+        ],
+        "permissionScopes": [
+          "unknown"
+        ],
+        "authentication": "unknown",
+        "publisherType": "unknown",
+        "installable": false
+      },
+      "detail": {
+        "i18n": {
+          "zh": {
+            "name": "学术搜索",
+            "description": "搜索论文与引用信息",
+            "tags": [
+              "search"
+            ]
+          },
+          "en": {
+            "name": "Academic search",
+            "description": "Search papers and citations"
+          }
+        },
+        "meta": []
+      },
+      "source": {
+        "path": "mcps/discovery",
+        "contentSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      }
+    }
+  ]
+}

@@ -10,17 +10,17 @@
 市场现在按用途分成两类清单：
 
 - **可安装清单**：根目录 [`marketplace.json`](marketplace.json) 及兼容副本 [`.567agent/marketplace.json`](.567agent/marketplace.json)、[`.vetta/marketplace.json`](.vetta/marketplace.json)。这里仅发布可直接分发的 Skills、维护者审核过的 MCP 和其他能力；对应内容在 `skills/` 与 `mcps/`，客户端仍通过主分支归档安装。
-- **MCP 发现目录**：同步器生成到 `catalog-dist/`，工作流将它发布到独立的 [`catalog` 分支](https://github.com/Chinachani/567-agent-marketplace/tree/catalog)。`index.json` 记录清单版本、分类计数和分片摘要；`shards/` 按分类和大小拆分尚未审核的 MCP 候选；`classification-suggestions.json` 供维护者审核。客户端只把候选作为只读信息展示，不会提供安装入口。
+- **MCP 发现目录**：同步器生成到 `catalog-dist/`，工作流将它发布到独立的 [`catalog` 分支](https://github.com/Chinachani/567-agent-marketplace/tree/catalog)。新版入口 `v2/index.json` 按分类链接到分页索引和搜索/详情分片；旧入口 `index.json` 保留兼容。`classification-suggestions.json` 供维护者审核。客户端只把候选作为只读信息展示，不会提供安装入口。
 
 发现目录的更新不会提高 `marketplaceVersion`，也不会让客户端重下 Skills 归档；可安装能力变化才会更新主清单版本。当前维护者确认的 MCP 安装元数据记录在 [`mcp-curation.json`](mcp-curation.json) 中；新增上游候选须经审核后才会进入可安装范围。兼容客户端仍可使用旧主分支清单；新客户端优先读取 `catalog` 分支，缺少该分支时沿用已缓存目录。
 
 ## 当前运行状态
 
-2026-11-03 核对：容量去重修复后的 [#53](https://github.com/Chinachani/567-agent-marketplace/actions/runs/40646474687) 至 [#58](https://github.com/Chinachani/567-agent-marketplace/actions/runs/41395088059) 连续六次同步发布成功。11 月 2 日的发布快照包含 **67,654 个 MCP 发现项**、142 个完整分片，完整内容约 **95.19 MiB**，搜索摘要约 **40.11 MiB**。这些是指定日期的快照，实时数量以 `catalog` 分支的 `index.json` 为准。
+2026-11-03 核对：容量去重修复后的 [#53](https://github.com/Chinachani/567-agent-marketplace/actions/runs/40646474687) 至 [#58](https://github.com/Chinachani/567-agent-marketplace/actions/runs/41395088059) 连续六次同步发布成功。11 月 2 日的发布快照包含 **67,654 个 MCP 发现项**、142 个完整分片，完整内容约 **95.19 MiB**，旧版搜索摘要约 **40.11 MiB**。这些是指定日期的快照；v2 发布后实时数量以 `catalog` 分支的 `v2/index.json` 为准，旧入口可能冻结。
 
 成功发布不等于所有外部服务都正常：#58 的 mcpHQ 源发生 DNS 故障，已保留原有 228 个条目；翻译接口也有超时。该快照中非空描述仅 26 条不含中文，日志里大量待补项目主要是名称，不能把名称与描述合计的失败数理解为同样数量的 MCP 没有中文介绍。品牌名、缩写和 `owner/repository` 标识允许保留原文。
 
-当前完整目录接近 100 MiB 的客户端合同上限。去重只能缓解体积问题；长期扩容需要与 567 Agent 共同实现分页目录，见下文“容量与后续扩容”。
+能力库已实现 **schemaVersion 2 分页目录生成和双版本发布**，不再用 100 MiB 限制新版目录总量。567 Agent 客户端仍需接入新协议，工程交接说明和验收清单见 [`docs/mcp-catalog-v2.md`](docs/mcp-catalog-v2.md)。使用上述快照本地验证得到 13 个目录页、142 组搜索/详情分片；v2 搜索摘要因包含完整筛选元数据约为 51.90 MiB，客户端按需读取。
 
 ## 仓库结构
 
@@ -35,13 +35,21 @@ main 分支
 ├── marketplace_sync.py                 # 上游列表、分类与内容处理
 ├── sync_marketplace.py                 # 采集、翻译、缓存与目录生成
 ├── marketplace_contract.py             # 发布字段校验
+├── discovery_catalog.py                # v2 分页目录与旧快照校验
+├── docs/mcp-catalog-v2.md               # Agent 客户端接入合同及验收项
+├── fixtures/mcp-catalog-v2/             # 可独立验证的客户端测试样例
 ├── tests/                              # 采集、翻译与分发回归测试
 └── .github/workflows/sync-marketplace.yml
 
 catalog 分支（由 catalog-dist/ 发布）
-├── index.json                          # 版本、分类计数、文件大小及 SHA-256
-├── search/                             # 搜索摘要分片
-├── shards/                             # MCP 完整详情分片
+├── v2/
+│   ├── index.json                      # 全量分类计数、首个页索引及 v1 状态
+│   ├── pages/<category>/               # 每页最多 64 组分片描述符，含下一页摘要
+│   ├── search/                         # 按需加载的摘要及完整筛选元数据
+│   └── shards/                         # 打开详情时读取
+├── index.json                          # v1 兼容索引；超限时保留完整旧快照
+├── search/                             # v1 搜索摘要分片
+├── shards/                             # v1 完整详情分片
 ├── classification-suggestions.json     # 待维护者确认的分类建议
 ├── catalog-state.json.gz               # 下次采集的完整状态，含原文及译文
 └── translation-cache.json.gz            # 翻译检查点，可跨运行恢复
@@ -115,19 +123,21 @@ python3 sync_marketplace.py
 
 ## 搜索索引与详情按需加载
 
-`catalog/index.json` 保留旧 `shards`，同时提供 `searchShards`。搜索分片只包含可搜索摘要、受控分类/标签和 `detailShard` 定位，不包含执行配置；客户端首次浏览下载搜索分片，打开详情时按固定 Git commit 下载对应完整分片。两类分片均校验 SHA-256、字节数、条目数和分类。旧客户端继续读取 `shards`。
+新版从 `catalog` 分支的 `v2/index.json` 读取分类计数及首个页索引，沿 `next` 获取后续页。每个页内提供搜索/详情的配对描述符及 facets（分类范围或分片范围内的筛选值计数）。搜索摘要包含受控分类/标签、完整 `mcpMetadata` 和 `detailShard` 定位，不含执行配置；打开详情时才读取完整分片。所有文件固定到同一 Git commit，并校验 SHA-256、字节数、版本、条目数和分类。旧 `index.json`、`shards`、`searchShards` 协议继续保留。
+
+关键词搜索需要渐进扫描对应分类的搜索分片；本仓库不提供远端搜索 API。尚未扫描完或存在失败分片时，应显示部分结果状态。facets 可排除不可能命中的分片，多标签交集仍需检查记录本身。
 
 安装主清单在发布前经过出口校验；非法版本等条目跳过，旧镜像只有合同有效且通过内容检查才可保留。客户端带 Token 读取 GitHub Contents 时必须使用 `application/vnd.github.raw+json`，不能依赖大于 1MB 文件的 base64 JSON 响应。
 
-单个分片最多 500 条、1 MiB。原始完整目录超过 100 MiB 时，生成器会从完整分片的 `detail.i18n.zh` 中省略与顶层 `name`、`description` 或 `tags` 完全相同的字段；英文及不同的中文内容保留。搜索摘要也使用顶层字段回退，省略值不能变成空字符串覆盖中文说明。Registry 更新时间仅保存在采集状态中，不计入发布摘要与内容版本，避免只有时间戳变化时重复下载。
+单个分片最多 500 条、1 MiB；v2 根索引和页索引最多 256 KiB，每页最多 64 组分片。v2 总是省略 `detail.i18n.zh` 中与顶层 `name`、`description` 或 `tags` 完全相同的字段，v1 在容量紧张时才进行这项去重；英文及不同的中文内容保留。搜索摘要也使用顶层字段回退，省略值不能变成空字符串覆盖中文说明。Registry 更新时间仅保存在采集状态中，不计入发布摘要与内容版本，避免只有时间戳变化时重复下载。
 
-## 容量与后续扩容
+## 容量与客户端迁移
 
-**当前已实现的 schemaVersion 1 合同**仍为最多 100,000 条、250 个完整分片、100 MiB 完整内容；超过 80% 输出告警，越界则中止暂存发布，保留上一版。客户端也校验总容量，因此不能只在生成器中调大常量；Git LFS 或 gzip 文件替换也不能被当前 JSON 读取协议直接消费。
+**schemaVersion 2 已实现生成端**：全量记录按分类、页和分片发布，搜索和详情均按字节数及条数拆分。取消旧的总记录数、总分片数和总字节限制，用单文件边界及客户端加载/缓存预算控制资源。单条非法或超大记录仍会拒绝发布；上游和翻译服务故障、Git 托管空间及历史增长需分别处理。
 
-**后续需要与 567 Agent 联动的方案，尚未实现**：增加版本化的分页索引，以分类和页为单位发布。页索引携带版本、条目计数、文件大小和 SHA-256；搜索与详情按页下载，单请求维持大小上限，用分页和本地缓存预算控制开销，不再以“整个市场最多 100 MiB”为边界。旧协议在迁移期保持兼容，不能静默删除超限条目或让旧客户端把分页子集当作全量。
+**schemaVersion 1 兼容合同**仍为最多 100,000 条、250 个完整分片、搜索/详情各不超过 100 MiB。容量内继续生成最新 v1；超限后逐片校验并保留上一份完整旧快照，同时继续发布全量 v2。v2 根索引的 `legacy.status` 明示 `current`、`frozen` 或 `unavailable`。没有有效旧快照时只发布 v2，不制造空 v1，也不截断目录伪装全量。采集状态和翻译缓存始终保持最新。
 
-567 Agent 需要配合：识别新索引版本；按页查询、加载更多并显示加载状态；分类和标签筛选覆盖尚未下载的页；详情与搜索固定到同一个 commit；校验每页摘要并允许失败页单独重试；限制本地缓存容量。这个协议升级完成前，容量增长仍可能触发保护性中止，去重修复不代表取消了容量上限。
+567 Agent 需要配合：识别 v2；按页查询和加载更多；分类、标签及独立元数据筛选覆盖尚未下载的页；展示渐进搜索状态；详情与搜索固定到同一个 commit；校验每页摘要并允许失败页单独重试；限制本地缓存容量。详细字段、路径、回退策略和测试样例见[客户端接入文档](docs/mcp-catalog-v2.md)。客户端升级前仍使用 v1；如果 v1 已冻结，只有升级后才能看到新增发现项。
 
 ## 隔离与来源追溯
 
