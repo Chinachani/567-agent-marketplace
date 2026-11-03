@@ -5,7 +5,7 @@ import unittest
 import subprocess
 import json
 import threading
-from unittest.mock import patch
+from unittest.mock import call, patch
 from datetime import date
 from pathlib import Path
 
@@ -586,6 +586,77 @@ class MarketplaceSyncTests(unittest.TestCase):
         translate.assert_not_called()
         self.assertEqual(sync_marketplace.TRANSLATION_SINGLE_FALLBACK_USED, 0)
 
+    def test_confirmed_proper_name_resumes_without_retry_or_description_cache_pollution(self):
+        name = "eVoost AI"
+        with tempfile.TemporaryDirectory() as temp:
+            checkpoint = Path(temp) / "translation-cache.json.gz"
+            with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+                sync_marketplace, "_request_translation", return_value=json.dumps([
+                    {"id": 0, "translation": name, "keepOriginal": True}
+                ])
+            ) as request, patch.object(sync_marketplace, "translate_to_chinese") as fallback:
+                self.assertEqual(sync_marketplace.translate_texts([name], "names", names=True), [name])
+                request.assert_called_once()
+                fallback.assert_not_called()
+            self.assertEqual(sync_marketplace.TRANSLATION_SINGLE_FALLBACK_USED, 0)
+            sync_marketplace.write_translation_checkpoint(checkpoint)
+            sync_marketplace.TRANSLATION_CACHE.clear()
+            sync_marketplace.load_translation_checkpoint(checkpoint)
+            with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+                sync_marketplace, "_request_translation"
+            ) as request:
+                self.assertEqual(sync_marketplace.translate_texts([name], "names", names=True), [name])
+                request.assert_not_called()
+            # The identical text used as prose must still require a Chinese result.
+            with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+                sync_marketplace, "translate_to_chinese", return_value="智能服务"
+            ) as translate:
+                self.assertEqual(sync_marketplace.translate_texts([name], "descriptions"), ["智能服务"])
+                translate.assert_called_once_with(name)
+
+    def test_name_batches_preserve_identity_by_id_and_require_explicit_exact_confirmation(self):
+        good = json.dumps([
+            {"id": 1, "translation": "文件系统工具"},
+            {"id": 0, "translation": "eVoost AI", "keepOriginal": True},
+        ])
+        with patch.object(sync_marketplace, "_request_translation", return_value=good):
+            result = sync_marketplace._translate_batch(["eVoost AI", "Filesystem tools"], names=True)
+        self.assertEqual(result, ["eVoost AI", "文件系统工具"])
+        self.assertEqual(result.preserved_names, {0})
+        for response in (
+            [{"id": 0, "translation": "eVoost AI"}],
+            [{"id": 0, "translation": "Different brand", "keepOriginal": True}],
+            [{"id": 0, "translation": "eVoost AI", "keepOriginal": "true"}],
+            [{"id": 1, "translation": "eVoost AI", "keepOriginal": True}],
+        ):
+            with self.subTest(response=response), patch.object(
+                sync_marketplace, "_request_translation", return_value=json.dumps(response)
+            ), patch.object(sync_marketplace, "translate_to_chinese", return_value="eVoost AI"):
+                result = sync_marketplace._translate_batch(["eVoost AI"], names=True)
+                self.assertFalse(result.preserved_names)
+
+    def test_failed_name_requests_are_not_persisted_as_successful_preservations(self):
+        for error in (TimeoutError("timeout"), sync_marketplace.TranslationCircuitOpen("open")):
+            with self.subTest(error=error), patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
+                sync_marketplace, "_request_translation", side_effect=error
+            ):
+                self.assertEqual(sync_marketplace.translate_texts(["eVoost AI"], "names", names=True), ["eVoost AI"])
+                self.assertEqual(sync_marketplace.TRANSLATION_CACHE, {})
+
+    def test_legacy_chinese_name_cache_is_reused_and_bad_preservation_checkpoints_are_ignored(self):
+        name = "Example Brand"
+        digest = hashlib.sha256(name.encode("utf-8")).hexdigest()
+        with tempfile.TemporaryDirectory() as temp:
+            checkpoint = Path(temp) / "translation-cache.json.gz"
+            checkpoint.write_bytes(gzip.compress(json.dumps({
+                digest: "示例品牌", "name:" + digest: "Wrong name", "bad": "English only"
+            }).encode()))
+            sync_marketplace.load_translation_checkpoint(checkpoint)
+        self.assertEqual(dict(sync_marketplace.TRANSLATION_CACHE), {digest: "示例品牌"})
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(sync_marketplace, "_translate_batch") as batch:
+            self.assertEqual(sync_marketplace.translate_texts([name], "names", names=True), ["示例品牌"])
+            batch.assert_not_called()
+
     def test_single_translation_token_limit_scales_with_source_length(self):
         with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
             sync_marketplace, "_request_translation", return_value="中文译文"
@@ -693,17 +764,17 @@ class MarketplaceSyncTests(unittest.TestCase):
         with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(
             sync_marketplace,
             "translate_texts",
-            return_value=["学术论文搜索与引文分析。", "学术研究智能 MCP"],
+            side_effect=[["学术论文搜索与引文分析。"], ["学术研究智能 MCP"]],
         ) as translate:
             localized = sync_marketplace.translate_mcp_fields(servers, {})
         self.assertEqual(localized["academic-research"], {
             "name": "学术研究智能 MCP",
             "description": "学术论文搜索与引文分析。",
         })
-        translate.assert_called_once_with(
-            ["Academic paper search and citation analysis.", "Academic Research Intelligence MCP"],
-            "MCP names/descriptions",
-        )
+        self.assertEqual(translate.call_args_list, [
+            call(["Academic paper search and citation analysis."], "MCP descriptions"),
+            call(["Academic Research Intelligence MCP"], "MCP names", names=True),
+        ])
 
     def test_mcp_repository_identifier_name_is_not_retried_as_prose(self):
         servers = {"origin": {"name_en": "7xuanlu/origin", "description_en": "A useful MCP server."}}
@@ -712,7 +783,17 @@ class MarketplaceSyncTests(unittest.TestCase):
         ) as translate:
             localized = sync_marketplace.translate_mcp_fields(servers, {})
         self.assertEqual(localized["origin"], {"name": "7xuanlu/origin", "description": "一个有用的 MCP 服务。"})
-        translate.assert_called_once_with(["A useful MCP server."], "MCP names/descriptions")
+        translate.assert_called_once_with(["A useful MCP server."], "MCP descriptions")
+
+    def test_compacted_previous_mcp_reuses_chinese_fields_without_translation_requests(self):
+        previous = {"brand": {"name": "示例品牌", "description": "功能说明", "detail": {"i18n": {
+            "en": {"name": "Example Brand", "description": "Feature description"}, "zh": {}
+        }}}}
+        servers = {"brand": {"name_en": "Example Brand", "description_en": "Feature description"}}
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), patch.object(sync_marketplace, "translate_texts") as translate:
+            result = sync_marketplace.translate_mcp_fields(servers, previous)
+        self.assertEqual(result, {"brand": {"name": "示例品牌", "description": "功能说明"}})
+        translate.assert_not_called()
 
     def test_mcp_record_uses_chinese_name_and_description_for_default_display(self):
         discovery = {
@@ -954,11 +1035,20 @@ class MarketplaceSyncTests(unittest.TestCase):
         compact_size = len(json.dumps({"schemaVersion": 1, "catalogVersion": "1", "category": record["category"], "abilities": [compact]},
                                       ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
         self.assertLess(compact_size, len(raw))
+        with tempfile.TemporaryDirectory() as temp:
+            index = sync_marketplace.build_discovery_distribution(
+                {"marketplaceVersion": "1", "discoveryVersion": "1", "discoveryAbilities": [record]}, Path(temp)
+            )
+            original_summary = json.loads((Path(temp) / index["searchShards"][0]["path"]).read_text())
         with tempfile.TemporaryDirectory() as temp, patch.object(sync_marketplace, "DISCOVERY_MAX_BYTES", compact_size):
             index = sync_marketplace.build_discovery_distribution(
                 {"marketplaceVersion": "1", "discoveryVersion": "1", "discoveryAbilities": [record]}, Path(temp)
             )
             payload = json.loads((Path(temp) / index["shards"][0]["path"]).read_text())
+            compacted_summary = json.loads((Path(temp) / index["searchShards"][0]["path"]).read_text())
+        # Compaction must never introduce an empty locale override that masks the
+        # Chinese top-level description. Both search presentations are identical.
+        self.assertEqual(compacted_summary, original_summary)
         published = payload["abilities"][0]
         self.assertEqual(published["name"], record["name"])
         self.assertEqual(published["description"], record["description"])

@@ -179,9 +179,20 @@ class TranslationCircuitOpen(RuntimeError):
 class TranslationBatchResult(list):
     """List-compatible batch output with the number of items skipped by safeguards."""
 
-    def __init__(self, values, deferred_count: int = 0):
+    def __init__(self, values, deferred_count: int = 0, preserved_names=()):
         super().__init__(values)
         self.deferred_count = deferred_count
+        self.preserved_names = frozenset(preserved_names)
+
+
+def _translation_cache_key(text: str, *, names: bool = False) -> str:
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    # Keep model-approved original names separate from strict Chinese prose.
+    return f"name:{digest}" if names else digest
+
+
+def _valid_translation_cache_value(key: str, value: str) -> bool:
+    return has_chinese(value) or bool(value.strip() and key == _translation_cache_key(value, names=True))
 
 
 def _record_translation_failure() -> None:
@@ -307,15 +318,18 @@ def _translation_groups(texts: list[str]) -> list[list[str]]:
     return groups
 
 
-def _translate_batch(texts: list[str]) -> list[str]:
-    if len(texts) == 1:
+def _translate_batch(texts: list[str], *, names: bool = False) -> list[str]:
+    if len(texts) == 1 and not names:
         translated, deferred = _translate_to_chinese_with_status(texts[0])
         return TranslationBatchResult([translated], int(deferred))
     prompt = json.dumps([{"id": index, "text": text} for index, text in enumerate(texts)], ensure_ascii=False)
+    instructions = "把输入数组中每个 AI 能力名称或说明翻译成自然、简洁的简体中文。保留常见产品名、专有名词和缩写。必须返回 JSON 对象数组，每项包含原样的 id 和 translation 字段；每个输入 id 必须且只能出现一次，不要输出 Markdown 或解释。"
+    if names:
+        instructions += "本批全部是名称。普通英语功能词仍需翻译；如果整个名称只有应保留的品牌、专有名词或缩写，请原样返回 translation，并显式添加 keepOriginal: true。其它项不得添加 keepOriginal: true。"
     try:
         content = _request_translation(
             [
-                {"role": "system", "content": "把输入数组中每个 AI 能力名称或说明翻译成自然、简洁的简体中文。保留常见产品名、专有名词和缩写。必须返回 JSON 对象数组，每项包含原样的 id 和 translation 字段；每个输入 id 必须且只能出现一次，不要输出 Markdown 或解释。"},
+                {"role": "system", "content": instructions},
                 {"role": "user", "content": prompt},
             ],
             min(6000, max(512, len(texts) * 240)),
@@ -329,6 +343,7 @@ def _translate_batch(texts: list[str]) -> list[str]:
         if not isinstance(parsed, list) or len(parsed) != len(texts):
             raise ValueError("translation batch returned an invalid item count")
         translations_by_id = {}
+        preserved_names = set()
         for item in parsed:
             if not isinstance(item, dict):
                 raise ValueError("translation batch item is not an object")
@@ -338,17 +353,24 @@ def _translate_batch(texts: list[str]) -> list[str]:
                 raise ValueError("translation batch item has an invalid id or translation")
             if item_id in translations_by_id:
                 raise ValueError("translation batch returned a duplicate id")
+            if names and item.get("keepOriginal") is True:
+                if item_id not in range(len(texts)) or translated != texts[item_id]:
+                    raise ValueError("translation batch changed a preserved name")
+                preserved_names.add(item_id)
             translations_by_id[item_id] = translated.strip()
         expected_ids = set(range(len(texts)))
         if set(translations_by_id) != expected_ids:
             raise ValueError("translation batch omitted or changed an id")
-        needs_fallback = [index for index, value in translations_by_id.items() if not has_chinese(value)]
+        needs_fallback = [index for index, value in translations_by_id.items()
+                          if not has_chinese(value) and index not in preserved_names]
         fallback_allowed = _reserve_single_fallback(len(needs_fallback)) if needs_fallback else True
         results = []
         deferred_count = 0 if fallback_allowed else len(needs_fallback)
         for index, original in enumerate(texts):
             translated = translations_by_id[index]
-            if not has_chinese(translated):
+            if index in preserved_names:
+                results.append(original)
+            elif not has_chinese(translated):
                 if fallback_allowed:
                     translated, deferred = _translate_to_chinese_with_status(original)
                     deferred_count += int(deferred)
@@ -357,7 +379,7 @@ def _translate_batch(texts: list[str]) -> list[str]:
                     results.append(original)
             else:
                 results.append(translated)
-        return TranslationBatchResult(results, deferred_count)
+        return TranslationBatchResult(results, deferred_count, preserved_names)
     except TranslationCircuitOpen:
         return TranslationBatchResult(texts, len(texts))
     except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError) as error:
@@ -376,7 +398,7 @@ def _translate_batch(texts: list[str]) -> list[str]:
         return TranslationBatchResult(results, deferred_count)
 
 
-def translate_texts(texts: list[str], label: str) -> list[str]:
+def translate_texts(texts: list[str], label: str, *, names: bool = False) -> list[str]:
     """Translate all distinct pending strings in bounded parallel batches."""
     if not API_KEY:
         safe_log(f"API_567_KEY is unavailable; {len(texts)} {label} stay in their source language")
@@ -384,13 +406,16 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
     unique = list(dict.fromkeys(text for text in texts if text and not has_chinese(text)))
     if not unique:
         return texts
-    cached_by_text = {
-        text: TRANSLATION_CACHE[hashlib.sha256(text.encode("utf-8")).hexdigest()]
-        for text in unique
-        if has_chinese(TRANSLATION_CACHE.get(hashlib.sha256(text.encode("utf-8")).hexdigest(), ""))
-    }
-    for text in cached_by_text:
-        TRANSLATION_CACHE.move_to_end(hashlib.sha256(text.encode("utf-8")).hexdigest())
+    cached_by_text = {}
+    for text in unique:
+        key = _translation_cache_key(text, names=names)
+        # Reuse pre-migration Chinese name translations without re-paying for them.
+        if names and key not in TRANSLATION_CACHE:
+            key = _translation_cache_key(text)
+        value = TRANSLATION_CACHE.get(key, "")
+        if _valid_translation_cache_value(key, value):
+            cached_by_text[text] = value
+            TRANSLATION_CACHE.move_to_end(key)
     unique = [text for text in unique if text not in cached_by_text]
     if not unique:
         return [cached_by_text.get(text, text) for text in texts]
@@ -403,25 +428,33 @@ def translate_texts(texts: list[str], label: str) -> list[str]:
         flush=True,
     )
     translated_by_text = {}
+    preserved_by_text = set()
     circuit_deferred = 0
     with ThreadPoolExecutor(max_workers=TRANSLATION_WORKERS, thread_name_prefix="translation") as executor:
-        futures = {executor.submit(_translate_batch, group): group for group in groups}
+        futures = {executor.submit(_translate_batch, group, **({"names": True} if names else {})): group for group in groups}
         for index, future in enumerate(as_completed(futures), start=1):
             group = futures[future]
             results = future.result()
             circuit_deferred += getattr(results, "deferred_count", 0)
             translated_by_text.update(zip(group, results))
-            for source, translated in zip(group, results):
-                if has_chinese(translated):
-                    key = hashlib.sha256(source.encode("utf-8")).hexdigest()
+            for item_index, (source, translated) in enumerate(zip(group, results)):
+                preserved = names and item_index in getattr(results, "preserved_names", ()) and translated == source
+                if preserved:
+                    preserved_by_text.add(source)
+                if has_chinese(translated) or preserved:
+                    key = _translation_cache_key(source, names=names)
                     TRANSLATION_CACHE[key] = translated
                     TRANSLATION_CACHE.move_to_end(key)
             if len(TRANSLATION_CACHE) > TRANSLATION_CACHE_MAX_ENTRIES:
                 _prune_translation_cache()
+            if index % 25 == 0 or index == len(groups):
+                safe_log(f"Translation progress: {index}/{len(groups)} batches for {label}", flush=True)
             if index % TRANSLATION_CHECKPOINT_BATCHES == 0:
                 _persist_translation_checkpoint()
     _prune_translation_cache()
-    unresolved = sum(1 for text in current if not has_chinese(translated_by_text.get(text, text)))
+    unresolved = sum(1 for text in current if text not in preserved_by_text and not has_chinese(translated_by_text.get(text, text)))
+    if preserved_by_text:
+        safe_log(f"Preserved {len(preserved_by_text)} model-confirmed proper names; cached separately from descriptions")
     with TRANSLATION_DIAGNOSTIC_LOCK:
         no_chinese_retries = TRANSLATION_NO_CHINESE_RETRIES - no_chinese_retries_before
     if no_chinese_retries:
@@ -452,7 +485,7 @@ def load_translation_checkpoint(path: Path | None = None) -> None:
             cached = json.load(handle)
         if isinstance(cached, dict):
             TRANSLATION_CACHE.update({key: value for key, value in cached.items()
-                                      if isinstance(key, str) and isinstance(value, str) and has_chinese(value)})
+                                      if isinstance(key, str) and isinstance(value, str) and _valid_translation_cache_value(key, value)})
             _prune_translation_cache()
             safe_log(f"Restored {len(TRANSLATION_CACHE)} resumable translation checkpoints")
     except (OSError, EOFError, zlib.error, UnicodeError, json.JSONDecodeError) as error:
@@ -994,13 +1027,13 @@ def suggest_mcp_classification(name: str, description: str) -> dict:
 
 
 def translate_mcp_fields(servers: dict[str, dict], previous_abilities: dict[str, dict]) -> dict[str, dict[str, str]]:
-    """Translate MCP names/descriptions and reuse only verified Chinese cache entries."""
+    """Prioritize descriptions, then translate names or retain confirmed proper names."""
     if not API_KEY:
         safe_log("API_567_KEY is unavailable; MCP names and descriptions remain in their source language")
         return {}
     translations: dict[str, dict[str, str]] = {}
-    pending_keys = []
-    pending_texts = []
+    pending_keys = {"description": [], "name": []}
+    pending_texts = {"description": [], "name": []}
     for slug, server in servers.items():
         previous = previous_abilities.get(slug, {})
         i18n = previous.get("detail", {}).get("i18n", {})
@@ -1020,16 +1053,20 @@ def translate_mcp_fields(servers: dict[str, dict], previous_abilities: dict[str,
                 translations[slug][field] = source_text
                 continue
             old_english = i18n.get("en", {}).get(field)
-            old_chinese = i18n.get("zh", {}).get(field)
+            old_chinese = i18n.get("zh", {}).get(field, previous.get(field))
             if old_english == source_text and old_chinese and has_chinese(old_chinese):
                 translations[slug][field] = old_chinese
             else:
-                pending_keys.append((slug, field))
-                pending_texts.append(source_text)
-    if pending_texts:
-        translated = translate_texts(pending_texts, "MCP names/descriptions")
-        for (slug, field), text in zip(pending_keys, translated):
-            translations.setdefault(slug, {})[field] = text
+                pending_keys[field].append(slug)
+                pending_texts[field].append(source_text)
+    # Descriptions have priority; untranslated product names must not exhaust
+    # the fallback budget before explanatory prose gets a chance to translate.
+    for field in ("description", "name"):
+        if pending_texts[field]:
+            options = {"names": True} if field == "name" else {}
+            translated = translate_texts(pending_texts[field], f"MCP {field}s", **options)
+            for slug, text in zip(pending_keys[field], translated):
+                translations.setdefault(slug, {})[field] = text
     return translations
 
 
@@ -1788,7 +1825,7 @@ def build_discovery_distribution(manifest: dict, output_dir: Path) -> dict:
                     "mcpMetadata": {"installable": False}, "detailShard": f"shards/{shard_name}"})
                 localized = item.get("detail", {}).get("i18n", {})
                 summary["detail"] = {"i18n": {locale: {key: value for key, value in {
-                    "name": data.get("name", item["name"]), "description": data.get("description", "")[:320]
+                    "name": data.get("name", item["name"]), "description": data.get("description", item.get("description", ""))[:320]
                 }.items() if value != summary.get(key)} for locale, data in localized.items() if locale in {"en", "zh"}}}
                 summaries.append(summary)
             search_payload = json.dumps({"schemaVersion": 1, "catalogVersion": manifest["discoveryVersion"],
