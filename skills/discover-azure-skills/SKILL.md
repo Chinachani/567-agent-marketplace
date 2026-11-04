@@ -1,11 +1,11 @@
 ---
 name: "discover-azure-skills"
 description: "检索 Azure 技能目录，根据任务需求精准匹配元数据与安装指引，推荐可安装的智能体技能。适用时机：在处理涉及 Azure 或微软云服务、产品及数据源的任务前，若当前已加载的工具无法满足需求，请使用此技能。"
-version: "1.0.1"
+version: "1.0.2"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.0.1"
+  version: "1.0.2"
 ---
 Follow these steps to discover the available azure skill matching the given task description.
 
