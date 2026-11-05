@@ -1,11 +1,11 @@
 ---
 name: "azure-ai"
-description: "适用于 Azure AI 服务（包括 AI 搜索、语音服务、OpenAI 及文档智能）。支持全文检索、向量/混合/语义搜索、语音转文字、文字转语音、音频转写与 OCR 识别。当需要执行 AI 搜索、复杂检索，或处理语音互转和文档文字提取时调用。"
-version: "1.2.2"
+description: "构建和排查 Azure AI Search、Speech、OpenAI 及 Document Intelligence 应用。适用场景：AI Search、查询搜索、向量搜索、混合搜索、语义搜索、语音转文本、文本转语音、转录、Speech SDK 日志、session ID、result ID、OCR、文本转语音。"
+version: "1.2.3"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.2"
+  version: "1.2.3"
 ---
 # Azure AI Services
 
@@ -14,7 +14,7 @@ metadata:
 | Service | Use When | MCP Tools | CLI |
 |---------|----------|-----------|-----|
 | AI Search | Full-text, vector, hybrid search | `azure__search` | `az search` |
-| Speech | Speech-to-text, text-to-speech | `azure__speech` | - |
+| Speech | Speech-to-text, text-to-speech, SDK logs | `azure__speech` | - |
 | OpenAI | GPT models, embeddings, DALL-E | - | `az cognitiveservices` |
 | Document Intelligence | Form extraction, OCR | - | - |
 
@@ -50,6 +50,7 @@ When Azure MCP is enabled:
 | Text-to-speech | Neural voices, SSML support |
 | Speaker diarization | Identify who spoke when |
 | Custom models | Domain-specific vocabulary |
+| Client SDK diagnostics | [Speech SDK client diagnostics](references/speech/diagnostics.md) for log collection, offline analysis, features, and session/result IDs (no MCP or login required) |
 
 ## SDK Quick References
 
@@ -69,4 +70,5 @@ For deep documentation on specific services:
 
 - AI Search indexing and queries -> [Azure AI Search documentation](https://learn.microsoft.com/azure/search/search-what-is-azure-search)
 - Speech transcription patterns -> [Azure AI Speech documentation](https://learn.microsoft.com/azure/ai-services/speech-service/overview)
+- Speech SDK client logs and troubleshooting -> [Speech SDK client diagnostics](references/speech/diagnostics.md)
 
