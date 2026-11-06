@@ -1,6 +1,6 @@
 ---
 name: "azure-advisor"
-description: "Use Azure Advisor. WHEN: \"show recommendations\", \"top Advisor actions\", \"prioritize recommendations\", \"service retirements\", \"update status\". DO NOT USE FOR: fixes (use azure-advisor-actionability)."
+description: "使用 Azure Advisor。适用场景：“显示建议”、“Advisor 热门操作”、“优先处理建议”、“服务退役”、“更新状态”。请勿用于：修复（请使用 azure-advisor-actionability）。"
 version: "1.0.2"
 license: "MIT"
 metadata:
