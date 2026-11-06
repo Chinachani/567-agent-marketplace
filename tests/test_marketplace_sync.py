@@ -26,12 +26,16 @@ import sync_marketplace
 
 class MarketplaceSyncTests(unittest.TestCase):
     def setUp(self):
+        fallback = patch.object(sync_marketplace, "INDEX_TRANSLATE_ENABLED", False)
+        fallback.start()
+        self.addCleanup(fallback.stop)
         sync_marketplace.TRANSLATION_CACHE.clear()
         sync_marketplace.TRANSLATION_SINGLE_FALLBACK_USED = 0
         sync_marketplace.TRANSLATION_FALLBACK_BUDGET_LOGGED = False
         sync_marketplace.TRANSLATION_CIRCUIT_FAILURES = 0
         sync_marketplace.TRANSLATION_CIRCUIT_OPEN = False
         sync_marketplace.TRANSLATION_CIRCUIT_LOGGED = False
+        sync_marketplace.INDEX_TRANSLATE_CLIENT = None
 
     def test_translation_retry_respects_retry_after_header(self):
         error = sync_marketplace.urllib.error.HTTPError(
@@ -49,7 +53,8 @@ class MarketplaceSyncTests(unittest.TestCase):
             self.assertEqual(sync_marketplace._translation_retry_delay(TimeoutError("timed out"), 1), 10.5)
 
     def test_repeated_translation_timeouts_open_circuit_and_stop_new_requests(self):
-        with patch.object(sync_marketplace, "TRANSLATION_CIRCUIT_FAILURE_LIMIT", 1), \
+        with patch.object(sync_marketplace, "API_KEY", "test-key"), \
+             patch.object(sync_marketplace, "TRANSLATION_CIRCUIT_FAILURE_LIMIT", 1), \
              patch.object(sync_marketplace.urllib.request, "urlopen", side_effect=TimeoutError("timed out")) as urlopen, \
              patch.object(sync_marketplace.time, "sleep"):
             with self.assertRaises(sync_marketplace.TranslationCircuitOpen):

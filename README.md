@@ -36,6 +36,7 @@ main 分支
 ├── mcp-curation.json                    # 维护者确认的元数据
 ├── marketplace_sync.py                 # 上游列表、分类与内容处理
 ├── sync_marketplace.py                 # 采集、翻译、缓存与目录生成
+├── translation_fallback.py             # Index-Translate 免费备用接口适配与限速
 ├── marketplace_contract.py             # 发布字段校验
 ├── discovery_catalog.py                # v2 分页目录与旧快照校验
 ├── docs/mcp-catalog-v2.md               # Agent 客户端接入合同及验收项
@@ -93,7 +94,7 @@ MCP 元数据固定写入独立的 `mcpMetadata` 字段：`runtimeMode`、`platf
 
 工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 配置为每天 **00:00 UTC（北京时间 08:00）**触发，实际启动可能因 GitHub 调度延后；也支持在 GitHub Actions 页面手动触发。推送 `marketplace-v*` tag 会触发同步，普通 `main` 推送不会触发。所有触发方式共用一个并发锁，取得锁后 checkout 最新 `main`；tag 和手动所选 ref 作为触发来源，实际采集代码及配置以最新 `main` 为准。工作流先运行测试，恢复上一版采集状态与翻译检查点，再抓取 Skills 与四个 MCP 发现源、生成可安装清单和发现目录：可安装清单及能力文件推送到 `main`，发现索引与分类分片推送到 `catalog`。任务超时为 240 分钟。
 
-翻译需配置 Actions Secret `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时分别使用 `https://api.567.wiki/v1` 和 `gemini-3.8-flash-high`。当前参数如下：
+主翻译接口使用 Actions Secret `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时分别使用 `https://api.567.wiki/v1` 和 `gemini-3.8-flash-high`。工作流默认启用哔哩哔哩 **Index-Translate 免费公开接口作为备用**，无需新增 Secret；未配置主 Key 时也可以单独使用备用接口。当前参数如下：
 
 | 环境变量 | 默认值 / 工作流值 | 作用 |
 | --- | --- | --- |
@@ -102,11 +103,19 @@ MCP 元数据固定写入独立的 `mcpMetadata` 字段：`runtimeMode`、`platf
 | `API_567_MAX_TRANSLATIONS_PER_SYNC` | 200,000，允许 1–200,000 | 每次 `translate_texts` 调用的去重待译文本上限；不是所有阶段的累计 API 调用预算 |
 | `API_567_TRANSLATION_CHECKPOINT_BATCHES` | 250 | 每完成这些批次向 `catalog` 提交一次翻译检查点 |
 | `API_567_TRANSLATION_SINGLE_FALLBACK_ITEMS` | 500 | 每轮单条回退的条目预算 |
-| `API_567_TRANSLATION_CIRCUIT_FAILURE_LIMIT` | 8 | 请求连续失败达到此值后停止新翻译请求，本轮剩余项目延后 |
+| `API_567_TRANSLATION_CIRCUIT_FAILURE_LIMIT` | 8 | 每个接口独立统计连续失败；主接口熔断后仍可使用备用接口 |
+| `API_567_INDEX_TRANSLATE_ENABLED` | 本地默认 `false`，Actions 默认 `true` | 启用免费备用接口；可在 Repository Variables 中设为 `false` 关闭 |
+| `API_567_INDEX_TRANSLATE_MAX_REQUESTS` | 5,000，允许 0–5,000 | 备用接口每轮 HTTP 尝试总预算，含重试；可用同名 Repository Variable 调低 |
+
+备用接口按官方 [`call_api.py`](https://github.com/bilibili/Index-Translate/blob/main/inference/llm/call_api.py) 的协议接入：`https://index-translate.bilibili.com/v1/chat/completions`，模型 `Index-Translate-35B-A3B`，`temperature: 0`，`chat_template_kwargs.enable_thinking: false`。只发送公开能力名称与描述，不发送主接口 Key。这是公开服务，不保证可用性或固定配额；不通过增加并发规避限流。
+
+调用顺序为主接口 → Index-Translate。主接口重试耗尽、认证/HTTP 错误、超时、无效 HTTP 响应或熔断时，本次请求可切换备用。主接口熔断在本轮保持，后续批次直接使用备用，下轮重新尝试主接口。备用接口独立单并发、**每批最多 4 条**，相邻请求启动至少间隔 1 秒，遵从 `Retry-After`（最长等待 60 秒），每个小批最多三次尝试、单次网络超时 45 秒。大批在备用侧拆成小批，用 JSON 对象 key 保留原始 id，再还原统一的 `{id, translation}` 响应；重复、遗漏或被修改的 key 会拒收。备用连续失败达到阈值、遇到不可重试 HTTP 错误或耗尽预算时也会停止请求；原文保留并延后重试。批量 JSON 的 id/中文校验仍由同一条管线执行，语义或格式校验失败沿用原有受预算限制的单条回退，不把接口成功响应等同于翻译成功。
+
+仓库的 [Actions Variables 设置](https://github.com/Chinachani/567-agent-marketplace/settings/variables/actions) 可设置上述两个备用参数；没有设置时工作流即使用默认值。本地需要显式 `API_567_INDEX_TRANSLATE_ENABLED=true python3 sync_marketplace.py` 才开启公开接口。新增备用不会清空缓存或重翻全部已有中文。
 
 MCP 先翻译描述，再翻译名称。新增或原文变化才进入待译队列；已有中文在原文一致时复用。批量响应必须逐项返回 `{id, translation}`，按 id 回填并拒绝缺失、重复或越界 id。描述必须含中文才计为成功；名称若只包含品牌或专有名词，模型可显式返回 `keepOriginal: true`，并且 `translation` 必须与输入完全相同，才接受保留原名。普通名称中的功能词仍要求翻译。名称的保留决定使用独立缓存键，不能当作描述译文复用；超时、失败或无效响应不会产生成功缓存。
 
-每个 HTTP 请求最多尝试三次，单次网络超时为 45 秒，退避遵从 `Retry-After`。无中文响应和格式错误受回退预算约束；失败项目保留原文并在后续运行重试。翻译每完成 25 批输出进度。缓存按原文 SHA-256 索引，最多 100,000 项且未压缩 JSON 不超过 16 MiB，超限时淘汰最久未使用项；检查点采用固定 gzip 时间戳，未变化的内容不会反复提交。运行被取消后，已提交检查点可恢复，检查点之后的结果仍可能需要重做。
+每个接口对同一 HTTP 请求最多尝试三次：例如主接口 24 条批次失败后，备用拆为 6 个小批，正常只需 6 次备用请求；含所有重试最多为主接口 3 次加备用 18 次，熔断和备用总预算可提前终止。无中文响应和批量格式错误受单条回退预算约束；失败项目保留原文并在后续运行重试。翻译每完成 25 批输出进度。缓存按原文 SHA-256 索引，最多 100,000 项且未压缩 JSON 不超过 16 MiB，超限时淘汰最久未使用项；检查点采用固定 gzip 时间戳，未变化的内容不会反复提交。运行被取消后，已提交检查点可恢复，检查点之后的结果仍可能需要重做。
 
 `Translation incomplete` 表示存在未完成翻译，不等于目录发布失败；最终结果应检查生成、推送 `main`、发布 `catalog` 三个步骤。测试阶段会故意打印超时、无效缓存和熔断日志，判断生产故障时应查看 `Run sync and generate catalog` 步骤。
 
@@ -119,7 +128,7 @@ python3 -m unittest discover -s tests -v
 python3 sync_marketplace.py
 ```
 
-第二条命令会下载三个 Skills 来源、读取四个 MCP 发现源和官方 MCP 参考仓库，并更新 `skills/`、`mcps/`、三份可安装清单以及被忽略的 `catalog-dist/` 生成目录。最终清单和完整目录只在工作流中推送；但本地长时间翻译达到检查点间隔时，检查点函数也会尝试推送缓存到 `catalog` 分支。只需验证生成时可不设置 `API_567_KEY`，此时使用原文。需要复用线上数据的本地运行，应先按工作流恢复 `catalog-state.json.gz` 到 `.marketplace-state.json.gz`，并恢复 `translation-cache.json.gz` 到 `.translation-cache.json.gz`。代码或来源配置需先推送到 `main`，再手动触发或等待定时任务生效。
+第二条命令会下载三个 Skills 来源、读取四个 MCP 发现源和官方 MCP 参考仓库，并更新 `skills/`、`mcps/`、三份可安装清单以及被忽略的 `catalog-dist/` 生成目录。最终清单和完整目录只在工作流中推送；但本地长时间翻译达到检查点间隔时，检查点函数也会尝试推送缓存到 `catalog` 分支。只需验证生成时可不设置 `API_567_KEY`，并保持 `API_567_INDEX_TRANSLATE_ENABLED=false`，此时使用原文。需要复用线上数据的本地运行，应先按工作流恢复 `catalog-state.json.gz` 到 `.marketplace-state.json.gz`，并恢复 `translation-cache.json.gz` 到 `.translation-cache.json.gz`。代码或来源配置需先推送到 `main`，再手动触发或等待定时任务生效。
 
 客户端应先固定 `catalog` 分支的 commit SHA，再从该 SHA 下载索引及分片；不要混用可变分支 URL。分片包含完整摘要和字节长度，可独立缓存、校验及重试。可安装清单与发现目录分别加载，单片失败不应隐藏已成功加载的条目。可选图标字段 `icon` 默认空字符串；所有发现项保持不可一键安装，安全性未知。
 

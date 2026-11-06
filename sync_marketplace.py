@@ -28,6 +28,7 @@ from discovery_catalog import (
     DiscoveryCapacityExceeded, build_paged_discovery, preserve_legacy_snapshot, validate_discovery_manifest,
 )
 from skill_content_policy import KEY_PATTERN, redistribution_allowed, scan_skill_tree
+from translation_fallback import IndexTranslateFallback, TranslationCircuitOpen
 
 from marketplace_sync import (
     CATEGORIES,
@@ -53,6 +54,13 @@ API_KEY = os.environ.get("API_567_KEY", "")
 RAW_BASE_URL = (os.environ.get("API_567_BASE_URL") or "https://api.567.wiki/v1").rstrip("/")
 COMPLETIONS_URL = f"{RAW_BASE_URL}/chat/completions" if not RAW_BASE_URL.endswith("/chat/completions") else RAW_BASE_URL
 MODEL = os.environ.get("API_567_MODEL") or "gemini-3.8-flash-high"
+INDEX_TRANSLATE_ENABLED = os.environ.get("API_567_INDEX_TRANSLATE_ENABLED", "false").lower() == "true"
+try:
+    INDEX_TRANSLATE_MAX_REQUESTS = min(5000, max(0, int(os.environ.get("API_567_INDEX_TRANSLATE_MAX_REQUESTS", "5000"))))
+except ValueError:
+    INDEX_TRANSLATE_MAX_REQUESTS = 5000
+INDEX_TRANSLATE_CLIENT = None
+INDEX_TRANSLATE_CLIENT_LOCK = threading.Lock()
 try:
     TRANSLATION_WORKERS = min(16, max(1, int(os.environ.get("API_567_TRANSLATION_WORKERS", "8"))))
 except ValueError:
@@ -175,10 +183,6 @@ def _prune_translation_cache() -> int:
     return removed
 
 
-class TranslationCircuitOpen(RuntimeError):
-    """Raised when upstream translation failures opened the per-run circuit."""
-
-
 class TranslationBatchResult(list):
     """List-compatible batch output with the number of items skipped by safeguards."""
 
@@ -206,7 +210,8 @@ def _record_translation_failure() -> None:
             TRANSLATION_CIRCUIT_OPEN = True
             if not TRANSLATION_CIRCUIT_LOGGED:
                 safe_log(
-                    f"Translation circuit opened after {TRANSLATION_CIRCUIT_FAILURES} upstream failures; deferring remaining batches",
+                    f"Primary translation circuit opened after {TRANSLATION_CIRCUIT_FAILURES} upstream failures; "
+                    + ("using Index-Translate fallback" if INDEX_TRANSLATE_ENABLED else "deferring remaining batches"),
                     flush=True,
                 )
                 TRANSLATION_CIRCUIT_LOGGED = True
@@ -218,7 +223,7 @@ def _record_translation_success() -> None:
         if not TRANSLATION_CIRCUIT_OPEN:
             TRANSLATION_CIRCUIT_FAILURES = 0
 
-def _request_translation(messages: list[dict], max_tokens: int) -> str:
+def _request_primary_translation(messages: list[dict], max_tokens: int) -> str:
     payload = {
         "model": MODEL,
         "messages": messages,
@@ -238,8 +243,12 @@ def _request_translation(messages: list[dict], max_tokens: int) -> str:
         try:
             with urllib.request.urlopen(req, timeout=45) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
+            choice = data["choices"][0]
+            content = choice["message"]["content"]
+            if not isinstance(content, str) or not content.strip() or choice.get("finish_reason") == "length":
+                raise ValueError("invalid or truncated primary translation")
             _record_translation_success()
-            return data["choices"][0]["message"]["content"].strip()
+            return content.strip()
         except urllib.error.HTTPError as error:
             _record_translation_failure()
             if error.code not in {408, 425, 429, 500, 502, 503, 504} or attempt == 2:
@@ -247,7 +256,7 @@ def _request_translation(messages: list[dict], max_tokens: int) -> str:
             wait = _translation_retry_delay(error, attempt)
             safe_log(f"Translation API returned HTTP {error.code}; retrying in {wait}s", flush=True)
             time.sleep(wait)
-        except (urllib.error.URLError, TimeoutError, OSError, json.JSONDecodeError, KeyError, IndexError, TypeError) as error:
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError, KeyError, IndexError, TypeError) as error:
             _record_translation_failure()
             if attempt == 2:
                 raise
@@ -257,9 +266,35 @@ def _request_translation(messages: list[dict], max_tokens: int) -> str:
     raise RuntimeError("Translation retries exhausted")
 
 
+def _translation_enabled():
+    return bool(API_KEY or INDEX_TRANSLATE_ENABLED)
+
+
+def _request_translation(messages: list[dict], max_tokens: int, *, batch_texts=None, names=False) -> str:
+    if API_KEY:
+        try:
+            return _request_primary_translation(messages, max_tokens)
+        except (TranslationCircuitOpen, urllib.error.URLError, OSError, ValueError, KeyError, IndexError, TypeError):
+            if not INDEX_TRANSLATE_ENABLED:
+                raise
+    if INDEX_TRANSLATE_ENABLED:
+        global INDEX_TRANSLATE_CLIENT
+        with INDEX_TRANSLATE_CLIENT_LOCK:
+            if INDEX_TRANSLATE_CLIENT is None:
+                INDEX_TRANSLATE_CLIENT = IndexTranslateFallback(
+                    log=safe_log, retry_delay=_translation_retry_delay,
+                    failure_limit=TRANSLATION_CIRCUIT_FAILURE_LIMIT, request_limit=INDEX_TRANSLATE_MAX_REQUESTS,
+                )
+            client = INDEX_TRANSLATE_CLIENT
+        if batch_texts is not None:
+            return client.request_batch(batch_texts, max_tokens, names=names)
+        return client.request(messages, max_tokens)
+    raise TranslationCircuitOpen("No translation provider is configured")
+
+
 def translate_to_chinese(text: str) -> str:
     TRANSLATION_OUTCOME.deferred = False
-    if not text or has_chinese(text) or not API_KEY:
+    if not text or has_chinese(text) or not _translation_enabled():
         return text
     for attempt in range(2):
         try:
@@ -336,6 +371,7 @@ def _translate_batch(texts: list[str], *, names: bool = False) -> list[str]:
                 {"role": "user", "content": prompt},
             ],
             min(6000, max(512, len(texts) * 240)),
+            batch_texts=texts, names=names,
         )
         candidate = content.strip()
         if candidate.startswith("```"):
@@ -403,8 +439,8 @@ def _translate_batch(texts: list[str], *, names: bool = False) -> list[str]:
 
 def translate_texts(texts: list[str], label: str, *, names: bool = False) -> list[str]:
     """Translate all distinct pending strings in bounded parallel batches."""
-    if not API_KEY:
-        safe_log(f"API_567_KEY is unavailable; {len(texts)} {label} stay in their source language")
+    if not _translation_enabled():
+        safe_log(f"No translation provider configured; {len(texts)} {label} stay in their source language")
         return texts
     unique = list(dict.fromkeys(text for text in texts if text and not has_chinese(text)))
     if not unique:
@@ -546,7 +582,7 @@ def _persist_translation_checkpoint() -> None:
 
 def translate_skill_descriptions(source, repository_root: Path, skill_files: list[Path], previous_abilities: dict[str, dict]):
     """Translate missing descriptions concurrently while keeping catalog order stable."""
-    if not API_KEY:
+    if not _translation_enabled():
         return {}
 
     translations = {}
@@ -1031,8 +1067,8 @@ def suggest_mcp_classification(name: str, description: str) -> dict:
 
 def translate_mcp_fields(servers: dict[str, dict], previous_abilities: dict[str, dict]) -> dict[str, dict[str, str]]:
     """Prioritize descriptions, then translate names or retain confirmed proper names."""
-    if not API_KEY:
-        safe_log("API_567_KEY is unavailable; MCP names and descriptions remain in their source language")
+    if not _translation_enabled():
+        safe_log("No translation provider configured; MCP names and descriptions remain in their source language")
         return {}
     translations: dict[str, dict[str, str]] = {}
     pending_keys = {"description": [], "name": []}
