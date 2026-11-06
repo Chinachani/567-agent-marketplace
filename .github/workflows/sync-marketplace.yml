@@ -25,6 +25,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # A queued event can reference the commit from before the previous
+          # sync pushed its results. Resolve main after acquiring the shared
+          # concurrency lock so this run builds on the latest published state.
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5

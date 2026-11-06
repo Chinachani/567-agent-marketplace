@@ -16,9 +16,11 @@
 
 ## 当前运行状态
 
-2026-11-03 核对：容量去重修复后的 [#53](https://github.com/Chinachani/567-agent-marketplace/actions/runs/40646474687) 至 [#58](https://github.com/Chinachani/567-agent-marketplace/actions/runs/41395088059) 连续六次同步发布成功。11 月 2 日的发布快照包含 **67,654 个 MCP 发现项**、142 个完整分片，完整内容约 **95.19 MiB**，旧版搜索摘要约 **40.11 MiB**。这些是指定日期的快照；v2 发布后实时数量以 `catalog` 分支的 `v2/index.json` 为准，旧入口可能冻结。
+2026-11-06 核对：v2 已从 [#60](https://github.com/Chinachani/567-agent-marketplace/actions/runs/41587410864) 开始成功发布；11 月 4–6 日 #62、#63、[#64](https://github.com/Chinachani/567-agent-marketplace/actions/runs/42172462996) 连续成功。11 月 6 日发布版本 `2026.11.06.1` 包含 **70,347 个 MCP 发现项**、13 个目录页、147 组搜索/详情分片，完整内容约 **98.94 MiB**，v2 搜索摘要约 **53.85 MiB**。旧入口状态为 `current`。这些是指定日期的快照，实时数量以 `catalog` 分支的 `v2/index.json` 为准，旧入口可能冻结。
 
-成功发布不等于所有外部服务都正常：#58 的 mcpHQ 源发生 DNS 故障，已保留原有 228 个条目；翻译接口也有超时。该快照中非空描述仅 26 条不含中文，日志里大量待补项目主要是名称，不能把名称与描述合计的失败数理解为同样数量的 MCP 没有中文介绍。品牌名、缩写和 `owner/repository` 标识允许保留原文。
+成功发布不等于所有外部服务都正常：#64 的 mcpHQ 源仍有 DNS 故障，已保留原有 228 个条目；翻译接口连续返回 HTTP 503，熔断后本轮 708 个 MCP 描述文本、515 个名称文本及 1 个 Skill 描述延后处理，后续同步会重试。这里统计的是待译文本，不能相加作为 MCP 数量。已有中文继续保留；品牌名、缩写和 `owner/repository` 标识允许保留原文。
+
+11 月 3 日 [#61](https://github.com/Chinachani/567-agent-marketplace/actions/runs/41588887952) 生成成功但推送被拒绝：任务排队期间 #60 已更新 `main`，默认 checkout 仍使用触发事件的旧提交。本工作流现已显式在获得并发锁后读取最新 `main`，避免串行排队任务仍基于旧提交。运行途中如果有人另行推送，普通 Git 推送保护仍会阻止覆盖远端，需基于最新代码重新运行。
 
 能力库已实现 **schemaVersion 2 分页目录生成和双版本发布**，不再用 100 MiB 限制新版目录总量。567 Agent 客户端仍需接入新协议，工程交接说明和验收清单见 [`docs/mcp-catalog-v2.md`](docs/mcp-catalog-v2.md)。使用上述快照本地验证得到 13 个目录页、142 组搜索/详情分片；v2 搜索摘要因包含完整筛选元数据约为 51.90 MiB，客户端按需读取。
 
@@ -89,7 +91,7 @@ MCP 元数据固定写入独立的 `mcpMetadata` 字段：`runtimeMode`、`platf
 
 ## 自动同步和翻译
 
-工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 配置为每天 **00:00 UTC（北京时间 08:00）**触发，实际启动可能因 GitHub 调度延后；也支持在 GitHub Actions 页面手动触发。推送 `marketplace-v*` tag 会触发同步，普通 `main` 推送不会触发。工作流先运行测试，恢复上一版采集状态与翻译检查点，再抓取 Skills 与四个 MCP 发现源、生成可安装清单和发现目录：可安装清单及能力文件推送到 `main`，发现索引与分类分片推送到 `catalog`。所有触发方式共用一个并发锁，任务超时为 240 分钟。
+工作流 [`sync-marketplace.yml`](.github/workflows/sync-marketplace.yml) 配置为每天 **00:00 UTC（北京时间 08:00）**触发，实际启动可能因 GitHub 调度延后；也支持在 GitHub Actions 页面手动触发。推送 `marketplace-v*` tag 会触发同步，普通 `main` 推送不会触发。所有触发方式共用一个并发锁，取得锁后 checkout 最新 `main`；tag 和手动所选 ref 作为触发来源，实际采集代码及配置以最新 `main` 为准。工作流先运行测试，恢复上一版采集状态与翻译检查点，再抓取 Skills 与四个 MCP 发现源、生成可安装清单和发现目录：可安装清单及能力文件推送到 `main`，发现索引与分类分片推送到 `catalog`。任务超时为 240 分钟。
 
 翻译需配置 Actions Secret `API_567_KEY`。`API_567_BASE_URL` 和 `API_567_MODEL` 可选，未配置时分别使用 `https://api.567.wiki/v1` 和 `gemini-3.8-flash-high`。当前参数如下：
 
