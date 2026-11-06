@@ -1,11 +1,11 @@
 ---
 name: "azure-app-onboard-prereq"
 description: "在配置基础设施前，全面评估源代码是否具备部署至 Azure 的条件。深入审查构建状态、应用完整性、本地服务与依赖项、技术栈兼容性及部署可行性；精准排查依赖兼容性问题，定位部署阻碍与不受支持的框架，明确部署前所需的配置、依赖和环境变更。适用于：“评估我的代码库”、“我的应用能部署到 Azure 吗”、“部署前还需要准备什么”、“扫描代码仓问题”、“阻碍部署的原因是什么”、“是否需要 Dockerfile”、“Azure 支持我的框架吗”等场景。"
-version: "1.2.4"
+version: "1.2.5"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.4"
+  version: "1.2.5"
 ---
 # Azure App Onboard Prereq — Repository Evaluation
 
