@@ -1,11 +1,11 @@
 ---
 name: "azure-advisor-actionability"
-description: "修复 Azure Advisor 建议。适用场景：“修复 Advisor 建议”。"
-version: "1.0.1"
+description: "获取选定 Azure Advisor 建议的修复说明。适用场景：修复选定建议、生成修复命令。不适用场景：发现未使用资源、节省评估或删除前预验证（请使用 azure-advisor-cost-optimization）。"
+version: "1.0.2"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.0.1"
+  version: "1.0.2"
 ---
 # Azure Advisor Actionability
 

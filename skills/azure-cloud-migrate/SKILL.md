@@ -1,11 +1,11 @@
 ---
 name: "azure-cloud-migrate"
 description: "评估并将跨云工作负载迁移至 Azure，提供分析报告与代码转换支持。支持 Lambda→Functions、Beanstalk/Heroku/App Engine→App Service、Fargate/Kubernetes/Cloud Run/Spring Boot→Container Apps 等架构演进。适用场景：Lambda 迁至 Functions、AWS 迁至 Azure、Beanstalk/Heroku/App Engine 迁移、Cloud Run 迁移、Fargate 迁至 ACA、ECS/Kubernetes/GKE/EKS/Spring Boot 迁至 Container Apps 等各类跨云迁移需求。"
-version: "1.3.2"
+version: "1.3.3"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.3.2"
+  version: "1.3.3"
 ---
 # Azure Cloud Migrate
 

@@ -1,11 +1,11 @@
 ---
 name: "azure-validate"
 description: "执行 Azure 部署就绪性深度预检。在部署前全面检查配置、基础设施代码（Bicep 或 Terraform）、RBAC 角色分配、托管标识权限及相关先决条件。适用于：评估部署就绪状态、执行预检与 What-If 分析、验证 azure.yaml 或 Bicep 配置、排查部署错误、审查权限分配，以及验证 Azure Functions 和 Container Apps 等无服务器或容器化应用的部署规范。"
-version: "1.2.4"
+version: "1.2.5"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.4"
+  version: "1.2.5"
 ---
 # Azure Validate
 
@@ -49,7 +49,7 @@ pwsh references/scripts/workflow.ps1 -WorkspacePath <workspace-path>
 
 Each run prints the next action and the value to pass next. Perform the action, then re-run with that value (`-CompletedStep <value>` for pwsh, `--completed-step <value>` for bash). Repeat until it reports the azure-validate workflow is complete.
 
-The steps reference recipe details in [references/recipes/README.md](references/recipes/README.md) and role checks in [references/role-verification.md](references/role-verification.md).
+Read [references/recipes/README.md](references/recipes/README.md) and apply its Node.js runtime check for **every recipe** before provisioning or deployment. The steps also reference [role checks](references/role-verification.md).
 
 > **⛔ VALIDATION AUTHORITY**
 >

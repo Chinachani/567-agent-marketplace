@@ -1,13 +1,16 @@
 ---
 name: "azure-advisor"
-description: "使用 Azure Advisor。适用场景：“显示建议”、“Advisor 热门操作”、“优先处理建议”、“服务退役”、“更新状态”。请勿用于：修复（请使用 azure-advisor-actionability）。"
-version: "1.0.2"
+description: "使用 Azure Advisor。适用场景：“显示建议”、“首要 Advisor 操作”、“建议优先级排序”、“服务停用”、“更新状态”。未使用资源发现和 Cost/IdleResources 请求请使用 azure-advisor-cost-optimization；通用 Cost 和跨类别请求仍在此处处理。不适用场景：修复（请使用 azure-advisor-actionability）。"
+version: "1.0.3"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.0.2"
+  version: "1.0.3"
 ---
 # Azure Advisor
+
+Prefer Advisor MCP tools over Resource Graph or generic ARM calls.
+Reuse supplied scope and identifiers; ask only for missing input.
 
 ## Quick reference
 
@@ -17,7 +20,7 @@ Prefer Azure Advisor MCP tools. Use their current schemas for parameters and lim
 |---|---|
 | Counts, totals, breakdowns, or distributions | `advisor_recommendation_summary`; non-prioritized, with the requested `group-by` |
 | Broad priorities: top recommendations/actions, most important, critical, or fix-first advice | `advisor_recommendation_summary`; `prioritized: true` (automatically groups by recommendation type) |
-| Individual recommendations or affected resources, including status-filtered records | `advisor_recommendation_list`; no prior summary required; for priority ordering within a known type, pass `recommendation-type-id` and `prioritized: true` |
+| Individual recommendations or affected resources, including status-filtered records | `advisor_recommendation_list`; no prior summary required; for priority ordering within a known type, pass one `recommendation-type-ids` array entry and `prioritized: true` |
 | Complete, dismiss, postpone, or reactivate | `advisor_recommendation_update` |
 | Browse recommendation types | `advisor_metadata_list` |
 | Get one type by ID | `advisor_metadata_get` |
@@ -25,9 +28,18 @@ Prefer Azure Advisor MCP tools. Use their current schemas for parameters and lim
 
 ## Workflow
 
+- For unused-resource discovery, including "what are we paying for that is no longer
+  being used", or combined `category=Cost` and `sub-category=IdleResources`, load
+  `azure-advisor-cost-optimization` first. It owns scope, sequencing and response templates;
+  broad discovery must not skip to resource details.
+- Generic/prioritized Cost outside IdleResources, cross-category and other requests stay here.
+  Preserve requested filters; never silently add IdleResources.
+- Before generic calls or reporting, read [Workflow](references/workflow.md).
+- For remediation, load `azure-advisor-actionability`; it owns execution safeguards.
+
 1. Reuse known scope and identifiers. Pass the requested count as `top`: groups for summary, records for list. "Critical" means priority, not an `impact` value.
 2. For savings priorities, use `category: "Cost"`. Top retirements use prioritized summary, not list, with `sub-category: "ServiceUpgradeAndRetirement"` and `retirement-date: "le:<yyyy-MM-dd>"` for on-or-before cutoffs.
-3. For drill-downs, preserve scope and filters; pass the selected recommendation-type group's actual GUID `key` as list `recommendation-type-id`. Retain `prioritized: true` after a prioritized summary and add `category: "Cost"` for a Cost type. Do not copy summary `top` to list.
+3. For drill-downs, preserve scope and filters; pass the selected recommendation-type group's actual GUID `key` as the sole entry in list `recommendation-type-ids`. Retain `prioritized: true` after a prioritized summary and add `category: "Cost"` for a Cost type. Do not copy summary `top` to list.
 4. If broad priorities require `status` or `tracking-ids`, explain that cross-type ranking is unavailable. Use filtered, non-prioritized list and explicitly label results unranked, not "top". Never silently drop unsupported constraints.
 5. Present returned data in server ranking order; disclose errors and truncation. Never count a capped list or filter capped results to simulate a server-side date query.
 
@@ -36,4 +48,6 @@ Prefer Azure Advisor MCP tools. Use their current schemas for parameters and lim
 ## Safety
 
 Ask for and wait for user confirmation before recommendation-state updates. The actionability skill owns remediation safeguards.
+On every model, visibly present results/proposals before dependent questions.
+Missing data stays `Unavailable`, not zero.
 
