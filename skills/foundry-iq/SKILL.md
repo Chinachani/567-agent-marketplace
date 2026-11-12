@@ -1,12 +1,12 @@
 ---
 name: "foundry-iq"
 description: "Foundry IQ 知识库。适用场景：使本地或 Blob 文档可检索；创建/诊断知识库；排查不支持的连接器或多源知识库创建/重新配置问题（即使包含传统搜索术语）；将现有知识库连接至 Agent（包括多源知识库）；创建/复用 Search 服务；从现有知识库中检索并附带引用；无需品牌词。在针对查询/目标提问前请阅读其操作流程。不适用场景：其他知识库提供商、代码库文件检索、无 Foundry IQ 知识库或连接器需求的传统 Azure AI Search 索引/查询/应用工作、通用 Agent 创建。"
-version: "0.2.2"
+version: "0.2.3"
 license: "MIT"
 compatibility: Azure
 metadata:
   author: Microsoft
-  version: "0.2.2"
+  version: "0.2.3"
 ---
 # Foundry IQ
 Read one procedure before questions/actions; invocation is not a read.
