@@ -1,11 +1,11 @@
 ---
 name: "python-appservice-deploy"
 description: "将 Python (Flask/Django/FastAPI) 代码部署至 Azure App Service Linux 环境。适用场景：提及“Flask App Service”、“Django App Service”、“FastAPI App Service”或“deploy Python to App Service”。不适用于：Container Apps、Functions、非 Python 语言、Terraform/Bicep/IaC 或完整基础设施搭建（此类需求请使用 azure-prepare）。"
-version: "1.1.2"
+version: "1.1.3"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.1.2"
+  version: "1.1.3"
 ---
 # Python on Azure App Service — Code Deploy
 
