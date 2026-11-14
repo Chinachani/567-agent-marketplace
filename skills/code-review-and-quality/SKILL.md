@@ -1,6 +1,6 @@
 ---
 name: "code-review-and-quality"
-description: "执行多维度代码审查。在合并任何代码变更前使用。适用于审查自身、其他智能体或人类编写的代码；在代码合入主分支前全面评估其多维度质量；以及审查各类 Diff 或 Pull Request（包括直接粘贴在上下文中的代码差异）。"
+description: "进行多维度代码审查。在合并任何变更前使用；在审查自己、其他 Agent 或人类编写的代码时使用；在代码合入主分支前需要多维度评估代码质量时使用；在被要求审查 diff 或 Pull Request 时使用，即使 diff 是内嵌粘贴且一眼即可看懂。"
 version: "1.0.0"
 license: "MIT"
 ---

@@ -1,11 +1,11 @@
 ---
 name: "microsoft-foundry"
 description: "端到端构建、部署、评估、优化、微调和管理 Microsoft Foundry 智能体（Agent）、模型及资源。\n\n**适用于：** Foundry、azd ai agent、azd 预配/部署、托管 Agent 的脚手架生成/开发/运行/部署/排错、Prompt Agent、托管 Harness Agent、Copilot Harness、语音 Agent、创建/更新/调用/评估 Agent、为 Agent 添加工具、Agent 洞察、批量/持续评估、持续监控、Agent CI/CD、优化/改进 Prompt、优化 Agent 指令、Agent Optimizer、基于跟踪（Traces）整理数据集、模型部署、模型微调（SFT/DPO/RFT）、Foundry 项目、RBAC、角色分配、权限、配额、容量、区域、部署失败排查、AI Services、创建 Foundry 资源、知识索引、自定义部署、入门接入（Onboard）、可用性、训练数据、评分器（Grader）、模型蒸馏、大文件上传。\n\n**不适用于：** Azure Functions、App Service、通用 Azure 部署（请使用 azure-deploy）、通用 Azure 准备工作（请使用 azure-prepare）。"
-version: "1.2.34"
+version: "1.2.35"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.34"
+  version: "1.2.35"
 ---
 # Microsoft Foundry Skill
 
@@ -174,7 +174,8 @@ Run `azd env get-values` for the selected environment when project/deployment va
 | `AGENT_<SERVICE>_NAME` | Agent name for the selected azd service |
 | `AGENT_<SERVICE>_VERSION` | Agent version for the selected azd service |
 | `AZURE_CONTAINER_REGISTRY_NAME` or `AZURE_CONTAINER_REGISTRY_ENDPOINT` | ACR registry name / image URL prefix |
-| `APPLICATIONINSIGHTS_CONNECTION_STRING` | App Insights connection string for trace workflows |
+| `AZURE_APPLICATION_INSIGHTS_RESOURCE_ID`, `AZURE_APPLICATION_INSIGHTS_APP_ID`, `AZURE_LOG_ANALYTICS_WORKSPACE_RESOURCE_ID` | Preferred nonsecret tracing destination identifiers |
+| `APPLICATIONINSIGHTS_CONNECTION_STRING` | Legacy read-only fallback; never copy into new metadata or configuration |
 | `AZURE_SUBSCRIPTION_ID`, `AZURE_RESOURCE_GROUP`, `AZURE_AI_ACCOUNT_NAME`, `AZURE_AI_PROJECT_NAME` | Azure resource lookup and Playground links |
 
 When azd supplies these values, use them as the source of truth and do not copy them into `.foundry/agent-metadata*.yaml` on metadata writes.

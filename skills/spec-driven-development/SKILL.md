@@ -1,6 +1,6 @@
 ---
 name: "spec-driven-development"
-description: "在编码前制定规格说明与技术规范。适用于启动新项目、新功能或重大变更且尚未建立规范的场景；用于起草明确目标与范围的 PRD 或需求文档，以及需求不明确、含糊甚至仅有初步构想时；也适用于单项需求涵盖多个可独立测试的能力，需在细化规范前将其拆解为模块化能力图谱的场景。"
+description: "编码前制定规格说明（Spec）。适用于启动尚无规范的新项目、新功能或重大变更时；起草包含目标和范围的 PRD/需求文档，或需求不明确、模棱两可或仅有模糊构想时；单个需求涉及多个可独立测试的能力、需先拆解为模块能力图谱再行定义时；规范演进时（如划定 V1 范围、将想法延后至 V2 backlog，或为现有功能变更编写后续规范）。"
 version: "1.0.0"
 license: "MIT"
 ---
@@ -116,7 +116,7 @@ Don't silently fill in ambiguous requirements. The spec's entire purpose is to s
 **Spec template:**
 
 ```markdown
-# Spec: [Project/Feature Name]
+# Spec: [Project/Feature Name] — V[N]
 
 ## Objective
 [What we're building and why. User stories or acceptance criteria.]
@@ -143,6 +143,9 @@ Don't silently fill in ambiguous requirements. The spec's entire purpose is to s
 
 ## Success Criteria
 [How we'll know this is done — specific, testable conditions]
+
+## Out of Scope (Deferred)
+[Ideas explicitly excluded from this version — the V2 backlog. One line each: what, and why it's deferred.]
 
 ## Open Questions
 [Anything unresolved that needs human input]
@@ -223,6 +226,45 @@ The spec is a living document, not a one-time artifact:
 - **Commit the spec** — The spec belongs in version control alongside the code.
 - **Reference the spec in PRs** — Link back to the spec section that each PR implements.
 
+## Spec Evolution: V1 Scoping and Follow-Up Changes
+
+A spec describes one version of the work. New ideas and post-ship changes don't expand it — they queue behind it.
+
+### Scope each version explicitly
+
+Label the spec with the version it describes, in the title (`# Spec: Invoice Pipeline — V1`). When a shipped delta is folded back in, bump the version — the label always states which version of the system the spec describes, and makes "that's a V2 idea" an objective call rather than a judgment made mid-build.
+
+During Specify, ideas that won't make this version go under **Out of Scope (Deferred)** — captured, not lost. This makes the V1 boundary enforceable: during implementation, anything not in the spec's requirements is out, even if it's written in the same file under Deferred. When an idea arrives mid-build, park it in the Deferred list and keep going; re-scoping happens between versions, not during one.
+
+### Follow-up changes get a delta spec
+
+Once a spec has shipped, a new requirement — swapping the storage engine, replacing a manual step with OCR, promoting a deferred V2 item — gets its own small spec rather than a hand-edit of the shipped one. A delta spec covers only what changes:
+
+```markdown
+# Spec Delta: [Change Name]
+
+Status: proposed
+
+## Objective
+[The change and why. Which deferred item or new requirement this implements.]
+
+## Current Behavior
+[What exists today — link the relevant section of the original spec.]
+
+## New Behavior
+[What will be true after the change.]
+
+## Success Criteria
+[Specific, testable conditions — including what must NOT change.]
+
+## Boundaries
+[Only deltas from the original spec's boundaries; everything else inherits.]
+```
+
+Save it alongside the original (e.g. `SPEC-postgres-migration.md` next to `SPEC.md`) and run it through the same gated workflow: human review, then plan, tasks, implement. Downstream commands know this convention — `/build auto` accepts a root-level `SPEC-<change>.md` as the spec for a follow-up change and treats it as a planning artifact in its clean-baseline check. Keep one change per delta spec — that keeps each plan/build cycle small and reviewable.
+
+After the change ships, fold the outcome into the original spec (per Keeping the Spec Alive) so it stays the source of truth for what exists, and mark the delta implemented by changing its `Status:` line to `Status: implemented`. The original spec always describes the current system; delta specs describe transitions.
+
 ## Common Rationalizations
 
 | Rationalization | Reality |
@@ -232,6 +274,8 @@ The spec is a living document, not a one-time artifact:
 | "The spec will slow us down" | A 15-minute spec prevents hours of rework. Waterfall in 15 minutes beats debugging in 15 hours. |
 | "Requirements will change anyway" | That's why the spec is a living document. An outdated spec is still better than no spec. |
 | "The user knows what they want" | Even clear requests have implicit assumptions. The spec surfaces those assumptions. |
+| "This idea is good, I'll fold it into the current spec" | Mid-build scope growth is how V1 slips. Park it under Out of Scope (Deferred) — captured without expanding the current cycle. |
+| "The feature already has a spec, I'll just edit it for the change" | A shipped spec describes what exists. A delta spec keeps the change reviewable on its own; the original gets updated after the change ships, not before. |
 | "It's one big feature; splitting it is overhead" | If acceptance criteria cluster into independently testable groups, a monolithic spec forces every downstream task to reason over the whole contract. A ten-line capability map is the cheap alternative. |
 | "I'll decompose during planning" | Planning slices tasks within a spec. By then the oversized artifact already exists — module boundaries and dependency direction must be decided before the spec is written, not after. |
 
@@ -242,6 +286,8 @@ The spec is a living document, not a one-time artifact:
 - Implementing features not mentioned in any spec or task list
 - Making architectural decisions without documenting them
 - Skipping the spec because "it's obvious what to build"
+- V1 requirements growing mid-implementation as new ideas get written straight into the spec
+- Changing a shipped feature with no spec for the change because "the feature already has one"
 - Writing the spec and starting the plan or code in the same turn
 - One spec whose requirements span several independently testable capabilities
 - Module boundaries or build order decided implicitly during implementation because no capability map was approved up front
@@ -250,12 +296,14 @@ The spec is a living document, not a one-time artifact:
 
 Before proceeding to implementation, confirm:
 
-- [ ] The spec covers all six core areas
+- [ ] The spec covers all six core areas (a full spec; a delta spec covers only the areas the change affects — at minimum objective, success criteria, and boundary deltas — and inherits the rest from the original)
 - [ ] The human has reviewed and approved the spec
 - [ ] The turn ended after saving the spec; approval came in a later turn
 - [ ] Success criteria are specific and testable
 - [ ] Boundaries (Always/Ask First/Never) are defined
 - [ ] The spec is saved to a file in the repository
+- [ ] Ideas cut from this version are captured under Out of Scope (Deferred), not silently dropped or silently included
+- [ ] If this is a change to a shipped spec, it is a delta spec referencing the original, not a rewrite of it
 - [ ] If the request bundles several independently testable capabilities, a capability map (module ids, dependency direction, build order) was approved before any module spec was written
 - [ ] Every module spec traces to a module id in the approved map
 
