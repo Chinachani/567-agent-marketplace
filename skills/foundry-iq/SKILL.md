@@ -1,62 +1,32 @@
 ---
 name: "foundry-iq"
-description: "Foundry IQ 知识库。适用场景：使本地或 Blob 文档可检索；创建/诊断知识库；排查不支持的连接器或多源知识库创建/重新配置问题（即使包含传统搜索术语）；将现有知识库连接至 Agent（包括多源知识库）；创建/复用 Search 服务；从现有知识库中检索并附带引用；无需品牌词。在针对查询/目标提问前请阅读其操作流程。不适用场景：其他知识库提供商、代码库文件检索、无 Foundry IQ 知识库或连接器需求的传统 Azure AI Search 索引/查询/应用工作、通用 Agent 创建。"
-version: "0.2.3"
+description: "Use for Azure AI Search, Foundry IQ, document-grounded agents and graphs built over documents. WHEN: search, indexes, queries, access/connectivity failures, ingestion/freshness failures, retrieval quality, grounding, guidance or REST payloads; entity knowledge graphs (entities, relationships, multi-hop questions), topic graphs (corpus-wide themes), graph-backed grounding passages, ontologies (OWL drafts, versions, validation, export), or a Foundry IQ graph demo. Invoke before answering or making calls, even without Azure access. Covers vector/semantic/BM25 search. Not for other Azure products, Microsoft Graph API, or continuous evaluation."
+version: "0.3.1"
 license: "MIT"
-compatibility: Azure
 metadata:
   author: Microsoft
-  version: "0.2.3"
+  version: "0.3.1"
 ---
-# Foundry IQ
-Read one procedure before questions/actions; invocation is not a read.
-Read the owning procedure before blocked/unsupported responses too.
-Before mutation plans/approval, successfully read its required pre-action references, selected
-branches only. Do not reload successful reads. On failure, try only permitted
-bounded exact-path reads with any supported reader; never bypass restrictions
-or search broadly. If still unavailable: `blocked: reference-unavailable`, name
-missing references and inability to plan. Never invent requirements/plans.
-Failures first.
+## Intent routing
 
-Cleanup and receipt-backed execution go directly to their lifecycle/producer owner;
-do not reopen Search intake, provisioning or hardening.
+Failures first; one route. Ask if unclear.
+Diagnose before setup or quality; relevance needs proven freshness.
 
-Before expensive service discovery, reuse supplied resource/intent; otherwise ask
-one early **USE EXISTING / FIND CANDIDATES / CREATE NEW** choice.
-Only FIND enumerates; supplied identity uses exact/minimum scoped resolution.
-CREATE checks its proposed name, not existing-service inventories. Preserve these
-answers across source/KB/CU/model handoffs; selection is not write approval.
-
-Searchable docs: KB + validated retrieval. Confirm intent once; KS-only must be explicit.
-Child success is not KB completion.
-Unclear/compound/mode/completion: [read](references/intent-routing.md).
-
-Route by requested operation, not existing KB source count.
-Connecting an existing KB with two or more sources, without changing the KB, uses Connect.
-Read-only operations use their owning procedure and actual helper constraints;
-this does not add retrieval modes or supported source kinds.
-Explicit unsupported provisioning or multi-source KB creation/reconfiguration uses Diagnose
-and stops before discovery, even when connecting an agent is also requested.
-This routing takes precedence over classic-search terms (e.g. hybrid search) in compound requests.
-Never end in a plain refusal: Diagnose gives the boundary, docs pointer and agent handoff; writes still need an approved concrete plan.
-Do not silently execute only the supported part of a compound request.
-If existing-KB connection versus KB creation/reconfiguration is unclear, read
-intent-routing and clarify that scope before Azure discovery. Never infer KB mutation.
-
-|Outcome|Read|
+| Intent | Load |
 |---|---|
-|Cleanup|[Plan cleanup](lifecycle/cleanup.md)|
-| Failure/drift | [Diagnose](troubleshooting/diagnose.md) |
-| Unsupported connector provisioning / multi-source KB creation or reconfiguration | [Diagnose](troubleshooting/diagnose.md) |
-| Connect | [Connect](agents/connect.md) |
-| Read KB | [Query](knowledge-bases/retrieve.md) |
-| Search only | [Search](search-services/create.md) |
-| File KS only | [File](knowledge-sources/create-file.md) |
-| Blob/ADLS KS only | [Blob](knowledge-sources/create-azure-blob.md) |
-| Searchable/KB | [KB](knowledge-bases/create.md) |
+| Graphs or ontologies | `workflows/graph/graph.md` |
+| Other Search requests | [Azure AI Search documentation](https://learn.microsoft.com/en-us/azure/search/), using [context](references/context-resolution.md) and the shared rules below |
 
-Generic agents: `microsoft-foundry`.
-Reads: no approval; approve unchanged plans before writes.
-Hide hashes. No Search/Storage keys, scope widening, guessed identity/boundaries,
-drift repair or joint cleanup/creation approval. Acceptance != success.
+Use official documentation and shared guidance for Search requests.
+Cleanup follows [shared safety](references/safety-and-idempotency.md#scenario-cleanup).
+
+## Shared rules
+
+Read [HTTP](references/http-contract.md), [versions](references/api-version-policy.md), [safety](references/safety-and-idempotency.md); return [handoff](references/output-contract.md). Resolve/reuse `managementApiVersion`/`dataApiVersion` before requests.
+For errors, provisioning/429, or private access/DNS/connectivity, use [errors](references/error-taxonomy.md), [limits](references/limits-and-capacity.md) and [networking](references/networking.md).
+
+For protected content, source access, or permission changes, load the matching
+[source security section](references/source-security.md).
+Keep caller, Search outbound identity, and end-user authorization distinct.
+Entra/least privilege/reuse; approve billable/permission/network/production/destructive/credential/data-movement. No data/secrets.
 
