@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "slug": "sequential-thinking",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "server": {
     "type": "stdio",
     "command": "npx",
     "args": [
       "-y",
-      "@modelcontextprotocol/server-sequential-thinking@2.1.1"
+      "@modelcontextprotocol/server-sequential-thinking@2.2.0"
     ]
   },
   "parameters": []

@@ -1,6 +1,6 @@
 ---
 name: "foundry-iq"
-description: "Use for Azure AI Search, Foundry IQ, document-grounded agents and graphs built over documents. WHEN: search, indexes, queries, access/connectivity failures, ingestion/freshness failures, retrieval quality, grounding, guidance or REST payloads; entity knowledge graphs (entities, relationships, multi-hop questions), topic graphs (corpus-wide themes), graph-backed grounding passages, ontologies (OWL drafts, versions, validation, export), or a Foundry IQ graph demo. Invoke before answering or making calls, even without Azure access. Covers vector/semantic/BM25 search. Not for other Azure products, Microsoft Graph API, or continuous evaluation."
+description: "适用于 Azure AI Search、Foundry IQ、基于文档的智能体以及基于文档构建的知识图谱。适用场景：搜索、索引、查询、访问/连接失败、数据摄入/时效性失败、检索质量、事实依据、指导或 REST 有效负载；实体知识图谱（实体、关系、多跳问题）、主题图谱（整个语料库的主题）、基于图谱的事实依据段落、本体论（OWL 草案、版本、验证、导出）或 Foundry IQ 图谱演示。在回答或发起调用前均可使用，即使没有 Azure 访问权限。涵盖向量/语义/BM25 搜索。不适用于其他 Azure 产品、Microsoft Graph API 或持续评估。"
 version: "0.3.1"
 license: "MIT"
 metadata:

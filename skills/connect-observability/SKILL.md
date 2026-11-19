@@ -1,6 +1,6 @@
 ---
 name: "connect-observability"
-description: "Find or connect an Azure application's or Foundry agent's telemetry for an explicit observability, monitoring, alerting, health or operational diagnosis request. Confirm source scope and task-specific telemetry access; not generic app connection, resource creation or deployment readiness. Instrumentation/collection design can precede deployment; answer conceptual questions directly. No automatic provisioning or changes."
+description: "根据明确的遥测可见性、监控、警报、健康状况或运营诊断请求，查找或连接 Azure 应用或 Foundry 代理的遥测数据。确认数据源范围及任务特定的遥测数据访问权限；此操作不涉及通用应用连接、资源创建或部署就绪性检查。可先于部署进行插桩/采集设计；概念性问题可直接作答。不涉及自动资源分配或变更。"
 version: "1.0.1"
 license: "MIT"
 metadata:

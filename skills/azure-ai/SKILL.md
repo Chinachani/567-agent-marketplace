@@ -1,6 +1,6 @@
 ---
 name: "azure-ai"
-description: "Build and troubleshoot Azure AI Search, Speech, OpenAI, and Document Intelligence apps. WHEN: AI Search, vector search, hybrid search, semantic search, speech-to-text, text-to-speech, transcribe, fast or batch transcription, Speech SDK logs, session ID, result ID, OCR."
+description: "构建和排查 Azure AI Search、Speech、OpenAI 和 Document Intelligence 应用程序的问题。适用场景：AI Search、向量搜索、混合搜索、语义搜索、语音转文本、文本转语音、转录、快速或批量转录、Speech SDK 日志、会话 ID、结果 ID、OCR。"
 version: "1.2.4"
 license: "MIT"
 metadata:

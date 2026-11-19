@@ -1,6 +1,6 @@
 ---
 name: "assess-observability-health"
-description: "Assess operational Azure application/resource or Foundry-agent health from supplied evidence or authorized telemetry: failed requests, runtime/tool errors and application latency. Return ranked findings and gaps read-only. Not resource creation, general coding fixes or deployment readiness. Direct health requests do not require the coordinator; conceptual health/monitoring questions need no journey."
+description: "根据所提供的证据或授权遥测数据（例如失败的请求、运行时/工具错误和应用延迟），评估 Azure 应用/资源或 Foundry 代理的健康状况。仅返回排序后的发现结果和差距。此操作不涉及资源创建、通用代码修复或部署就绪性检查。直接的健康状况请求无需协调员；概念性的健康/监控问题无需遵循流程。"
 version: "1.0.1"
 license: "MIT"
 compatibility: Supplied evidence needs no Azure access, Python or persistence. Live reads require discovered authorized tools. Optional local helpers require an approved Python 3.9+ interpreter.

@@ -1,6 +1,6 @@
 ---
 name: "verify-observability-fix"
-description: "Verify operational incident recovery for Azure web/API or Foundry agents after an actual approved change, using supplied original/post-change evidence and agreed symptom/guardrail thresholds. Not generic code-fix validation, deployment readiness or resource creation. Conceptual questions need no journey. Never deploy, diagnose, run evaluations or infer causation."
+description: "在实际变更获得批准后，根据所提供的变更前/后证据以及商定的症状/安全阈值，验证 Azure Web/API 或 Foundry 代理的运营事件恢复情况。此操作不涉及通用的代码修复验证、部署就绪性检查或资源创建。概念性问题无需遵循流程。切勿执行部署、诊断、运行评估或推断因果关系。"
 version: "1.0.1"
 license: "MIT"
 metadata:

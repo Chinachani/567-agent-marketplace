@@ -1,6 +1,6 @@
 ---
 name: "polytype-middleware"
-description: "Design or review the public API of a PolyType middleware library so it stays complete on net472 and netstandard2.0 while modern .NET callers use where T : IShapeable<T> with no witness. Use when adding generic methods, witness or TProvider overloads, extension members, or a #if NET / #if !NET split."
+description: "设计或审查 PolyType 中间件库的公共 API，确保其在 net472 和 netstandard2.0 上保持完整，同时让现代 .NET 调用方能够使用 `where T : IShapeable<T>`（无需见证类型）。在添加泛型方法、见证类型或 `TProvider` 重载、扩展成员，或使用 `#if NET` / `#if !NET` 拆分时，请采用此方法。"
 version: "1.0.0"
 license: "MIT"
 ---

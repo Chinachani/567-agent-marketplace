@@ -1,6 +1,6 @@
 ---
 name: "troubleshoot-observability"
-description: "Coordinate Azure observability troubleshooting for application or agent health, runtime failures, operational latency, telemetry, monitoring, alerts, evidence-backed fixes and recovery. Use for an end-to-end observability investigation or explicit instrumentation, collection or alerting guidance. Not general resource/app/agent creation, model deployment, RBAC, cost or coding. Conceptual questions need no journey; explicit specialist requests stay direct. Actions require applicable approval."
+description: "协调 Azure 遥测可见性故障排查，处理应用或代理的健康状况、运行时故障、运营延迟、遥测数据、监控、警报、基于证据的修复和恢复。可用于端到端的遥测可见性调查，或提供明确的插桩、采集或警报指导。此操作不涉及通用的资源/应用/代理创建、模型部署、RBAC、成本或代码编写。概念性问题无需遵循流程；明确的专家级请求可直接处理。相关操作需获得必要批准。"
 version: "1.0.1"
 license: "MIT"
 metadata:
