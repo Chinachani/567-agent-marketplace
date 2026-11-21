@@ -1,11 +1,11 @@
 ---
 name: "azure-diagnostics"
 description: "利用 AppLens、Azure Monitor、Resource Health 及安全分流机制排查 Azure 生产环境问题，包括在无需实时访问权限的情况下仅凭证据进行诊断。适用场景：排查生产问题、App Service 故障排查、App Service CPU 占用过高、App Service 部署失败、Container Apps 故障排查、Container App 503 错误或目标端口不匹配、Functions 故障排查、配置/连接字符串变更后 Function 遥测数据丢失或中断、AKS 故障排查、VM RDP 连接、Linux SSH、VM 黑屏、无法连接 VM、重置 VM 密码、NSG 或防火墙拦截、kubectl 无法连接、kube-system/CoreDNS 故障、Pod Pending、CrashLoop、Node Not Ready、升级失败、日志分析、KQL、Insights、镜像拉取失败、冷启动问题、健康探测失败、Resource Health、错误根因分析、Event Hubs 故障排查、Service Bus 故障排查、消息 SDK 报错、AMQP 连接失败、消息锁丢失、长时间处理任务中的锁续订、Service Bus 死信。"
-version: "1.2.14"
+version: "1.2.16"
 license: "MIT"
 metadata:
   author: Microsoft
-  version: "1.2.14"
+  version: "1.2.16"
 ---
 # Azure Diagnostics
 
@@ -75,6 +75,7 @@ Activate this skill when user wants to:
 - Route active AKS incidents, AKS-specific intake, evidence gathering, and remediation guidance to [AKS Troubleshooting](troubleshooting/aks/aks-troubleshooting.md).
 - Route Azure VM RDP/SSH connectivity, NSG/firewall, credential reset, and VM agent troubleshooting to [VM Connectivity Troubleshooting](troubleshooting/compute/vm-troubleshooting.md).
 - Route Azure Messaging SDK troubleshooting (Event Hubs, Service Bus) to [Messaging Troubleshooting](troubleshooting/messaging/README.md).
+- For Function App VNet, route-table, NSG, or private-endpoint failures, use the [Flex networking guidance](references/functions/triggers.md#flex-consumption-specifics) and report the observed topology, causal evidence, impact scope, smallest safe fix, and recovery verification.
 
 ---
 
@@ -83,7 +84,7 @@ Activate this skill when user wants to:
 ### Common Diagnostic Commands
 
 ```bash
-# Check resource health
+# Inspect resource configuration and provisioning metadata (not Resource Health)
 az resource show --ids RESOURCE_ID
 # View activity log
 az monitor activity-log list -g RG --max-events 20
@@ -141,12 +142,20 @@ mcp_azure_mcp_resourcehealth
 ### Using CLI
 
 ```bash
-# Check specific resource health
-az resource show --ids RESOURCE_ID
+# Query the current Azure Resource Health availability status
+RESOURCE_ID="/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/<provider>/<resource-type>/<resource-name>"
+az rest --method get \
+  --url "${RESOURCE_ID}/providers/Microsoft.ResourceHealth/availabilityStatuses/current?api-version=2025-05-01"
 
 # Check recent activity
 az monitor activity-log list -g RG --max-events 20
 ```
+
+`az resource show` returns resource configuration and provisioning metadata; it does not query Azure Resource Health and cannot by itself establish that a resource is healthy or `Available`.
+
+The Resource Health request requires Azure authentication and the `Microsoft.ResourceHealth/AvailabilityStatuses/current/read` operation at the applicable scope. It applies only to resource types supported by Azure Resource Health. Interpret `availabilityState` as Azure platform availability evidence (`Available`, `Unavailable`, `Degraded`, or `Unknown`), not as application or workload health. `Available` does not prove the guest, application, dependencies, or user path are healthy, and `Unknown` must not be treated as healthy.
+
+If the resource type is unsupported, the status is unavailable, permission is denied, or the health query fails, report that limitation and leave Resource Health availability unestablished; do not substitute provisioning success or invent a healthy result.
 
 ---
 
